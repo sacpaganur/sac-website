@@ -1,11 +1,30 @@
 {
-  "hosting": {
-    "public": ".",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**",
-      "hosting_guide.md"
-    ]
-  }
+  "hosting": [
+    {
+      "site": "stacpaganur",
+      "public": ".",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**",
+        "hosting_guide.md",
+        ".firebase",
+        ".git",
+        ".github"
+      ]
+    },
+    {
+      "site": "stacpaganurdev",
+      "public": ".",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**",
+        "hosting_guide.md",
+        ".firebase",
+        ".git",
+        ".github"
+      ]
+    }
+  ]
 }
