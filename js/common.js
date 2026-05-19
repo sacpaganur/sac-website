@@ -11,7 +11,6 @@ const SAC_COMMON = {
       "nav.schedule": "வழிபாடுகள்",
       "nav.legacy": "வரலாறு",
       "nav.notices": "அறிவிப்புகள்",
-      "nav.sacraments": "அருட்சாதனங்கள்",
       "nav.contact": "தொடர்பு",
       "nav.portal": "உறுப்பினர் பகுதி",
       "nav.admin": "நிர்வாகி",
@@ -26,7 +25,6 @@ const SAC_COMMON = {
       "nav.schedule": "Mass Schedules",
       "nav.legacy": "History",
       "nav.notices": "Announcements",
-      "nav.sacraments": "Sacraments",
       "nav.contact": "Contact",
       "nav.portal": "Member Portal",
       "nav.admin": "Admin",
@@ -111,12 +109,19 @@ const SAC_COMMON = {
 
   // Highlights current page on navigation bars
   _highlightActiveNav() {
-    const currentHref = this.pageName + '.html';
+    const page = this.pageName;
     
     document.querySelectorAll('.nav-link, .drawer-link').forEach(el => {
-      const href = el.getAttribute('href');
-      // match page names
-      if (href && (href === currentHref || (this.pageName === 'home' && href === 'index.html'))) {
+      let href = el.getAttribute('href');
+      if (!href) return;
+      
+      // Clean up href for comparison
+      href = href.replace('.html', '').replace(/^\//, '');
+      
+      const isHomeMatch = (page === 'home' && (href === '' || href === 'index' || href === './'));
+      const isPageMatch = (href === page);
+      
+      if (isHomeMatch || isPageMatch) {
         el.classList.add('active');
       } else {
         el.classList.remove('active');

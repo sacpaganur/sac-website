@@ -3,6 +3,7 @@
     {
       "site": "stacpaganur",
       "public": ".",
+      "cleanUrls": true,
       "ignore": [
         "firebase.json",
         "**/.*",
@@ -16,6 +17,7 @@
     {
       "site": "stacpaganurdev",
       "public": ".",
+      "cleanUrls": true,
       "ignore": [
         "firebase.json",
         "**/.*",
