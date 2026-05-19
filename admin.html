@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="நிர்வாக பக்கப் பலகை - புனித அந்தோணியார் ஆலயம் | St. Antony's Church Vadakku Paganur - Admin CRUD Dashboard Panel.">
+    <title>நிர்வாகம் | புனித அந்தோணியார் ஆலயம் – வடக்கு பாகனூர்</title>
+    
+    <!-- Google Fonts & Icon Sets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom Light Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="navbar" id="main-nav-bar">
+        <div class="navbar-container">
+            <a href="index.html" class="brand-logo" id="nav-brand-link">
+                <span class="logo-icon" id="nav-brand-icon">⛪</span>
+                <div class="brand-text">
+                    <h1 class="brand-title" id="nav-brand-title">புனித அந்தோணியார் ஆலயம்</h1>
+                    <span class="brand-sub" id="nav-brand-sub">வடக்கு பாகனூர்</span>
+                </div>
+            </a>
+            
+            <!-- Desktop Navigation Links -->
+            <nav class="nav-menu" id="nav-links-menu">
+                <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
+                <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
+                <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
+                <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
+                <a href="sacraments.html" class="nav-link" id="nav-lnk-sacraments" data-i18n="nav.sacraments">அருட்சாதனங்கள்</a>
+                <a href="contact.html" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
+            </nav>
+
+            <!-- Actions Buttons -->
+            <div class="navbar-actions" id="nav-actions-container">
+                <button class="btn-lang" id="lang-toggle">ENG</button>
+                <a href="admin.html" class="btn-portal btn-admin" id="nav-portal-admin">
+                    <span class="material-icons btn-icon">admin_panel_settings</span>
+                    <span data-i18n="nav.admin">நிர்வாகி</span>
+                </a>
+                <a href="/#/login" class="btn-portal" id="nav-portal-member">
+                    <span class="material-icons btn-icon">lock_open</span>
+                    <span data-i18n="nav.portal">உறுப்பினர் பகுதி</span>
+                </a>
+                <button class="btn-mobile-menu" id="mobile-menu-trigger">
+                    <span class="material-icons">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div class="mobile-drawer" id="mobile-drawer">
+        <div class="drawer-content">
+            <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
+            <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
+            <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
+            <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
+            <a href="sacraments.html" class="drawer-link" data-i18n="nav.sacraments">அருட்சாதனங்கள்</a>
+            <a href="contact.html" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
+            <a href="admin.html" class="drawer-link" style="color:var(--accent-gold);" data-i18n="nav.admin">நிர்வாகி</a>
+            <div class="drawer-divider"></div>
+            <a href="/#/login" class="drawer-portal-link">
+                <span class="material-icons">lock_open</span>
+                <span data-i18n="nav.portal">உறுப்பினர் பகுதி</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content wrapper -->
+    <main class="main-wrapper">
+        <section class="admin-section">
+            
+            <!-- Admin Dashboard Header -->
+            <div class="admin-header">
+                <div class="admin-title-area">
+                    <h2>
+                        <span class="material-icons" style="font-size:2.2rem; color:var(--primary);">dashboard</span>
+                        <span id="admin-main-title">இணையதள நிர்வாகப் பலகை</span>
+                    </h2>
+                    <p id="admin-main-subtitle">இணையதளத்தின் அனைத்துப் பக்கங்களிலும் உள்ள தகவல்களை குறியீடு எழுதாமல் மாற்றியமைக்கலாம்.</p>
+                </div>
+                <div id="connection-status-tag">
+                    <span class="liturgical-badge liturgical-ordinary" id="db-status-badge">LocalStorage Active</span>
+                </div>
+            </div>
+
+            <!-- Visual Alert Notification -->
+            <div id="admin-global-alert" class="form-alert success" style="display:none; margin-bottom:24px;"></div>
+
+            <!-- Tabbed Navigation -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" onclick="switchAdminTab('settings', this)">
+                    <span class="material-icons">settings</span><span id="tab-lbl-settings">பொது அமைப்புகள்</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('masses', this)">
+                    <span class="material-icons">schedule</span><span id="tab-lbl-masses">வழிபாடுகள் (CRUD)</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('notices', this)">
+                    <span class="material-icons">campaign</span><span id="tab-lbl-notices">அறிவிப்புகள் (CRUD)</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('timeline', this)">
+                    <span class="material-icons">history</span><span id="tab-lbl-timeline">வரலாறு (CRUD)</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('sacraments', this)">
+                    <span class="material-icons">church</span><span id="tab-lbl-sacraments">அருட்சாதனங்கள்</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('prayers', this)">
+                    <span class="material-icons">favorite</span><span id="tab-lbl-prayers">செப வேண்டுதல்கள்</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('database', this)">
+                    <span class="material-icons">cloud_sync</span><span id="tab-lbl-db">தரவுத்தளம் (Firebase)</span>
+                </button>
+            </div>
+
+            <!-- ======================= TAB 1: SETTINGS ======================= -->
+            <div id="panel-settings" class="admin-panel active">
+                <div class="admin-card">
+                    <div class="admin-card-title">
+                        <span class="material-icons">display_settings</span>
+                        <span id="card-lbl-settings">ஆலய விபரங்கள் & முகப்புப் பக்க மாற்றங்கள்</span>
+                    </div>
+                    <form id="form-admin-settings" onsubmit="saveGeneralSettings(event)">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                            <div class="form-group">
+                                <label class="form-label">Church Name (English)</label>
+                                <input type="text" id="set-churchNameEn" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">ஆலய பெயர் (தமிழ்)</label>
+                                <input type="text" id="set-churchNameTa" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Location (English)</label>
+                                <input type="text" id="set-locationEn" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">வட்டாரம் / ஊர் (தமிழ்)</label>
+                                <input type="text" id="set-locationTa" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top:10px;">
+                            <label class="form-label">Full Address (English)</label>
+                            <input type="text" id="set-addressEn" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">முழு முகவரி (தமிழ்)</label>
+                            <input type="text" id="set-addressTa" class="form-control" required>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                            <div class="form-group">
+                                <label class="form-label">Phone Contact Number</label>
+                                <input type="text" id="set-phone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" id="set-email" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="drawer-divider" style="margin:24px 0;"></div>
+                        
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                            <div class="form-group">
+                                <label class="form-label">Hero Badge / Tag (English)</label>
+                                <input type="text" id="set-heroTagEn" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">முகப்பு சிறிய வாசகம் (தமிழ்)</label>
+                                <input type="text" id="set-heroTagTa" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Hero Headline Title (English)</label>
+                                <input type="text" id="set-heroHeadlineEn" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">முகப்பு பெரிய தலைப்பு (தமிழ்)</label>
+                                <input type="text" id="set-heroHeadlineTa" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Hero Subtitle Lead (English)</label>
+                            <textarea id="set-heroLeadEn" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">முகப்பு துணைத் தலைப்பு விளக்கம் (தமிழ்)</label>
+                            <textarea id="set-heroLeadTa" class="form-control" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit btn-admin-action" id="btn-save-settings">
+                            <span class="material-icons">save</span> சேமிக்க / Save Settings
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- ======================= TAB 2: MASS SCHEDULES (CRUD) ======================= -->
+            <div id="panel-masses" class="admin-panel">
+                <div class="admin-split-layout">
+                    <!-- Form side -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">add_circle</span>
+                            <span id="mass-form-title">வழிபாடு சேர் / திருத்து</span>
+                        </div>
+                        <form id="form-crud-mass" onsubmit="saveMassSchedule(event)">
+                            <input type="hidden" id="mass-id">
+                            
+                            <div class="form-group">
+                                <label class="form-label">Day of Week (English)</label>
+                                <input type="text" id="mass-dayEn" class="form-control" placeholder="e.g. Sunday" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">கிழமை / நாள் (தமிழ்)</label>
+                                <input type="text" id="mass-dayTa" class="form-control" placeholder="எ.கா. ஞாயிற்றுக்கிழமை" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Mass Type Name (English)</label>
+                                <input type="text" id="mass-typeEn" class="form-control" placeholder="e.g. Sunday Holy Mass" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">திருப்பலி வகை (தமிழ்)</label>
+                                <input type="text" id="mass-typeTa" class="form-control" placeholder="எ.கா. ஞாயிறு திருப்பலி" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Time Label (EN/TA)</label>
+                                <input type="text" id="mass-time" class="form-control" placeholder="e.g. 06:00 AM" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Liturgical Category</label>
+                                <select id="mass-category" class="form-control">
+                                    <option value="sunday">Sunday Mass (Gold badge)</option>
+                                    <option value="tuesday">Special Novena (Purple badge)</option>
+                                    <option value="daily">Daily Mass (Green badge)</option>
+                                </select>
+                            </div>
+                            
+                            <div style="display:flex; gap:10px; margin-top:20px;">
+                                <button type="submit" class="btn-submit btn-admin-action" style="flex-grow:1;">
+                                    <span class="material-icons">check_circle</span> <span id="mass-btn-submit-label">வழிபாடு சேர்</span>
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="resetMassForm()" style="padding:12px 20px;">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Listing side -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">format_list_bulleted</span>
+                            <span id="mass-list-title">தற்போதைய திருப்பலிகள்</span>
+                        </div>
+                        <div class="crud-list" id="admin-masses-list">
+                            <!-- Mass list loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= TAB 3: ANNOUNCEMENTS (CRUD) ======================= -->
+            <div id="panel-notices" class="admin-panel">
+                <div class="admin-split-layout">
+                    <!-- Form side -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">announcement</span>
+                            <span id="notice-form-title">அறிவிப்பு சேர் / திருத்து</span>
+                        </div>
+                        <form id="form-crud-notice" onsubmit="saveNotice(event)">
+                            <input type="hidden" id="notice-id">
+                            
+                            <div class="form-group">
+                                <label class="form-label">Date (YYYY-MM-DD)</label>
+                                <input type="date" id="notice-date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Category Badge</label>
+                                <input type="text" id="notice-category" class="form-control" placeholder="e.g. Feast, Announcement, Meeting" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Title (English)</label>
+                                <input type="text" id="notice-titleEn" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">அறிவிப்புத் தலைப்பு (தமிழ்)</label>
+                                <input type="text" id="notice-titleTa" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Content (English)</label>
+                                <textarea id="notice-contentEn" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">அறிவிப்பு உள்ளடக்கம் (தமிழ்)</label>
+                                <textarea id="notice-contentTa" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Expiry Date (Notice will hide after this date)</label>
+                                <input type="date" id="notice-expiryDate" class="form-control" required>
+                            </div>
+                            
+                            <div style="display:flex; gap:10px; margin-top:20px;">
+                                <button type="submit" class="btn-submit btn-admin-action" style="flex-grow:1;">
+                                    <span class="material-icons">campaign</span> <span id="notice-btn-submit-label">அறிவிப்பை வெளியிடு</span>
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="resetNoticeForm()" style="padding:12px 20px;">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Listing side -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">feed</span>
+                            <span id="notice-list-title">வெளியிடப்பட்ட அறிவிப்புகள்</span>
+                        </div>
+                        <div class="crud-list" id="admin-notices-list">
+                            <!-- Notice list loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= TAB 4: TIMELINE (CRUD) ======================= -->
+            <div id="panel-timeline" class="admin-panel">
+                <div class="admin-split-layout">
+                    <!-- Form side -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">more_time</span>
+                            <span id="timeline-form-title">வரலாற்று மைல்கல் சேர் / திருத்து</span>
+                        </div>
+                        <form id="form-crud-timeline" onsubmit="saveTimelineEvent(event)">
+                            <input type="hidden" id="time-id">
+                            
+                            <div class="form-group">
+                                <label class="form-label">Year of Event</label>
+                                <input type="text" id="time-year" class="form-control" placeholder="e.g. 1924" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Title (English)</label>
+                                <input type="text" id="time-titleEn" class="form-control" placeholder="e.g. Church Dedication" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">மைல்கல் தலைப்பு (தமிழ்)</label>
+                                <input type="text" id="time-titleTa" class="form-control" placeholder="எ.கா. புதிய ஆலய அர்ச்சிப்பு" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description (English)</label>
+                                <textarea id="time-descEn" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">மைல்கல் விபரங்கள் (தமிழ்)</label>
+                                <textarea id="time-descTa" class="form-control" required></textarea>
+                            </div>
+                            
+                            <div style="display:flex; gap:10px; margin-top:20px;">
+                                <button type="submit" class="btn-submit btn-admin-action" style="flex-grow:1;">
+                                    <span class="material-icons">history_edu</span> <span id="time-btn-submit-label">மைல்கல் சேர்</span>
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="resetTimelineForm()" style="padding:12px 20px;">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Listing side -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">timeline</span>
+                            <span id="timeline-list-title">வரலாற்று மைல்கற்கள்</span>
+                        </div>
+                        <div class="crud-list" id="admin-timeline-list">
+                            <!-- Timeline events loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= TAB 5: SACRAMENTS ======================= -->
+            <div id="panel-sacraments" class="admin-panel">
+                <div class="admin-card">
+                    <div class="admin-card-title">
+                        <span class="material-icons">edit_note</span>
+                        <span id="sac-title-card-lbl">புனித அருட்சாதனங்களின் விளக்கங்கள் & தேவைகள்</span>
+                    </div>
+                    <div id="admin-sacraments-container">
+                        <!-- Sacraments edit boxes loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= TAB 6: PRAYER REQUESTS ======================= -->
+            <div id="panel-prayers" class="admin-panel">
+                <div class="admin-card">
+                    <div class="admin-card-title">
+                        <span class="material-icons">favorite</span>
+                        <span id="prayer-title-card-lbl">மக்களின் செப வேண்டுதல்கள்</span>
+                    </div>
+                    <div class="crud-list" id="admin-prayers-list">
+                        <!-- Prayer requests will load here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= TAB 7: DATABASE CONFIG ======================= -->
+            <div id="panel-database" class="admin-panel">
+                <div class="admin-split-layout">
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">dns</span>
+                            <span id="db-config-title">லைவ் டேட்டாபேஸ் இணைப்பு (Firebase)</span>
+                        </div>
+                        <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:20px; line-height:1.5;">
+                            இணையதளத்தை கோப்பு திருத்தாமல், லைவ் டேட்டாபேஸில் இணைக்க உங்கள் Firebase Firestore விபரங்களை பதிவிடவும். இயக்கப்பட்டவுடன், இந்த வலைத்தளம் நேரடியாக உங்கள் Firebase இல் தகவல்களை சேமிக்கும்.
+                        </p>
+                        
+                        <form id="form-db-config" onsubmit="saveDatabaseConfig(event)">
+                            <div class="form-group" style="display:flex; align-items:center; gap:10px;">
+                                <input type="checkbox" id="db-enabled" style="width:20px; height:20px;">
+                                <label for="db-enabled" style="font-weight:800; cursor:pointer;">Enable Live Firestore Database Sync</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">API Key</label>
+                                <input type="text" id="db-apiKey" class="form-control" placeholder="AIzaSy...">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Auth Domain</label>
+                                <input type="text" id="db-authDomain" class="form-control" placeholder="your-project.firebaseapp.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Project ID</label>
+                                <input type="text" id="db-projectId" class="form-control" placeholder="your-project">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Storage Bucket</label>
+                                <input type="text" id="db-storageBucket" class="form-control" placeholder="your-project.appspot.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Messaging Sender ID</label>
+                                <input type="text" id="db-messagingSenderId" class="form-control" placeholder="1234567890">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">App ID</label>
+                                <input type="text" id="db-appId" class="form-control" placeholder="1:1234:web:abcd">
+                            </div>
+
+                            <button type="submit" class="btn-submit btn-admin-action" style="margin-top:10px;">
+                                <span class="material-icons">cloud_done</span> சேமி & இணை / Save & Sync
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Hosting & Deployment Documentation card -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">domain</span>
+                            <span id="domain-hosting-title">டொமைன் மற்றும் ஹோஸ்டிங் வழிகாட்டி</span>
+                        </div>
+                        <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;">
+                            <h4 style="color:var(--primary); margin-bottom:8px;">1. Free Hosting (Vercel & Netlify)</h4>
+                            <p style="margin-bottom:12px;">இந்த இணையதளம் தூய HTML, CSS, JS கொண்டுள்ளதால் Vercel, Netlify அல்லது GitHub Pages இல் முற்றிலும் இலவசமாக ஹோஸ்ட் செய்யலாம்.</p>
+                            
+                            <h4 style="color:var(--primary); margin-bottom:8px;">2. Connecting Custom Domain</h4>
+                            <p style="margin-bottom:12px;">ஹோஸ்டிங் தளத்தில் உங்கள் டொமைனை (e.g. www.stantonyschurchpaganur.in) இணைக்க, டொமைன் வாங்கிய தளத்தில் (GoDaddy, Hostinger) DNS CNAME அல்லது A Record ஐ மாற்ற வேண்டும்.</p>
+                            
+                            <h4 style="color:var(--primary); margin-bottom:8px;">3. Git Repository Branches</h4>
+                            <p style="margin-bottom:12px;">உங்களது ரெபாசிட்டரியில் <strong>DEV</strong> மற்றும் <strong>Main</strong> என இரு பிரான்சுகள் உருவாக்கப்பட்டுள்ளன.
+                            DEV பிரான்சில் புதிய மாற்றங்களை செய்து சோதித்துவிட்டு, Main பிரான்சில் மெர்ஜ் செய்யும் போது அது உடனடியாக இணையதளத்தில் அப்டேட் ஆகும் (CI/CD auto-deploy).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="footer" id="global-footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <span class="footer-church-logo">⛪</span>
+                <h3>புனித அந்தோணியார் ஆலயம்</h3>
+                <p data-i18n="footer.tagline">அமைதியும் அருள்மரியும் பெருகும் புண்ணியத்தலம்</p>
+                <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);" class="footer-address-label">
+                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312.
+                </p>
+            </div>
+            <div class="footer-links-grid">
+                <div>
+                    <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
+                    <ul>
+                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
+                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
+                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer.resources">வளங்கள்</h4>
+                    <ul>
+                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
+                        <li><a href="sacraments.html" data-i18n="nav.sacraments">அருட்சாதனங்கள்</a></li>
+                        <li><a href="/#/login" data-i18n="nav.portal">உறுப்பினர் பகுதி</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2026 <span id="footer-church-name-copyright">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்</span>. <span data-i18n="footer.copyText">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span></p>
+        </div>
+    </footer>
+
+    <!-- Firebase compatibility libraries (needed ONLY for loading public notices/submitting prayers) -->
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
+
+    <!-- Core Script dependencies -->
+    <script src="js/database.js"></script>
+    <script src="js/common.js"></script>
+
+    <!-- Admin dashboard operations script -->
+    <script>
+        window.addEventListener('DOMContentLoaded', async () => {
+            await SAC_COMMON.init('admin');
+            
+            // Populate all data fields
+            await populateGeneralSettings();
+            await populateMassSchedulesList();
+            await populateNoticesList();
+            await populateTimelineList();
+            await populateSacramentsList();
+            await populatePrayersList();
+            await populateDatabaseConfig();
+
+            updateDBConnectionStatusBadge();
+
+            window.addEventListener('sacLanguageChanged', async () => {
+                updateDBConnectionStatusBadge();
+                translateAdminLabels();
+            });
+        });
+
+        // Toggle active tabs
+        function switchAdminTab(tabName, btn) {
+            // Remove active classes
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+            
+            // Add active classes
+            btn.classList.add('active');
+            const panel = document.getElementById(`panel-${tabName}`);
+            if (panel) panel.classList.add('active');
+        }
+
+        // Display beautiful visual saving notification
+        function showGlobalSuccessAlert(msgTa, msgEn) {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const alertBox = document.getElementById('admin-global-alert');
+            if (alertBox) {
+                alertBox.className = 'form-alert success';
+                alertBox.style.display = 'flex';
+                alertBox.innerHTML = `<strong>✔️</strong> <span>${isTa ? msgTa : msgEn}</span>`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(() => { alertBox.style.display = 'none'; }, 5000);
+            }
+        }
+
+        function updateDBConnectionStatusBadge() {
+            const badge = document.getElementById('db-status-badge');
+            if (!badge) return;
+
+            const isTa = SAC_COMMON.currentLang === 'ta';
+
+            if (SAC_DATABASE.isFirebaseActive) {
+                badge.className = 'liturgical-badge liturgical-easter';
+                badge.innerText = isTa ? "லைவ் டேட்டாபேஸ் இணைக்கப்பட்டுள்ளது" : "Firebase Firestore Connected";
+            } else {
+                badge.className = 'liturgical-badge liturgical-lent';
+                badge.innerText = isTa ? "லோக்கல் டேட்டாபேஸ்" : "Local Storage Mode";
+            }
+        }
+
+        // ======================= TAB 1: SETTINGS FUNCTIONS =======================
+        async function populateGeneralSettings() {
+            const settings = await SAC_DATABASE.get("settings");
+            
+            document.getElementById('set-churchNameEn').value = settings.churchNameEn;
+            document.getElementById('set-churchNameTa').value = settings.churchNameTa;
+            document.getElementById('set-locationEn').value = settings.locationEn;
+            document.getElementById('set-locationTa').value = settings.locationTa;
+            document.getElementById('set-addressEn').value = settings.addressEn;
+            document.getElementById('set-addressTa').value = settings.addressTa;
+            document.getElementById('set-phone').value = settings.phone;
+            document.getElementById('set-email').value = settings.email;
+            
+            document.getElementById('set-heroTagEn').value = settings.heroTagEn;
+            document.getElementById('set-heroTagTa').value = settings.heroTagTa;
+            document.getElementById('set-heroHeadlineEn').value = settings.heroHeadlineEn;
+            document.getElementById('set-heroHeadlineTa').value = settings.heroHeadlineTa;
+            document.getElementById('set-heroLeadEn').value = settings.heroLeadEn;
+            document.getElementById('set-heroLeadTa').value = settings.heroLeadTa;
+        }
+
+        async function saveGeneralSettings(e) {
+            e.preventDefault();
+            const data = {
+                churchNameEn: document.getElementById('set-churchNameEn').value,
+                churchNameTa: document.getElementById('set-churchNameTa').value,
+                locationEn: document.getElementById('set-locationEn').value,
+                locationTa: document.getElementById('set-locationTa').value,
+                addressEn: document.getElementById('set-addressEn').value,
+                addressTa: document.getElementById('set-addressTa').value,
+                phone: document.getElementById('set-phone').value,
+                email: document.getElementById('set-email').value,
+                heroTagEn: document.getElementById('set-heroTagEn').value,
+                heroTagTa: document.getElementById('set-heroTagTa').value,
+                heroHeadlineEn: document.getElementById('set-heroHeadlineEn').value,
+                heroHeadlineTa: document.getElementById('set-heroHeadlineTa').value,
+                heroLeadEn: document.getElementById('set-heroLeadEn').value,
+                heroLeadTa: document.getElementById('set-heroLeadTa').value
+            };
+
+            await SAC_DATABASE.save("settings", data);
+            showGlobalSuccessAlert("பொது அமைப்புகள் வெற்றிகரமாக சேமிக்கப்பட்டன!", "General settings successfully updated!");
+            
+            // Re-render current page navbar/footer settings
+            await SAC_COMMON.translatePage();
+        }
+
+        // ======================= TAB 2: MASS SCHEDULES FUNCTIONS =======================
+        async function populateMassSchedulesList() {
+            const container = document.getElementById('admin-masses-list');
+            if (!container) return;
+
+            const masses = await SAC_DATABASE.get("mass_schedules");
+            const isTa = SAC_COMMON.currentLang === 'ta';
+
+            if (masses.length === 0) {
+                container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:20px;">வழிபாடுகள் எதுவும் இல்லை. / No Mass schedules found.</div>`;
+                return;
+            }
+
+            container.innerHTML = masses.map(m => `
+                <div class="crud-item">
+                    <div class="crud-info">
+                        <div class="crud-title">${isTa ? m.typeTa : m.typeEn}</div>
+                        <div class="crud-sub">
+                            <span>📅 ${isTa ? m.dayTa : m.dayEn}</span>
+                            <span>🕒 ${m.time}</span>
+                            <span class="liturgical-badge liturgical-ordinary" style="padding:2px 8px;font-size:0.65rem;">${m.category}</span>
+                        </div>
+                    </div>
+                    <div class="crud-actions">
+                        <button class="btn-crud-icon" onclick="editMassSchedule('${m.id}')" title="Edit">
+                            <span class="material-icons">edit</span>
+                        </button>
+                        <button class="btn-crud-icon btn-crud-delete" onclick="deleteMassSchedule('${m.id}')" title="Delete">
+                            <span class="material-icons">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function editMassSchedule(id) {
+            const masses = await SAC_DATABASE.get("mass_schedules");
+            const m = masses.find(x => x.id === id);
+            if (!m) return;
+
+            document.getElementById('mass-id').value = m.id;
+            document.getElementById('mass-dayEn').value = m.dayEn;
+            document.getElementById('mass-dayTa').value = m.dayTa;
+            document.getElementById('mass-typeEn').value = m.typeEn;
+            document.getElementById('mass-typeTa').value = m.typeTa;
+            document.getElementById('mass-time').value = m.time;
+            document.getElementById('mass-category').value = m.category;
+
+            const submitBtnLabel = document.getElementById('mass-btn-submit-label');
+            if (submitBtnLabel) submitBtnLabel.innerText = "மாற்றங்களைச் சேமி (Update)";
+        }
+
+        async function saveMassSchedule(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('mass-id').value;
+            const data = {
+                dayEn: document.getElementById('mass-dayEn').value,
+                dayTa: document.getElementById('mass-dayTa').value,
+                typeEn: document.getElementById('mass-typeEn').value,
+                typeTa: document.getElementById('mass-typeTa').value,
+                time: document.getElementById('mass-time').value,
+                category: document.getElementById('mass-category').value
+            };
+            if (id) data.id = id;
+
+            await SAC_DATABASE.save("mass_schedules", data);
+            showGlobalSuccessAlert("வழிபாடு அட்டவணை வெற்றிகரமாக சேமிக்கப்பட்டது!", "Liturgical schedule successfully saved!");
+            
+            resetMassForm();
+            await populateMassSchedulesList();
+        }
+
+        async function deleteMassSchedule(id) {
+            if (confirm("Are you sure you want to delete this schedule?")) {
+                await SAC_DATABASE.delete("mass_schedules", id);
+                showGlobalSuccessAlert("வழிபாடு அட்டவணை நீக்கப்பட்டது!", "Schedule successfully deleted!");
+                await populateMassSchedulesList();
+            }
+        }
+
+        function resetMassForm() {
+            document.getElementById('form-crud-mass').reset();
+            document.getElementById('mass-id').value = '';
+            const submitBtnLabel = document.getElementById('mass-btn-submit-label');
+            if (submitBtnLabel) submitBtnLabel.innerText = "வழிபாடு சேர்";
+        }
+
+        // ======================= TAB 3: ANNOUNCEMENTS FUNCTIONS =======================
+        async function populateNoticesList() {
+            const container = document.getElementById('admin-notices-list');
+            if (!container) return;
+
+            const notices = await SAC_DATABASE.get("announcements");
+            const isTa = SAC_COMMON.currentLang === 'ta';
+
+            if (notices.length === 0) {
+                container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:20px;">அறிவிப்புகள் ஏதுமில்லை. / No notices active.</div>`;
+                return;
+            }
+
+            container.innerHTML = notices.map(n => `
+                <div class="crud-item">
+                    <div class="crud-info">
+                        <div class="crud-title">${isTa ? n.titleTa : n.titleEn}</div>
+                        <div class="crud-sub">
+                            <span>📅 Post Date: ${n.date}</span>
+                            <span>⚠️ Expiry: ${n.expiryDate}</span>
+                            <span class="liturgical-badge liturgical-easter" style="padding:2px 8px;font-size:0.65rem;">${n.category}</span>
+                        </div>
+                    </div>
+                    <div class="crud-actions">
+                        <button class="btn-crud-icon" onclick="editNotice('${n.id}')" title="Edit">
+                            <span class="material-icons">edit</span>
+                        </button>
+                        <button class="btn-crud-icon btn-crud-delete" onclick="deleteNotice('${n.id}')" title="Delete">
+                            <span class="material-icons">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function editNotice(id) {
+            const notices = await SAC_DATABASE.get("announcements");
+            const n = notices.find(x => x.id === id);
+            if (!n) return;
+
+            document.getElementById('notice-id').value = n.id;
+            document.getElementById('notice-date').value = n.date;
+            document.getElementById('notice-category').value = n.category;
+            document.getElementById('notice-titleEn').value = n.titleEn;
+            document.getElementById('notice-titleTa').value = n.titleTa;
+            document.getElementById('notice-contentEn').value = n.contentEn;
+            document.getElementById('notice-contentTa').value = n.contentTa;
+            document.getElementById('notice-expiryDate').value = n.expiryDate;
+
+            const btnLabel = document.getElementById('notice-btn-submit-label');
+            if (btnLabel) btnLabel.innerText = "மாற்றங்களைச் சேமி (Update)";
+        }
+
+        async function saveNotice(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('notice-id').value;
+            const data = {
+                date: document.getElementById('notice-date').value,
+                category: document.getElementById('notice-category').value,
+                titleEn: document.getElementById('notice-titleEn').value,
+                titleTa: document.getElementById('notice-titleTa').value,
+                contentEn: document.getElementById('notice-contentEn').value,
+                contentTa: document.getElementById('notice-contentTa').value,
+                expiryDate: document.getElementById('notice-expiryDate').value
+            };
+            if (id) data.id = id;
+
+            await SAC_DATABASE.save("announcements", data);
+            showGlobalSuccessAlert("அறிவிப்பு வெற்றிகரமாக வெளியிடப்பட்டது!", "Announcement successfully published!");
+            
+            resetNoticeForm();
+            await populateNoticesList();
+        }
+
+        async function deleteNotice(id) {
+            if (confirm("Are you sure you want to delete this notice?")) {
+                await SAC_DATABASE.delete("announcements", id);
+                showGlobalSuccessAlert("அறிவிப்பு நீக்கப்பட்டது!", "Notice successfully deleted!");
+                await populateNoticesList();
+            }
+        }
+
+        function resetNoticeForm() {
+            document.getElementById('form-crud-notice').reset();
+            document.getElementById('notice-id').value = '';
+            const btnLabel = document.getElementById('notice-btn-submit-label');
+            if (btnLabel) btnLabel.innerText = "அறிவிப்பை வெளியிடு";
+        }
+
+        // ======================= TAB 4: TIMELINE FUNCTIONS =======================
+        async function populateTimelineList() {
+            const container = document.getElementById('admin-timeline-list');
+            if (!container) return;
+
+            const events = await SAC_DATABASE.get("legacy_timeline");
+            const isTa = SAC_COMMON.currentLang === 'ta';
+
+            if (events.length === 0) {
+                container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:20px;">மைல்கற்கள் ஏதுமில்லை. / No historical milestones found.</div>`;
+                return;
+            }
+
+            // Sort by year
+            events.sort((a,b) => parseInt(a.year) - parseInt(b.year));
+
+            container.innerHTML = events.map(e => `
+                <div class="crud-item">
+                    <div class="crud-info">
+                        <div class="crud-title">${e.year} - ${isTa ? e.titleTa : e.titleEn}</div>
+                        <div class="crud-sub">
+                            <span style="display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;">
+                                ${isTa ? e.descTa : e.descEn}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="crud-actions">
+                        <button class="btn-crud-icon" onclick="editTimelineEvent('${e.id}')" title="Edit">
+                            <span class="material-icons">edit</span>
+                        </button>
+                        <button class="btn-crud-icon btn-crud-delete" onclick="deleteTimelineEvent('${e.id}')" title="Delete">
+                            <span class="material-icons">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function editTimelineEvent(id) {
+            const events = await SAC_DATABASE.get("legacy_timeline");
+            const e = events.find(x => x.id === id);
+            if (!e) return;
+
+            document.getElementById('time-id').value = e.id;
+            document.getElementById('time-year').value = e.year;
+            document.getElementById('time-titleEn').value = e.titleEn;
+            document.getElementById('time-titleTa').value = e.titleTa;
+            document.getElementById('time-descEn').value = e.descEn;
+            document.getElementById('time-descTa').value = e.descTa;
+
+            const btnLabel = document.getElementById('time-btn-submit-label');
+            if (btnLabel) btnLabel.innerText = "மாற்றங்களைச் சேமி (Update)";
+        }
+
+        async function saveTimelineEvent(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('time-id').value;
+            const data = {
+                year: document.getElementById('time-year').value,
+                titleEn: document.getElementById('time-titleEn').value,
+                titleTa: document.getElementById('time-titleTa').value,
+                descEn: document.getElementById('time-descEn').value,
+                descTa: document.getElementById('time-descTa').value
+            };
+            if (id) data.id = id;
+
+            await SAC_DATABASE.save("legacy_timeline", data);
+            showGlobalSuccessAlert("வரலாற்று மைல்கல் வெற்றிகரமாக சேமிக்கப்பட்டது!", "Parish milestone successfully saved!");
+            
+            resetTimelineForm();
+            await populateTimelineList();
+        }
+
+        async function deleteTimelineEvent(id) {
+            if (confirm("Are you sure you want to delete this historical milestone?")) {
+                await SAC_DATABASE.delete("legacy_timeline", id);
+                showGlobalSuccessAlert("மைல்கல் நீக்கப்பட்டது!", "Milestone successfully deleted!");
+                await populateTimelineList();
+            }
+        }
+
+        function resetTimelineForm() {
+            document.getElementById('form-crud-timeline').reset();
+            document.getElementById('time-id').value = '';
+            const btnLabel = document.getElementById('time-btn-submit-label');
+            if (btnLabel) btnLabel.innerText = "மைல்கல் சேர்";
+        }
+
+        // ======================= TAB 5: SACRAMENTS FUNCTIONS =======================
+        async function populateSacramentsList() {
+            const container = document.getElementById('admin-sacraments-container');
+            if (!container) return;
+
+            const sacs = await SAC_DATABASE.get("sacraments");
+            
+            container.innerHTML = sacs.map((s, index) => `
+                <div class="admin-card" style="border: 1px dashed rgba(139,92,246,0.25); background:var(--primary-light); margin-bottom:20px;">
+                    <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:15px; display:flex; align-items:center; gap:8px;">
+                        <span>⛪</span> ${s.nameEn} / ${s.nameTa}
+                    </h4>
+                    <form onsubmit="saveSacramentConfig(event, '${s.id}', ${index})">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                            <div class="form-group">
+                                <label class="form-label">Description (English)</label>
+                                <textarea id="sac-descEn-${index}" class="form-control" style="min-height:90px;" required>${s.descEn}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">விளக்கம் (தமிழ்)</label>
+                                <textarea id="sac-descTa-${index}" class="form-control" style="min-height:90px;" required>${s.descTa}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Requirements (English) - Use line breaks</label>
+                                <textarea id="sac-reqEn-${index}" class="form-control" style="min-height:100px;" required>${s.reqEn}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">தேவைகள் (தமிழ்) - வரி பிரிக்கலாம்</label>
+                                <textarea id="sac-reqTa-${index}" class="form-control" style="min-height:100px;" required>${s.reqTa}</textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-submit btn-admin-action" style="margin-top:10px;">
+                            <span class="material-icons">update</span> அருட்சாதனத்தை மேம்படுத்து / Save ${s.nameEn}
+                        </button>
+                    </form>
+                </div>
+            `).join('');
+        }
+
+        async function saveSacramentConfig(e, id, idx) {
+            e.preventDefault();
+            
+            const sacs = await SAC_DATABASE.get("sacraments");
+            const s = sacs.find(x => x.id === id);
+            if (!s) return;
+
+            s.descEn = document.getElementById(`sac-descEn-${idx}`).value;
+            s.descTa = document.getElementById(`sac-descTa-${idx}`).value;
+            s.reqEn = document.getElementById(`sac-reqEn-${idx}`).value;
+            s.reqTa = document.getElementById(`sac-reqTa-${idx}`).value;
+
+            await SAC_DATABASE.save("sacraments", s);
+            showGlobalSuccessAlert("அருட்சாதனத் தேவைகள் வெற்றிகரமாக புதுப்பிக்கப்பட்டன!", "Sacramental details successfully updated!");
+        }
+
+        // ======================= TAB 6: PRAYER REQUESTS FUNCTIONS =======================
+        async function populatePrayersList() {
+            const container = document.getElementById('admin-prayers-list');
+            if (!container) return;
+
+            const prayers = await SAC_DATABASE.get("prayer_requests");
+            const isTa = SAC_COMMON.currentLang === 'ta';
+
+            if (prayers.length === 0) {
+                container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:20px;">வேண்டுதல்கள் எதுவும் இல்லை. / No prayer requests found.</div>`;
+                return;
+            }
+
+            // Sort latest first
+            prayers.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+            container.innerHTML = prayers.map(p => {
+                const isPrayed = p.status === 'prayed';
+                const statusBadge = isPrayed 
+                    ? `<span class="prayer-status-badge status-prayed">${isTa ? "நிறைவேறியது" : "Prayed"}</span>` 
+                    : `<span class="prayer-status-badge status-pending">${isTa ? "பரிசீலனையில்" : "Pending"}</span>`;
+                
+                const actionBtn = isPrayed 
+                    ? '' 
+                    : `<button class="btn-crud-icon" onclick="markPrayerAsPrayed('${p.id}')" title="Mark as Resolved/Prayed" style="background:hsl(120, 60%, 93%); color:hsl(120, 60%, 30%);">
+                        <span class="material-icons">volunteer_activism</span>
+                       </button>`;
+
+                return `
+                    <div class="crud-item prayer-card ${p.status}">
+                        <div class="crud-info">
+                            <div class="crud-title" style="display:flex; align-items:center; gap:12px;">
+                                <span>🙏 ${p.name} (${p.email})</span>
+                                ${statusBadge}
+                            </div>
+                            <p style="font-size:0.95rem; color:var(--text-secondary); margin:6px 0; font-style:italic;">"${p.message}"</p>
+                            <div class="crud-sub">
+                                <span>🕒 Received: ${new Date(p.date).toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <div class="crud-actions">
+                            ${actionBtn}
+                            <button class="btn-crud-icon btn-crud-delete" onclick="deletePrayerRequest('${p.id}')" title="Delete request">
+                                <span class="material-icons">delete</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function markPrayerAsPrayed(id) {
+            const prayers = await SAC_DATABASE.get("prayer_requests");
+            const p = prayers.find(x => x.id === id);
+            if (!p) return;
+
+            p.status = 'prayed';
+            await SAC_DATABASE.save("prayer_requests", p);
+            showGlobalSuccessAlert("வேண்டுதல் நிறைவேற்றப்பட்டதாக குறிக்கப்பட்டது!", "Prayer intention marked as resolved!");
+            await populatePrayersList();
+        }
+
+        async function deletePrayerRequest(id) {
+            if (confirm("Are you sure you want to delete this prayer intention?")) {
+                await SAC_DATABASE.delete("prayer_requests", id);
+                showGlobalSuccessAlert("வேண்டுதல் நீக்கப்பட்டது!", "Prayer intention deleted!");
+                await populatePrayersList();
+            }
+        }
+
+        // ======================= TAB 7: DATABASE CONFIG FUNCTIONS =======================
+        async function populateDatabaseConfig() {
+            const config = await SAC_DATABASE.get("firebase_config");
+            
+            document.getElementById('db-enabled').checked = config.enabled;
+            document.getElementById('db-apiKey').value = config.apiKey || '';
+            document.getElementById('db-authDomain').value = config.authDomain || '';
+            document.getElementById('db-projectId').value = config.projectId || '';
+            document.getElementById('db-storageBucket').value = config.storageBucket || '';
+            document.getElementById('db-messagingSenderId').value = config.messagingSenderId || '';
+            document.getElementById('db-appId').value = config.appId || '';
+        }
+
+        async function saveDatabaseConfig(e) {
+            e.preventDefault();
+            
+            const data = {
+                enabled: document.getElementById('db-enabled').checked,
+                apiKey: document.getElementById('db-apiKey').value.trim(),
+                authDomain: document.getElementById('db-authDomain').value.trim(),
+                projectId: document.getElementById('db-projectId').value.trim(),
+                storageBucket: document.getElementById('db-storageBucket').value.trim(),
+                messagingSenderId: document.getElementById('db-messagingSenderId').value.trim(),
+                appId: document.getElementById('db-appId').value.trim()
+            };
+
+            await SAC_DATABASE.save("firebase_config", data);
+            showGlobalSuccessAlert("டேட்டாபேஸ் விபரங்கள் வெற்றிகரமாக சேமிக்கப்பட்டன! இணைப்பு மீண்டும் சரிபார்க்கப்பட்டது.", "Database configuration successfully updated & connected!");
+            
+            updateDBConnectionStatusBadge();
+        }
+
+        function translateAdminLabels() {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            
+            document.getElementById('admin-main-title').innerText = isTa ? "இணையதள நிர்வாகப் பலகை" : "Website Admin Dashboard";
+            document.getElementById('admin-main-subtitle').innerText = isTa ? "இணையதளத்தின் அனைத்துப் பக்கங்களிலும் உள்ள தகவல்களை குறியீடு எழுதாமல் மாற்றியமைக்கலாம்." : "Manage schedules, announcements, history, sacraments, and connection settings instantly.";
+            
+            document.getElementById('tab-lbl-settings').innerText = isTa ? "பொது அமைப்புகள்" : "General Settings";
+            document.getElementById('tab-lbl-masses').innerText = isTa ? "வழிபாடுகள் (CRUD)" : "Schedules (CRUD)";
+            document.getElementById('tab-lbl-notices').innerText = isTa ? "அறிவிப்புகள் (CRUD)" : "Announcements (CRUD)";
+            document.getElementById('tab-lbl-timeline').innerText = isTa ? "வரலாறு (CRUD)" : "History (CRUD)";
+            document.getElementById('tab-lbl-sacraments').innerText = isTa ? "அருட்சாதனங்கள்" : "Sacraments";
+            document.getElementById('tab-lbl-prayers').innerText = isTa ? "செப வேண்டுதல்கள்" : "Prayers";
+            document.getElementById('tab-lbl-db').innerText = isTa ? "தரவுத்தளம் (Firebase)" : "Database Sync";
+
+            document.getElementById('card-lbl-settings').innerText = isTa ? "ஆலய விபரங்கள் & முகப்புப் பக்க மாற்றங்கள்" : "Parish Details & Hero Landing Adjustments";
+            document.getElementById('mass-form-title').innerText = isTa ? "வழிபாடு சேர் / திருத்து" : "Add / Edit Schedule";
+            document.getElementById('mass-list-title').innerText = isTa ? "தற்போதைய திருப்பலிகள்" : "Active Mass Schedules";
+            document.getElementById('mass-btn-submit-label').innerText = isTa ? "வழிபாடு சேர்" : "Save Schedule";
+
+            document.getElementById('notice-form-title').innerText = isTa ? "அறிவிப்பு சேர் / திருத்து" : "Add / Edit Announcement";
+            document.getElementById('notice-list-title').innerText = isTa ? "வெளியிடப்பட்ட அறிவிப்புகள்" : "Published Announcements";
+            document.getElementById('notice-btn-submit-label').innerText = isTa ? "அறிவிப்பை வெளியிடு" : "Publish Announcement";
+
+            document.getElementById('timeline-form-title').innerText = isTa ? "வரலாற்று மைல்கல் சேர் / திருத்து" : "Add / Edit Milestone";
+            document.getElementById('timeline-list-title').innerText = isTa ? "வரலாற்று மைல்கற்கள்" : "Parish Historical Milestones";
+            document.getElementById('time-btn-submit-label').innerText = isTa ? "மைல்கல் சேர்" : "Save Milestone";
+
+            document.getElementById('sac-title-card-lbl').innerText = isTa ? "புனித அருட்சாதனங்களின் விளக்கங்கள் & தேவைகள்" : "Holy Sacramental Explanations & Requirements";
+            document.getElementById('prayer-title-card-lbl').innerText = isTa ? "மக்களின் செப வேண்டுதல்கள்" : "User Submitted Prayer Requests";
+            document.getElementById('db-config-title').innerText = isTa ? "லைவ் டேட்டாபேஸ் இணைப்பு (Firebase)" : "Live Firebase Configuration Settings";
+            document.getElementById('domain-hosting-title').innerText = isTa ? "டொமைன் மற்றும் ஹோஸ்டிங் வழிகாட்டி" : "Domain & Hosting Deployment Guide";
+
+            const copyrightLabel = document.getElementById('footer-church-name-copyright');
+            if (copyrightLabel) {
+                copyrightLabel.innerText = isTa ? "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்" : "St. Antony's Church, Vadakku Paganur";
+            }
+        }
+    </script>
+</body>
+</html>

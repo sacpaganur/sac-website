@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ஆலய வரலாறு - புனித அந்தோணியார் ஆலயம் | The historical legacy and spiritual journey of St. Antony's Parish in Vadakku Paganur.">
+    <title>ஆலய வரலாறு | புனித அந்தோணியார் ஆலயம் – வடக்கு பாகனூர்</title>
+    
+    <!-- Google Fonts & Icon Sets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom Light Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="navbar" id="main-nav-bar">
+        <div class="navbar-container">
+            <a href="index.html" class="brand-logo" id="nav-brand-link">
+                <span class="logo-icon" id="nav-brand-icon">⛪</span>
+                <div class="brand-text">
+                    <h1 class="brand-title" id="nav-brand-title">புனித அந்தோணியார் ஆலயம்</h1>
+                    <span class="brand-sub" id="nav-brand-sub">வடக்கு பாகனூர்</span>
+                </div>
+            </a>
+            
+            <!-- Desktop Navigation Links -->
+            <nav class="nav-menu" id="nav-links-menu">
+                <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
+                <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
+                <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
+                <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
+                <a href="sacraments.html" class="nav-link" id="nav-lnk-sacraments" data-i18n="nav.sacraments">அருட்சாதனங்கள்</a>
+                <a href="contact.html" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
+            </nav>
+
+            <!-- Actions Buttons -->
+            <div class="navbar-actions" id="nav-actions-container">
+                <button class="btn-lang" id="lang-toggle">ENG</button>
+                <a href="admin.html" class="btn-portal btn-admin" id="nav-portal-admin">
+                    <span class="material-icons btn-icon">admin_panel_settings</span>
+                    <span data-i18n="nav.admin">நிர்வாகி</span>
+                </a>
+                <a href="/#/login" class="btn-portal" id="nav-portal-member">
+                    <span class="material-icons btn-icon">lock_open</span>
+                    <span data-i18n="nav.portal">உறுப்பினர் பகுதி</span>
+                </a>
+                <button class="btn-mobile-menu" id="mobile-menu-trigger">
+                    <span class="material-icons">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div class="mobile-drawer" id="mobile-drawer">
+        <div class="drawer-content">
+            <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
+            <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
+            <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
+            <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
+            <a href="sacraments.html" class="drawer-link" data-i18n="nav.sacraments">அருட்சாதனங்கள்</a>
+            <a href="contact.html" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
+            <a href="admin.html" class="drawer-link" style="color:var(--accent-gold);" data-i18n="nav.admin">நிர்வாகி</a>
+            <div class="drawer-divider"></div>
+            <a href="/#/login" class="drawer-portal-link">
+                <span class="material-icons">lock_open</span>
+                <span data-i18n="nav.portal">உறுப்பினர் பகுதி</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content wrapper -->
+    <main class="main-wrapper">
+        <section class="subpage-header">
+            <h2 class="subpage-title" id="legacy-title-label">ஆலய வரலாறு & ஆன்மீக பாரம்பரியம்</h2>
+            <p class="subpage-subtitle" id="legacy-subtitle-label">விசுவாசத்திலும் அர்ப்பணிப்பிலும் வடக்கு பாகனூர் பங்கு கடந்து வந்த ஆன்மீகப் பாதை.</p>
+        </section>
+        
+        <section class="timeline-wrapper" id="timeline-container-section">
+            <div class="timeline-line"></div>
+            
+            <div id="dynamic-timeline-feed">
+                <!-- Dynamic timeline events will be generated here -->
+                <div style="text-align:center;color:var(--text-muted);padding:40px;">வரலாற்று விபரங்கள் ஏற்றப்படுகின்றன... / Loading history...</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="footer" id="global-footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <span class="footer-church-logo">⛪</span>
+                <h3>புனித அந்தோணியார் ஆலயம்</h3>
+                <p data-i18n="footer.tagline">அமைதியும் அருள்மரியும் பெருகும் புண்ணியத்தலம்</p>
+                <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);" class="footer-address-label">
+                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312.
+                </p>
+            </div>
+            <div class="footer-links-grid">
+                <div>
+                    <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
+                    <ul>
+                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
+                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
+                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer.resources">வளங்கள்</h4>
+                    <ul>
+                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
+                        <li><a href="sacraments.html" data-i18n="nav.sacraments">அருட்சாதனங்கள்</a></li>
+                        <li><a href="/#/login" data-i18n="nav.portal">உறுப்பினர் பகுதி</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2026 <span id="footer-church-name-copyright">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்</span>. <span data-i18n="footer.copyText">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span></p>
+        </div>
+    </footer>
+
+    <!-- Firebase compatibility libraries -->
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
+
+    <!-- Core Script dependencies -->
+    <script src="js/database.js"></script>
+    <script src="js/common.js"></script>
+
+    <script>
+        // Init page
+        window.addEventListener('DOMContentLoaded', async () => {
+            await SAC_COMMON.init('legacy');
+            
+            await loadTimelineEvents();
+            translateLegacyLabels();
+
+            window.addEventListener('sacLanguageChanged', async () => {
+                await loadTimelineEvents();
+                translateLegacyLabels();
+            });
+        });
+
+        // Load timeline cards dynamically from DB
+        async function loadTimelineEvents() {
+            const container = document.getElementById('dynamic-timeline-feed');
+            if (!container) return;
+
+            const events = await SAC_DATABASE.get("legacy_timeline");
+            const isTa = SAC_COMMON.currentLang === 'ta';
+
+            if (events.length === 0) {
+                container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:40px;">வரலாற்று தகவல்கள் எதுவும் இல்லை. / No timeline events found.</div>`;
+                return;
+            }
+
+            // Sort timeline events chronologically by year
+            events.sort((a, b) => parseInt(a.year) - parseInt(b.year));
+
+            container.innerHTML = events.map(e => `
+                <div class="timeline-card-container">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-year">${e.year}</div>
+                        <h3 class="timeline-title">${isTa ? e.titleTa : e.titleEn}</h3>
+                        <p class="timeline-desc">${isTa ? e.descTa : e.descEn}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function translateLegacyLabels() {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            
+            const titleLbl = document.getElementById('legacy-title-label');
+            if (titleLbl) {
+                titleLbl.innerText = isTa ? "ஆலய வரலாறு & ஆன்மீக பாரம்பரியம்" : "Parish Legacy & History";
+            }
+            
+            const subtitleLbl = document.getElementById('legacy-subtitle-label');
+            if (subtitleLbl) {
+                subtitleLbl.innerText = isTa ? "விசுவாசத்திலும் அர்ப்பணிப்பிலும் வடக்கு பாகனூர் பங்கு கடந்து வந்த ஆன்மீகப் பாதை." : "The journey of St. Antony's Parish in Vadakku Paganur through faith, devotion, and community.";
+            }
+
+            const copyrightLabel = document.getElementById('footer-church-name-copyright');
+            if (copyrightLabel) {
+                copyrightLabel.innerText = isTa ? "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்" : "St. Antony's Church, Vadakku Paganur";
+            }
+        }
+    </script>
+</body>
+</html>
