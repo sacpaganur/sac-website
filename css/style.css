@@ -351,106 +351,1052 @@ a {
   100% { transform: translateY(0); filter: blur(0); opacity: 1; }
 }
 
-/* Page Section: Hero */
-.hero-section {
+/* ========================================================
+   PREMIUM STAINED-GLASS Liturgical Rose & Parallax Compass (REDESIGNED - COMPACT ALTAR CONSOLE)
+   ======================================================== */
+.hero-premium-section {
   position: relative;
-  min-height: 70vh;
+  height: 100vh;
+  min-height: 600px;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 80px 24px;
+  padding: 85px 24px 20px;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  overflow: hidden;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+/* Layered backdrop mesh gradients */
+.hero-premium-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.45), transparent 55%),
+              radial-gradient(circle at 15% 85%, rgba(245, 158, 11, 0.35), transparent 45%),
+              radial-gradient(circle at 85% 85%, rgba(239, 68, 68, 0.3), transparent 45%),
+              linear-gradient(180deg, rgba(10, 11, 30, 0.5) 0%, rgba(10, 11, 30, 0.98) 100%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Cinematic divine light ray overlay */
+.hero-light-beams {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.light-beam {
+  position: absolute;
+  width: 150vw;
+  height: 50vh;
+  background: radial-gradient(ellipse at center, rgba(251, 191, 36, 0.06) 0%, rgba(251, 191, 36, 0.02) 40%, transparent 70%);
+  transform-origin: top left;
+  opacity: 0.85;
+}
+
+.beam-1 {
+  top: -20%;
+  left: -20%;
+  transform: rotate(-15deg);
+  animation: sweepRays1 14s ease-in-out infinite alternate;
+}
+
+.beam-2 {
+  top: -10%;
+  right: -50%;
+  transform: rotate(35deg);
+  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.02) 45%, transparent 70%);
+  animation: sweepRays2 18s ease-in-out infinite alternate;
+}
+
+@keyframes sweepRays1 {
+  0% { transform: rotate(-22deg) scale(0.9); opacity: 0.6; }
+  100% { transform: rotate(-10deg) scale(1.15); opacity: 1; }
+}
+
+@keyframes sweepRays2 {
+  0% { transform: rotate(40deg) scale(1.1); opacity: 0.5; }
+  100% { transform: rotate(25deg) scale(0.95); opacity: 0.95; }
+}
+
+/* Slow Floating Volumetric Candle Lights */
+.candle-glow-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.candle-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.22) 0%, rgba(251, 191, 36, 0.08) 35%, rgba(139, 92, 246, 0.03) 60%, transparent 75%);
+  filter: blur(5px);
+  opacity: 0;
+  animation: floatCandle 18s linear infinite;
+}
+
+.orb-1 { width: 140px; height: 140px; left: 10%; bottom: -150px; animation-duration: 20s; }
+.orb-2 { width: 180px; height: 180px; left: 40%; bottom: -200px; animation-duration: 24s; animation-delay: 3s; }
+.orb-3 { width: 120px; height: 120px; left: 65%; bottom: -120px; animation-duration: 16s; animation-delay: 1.5s; }
+.orb-4 { width: 160px; height: 160px; left: 85%; bottom: -180px; animation-duration: 22s; animation-delay: 5s; }
+
+@keyframes floatCandle {
+  0% { transform: translateY(120vh) translateX(0) scale(0.8); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(-20vh) translateX(60px) scale(1.25); opacity: 0; }
+}
+
+/* Core Container Centered Layout */
+.hero-premium-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+/* Floating rectangular Altar Console Deck */
+.altar-console-deck {
+  width: 100%;
+  background: rgba(10, 11, 30, 0.72);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: 28px 36px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  display: grid;
+  grid-template-columns: 1.1fr 280px 0.9fr;
+  gap: 32px;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  transition: border-color 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
+  perspective: 1000px;
+  box-sizing: border-box;
+}
+
+.altar-console-deck:hover {
+  border-color: rgba(251, 191, 36, 0.28);
+  box-shadow: 0 30px 75px rgba(0, 0, 0, 0.65),
+              0 0 35px rgba(251, 191, 36, 0.05);
+  transform: translateY(-4px);
+}
+
+/* 3D Depth Parallax Transitions inside console on hover */
+.altar-console-deck:hover .console-left-branding {
+  transform: translateZ(15px);
+}
+
+.altar-console-deck:hover .tabernacle-shrine-arch {
+  transform: translateZ(25px) scale(1.02);
+}
+
+.altar-console-deck:hover .saint-cameo-frame {
+  box-shadow: 0 12px 30px rgba(0,0,0,0.65), 0 0 25px rgba(251, 191, 36, 0.55);
+}
+
+.altar-console-deck:hover .altar-countdown-card {
+  transform: translateX(-50%) translateZ(40px) scale(1.02);
+  border-color: rgba(251, 191, 36, 0.65);
+}
+
+.altar-console-deck:hover .console-right-schedules {
+  transform: translateZ(15px);
+}
+
+/* Left Column Styling: Parish Branding */
+.console-left-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.hero-badge-scripture {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 5px 12px;
+  border-radius: 30px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: floatScripture 5s ease-in-out infinite alternate;
+}
+
+@keyframes floatScripture {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-3px); }
+}
+
+.badge-glow-icon {
+  font-size: 0.95rem;
+  color: #fbbf24;
+  animation: badgeSparkle 3s infinite alternate;
+}
+
+@keyframes badgeSparkle {
+  0% { transform: scale(0.9); opacity: 0.8; filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0)); }
+  100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.7)); }
+}
+
+.scripture-text {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.hero-brand-highlight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.brand-glow-line {
+  height: 1.5px;
+  border-radius: 2px;
+}
+
+.brand-glow-line.left {
+  flex-grow: 0;
+  width: 30px;
+  background: linear-gradient(90deg, transparent, #fbbf24);
+}
+
+.brand-glow-line.right {
+  flex-grow: 1;
+  max-width: 100px;
+  background: linear-gradient(90deg, #fbbf24, transparent);
+}
+
+.church-emoji {
+  font-size: 1.6rem;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.3));
+  animation: pulseEmoji 3s ease-in-out infinite;
+}
+
+@keyframes pulseEmoji {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.premium-hero-headline {
+  font-family: 'Outfit', 'Inter', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 10%, #fbbf24 50%, #ffffff 90%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 20px rgba(15, 23, 42, 0.45);
+  animation: metallicGlowShift 8s linear infinite;
+}
+
+@keyframes metallicGlowShift {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.hero-divider-cross {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0 8px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.hero-divider-cross .divider-line {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(251, 191, 36, 0.4), transparent);
+  flex-grow: 1;
+}
+
+.hero-divider-cross .divider-line:first-child {
+  background: linear-gradient(270deg, rgba(251, 191, 36, 0.4), transparent);
+}
+
+.hero-divider-cross .divider-icon {
+  font-size: 1.1rem;
+  color: #fbbf24;
+  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.5));
+  animation: churchPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes churchPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.3)); }
+  50% { transform: scale(1.15); filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.65)); }
+}
+
+.premium-hero-subtitle {
+  font-size: 0.9rem;
+  color: rgba(241, 245, 249, 0.8);
+  line-height: 1.55;
+  max-width: 440px;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 6px rgba(10, 11, 30, 0.7);
+}
+
+.console-left-branding .bento-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.console-left-branding .btn-primary,
+.console-left-branding .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
   overflow: hidden;
 }
 
-.hero-overlay {
+.console-left-branding .btn-primary {
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  color: #1e1b4b !important;
+  border: none;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.22);
+}
+
+.console-left-branding .btn-primary::after {
+  content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: -50%;
+  width: 25%;
   height: 100%;
-  background: radial-gradient(circle at center, transparent 40%, var(--bg-light) 100%);
-  z-index: 1;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-30deg);
 }
 
-.hero-content {
+.console-left-branding .btn-primary:hover::after {
+  left: 150%;
+  transition: all 0.8s ease-in-out;
+}
+
+.console-left-branding .btn-primary:hover {
+  transform: translateY(-2.5px);
+  box-shadow: 0 6px 16px rgba(217, 119, 6, 0.4);
+}
+
+.console-left-branding .btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.console-left-branding .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff !important;
+  transform: translateY(-2.5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* Center Section: Tabernacle Shrine & Rotating Celestial Dial */
+.console-center-shrine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  z-index: 2;
-  max-width: 850px;
 }
 
-.hero-tag {
-  font-size: 0.85rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: var(--accent-gold);
-  background: rgba(217, 119, 6, 0.08);
-  border: 1px solid rgba(217, 119, 6, 0.15);
-  padding: 8px 20px;
-  border-radius: 20px;
-  display: inline-block;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.05);
+.tabernacle-shrine-arch {
+  position: relative;
+  width: 280px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
 }
 
-.hero-headline {
-  font-size: 3.5rem;
-  font-weight: 900;
-  line-height: 1.15;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, var(--text-primary) 30%, var(--primary) 70%, var(--accent-gold) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-lead {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  margin-bottom: 40px;
-  max-width: 680px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-buttons {
+/* Concentric rotating orbits & soft neon pulsing glow behind Saint */
+.celestial-dial-orbit {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 260px;
+  height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  z-index: 1;
 }
 
-.btn-primary {
-  background: var(--primary);
-  color: #fff;
-  padding: 14px 32px;
-  border-radius: 30px;
+.celestial-dial-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(251, 191, 36, 0.22);
+  transform-origin: center center;
+}
+
+.celestial-dial-ring.inner-dial {
+  width: 190px;
+  height: 190px;
+  animation: rotateOrbit 35s linear infinite;
+}
+
+.celestial-dial-ring.outer-dial {
+  width: 230px;
+  height: 230px;
+  border-style: dotted;
+  border-color: rgba(139, 92, 246, 0.25);
+  animation: rotateOrbitCounter 45s linear infinite;
+}
+
+.tabernacle-inner-pulsing-glow {
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.12) 0%, rgba(139, 92, 246, 0.06) 45%, transparent 70%);
+  filter: blur(15px);
+  animation: pulseAura 4s ease-in-out infinite alternate;
+}
+
+@keyframes rotateOrbit {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes rotateOrbitCounter {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes pulseAura {
+  0% { opacity: 0.5; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Concentric solid gold saint cameo frame */
+.saint-cameo-frame {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  border: 4px solid #fbbf24;
+  background: #0f172a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55), 
+              0 0 15px rgba(251, 191, 36, 0.35),
+              inset 0 0 15px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+}
+
+.saint-cameo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 45%, rgba(10, 11, 30, 0.3) 75%, rgba(10, 11, 30, 0.85) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.saint-cameo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  z-index: 1;
+  filter: brightness(0.86) contrast(1.05);
+}
+
+/* Altar Countdown Capsule nested at base of Tabernacle Shrine */
+.altar-countdown-card {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 235px;
+  padding: 8px 12px;
+  background: rgba(10, 11, 30, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55),
+              0 0 15px rgba(251, 191, 36, 0.15);
+  z-index: 10;
+  text-align: center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
+  transform-style: preserve-3d;
+}
+
+.altar-countdown-card .countdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3px;
+}
+
+.live-pulse-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(251, 191, 36, 0.06);
+  padding: 2.5px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(251, 191, 36, 0.15);
+}
+
+.live-pulse-dot {
+  width: 5px;
+  height: 5px;
+  background: #fbbf24;
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+}
+
+.live-pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.2px solid #fbbf24;
+  animation: pulseLiveGlow 1.8s ease-out infinite;
+}
+
+@keyframes pulseLiveGlow {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.altar-countdown-card .countdown-badge {
+  color: #fef08a;
+  font-size: 0.65rem;
   font-weight: 800;
-  box-shadow: 0 6px 20px var(--primary-glow);
-  transition: var(--transition-smooth);
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px var(--primary-glow);
+.altar-countdown-card .timer-display-box {
+  padding: 1px 0;
+  margin-bottom: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.btn-secondary {
-  background: #fff;
-  color: var(--text-primary);
-  border: 1px solid var(--border-glass);
-  padding: 14px 32px;
-  border-radius: 30px;
+.altar-countdown-card .countdown-time {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 1.55rem;
   font-weight: 800;
-  box-shadow: var(--shadow-premium);
-  transition: var(--transition-smooth);
+  letter-spacing: 0.8px;
+  color: #fbbf24;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.55);
+  animation: timerSecondsGlow 1.2s ease-in-out infinite alternate;
 }
 
-.btn-secondary:hover {
-  background: var(--primary-light);
-  border-color: rgba(139, 92, 246, 0.2);
+@keyframes timerSecondsGlow {
+  0% { text-shadow: 0 0 5px rgba(251, 191, 36, 0.2); }
+  100% { text-shadow: 0 0 12px rgba(251, 191, 36, 0.65); }
+}
+
+.altar-countdown-card .countdown-label {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+/* Right Column: Weekly Liturgical Timetable list */
+.console-right-schedules {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  box-sizing: border-box;
+}
+
+.console-right-schedules .schedule-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.console-right-schedules .schedule-header span.material-icons {
+  color: #fbbf24;
+  font-size: 1.15rem;
+  filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.25));
+}
+
+.console-right-schedules .schedule-badge {
+  color: #93c5fd;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.console-right-schedules .timetable-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.console-right-schedules .timetable-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 8px 12px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dynamic Glass Reflection Sheen */
+.console-right-schedules .timetable-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 50px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  transform: skewX(-20deg);
+  transition: left 0s;
+}
+
+.console-right-schedules .timetable-item:hover::before {
+  left: 150%;
+  transition: left 0.8s ease-in-out;
+}
+
+.console-right-schedules .timetable-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(251, 191, 36, 0.3);
   transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.console-right-schedules .timetable-day {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1px;
+}
+
+.console-right-schedules .timetable-type {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.console-right-schedules .timetable-time {
+  background: rgba(251, 191, 36, 0.06);
+  border: 1px solid rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.console-right-schedules .timetable-item:hover .timetable-time {
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.35);
+  box-shadow: 0 0 6px rgba(251, 191, 36, 0.2);
+}
+
+/* Loading spinner */
+.loading-spinner-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.78rem;
+  width: 100%;
+}
+
+.spin-icon {
+  font-size: 1rem;
+  animation: iconSpin 2s linear infinite;
+}
+
+@keyframes iconSpin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes heroSlideUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN ADAPTATIONS FOR ALTAR CONSOLE (COMPACT SINGLE VIEW)
+   ======================================================== */
+@media (max-height: 800px) and (min-width: 1025px) {
+  .hero-premium-section {
+    padding-top: 75px;
+  }
+  
+  .altar-console-deck {
+    padding: 22px 28px;
+    gap: 24px;
+    grid-template-columns: 1.15fr 250px 0.85fr;
+  }
+  
+  .tabernacle-shrine-arch {
+    width: 250px;
+    height: 310px;
+  }
+  
+  .saint-cameo-frame {
+    width: 125px;
+    height: 125px;
+  }
+  
+  .celestial-dial-orbit {
+    width: 220px;
+    height: 220px;
+  }
+  
+  .celestial-dial-ring.inner-dial { width: 160px; height: 160px; }
+  .celestial-dial-ring.outer-dial { width: 195px; height: 195px; }
+  
+  .altar-countdown-card {
+    width: 210px;
+    padding: 6px 10px;
+    bottom: 8px;
+  }
+  
+  .altar-countdown-card .countdown-time {
+    font-size: 1.4rem;
+  }
+  
+  .premium-hero-subtitle {
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-premium-section {
+    padding: 80px 16px 15px;
+    height: 100vh;
+  }
+  
+  .altar-console-deck {
+    grid-template-columns: 1fr 260px;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 24px;
+  }
+  
+  .console-left-branding {
+    max-width: 100%;
+  }
+  
+  .tabernacle-shrine-arch {
+    width: 260px;
+    height: 310px;
+  }
+  
+  .saint-cameo-frame {
+    width: 130px;
+    height: 130px;
+  }
+  
+  .celestial-dial-orbit {
+    width: 220px;
+    height: 220px;
+  }
+  
+  .celestial-dial-ring.inner-dial { width: 165px; height: 165px; }
+  .celestial-dial-ring.outer-dial { width: 200px; height: 200px; }
+  
+  .altar-countdown-card {
+    width: 215px;
+    padding: 6px 10px;
+    bottom: 10px;
+  }
+  
+  .altar-countdown-card .countdown-time {
+    font-size: 1.4rem;
+  }
+  
+  /* Wrap Weekly Schedules into a bottom 2-column grid inside Altar Console */
+  .console-right-schedules {
+    grid-column: 1 / span 2;
+    margin-top: 10px;
+  }
+  
+  .console-right-schedules .timetable-list {
+    flex-direction: row;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  
+  .console-right-schedules .timetable-list::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .console-right-schedules .timetable-item {
+    flex: 0 0 calc(50% - 8px);
+    min-width: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-premium-section {
+    padding: 75px 12px 10px;
+    height: 100vh;
+  }
+  
+  .altar-console-deck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    border-radius: 20px;
+  }
+  
+  .console-left-branding {
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .hero-badge-scripture {
+    padding: 4px 12px;
+    margin-bottom: 8px;
+  }
+  
+  .scripture-text {
+    font-size: 0.72rem;
+  }
+  
+  .hero-brand-highlight {
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+  
+  .brand-glow-line.left,
+  .brand-glow-line.right {
+    max-width: 40px;
+  }
+  
+  .church-emoji {
+    font-size: 1.4rem;
+  }
+  
+  .premium-hero-headline {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+  }
+  
+  .hero-divider-cross {
+    justify-content: center;
+    margin: 2px 0 6px;
+  }
+  
+  .premium-hero-subtitle {
+    display: none; /* Hide subtitle to keep in strict view on mobiles */
+  }
+  
+  .console-left-branding .bento-buttons {
+    margin-top: 2px;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .console-left-branding .btn-primary,
+  .console-left-branding .btn-secondary {
+    padding: 8px 16px;
+    font-size: 0.78rem;
+    border-radius: 8px;
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .console-center-shrine {
+    width: 100%;
+    margin: 4px auto;
+  }
+  
+  .tabernacle-shrine-arch {
+    width: 220px;
+    height: 250px;
+  }
+  
+  .celestial-dial-orbit {
+    width: 180px;
+    height: 180px;
+    top: 36%;
+  }
+  
+  .celestial-dial-ring.inner-dial { width: 130px; height: 130px; }
+  .celestial-dial-ring.outer-dial { width: 160px; height: 160px; }
+  
+  .saint-cameo-frame {
+    width: 105px;
+    height: 105px;
+    border-width: 3px;
+    top: 36%;
+  }
+  
+  .altar-countdown-card {
+    width: 180px;
+    padding: 5px 8px;
+    bottom: 5px;
+    border-radius: 12px;
+  }
+  
+  .altar-countdown-card .countdown-time {
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .altar-countdown-card .countdown-badge {
+    font-size: 0.56rem;
+  }
+  
+  .altar-countdown-card .countdown-label {
+    font-size: 0.54rem;
+  }
+  
+  .live-pulse-wrapper {
+    padding: 1.5px 6px;
+  }
+  
+  /* Weekly scroll ribbon at bottom of mobile console */
+  .console-right-schedules {
+    width: 100%;
+    margin-top: 6px;
+  }
+  
+  .console-right-schedules .schedule-header {
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+  }
+  
+  .console-right-schedules .timetable-list {
+    flex-direction: row;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 2px;
+  }
+  
+  .console-right-schedules .timetable-item {
+    flex: 0 0 220px;
+    padding: 6px 10px;
+  }
+  
+  .console-right-schedules .timetable-day {
+    font-size: 0.78rem;
+  }
+  
+  .console-right-schedules .timetable-type {
+    font-size: 0.65rem;
+  }
+  
+  .console-right-schedules .timetable-time {
+    font-size: 0.72rem;
+    padding: 2.5px 6px;
+  }
+}
+
+/* Extra small height device overrides */
+@media (max-height: 660px) {
+  .hero-premium-section {
+    padding-top: 68px;
+  }
+  
+  .tabernacle-shrine-arch {
+    width: 200px;
+    height: 220px;
+  }
+  
+  .saint-cameo-frame {
+    width: 95px;
+    height: 95px;
+  }
+  
+  .altar-countdown-card {
+    width: 165px;
+    padding: 4px 6px;
+    bottom: 2px;
+  }
+  
+  .celestial-dial-orbit {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .celestial-dial-ring.inner-dial { width: 110px; height: 110px; }
+  .celestial-dial-ring.outer-dial { width: 135px; height: 135px; }
 }
 
 /* Home Page Summary Sections */
@@ -1162,40 +2108,60 @@ textarea.form-control {
 /* Admin Tabs */
 .admin-tabs {
   display: flex;
-  background: var(--primary-light);
+  flex-wrap: nowrap; /* Horizontal scrolling row on mobile */
+  background: rgba(139, 92, 246, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 8px;
-  border-radius: 16px;
-  gap: 8px;
+  border-radius: 20px;
+  gap: 6px;
   margin-bottom: 30px;
   overflow-x: auto;
-  border: 1px solid rgba(139, 92, 246, 0.1);
+  scrollbar-width: none; /* Hide scrollbars for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbars for IE/Edge */
+  border: 1px solid rgba(139, 92, 246, 0.08);
+  box-shadow: inset 0 2px 8px rgba(139, 92, 246, 0.02);
+}
+
+.admin-tabs::-webkit-scrollbar {
+  display: none; /* Hide scrollbars for Chrome/Safari/Opera */
+}
+
+@media (min-width: 769px) {
+  .admin-tabs {
+    flex-wrap: wrap; /* Wrap on tablet and desktop so no tabs are cut off */
+    justify-content: center;
+  }
 }
 
 .admin-tab {
   background: none;
   border: none;
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-size: 0.9rem;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
   display: flex;
   align-items: center;
   gap: 8px;
+  user-select: none;
 }
 
 .admin-tab:hover {
   color: var(--primary);
-  background: rgba(139, 92, 246, 0.05);
+  background: rgba(139, 92, 246, 0.06);
+  transform: translateY(-1px);
 }
 
 .admin-tab.active {
   background: #fff;
   color: var(--primary);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.08), 0 1px 2px rgba(139, 92, 246, 0.02);
+  transform: scale(1.02);
 }
 
 /* Dashboard Statistics Widgets */
@@ -1456,5 +2422,1021 @@ textarea.form-control {
   
   .timeline-card {
     width: calc(100% - 40px);
+  }
+}
+
+/* ========================================================
+   PREMIUM STAINED-GLASS Liturgical Rose & Parallax Compass (REDESIGNED - COMPACT SINGLE-VIEW)
+   ======================================================== */
+.hero-premium-section {
+  position: relative;
+  height: 100vh;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px 20px;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  overflow: hidden;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+/* Layered high-end overlay incorporating animated mesh gradients */
+.hero-premium-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.42), transparent 55%),
+              radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.32), transparent 45%),
+              radial-gradient(circle at 80% 80%, rgba(239, 68, 68, 0.28), transparent 45%),
+              linear-gradient(180deg, rgba(10, 11, 30, 0.55) 0%, rgba(10, 11, 30, 0.98) 100%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Cinematic Shifting Divine Light Beams */
+.hero-light-beams {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.light-beam {
+  position: absolute;
+  width: 150vw;
+  height: 50vh;
+  background: radial-gradient(ellipse at center, rgba(251, 191, 36, 0.07) 0%, rgba(251, 191, 36, 0.02) 40%, transparent 70%);
+  transform-origin: top left;
+  opacity: 0.85;
+}
+
+.beam-1 {
+  top: -20%;
+  left: -20%;
+  transform: rotate(-15deg);
+  animation: sweepRays1 14s ease-in-out infinite alternate;
+}
+
+.beam-2 {
+  top: -10%;
+  right: -50%;
+  transform: rotate(35deg);
+  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.02) 45%, transparent 70%);
+  animation: sweepRays2 18s ease-in-out infinite alternate;
+}
+
+@keyframes sweepRays1 {
+  0% { transform: rotate(-22deg) scale(0.9); opacity: 0.6; }
+  100% { transform: rotate(-10deg) scale(1.15); opacity: 1; }
+}
+
+@keyframes sweepRays2 {
+  0% { transform: rotate(40deg) scale(1.1); opacity: 0.5; }
+  100% { transform: rotate(25deg) scale(0.95); opacity: 0.95; }
+}
+
+/* Core Container Centered Layout - Compact Single View */
+.hero-premium-container.centered-layout {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.hero-center-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
+  flex-grow: 1;
+  justify-content: center;
+  animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-badge-scripture {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 6px 14px;
+  border-radius: 30px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: floatScripture 5s ease-in-out infinite alternate;
+  transition: all 0.3s ease;
+}
+
+.hero-badge-scripture:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(251, 191, 36, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(251, 191, 36, 0.2);
+}
+
+@keyframes floatScripture {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-3px); }
+}
+
+.badge-glow-icon {
+  font-size: 1rem;
+  color: #fbbf24;
+  animation: badgeSparkle 3s infinite alternate;
+}
+
+@keyframes badgeSparkle {
+  0% { transform: scale(0.9); opacity: 0.8; filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0)); }
+  100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.7)); }
+}
+
+.scripture-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.hero-brand-highlight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.brand-glow-line {
+  flex-grow: 1;
+  max-width: 90px;
+  height: 1.5px;
+}
+
+.brand-glow-line.left {
+  background: linear-gradient(90deg, transparent, #fbbf24);
+}
+
+.brand-glow-line.right {
+  background: linear-gradient(90deg, #fbbf24, transparent);
+}
+
+.church-emoji {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+  animation: pulseEmoji 3s ease-in-out infinite;
+}
+
+@keyframes pulseEmoji {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.premium-hero-headline {
+  font-family: 'Outfit', 'Inter', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 10%, #fbbf24 50%, #ffffff 90%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 25px rgba(15, 23, 42, 0.45);
+  animation: metallicGlowShift 8s linear infinite;
+  transition: all 0.5s ease;
+}
+
+@keyframes metallicGlowShift {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.hero-divider-cross {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 5px 0 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.hero-divider-cross .divider-line {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(251, 191, 36, 0.4), transparent);
+  flex-grow: 1;
+}
+
+.hero-divider-cross .divider-line:first-child {
+  background: linear-gradient(270deg, rgba(251, 191, 36, 0.4), transparent);
+}
+
+.hero-divider-cross .divider-icon {
+  font-size: 1.2rem;
+  color: #fbbf24;
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.5));
+  animation: churchPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes churchPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.3)); }
+  50% { transform: scale(1.15); filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.7)); }
+}
+
+.premium-hero-subtitle {
+  font-size: 0.95rem;
+  color: rgba(241, 245, 249, 0.85);
+  line-height: 1.6;
+  max-width: 620px;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 8px rgba(10, 11, 30, 0.8);
+}
+
+/* ========================================================
+   COMPACT STAINED-GLASS CENTERPIECE
+   ======================================================== */
+.stained-glass-rose-window {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  margin: 15px auto 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.stained-glass-rose-window:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65),
+              0 0 45px rgba(251, 191, 36, 0.3),
+              0 0 60px rgba(139, 92, 246, 0.2);
+}
+
+/* 3D Parallax drift for inner components on hover */
+.stained-glass-rose-window:hover .rose-window-backplate {
+  transform: translateZ(15px) rotate(6deg);
+}
+
+.stained-glass-rose-window:hover .saint-cameo-frame {
+  transform: translate(-50%, -50%) translateZ(30px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65), 
+              0 0 25px rgba(251, 191, 36, 0.5),
+              inset 0 0 15px rgba(251, 191, 36, 0.3);
+}
+
+.stained-glass-rose-window:hover .rose-countdown-card {
+  transform: translateX(-50%) translateZ(45px) scale(1.02);
+  border-color: rgba(251, 191, 36, 0.6);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.65), 
+              0 0 25px rgba(251, 191, 36, 0.35);
+}
+
+/* Stained Glass Backplate */
+.rose-window-backplate {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: 
+    conic-gradient(from 0deg, 
+      rgba(239, 68, 68, 0.35) 0deg, 
+      rgba(244, 63, 94, 0.35) 45deg, 
+      rgba(139, 92, 246, 0.35) 100deg, 
+      rgba(59, 130, 246, 0.35) 150deg, 
+      rgba(16, 185, 129, 0.35) 200deg, 
+      rgba(251, 191, 36, 0.35) 250deg,
+      rgba(217, 119, 6, 0.35) 300deg,
+      rgba(239, 68, 68, 0.35) 360deg
+    ),
+    radial-gradient(circle, rgba(10, 11, 30, 0.1) 30%, rgba(139, 92, 246, 0.35) 60%, rgba(10, 11, 30, 0.95) 96%);
+  box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.9),
+              0 0 35px rgba(139, 92, 246, 0.2);
+  z-index: 1;
+  animation: rotateRose 120s linear infinite;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+@keyframes rotateRose {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Geometric spokes simulation */
+.rose-window-geometric-shimmer {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 3px solid rgba(0, 0, 0, 0.7);
+  background-image: 
+    repeating-conic-gradient(from 0deg, transparent 0deg 14deg, rgba(0, 0, 0, 0.65) 14deg 15deg),
+    radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.8) 20.5%, transparent 21%, transparent 40%, rgba(0, 0, 0, 0.8) 40.5%, transparent 41%, transparent 65%, rgba(0, 0, 0, 0.8) 65.5%, transparent 66%);
+  z-index: 2;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Twinkling gold dust */
+.rose-window-gold-dust {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: 3;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(circle, rgba(251, 191, 36, 0.25) 1px, transparent 1.2px),
+    radial-gradient(circle, rgba(251, 191, 36, 0.15) 1.5px, transparent 1.8px);
+  background-size: 30px 30px, 45px 45px;
+  background-position: 0 0, 10px 20px;
+  opacity: 0.4;
+  animation: roseDustFloat 15s linear infinite;
+}
+
+@keyframes roseDustFloat {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* Glare sheen representing thick glass */
+.rose-window-glass-glare {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 50%;
+  border-radius: 160px 160px 0 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 80%, transparent 100%);
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Ring Orbiters and Halo aura */
+.radial-timer-halo {
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.halo-pulsing-aura {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.12) 0%, rgba(139, 92, 246, 0.06) 50%, transparent 72%);
+  filter: blur(20px);
+  animation: pulseAura 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseAura {
+  0% { opacity: 0.55; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1.04); }
+}
+
+.halo-rotating-orbit {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(251, 191, 36, 0.25);
+  animation: rotateOrbitRing 45s linear infinite;
+}
+
+@keyframes rotateOrbitRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Concentric gold cameo frame medallion */
+.saint-cameo-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  border: 4px solid #fbbf24;
+  background: #0f172a;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55), 
+              0 0 20px rgba(251, 191, 36, 0.4),
+              inset 0 0 15px rgba(0,0,0,0.8);
+  overflow: hidden;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+.saint-cameo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 40%, rgba(10, 11, 30, 0.4) 75%, rgba(10, 11, 30, 0.85) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.saint-cameo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  z-index: 1;
+  filter: brightness(0.85) contrast(1.05);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+}
+
+.stained-glass-rose-window:hover .saint-cameo-img {
+  transform: scale(1.05);
+  filter: brightness(0.96) contrast(1.05);
+}
+
+/* Glassmorphic Countdown capsule */
+.rose-countdown-card {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  padding: 10px 14px;
+  background: rgba(10, 11, 30, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55),
+              0 0 15px rgba(251, 191, 36, 0.15);
+  z-index: 12;
+  text-align: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
+  transform-style: preserve-3d;
+}
+
+.rose-countdown-card .countdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.live-pulse-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(251, 191, 36, 0.07);
+  padding: 3px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(251, 191, 36, 0.18);
+}
+
+.live-pulse-dot {
+  width: 5px;
+  height: 5px;
+  background: #fbbf24;
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+}
+
+.live-pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: -3.5px;
+  border-radius: 50%;
+  border: 1.5px solid #fbbf24;
+  animation: pulseLiveGlow 1.8s ease-out infinite;
+}
+
+@keyframes pulseLiveGlow {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.rose-countdown-card .countdown-badge {
+  color: #fef08a;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.rose-countdown-card .timer-display-box {
+  padding: 1px 0;
+  margin-bottom: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rose-countdown-card .countdown-time {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #fbbf24;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.55);
+  animation: timerSecondsGlow 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes timerSecondsGlow {
+  0% { text-shadow: 0 0 6px rgba(251, 191, 36, 0.25); }
+  100% { text-shadow: 0 0 15px rgba(251, 191, 36, 0.7); }
+}
+
+.rose-countdown-card .countdown-label {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* Call To Action Buttons */
+.bento-buttons.centered {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.bento-buttons .btn-primary,
+.bento-buttons .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-buttons .btn-primary {
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  color: #1e1b4b !important;
+  border: none;
+  box-shadow: 0 4px 15px rgba(217, 119, 6, 0.25);
+}
+
+.bento-buttons .btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 25%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-30deg);
+  transition: none;
+}
+
+.bento-buttons .btn-primary:hover::after {
+  left: 150%;
+  transition: all 0.8s ease-in-out;
+}
+
+.bento-buttons .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(217, 119, 6, 0.45);
+}
+
+.bento-buttons .btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.bento-buttons .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* ========================================================
+   COMPACT BOTTOM LITURGICAL COMPASS Timetable Ribbon Deck (HORIZONTAL DOCK)
+   ======================================================== */
+.liturgical-compass-deck {
+  width: 100%;
+  margin-top: 15px;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  padding: 12px 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: border-color 0.4s, box-shadow 0.4s;
+  animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+  opacity: 0;
+  box-sizing: border-box;
+}
+
+.liturgical-compass-deck:hover {
+  border-color: rgba(251, 191, 36, 0.2);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+}
+
+.liturgical-compass-deck .schedule-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.liturgical-compass-deck .schedule-header span.material-icons {
+  color: #fbbf24;
+  font-size: 1.2rem;
+  filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.3));
+}
+
+.liturgical-compass-deck .schedule-badge {
+  color: #93c5fd;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.liturgical-compass-deck .timetable-list {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.liturgical-compass-deck .timetable-item {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 8px 14px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Glass Sheen */
+.liturgical-compass-deck .timetable-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 50px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: skewX(-20deg);
+  transition: left 0s;
+}
+
+.liturgical-compass-deck .timetable-item:hover::before {
+  left: 150%;
+  transition: left 0.8s ease-in-out;
+}
+
+.liturgical-compass-deck .timetable-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(251, 191, 36, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.2),
+              0 0 10px rgba(251, 191, 36, 0.05);
+}
+
+.liturgical-compass-deck .timetable-day {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1px;
+}
+
+.liturgical-compass-deck .timetable-type {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.liturgical-compass-deck .timetable-time {
+  background: rgba(251, 191, 36, 0.06);
+  border: 1px solid rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.liturgical-compass-deck .timetable-item:hover .timetable-time {
+  background: rgba(251, 191, 36, 0.14);
+  border-color: rgba(251, 191, 36, 0.35);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.2);
+}
+
+/* Spinner */
+.loading-spinner-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.spin-icon {
+  font-size: 1.1rem;
+  animation: iconSpin 2s linear infinite;
+}
+
+@keyframes iconSpin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes heroSlideUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN ADAPTATIONS FOR LITURGICAL COMPASS ROSE (SINGLE VIEW ADAPTIVE)
+   ======================================================== */
+@media (max-height: 800px) and (min-width: 1025px) {
+  .hero-premium-section {
+    padding-top: 75px;
+  }
+  
+  .stained-glass-rose-window {
+    width: 260px;
+    height: 260px;
+    margin: 10px auto 15px;
+  }
+  
+  .saint-cameo-frame {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .rose-countdown-card {
+    width: 210px;
+    padding: 8px 10px;
+    bottom: -8px;
+  }
+  
+  .rose-countdown-card .countdown-time {
+    font-size: 1.45rem;
+  }
+  
+  .premium-hero-subtitle {
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-premium-section {
+    padding: 80px 16px 15px;
+    height: 100vh;
+  }
+  
+  .hero-premium-container.centered-layout {
+    gap: 10px;
+  }
+  
+  .stained-glass-rose-window {
+    width: 270px;
+    height: 270px;
+    margin: 10px auto 15px;
+  }
+  
+  .saint-cameo-frame {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .rose-countdown-card {
+    width: 220px;
+    padding: 8px 12px;
+    bottom: -10px;
+  }
+  
+  .rose-countdown-card .countdown-time {
+    font-size: 1.45rem;
+  }
+  
+  .liturgical-compass-deck {
+    margin-top: 10px;
+  }
+  
+  /* Horizontal swipe cards to stay in single view */
+  .liturgical-compass-deck .timetable-list {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .liturgical-compass-deck .timetable-list::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+  
+  .liturgical-compass-deck .timetable-item {
+    flex: 0 0 calc(50% - 8px);
+    min-width: 230px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-premium-section {
+    padding: 75px 12px 10px;
+    height: 100vh;
+  }
+  
+  .hero-badge-scripture {
+    padding: 4px 12px;
+    margin-bottom: 8px;
+  }
+  
+  .scripture-text {
+    font-size: 0.72rem;
+  }
+  
+  .premium-hero-headline {
+    font-size: 1.9rem;
+    margin-bottom: 8px;
+  }
+  
+  .hero-brand-highlight {
+    margin-bottom: 4px;
+  }
+  
+  .church-emoji {
+    font-size: 1.5rem;
+  }
+  
+  .brand-glow-line {
+    max-width: 50px;
+  }
+  
+  .hero-divider-cross {
+    max-width: 280px;
+    margin: 3px 0 8px;
+  }
+  
+  .premium-hero-subtitle {
+    font-size: 0.88rem;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  
+  .stained-glass-rose-window {
+    width: 220px;
+    height: 220px;
+    margin: 8px auto 12px;
+  }
+  
+  .saint-cameo-frame {
+    width: 120px;
+    height: 120px;
+    border-width: 3px;
+  }
+  
+  .rose-countdown-card {
+    width: 185px;
+    padding: 6px 10px;
+    bottom: -8px;
+    border-radius: 12px;
+  }
+  
+  .rose-countdown-card .countdown-time {
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .rose-countdown-card .countdown-badge {
+    font-size: 0.58rem;
+  }
+  
+  .rose-countdown-card .countdown-label {
+    font-size: 0.55rem;
+  }
+  
+  .live-pulse-wrapper {
+    padding: 2px 6px;
+  }
+  
+  .bento-buttons.centered {
+    margin-top: 5px;
+    gap: 8px;
+  }
+  
+  .bento-buttons .btn-primary,
+  .bento-buttons .btn-secondary {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    flex: 1;
+  }
+  
+  .liturgical-compass-deck {
+    padding: 10px 14px;
+    border-radius: 16px;
+    margin-top: 10px;
+  }
+  
+  .liturgical-compass-deck .schedule-header {
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+  }
+  
+  .liturgical-compass-deck .timetable-list {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 2px;
+  }
+  
+  .liturgical-compass-deck .timetable-item {
+    flex: 0 0 240px;
+    padding: 8px 12px;
+  }
+  
+  .liturgical-compass-deck .timetable-day {
+    font-size: 0.8rem;
+  }
+  
+  .liturgical-compass-deck .timetable-type {
+    font-size: 0.68rem;
+  }
+  
+  .liturgical-compass-deck .timetable-time {
+    font-size: 0.76rem;
+    padding: 3px 8px;
+  }
+}
+
+/* Extra small height screen adjustments (e.g. mobile landscape or small devices) */
+@media (max-height: 680px) {
+  .hero-premium-section {
+    padding-top: 70px;
+  }
+  
+  .premium-hero-subtitle {
+    display: none; /* Hide subtext to save critical height and keep strictly in view */
+  }
+  
+  .stained-glass-rose-window {
+    width: 190px;
+    height: 190px;
+    margin: 5px auto 10px;
+  }
+  
+  .saint-cameo-frame {
+    width: 105px;
+    height: 105px;
+  }
+  
+  .rose-countdown-card {
+    width: 170px;
+    padding: 4px 8px;
+    bottom: -6px;
   }
 }

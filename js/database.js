@@ -11,7 +11,7 @@ const SAC_DATABASE = {
       addressEn: "St. Antony's Church, Vadakku Paganur - 630312, Tamil Nadu, India.",
       addressTa: "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312, தமிழ்நாடு, இந்தியா.",
       phone: "+91 94860 12345",
-      email: "contact@stantonyschurchpaganur.in",
+      email: "contact@stacpaganur.in",
       heroTagEn: "Shrine of St. Antony",
       heroTagTa: "புனித அந்தோணியார் திருத்தலம்",
       heroHeadlineEn: "Welcome to St. Antony's Church",
@@ -168,7 +168,41 @@ const SAC_DATABASE = {
       storageBucket: "",
       messagingSenderId: "",
       appId: ""
-    }
+    },
+    gallery: [
+      {
+        id: "gallery_1",
+        src: "images/gallery_altar.png",
+        catTa: "பலிபீடம் | Sanctuary",
+        catEn: "Sanctuary Altar",
+        titleTa: "அழகிய நற்கருணை பலிபீடம்",
+        titleEn: "Holy Eucharistic Sanctuary Altar"
+      },
+      {
+        id: "gallery_2",
+        src: "images/gallery_fest.png",
+        catTa: "திருவிழா | Festival",
+        catEn: "Annual Festival",
+        titleTa: "ஆண்டு திருவிழா மின்விளக்கு அலங்காரம்",
+        titleEn: "Grand Annual Feast Light Decoration"
+      },
+      {
+        id: "gallery_3",
+        src: "images/gallery_choir.png",
+        catTa: "பங்கு பாடகர் குழு | Choir",
+        catEn: "Parish Liturgical Choir",
+        titleTa: "மெழுகுவர்த்தி வழிபாட்டு திருப்பலி பாடல்",
+        titleEn: "Solemn Candlelight Liturgical Choir Service"
+      },
+      {
+        id: "gallery_4",
+        src: "images/gallery_statue.png",
+        catTa: "பாதுகாவலர் | Patron",
+        catEn: "Patron Saint Devotion",
+        titleTa: "அற்புத புனித அந்தோணியார் திருவுருவச் சிலை",
+        titleEn: "Miraculous Statue of St. Antony of Padua"
+      }
+    ]
   },
 
   // Initialize DB in LocalStorage if not present
@@ -179,6 +213,7 @@ const SAC_DATABASE = {
     this._ensureCollection("sac_legacy_timeline", this.defaultData.legacy_timeline);
     this._ensureCollection("sac_sacraments", this.defaultData.sacraments);
     this._ensureCollection("sac_prayer_requests", this.defaultData.prayer_requests);
+    this._ensureCollection("sac_gallery", this.defaultData.gallery);
     this._ensureCollection("sac_firebase_config", this.defaultData.firebase_config);
 
     this.setupFirebaseConnection();
@@ -225,32 +260,67 @@ const SAC_DATABASE = {
   // Data fetching helper (Loads from Firestore if active, else falls back to LocalStorage)
   async get(collectionName) {
     const localKey = "sac_" + collectionName;
+    const localData = this.getCollection(localKey);
+    const isArrayType = Array.isArray(localData || this.defaultData[collectionName]);
     
+    // Auto-heal helper to repair any literal "undefined" string values corrupted in Firestore
+    const sanitizeSettings = (obj) => {
+      const defaults = this.defaultData.settings;
+      if (!obj) return { ...defaults };
+      const clean = { ...defaults, ...obj };
+      for (const key in clean) {
+        if (
+          clean[key] === undefined || 
+          clean[key] === null || 
+          clean[key] === "undefined" || 
+          clean[key] === ""
+        ) {
+          clean[key] = defaults[key];
+        }
+      }
+      return clean;
+    };
+
     if (this.isFirebaseActive && this.db) {
       try {
         const snapshot = await this.db.collection(collectionName).get();
         if (!snapshot.empty) {
-          return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          const results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          if (isArrayType) {
+            return results;
+          } else {
+            // It's a single object (like settings)
+            const genDoc = results.find(r => r.id === "general") || results[0];
+            const healed = sanitizeSettings(genDoc);
+            
+            // If the Firestore was corrupted with "undefined" strings, auto-update it with healed values
+            if (JSON.stringify(genDoc) !== JSON.stringify(healed)) {
+              await this.db.collection(collectionName).doc("general").set(healed);
+            }
+            return healed;
+          }
         } else {
           // If Firestore collection is empty, seed it with LocalStorage data so it's not blank
-          const localData = JSON.parse(localStorage.getItem(localKey));
-          if (Array.isArray(localData)) {
-            for (const item of localData) {
+          const dataToSeed = localData || this.defaultData[collectionName];
+          if (isArrayType) {
+            for (const item of dataToSeed) {
               const { id, ...dataWithoutId } = item;
               await this.db.collection(collectionName).doc(id).set(dataWithoutId);
             }
-          } else if (localData) {
-            await this.db.collection(collectionName).doc("general").set(localData);
+          } else if (dataToSeed) {
+            const healed = sanitizeSettings(dataToSeed);
+            await this.db.collection(collectionName).doc("general").set(healed);
+            return healed;
           }
-          return this.getCollection(localKey);
+          return dataToSeed;
         }
       } catch (err) {
         console.warn(`Firestore read failed for ${collectionName}, falling back to LocalStorage:`, err);
-        return this.getCollection(localKey);
+        return isArrayType ? (localData || []) : sanitizeSettings(localData);
       }
     }
 
-    return this.getCollection(localKey);
+    return isArrayType ? (localData || []) : sanitizeSettings(localData);
   },
 
   getCollection(key) {

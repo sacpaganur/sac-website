@@ -20,7 +20,7 @@
     <!-- Navigation Header -->
     <header class="navbar" id="main-nav-bar">
         <div class="navbar-container">
-            <a href="index" class="brand-logo" id="nav-brand-link">
+            <a href="index.html" class="brand-logo" id="nav-brand-link">
                 <span class="logo-icon" id="nav-brand-icon">⛪</span>
                 <div class="brand-text">
                     <h1 class="brand-title" id="nav-brand-title">புனித அந்தோணியார் ஆலயம்</h1>
@@ -30,24 +30,16 @@
             
             <!-- Desktop Navigation Links -->
             <nav class="nav-menu" id="nav-links-menu">
-                <a href="index" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
-                <a href="schedule" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
-                <a href="legacy" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
-                <a href="notices" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
-                <a href="contact" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
+                <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
+                <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
+                <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
+                <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
+                <a href="contact.html" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
             </nav>
 
             <!-- Actions Buttons -->
             <div class="navbar-actions" id="nav-actions-container">
                 <button class="btn-lang" id="lang-toggle">ENG</button>
-                <a href="admin" class="btn-portal btn-admin" id="nav-portal-admin">
-                    <span class="material-icons btn-icon">admin_panel_settings</span>
-                    <span data-i18n="nav.admin">நிர்வாகி</span>
-                </a>
-                <a href="/#/login" class="btn-portal" id="nav-portal-member">
-                    <span class="material-icons btn-icon">lock_open</span>
-                    <span data-i18n="nav.portal">உறுப்பினர் பகுதி</span>
-                </a>
                 <button class="btn-mobile-menu" id="mobile-menu-trigger">
                     <span class="material-icons">menu</span>
                 </button>
@@ -58,23 +50,41 @@
     <!-- Mobile Drawer Overlay Menu -->
     <div class="mobile-drawer" id="mobile-drawer">
         <div class="drawer-content">
-            <a href="index" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
-            <a href="schedule" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
-            <a href="legacy" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
-            <a href="notices" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
-            <a href="contact" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
-            <a href="admin" class="drawer-link" style="color:var(--accent-gold);" data-i18n="nav.admin">நிர்வாகி</a>
-            <div class="drawer-divider"></div>
-            <a href="/#/login" class="drawer-portal-link">
-                <span class="material-icons">lock_open</span>
-                <span data-i18n="nav.portal">உறுப்பினர் பகுதி</span>
-            </a>
+            <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
+            <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
+            <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
+            <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
+            <a href="contact.html" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
         </div>
     </div>
 
     <!-- Main Content wrapper -->
     <main class="main-wrapper">
-        <section class="admin-section">
+        
+        <!-- Admin Login Panel -->
+        <div id="admin-login-container" style="display:flex; justify-content:center; align-items:center; min-height:60vh; padding:20px;">
+            <div class="admin-card" style="max-width:420px; width:100%; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-radius: 16px; padding:32px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5);">
+                <div style="text-align:center; margin-bottom:24px;">
+                    <span style="font-size:3.5rem; display:block; margin-bottom:12px;">🔒</span>
+                    <h3 style="color:var(--primary); font-size:1.5rem; margin-bottom:8px;">நிர்வாகி உள்நுழைவு</h3>
+                    <p style="color:var(--text-secondary); font-size:0.88rem;">தொடர கடவுச்சொல்லை உள்ளிடவும் / Enter Admin Password</p>
+                </div>
+                <form onsubmit="handleAdminLogin(event)">
+                    <div class="form-group" style="margin-bottom:20px;">
+                        <label class="form-label" style="font-weight:600;">கடவுச்சொல் / Password</label>
+                        <input type="password" id="admin-password-input" class="form-control" placeholder="••••••••" required style="letter-spacing:3px; text-align:center; font-size:1.2rem;">
+                    </div>
+                    <div id="login-error-msg" class="form-alert error" style="display:none; margin-bottom:16px; font-size:0.85rem; padding:10px;">
+                        ⚠️ தவறான கடவுச்சொல்! / Incorrect Password!
+                    </div>
+                    <button type="submit" class="btn-submit btn-admin-action" style="width:100%; display:flex; justify-content:center; align-items:center; gap:8px;">
+                        <span class="material-icons">lock_open</span> <span>உள்நுழை / Login</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <section class="admin-section" id="admin-dashboard-panel" style="display:none;">
             
             <!-- Admin Dashboard Header -->
             <div class="admin-header">
@@ -85,8 +95,12 @@
                     </h2>
                     <p id="admin-main-subtitle">இணையதளத்தின் அனைத்துப் பக்கங்களிலும் உள்ள தகவல்களை குறியீடு எழுதாமல் மாற்றியமைக்கலாம்.</p>
                 </div>
-                <div id="connection-status-tag">
+                <div id="connection-status-tag" style="display:flex; align-items:center; gap:12px;">
                     <span class="liturgical-badge liturgical-ordinary" id="db-status-badge">LocalStorage Active</span>
+                    <button onclick="handleAdminLogout()" class="btn-secondary" style="padding: 6px 14px; font-size: 0.85rem; display: flex; align-items:center; gap:6px; border-radius:8px; cursor:pointer;">
+                        <span class="material-icons" style="font-size:1.1rem;">logout</span>
+                        <span>வெளியேறு / Logout</span>
+                    </button>
                 </div>
             </div>
 
@@ -106,6 +120,9 @@
                 </button>
                 <button class="admin-tab" onclick="switchAdminTab('timeline', this)">
                     <span class="material-icons">history</span><span id="tab-lbl-timeline">வரலாறு (CRUD)</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('gallery', this)">
+                    <span class="material-icons">collections</span><span id="tab-lbl-gallery">புகைப்படங்கள் (CRUD)</span>
                 </button>
                 <button class="admin-tab" onclick="switchAdminTab('prayers', this)">
                     <span class="material-icons">favorite</span><span id="tab-lbl-prayers">செப வேண்டுதல்கள்</span>
@@ -401,6 +418,102 @@
                 </div>
             </div>
 
+            <!-- ======================= TAB 5: GALLERY CRUD ======================= -->
+            <div id="panel-gallery" class="admin-panel">
+                <div class="admin-split-layout">
+                    <!-- Form side -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">add_photo_alternate</span>
+                            <span id="gallery-form-title">புகைப்படம் சேர் / திருத்து</span>
+                        </div>
+                        <form id="form-crud-gallery" onsubmit="saveGalleryImage(event)">
+                            <input type="hidden" id="gallery-id">
+                            
+                            <!-- Image Selection Options -->
+                            <div class="form-group" style="margin-bottom:16px;">
+                                <label class="form-label" style="font-weight:700;">உள்ளீட்டு முறை / Input Method</label>
+                                <div style="display:flex; gap:16px; margin-top:6px;">
+                                    <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:0.9rem;">
+                                        <input type="radio" name="img-source-type" value="file" checked onclick="toggleImageInputType('file')">
+                                        <span>கோப்பு பதிவேற்றம் / File Upload</span>
+                                    </label>
+                                    <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:0.9rem;">
+                                        <input type="radio" name="img-source-type" value="url" onclick="toggleImageInputType('url')">
+                                        <span>இணைய இணைப்பு / Image URL</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- File Uploader Container -->
+                            <div id="gallery-file-input-container" class="form-group">
+                                <label class="form-label">புகைப்பட கோப்பு / Image File</label>
+                                <div style="border: 2px dashed var(--border-glass); border-radius: 12px; padding: 20px; text-align: center; background: rgba(255,255,255,0.4); transition: var(--transition); cursor: pointer;" onclick="document.getElementById('gallery-file-picker').click()">
+                                    <span class="material-icons" style="font-size: 2.8rem; color: var(--primary); margin-bottom: 8px;">cloud_upload</span>
+                                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;" id="file-upload-status">சுடு கிளிக் செய்து கோப்பைத் தேர்ந்தெடுக்கவும் / Click to upload image</p>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">Max 2MB (PNG, JPG, WEBP)</span>
+                                </div>
+                                <input type="file" id="gallery-file-picker" accept="image/*" style="display:none;" onchange="handleGalleryFileChange(event)">
+                            </div>
+
+                            <!-- URL Input Container -->
+                            <div id="gallery-url-input-container" class="form-group" style="display:none;">
+                                <label class="form-label">இணைய முகவரி / Image URL</label>
+                                <input type="url" id="gallery-src" class="form-control" placeholder="https://example.com/image.png">
+                            </div>
+
+                            <!-- Image Preview Area -->
+                            <div id="gallery-img-preview-container" class="form-group" style="display:none; text-align: center; margin-top: 10px;">
+                                <label class="form-label">முன்னோட்டம் / Preview</label>
+                                <div style="position:relative; display:inline-block; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glass); max-height: 180px;">
+                                    <img id="gallery-img-preview" src="" style="max-height: 180px; max-width: 100%; object-fit: contain;">
+                                    <button type="button" onclick="clearGalleryImagePreview()" style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); color:white; border:none; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                                        <span class="material-icons" style="font-size:1.1rem;">close</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Category / Badge (English)</label>
+                                <input type="text" id="gallery-catEn" class="form-control" placeholder="e.g. Festival" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">வகை / பிரிவு (தமிழ்)</label>
+                                <input type="text" id="gallery-catTa" class="form-control" placeholder="எ.கா. திருவிழா" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Title / Caption (English)</label>
+                                <input type="text" id="gallery-titleEn" class="form-control" placeholder="e.g. Altar Flower Decoration" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">தலைப்பு / விளக்கம் (தமிழ்)</label>
+                                <input type="text" id="gallery-titleTa" class="form-control" placeholder="எ.கா. பலிபீட மலர் அலங்காரம்" required>
+                            </div>
+                            
+                            <div style="display:flex; gap:10px; margin-top:20px;">
+                                <button type="submit" class="btn-submit btn-admin-action" style="flex-grow:1;">
+                                    <span class="material-icons">add_a_photo</span> <span id="gallery-btn-submit-label">புகைப்படம் சேர்</span>
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="resetGalleryForm()" style="padding:12px 20px;">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Listing side -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">photo_library</span>
+                            <span id="gallery-list-title">தற்போதைய புகைப்படங்கள்</span>
+                        </div>
+                        <div class="crud-list" id="admin-gallery-list" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; padding: 10px 0;">
+                            <!-- Gallery items loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- ======================= TAB 7: DATABASE CONFIG ======================= -->
             <div id="panel-database" class="admin-panel">
                 <div class="admin-split-layout">
@@ -477,6 +590,7 @@
             </div>
 
         </section>
+        </section>
     </main>
 
     <!-- Global Footer -->
@@ -494,16 +608,15 @@
                 <div>
                     <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
                     <ul>
-                        <li><a href="index" data-i18n="nav.home">முகப்பு</a></li>
-                        <li><a href="schedule" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
-                        <li><a href="legacy" data-i18n="nav.legacy">வரலாறு</a></li>
+                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
+                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
+                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 data-i18n="footer.resources">வளங்கள்</h4>
                     <ul>
-                        <li><a href="notices" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
-                        <li><a href="/#/login" data-i18n="nav.portal">உறுப்பினர் பகுதி</a></li>
+                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
                     </ul>
                 </div>
             </div>
@@ -526,21 +639,61 @@
         window.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('admin');
             
-            // Populate all data fields
-            await populateGeneralSettings();
-            await populateMassSchedulesList();
-            await populateNoticesList();
-            await populateTimelineList();
-            await populatePrayersList();
-            await populateDatabaseConfig();
-
-            updateDBConnectionStatusBadge();
+            // Check session login state
+            if (sessionStorage.getItem('sac_admin_logged_in') === 'true') {
+                await showAdminDashboard();
+            } else {
+                showAdminLogin();
+            }
 
             window.addEventListener('sacLanguageChanged', async () => {
                 updateDBConnectionStatusBadge();
                 translateAdminLabels();
             });
         });
+
+        function showAdminLogin() {
+            document.getElementById('admin-login-container').style.display = 'flex';
+            document.getElementById('admin-dashboard-panel').style.display = 'none';
+        }
+
+        async function showAdminDashboard() {
+            document.getElementById('admin-login-container').style.display = 'none';
+            document.getElementById('admin-dashboard-panel').style.display = 'block';
+
+            // Populate all data fields after successful login
+            await populateGeneralSettings();
+            await populateMassSchedulesList();
+            await populateNoticesList();
+            await populateTimelineList();
+            await populateGalleryList();
+            await populatePrayersList();
+            await populateDatabaseConfig();
+
+            updateDBConnectionStatusBadge();
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const password = document.getElementById('admin-password-input').value;
+            
+            // Secure predefined password for St. Antony's Church
+            if (password === 'StAntony2026') {
+                sessionStorage.setItem('sac_admin_logged_in', 'true');
+                document.getElementById('login-error-msg').style.display = 'none';
+                showAdminDashboard();
+            } else {
+                const errorBox = document.getElementById('login-error-msg');
+                errorBox.style.display = 'flex';
+                document.getElementById('admin-password-input').value = '';
+                document.getElementById('admin-password-input').focus();
+            }
+        }
+
+        function handleAdminLogout() {
+            sessionStorage.removeItem('sac_admin_logged_in');
+            window.location.reload();
+        }
 
         // Toggle active tabs
         function switchAdminTab(tabName, btn) {
@@ -968,6 +1121,193 @@
             }
         }
 
+        // ======================= TAB 5: GALLERY CRUD FUNCTIONS =======================
+        let selectedGalleryBase64 = "";
+
+        function toggleImageInputType(type) {
+            const fileContainer = document.getElementById('gallery-file-input-container');
+            const urlContainer = document.getElementById('gallery-url-input-container');
+            
+            if (type === 'file') {
+                fileContainer.style.display = 'block';
+                urlContainer.style.display = 'none';
+                document.getElementById('gallery-src').value = '';
+                document.getElementById('gallery-src').removeAttribute('required');
+            } else {
+                fileContainer.style.display = 'none';
+                urlContainer.style.display = 'block';
+                selectedGalleryBase64 = "";
+                document.getElementById('gallery-src').setAttribute('required', 'true');
+                document.getElementById('file-upload-status').innerText = "சுடு கிளிக் செய்து கோப்பைத் தேர்ந்தெடுக்கவும் / Click to upload image";
+            }
+            updateGalleryPreview();
+        }
+
+        function handleGalleryFileChange(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.size > 2 * 1024 * 1024) {
+                alert("File size exceeds 2MB limit! / கோப்பு அளவு 2MB ஐ விட அதிகமாக உள்ளது!");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                selectedGalleryBase64 = evt.target.result;
+                document.getElementById('file-upload-status').innerText = `Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                updateGalleryPreview();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateGalleryPreview() {
+            const srcInput = document.getElementById('gallery-src').value.trim();
+            const previewContainer = document.getElementById('gallery-img-preview-container');
+            const previewImg = document.getElementById('gallery-img-preview');
+            
+            const isFileMode = document.querySelector('input[name="img-source-type"]:checked').value === 'file';
+            const finalSrc = isFileMode ? selectedGalleryBase64 : srcInput;
+
+            if (finalSrc) {
+                previewImg.src = finalSrc;
+                previewContainer.style.display = 'block';
+            } else {
+                previewImg.src = '';
+                previewContainer.style.display = 'none';
+            }
+        }
+
+        // Add real-time event listener for URL input change to update preview
+        document.addEventListener('DOMContentLoaded', () => {
+            const srcInput = document.getElementById('gallery-src');
+            if (srcInput) {
+                srcInput.addEventListener('input', updateGalleryPreview);
+            }
+        });
+
+        function clearGalleryImagePreview() {
+            selectedGalleryBase64 = "";
+            document.getElementById('gallery-src').value = '';
+            document.getElementById('gallery-file-picker').value = '';
+            document.getElementById('file-upload-status').innerText = "சுடு கிளிக் செய்து கோப்பைத் தேர்ந்தெடுக்கவும் / Click to upload image";
+            updateGalleryPreview();
+        }
+
+        async function populateGalleryList() {
+            const container = document.getElementById('admin-gallery-list');
+            if (!container) return;
+
+            const items = await SAC_DATABASE.get("gallery") || [];
+            const isTa = SAC_COMMON.currentLang === 'ta';
+
+            if (items.length === 0) {
+                container.innerHTML = `<div style="grid-column:1/-1; text-align:center;color:var(--text-muted);padding:20px;">புகைப்படங்கள் எதுவும் இல்லை. / No gallery images found.</div>`;
+                return;
+            }
+
+            container.innerHTML = items.map(item => {
+                const category = isTa ? item.catTa : item.catEn;
+                const title = isTa ? item.titleTa : item.titleEn;
+                return `
+                    <div style="background:rgba(255,255,255,0.7); border: 1px solid var(--border-glass); border-radius:12px; padding:10px; text-align:center; position:relative;">
+                        <img src="${item.src}" style="width:100%; height:80px; object-fit:cover; border-radius:8px; margin-bottom:6px;">
+                        <div style="font-size:0.75rem; font-weight:800; color:var(--primary); text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${category}</div>
+                        <div style="font-size:0.75rem; color:var(--text-secondary); text-overflow:ellipsis; overflow:hidden; white-space:nowrap; margin-bottom:8px;">${title}</div>
+                        <div style="display:flex; justify-content:center; gap:6px;">
+                            <button type="button" class="btn-crud-icon" onclick="editGalleryImage('${item.id}')" title="Edit details" style="padding:4px; min-width:unset; width:26px; height:26px;">
+                                <span class="material-icons" style="font-size:1rem;">edit</span>
+                            </button>
+                            <button type="button" class="btn-crud-icon btn-crud-delete" onclick="deleteGalleryImage('${item.id}')" title="Delete image" style="padding:4px; min-width:unset; width:26px; height:26px;">
+                                <span class="material-icons" style="font-size:1rem;">delete</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function editGalleryImage(id) {
+            const items = await SAC_DATABASE.get("gallery") || [];
+            const item = items.find(x => x.id === id);
+            if (!item) return;
+
+            document.getElementById('gallery-id').value = item.id;
+            
+            // Check if it's a Base64 or standard URL
+            if (item.src.startsWith('data:image')) {
+                document.querySelector('input[name="img-source-type"][value="file"]').checked = true;
+                toggleImageInputType('file');
+                selectedGalleryBase64 = item.src;
+                document.getElementById('file-upload-status').innerText = "முன்னோட்டம் ஏற்றப்பட்டது / Uploaded image loaded";
+            } else {
+                document.querySelector('input[name="img-source-type"][value="url"]').checked = true;
+                toggleImageInputType('url');
+                document.getElementById('gallery-src').value = item.src;
+            }
+
+            document.getElementById('gallery-catEn').value = item.catEn;
+            document.getElementById('gallery-catTa').value = item.catTa;
+            document.getElementById('gallery-titleEn').value = item.titleEn;
+            document.getElementById('gallery-titleTa').value = item.titleTa;
+
+            updateGalleryPreview();
+
+            const btnLabel = document.getElementById('gallery-btn-submit-label');
+            if (btnLabel) btnLabel.innerText = "மாற்றங்களைச் சேமி (Update)";
+            
+            window.scrollTo({ top: document.getElementById('panel-gallery').offsetTop - 20, behavior: 'smooth' });
+        }
+
+        async function saveGalleryImage(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('gallery-id').value;
+            const isFileMode = document.querySelector('input[name="img-source-type"]:checked').value === 'file';
+            const finalSrc = isFileMode ? selectedGalleryBase64 : document.getElementById('gallery-src').value.trim();
+
+            if (!finalSrc) {
+                alert("Please upload an image or provide a valid image URL! / தயவுசெய்து ஒரு படத்தை பதிவேற்றவும் அல்லது சரியான இணைய முகவரியை வழங்கவும்!");
+                return;
+            }
+
+            const data = {
+                src: finalSrc,
+                catEn: document.getElementById('gallery-catEn').value.trim(),
+                catTa: document.getElementById('gallery-catTa').value.trim(),
+                titleEn: document.getElementById('gallery-titleEn').value.trim(),
+                titleTa: document.getElementById('gallery-titleTa').value.trim()
+            };
+            if (id) data.id = id;
+
+            await SAC_DATABASE.save("gallery", data);
+            showGlobalSuccessAlert("புகைப்படம் வெற்றிகரமாக சேமிக்கப்பட்டது!", "Gallery photo successfully saved!");
+            
+            resetGalleryForm();
+            await populateGalleryList();
+        }
+
+        async function deleteGalleryImage(id) {
+            if (confirm("Are you sure you want to delete this gallery photo?")) {
+                await SAC_DATABASE.delete("gallery", id);
+                showGlobalSuccessAlert("புகைப்படம் நீக்கப்பட்டது!", "Photo successfully deleted!");
+                await populateGalleryList();
+            }
+        }
+
+        function resetGalleryForm() {
+            document.getElementById('form-crud-gallery').reset();
+            document.getElementById('gallery-id').value = '';
+            selectedGalleryBase64 = "";
+            document.querySelector('input[name="img-source-type"][value="file"]').checked = true;
+            toggleImageInputType('file');
+            
+            const btnLabel = document.getElementById('gallery-btn-submit-label');
+            if (btnLabel) btnLabel.innerText = "புகைப்படம் சேர்";
+            
+            updateGalleryPreview();
+        }
+
         // ======================= TAB 7: DATABASE CONFIG FUNCTIONS =======================
         async function populateDatabaseConfig() {
             const config = await SAC_DATABASE.get("firebase_config");
@@ -1010,6 +1350,7 @@
             document.getElementById('tab-lbl-masses').innerText = isTa ? "வழிபாடுகள் (CRUD)" : "Schedules (CRUD)";
             document.getElementById('tab-lbl-notices').innerText = isTa ? "அறிவிப்புகள் (CRUD)" : "Announcements (CRUD)";
             document.getElementById('tab-lbl-timeline').innerText = isTa ? "வரலாறு (CRUD)" : "History (CRUD)";
+            document.getElementById('tab-lbl-gallery').innerText = isTa ? "புகைப்படங்கள் (CRUD)" : "Gallery (CRUD)";
             document.getElementById('tab-lbl-prayers').innerText = isTa ? "செப வேண்டுதல்கள்" : "Prayers";
             document.getElementById('tab-lbl-db').innerText = isTa ? "தரவுத்தளம் (Firebase)" : "Database Sync";
 
@@ -1026,8 +1367,12 @@
             document.getElementById('timeline-list-title').innerText = isTa ? "வரலாற்று மைல்கற்கள்" : "Parish Historical Milestones";
             document.getElementById('time-btn-submit-label').innerText = isTa ? "மைல்கல் சேர்" : "Save Milestone";
 
+            document.getElementById('gallery-form-title').innerText = isTa ? "புகைப்படம் சேர் / திருத்து" : "Add / Edit Gallery Photo";
+            document.getElementById('gallery-list-title').innerText = isTa ? "தற்போதைய புகைப்படங்கள்" : "Active Photo Gallery";
+            document.getElementById('gallery-btn-submit-label').innerText = isTa ? "புகைப்படம் சேர்" : "Save Photo";
+
             document.getElementById('prayer-title-card-lbl').innerText = isTa ? "மக்களின் செப வேண்டுதல்கள்" : "User Submitted Prayer Requests";
-            document.getElementById('db-config-title').innerText = isTa ? "லைவ் டேட்டாபேஸ் இணைப்பு (Firebase)" : "Live Firebase Configuration Settings";
+            document.getElementById('db-config-title').innerText = isTa ? "லைவ் டேطاءபேஸ் இணைப்பு (Firebase)" : "Live Firebase Configuration Settings";
             document.getElementById('domain-hosting-title').innerText = isTa ? "டொமைன் மற்றும் ஹோஸ்டிங் வழிகாட்டி" : "Domain & Hosting Deployment Guide";
 
             const copyrightLabel = document.getElementById('footer-church-name-copyright');
@@ -1038,4 +1383,5 @@
     </script>
 </body>
 </html>
+
 

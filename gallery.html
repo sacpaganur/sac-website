@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="புகைப்பட தொகுப்பு - புனித அந்தோணியார் ஆலயம் | Beautiful photograph gallery showcasing sanctuary altar, feast festivals, and parish life of St. Antony's Parish in Vadakku Paganur.">
+    <title>ஆலய புகைப்படங்கள் | புனித அந்தோணியார் ஆலயம் – வடக்கு பாகனூர்</title>
+    
+    <!-- Google Fonts & Icon Sets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom Light Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        /* Premium custom style overrides for gallery grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 40px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .gallery-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-premium);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .gallery-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+        
+        .gallery-card:hover .gallery-img {
+            transform: scale(1.08);
+        }
+        
+        .gallery-card-info {
+            padding: 20px;
+            border-top: 1px solid var(--border-glass);
+        }
+        
+        .gallery-card-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+        
+        .gallery-card-category {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+        }
+        
+        /* Lightbox Glassmorphic Overlay */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 25, 35, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .lightbox-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .lightbox-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transform: scale(0.95);
+            transition: transform 0.4s ease;
+            object-fit: contain;
+        }
+        
+        .lightbox-overlay.open .lightbox-img {
+            transform: scale(1);
+        }
+        
+        .lightbox-caption {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 16px;
+            margin-top: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+        }
+        
+        .lightbox-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .lightbox-cat {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .lightbox-btn {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            user-select: none;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lightbox-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: scale(1.05);
+        }
+        
+        .btn-close {
+            position: absolute;
+            top: -60px;
+            right: 0;
+        }
+        
+        .btn-prev {
+            left: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .btn-next {
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        @media (max-width: 900px) {
+            .btn-prev { left: 10px; bottom: -80px; top: auto; transform: none; }
+            .btn-next { right: 10px; bottom: -80px; top: auto; transform: none; }
+            .btn-close { top: -70px; right: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="navbar" id="main-nav-bar">
+        <div class="navbar-container">
+            <a href="index.html" class="brand-logo" id="nav-brand-link">
+                <span class="logo-icon" id="nav-brand-icon">⛪</span>
+                <div class="brand-text">
+                    <h1 class="brand-title" id="nav-brand-title">புனித அந்தோணியார் ஆலயம்</h1>
+                    <span class="brand-sub" id="nav-brand-sub">வடக்கு பாகனூர்</span>
+                </div>
+            </a>
+            
+            <!-- Desktop Navigation Links -->
+            <nav class="nav-menu" id="nav-links-menu">
+                <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
+                <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
+                <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
+                <a href="gallery.html" class="nav-link" id="nav-lnk-gallery" data-i18n="nav.gallery">புகைப்படங்கள்</a>
+                <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
+                <a href="contact.html" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
+            </nav>
+
+            <!-- Actions Buttons -->
+            <div class="navbar-actions" id="nav-actions-container">
+                <button class="btn-lang" id="lang-toggle">ENG</button>
+                <button class="btn-mobile-menu" id="mobile-menu-trigger">
+                    <span class="material-icons">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div class="mobile-drawer" id="mobile-drawer">
+        <div class="drawer-content">
+            <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
+            <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
+            <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
+            <a href="gallery.html" class="drawer-link" data-i18n="nav.gallery">புகைப்படங்கள்</a>
+            <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
+            <a href="contact.html" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
+        </div>
+    </div>
+
+    <!-- Main Content wrapper -->
+    <main class="main-wrapper">
+        <section class="subpage-header" style="background: linear-gradient(180deg, rgba(254, 252, 249, 0.85) 0%, var(--bg-light) 100%), url('images/hero_church_banner.png') no-repeat center center/cover; padding: 100px 24px 60px; border-bottom: 1px solid var(--border-glass);">
+            <h2 class="subpage-title" id="gallery-title-label">ஆலய புகைப்படங்கள்</h2>
+            <p class="subpage-subtitle" id="gallery-subtitle-label" style="font-weight: 500;">வடக்கு பாகனூர் புனித அந்தோணியார் ஆலயத்தின் அழகிய திருத்தலப் புகைப்படங்கள்.</p>
+        </section>
+        
+        <!-- Gallery Grid -->
+        <section class="gallery-grid" id="gallery-grid-feed">
+            <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">புகைப்படங்கள் ஏற்றப்படுகின்றன... / Loading photos...</div>
+        </section>
+    </main>
+
+    <!-- Custom Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
+        <div class="lightbox-container" onclick="event.stopPropagation()">
+            <button class="lightbox-btn btn-close" onclick="closeLightboxOverlay()">
+                <span class="material-icons">close</span>
+            </button>
+            <button class="lightbox-btn btn-prev" onclick="prevImage()">
+                <span class="material-icons">arrow_back</span>
+            </button>
+            <button class="lightbox-btn btn-next" onclick="nextImage()">
+                <span class="material-icons">arrow_forward</span>
+            </button>
+            <img src="" class="lightbox-img" id="lightbox-img" alt="Lightbox Image">
+            <div class="lightbox-caption">
+                <div class="lightbox-cat" id="lightbox-cat">Category</div>
+                <div class="lightbox-title" id="lightbox-title">Title Text</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Footer -->
+    <footer class="footer" id="global-footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <span class="footer-church-logo">⛪</span>
+                <h3>புனித அந்தோணியார் ஆலயம்</h3>
+                <p data-i18n="footer.tagline">அமைதியும் அருள்மரியும் பெருகும் புண்ணியத்தலம்</p>
+                <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);" class="footer-address-label">
+                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312.
+                </p>
+            </div>
+            <div class="footer-links-grid">
+                <div>
+                    <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
+                    <ul>
+                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
+                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
+                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer.resources">வளங்கள்</h4>
+                    <ul>
+                        <li><a href="gallery.html" data-i18n="nav.gallery">புகைப்படங்கள்</a></li>
+                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2026 <span id="footer-church-name-copyright">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்</span>. <span data-i18n="footer.copyText">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span></p>
+        </div>
+    </footer>
+
+    <!-- Firebase compatibility libraries -->
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
+
+    <!-- Core Script dependencies -->
+    <script src="js/database.js"></script>
+    <script src="js/common.js"></script>
+
+    <script>
+        let galleryData = [];
+        let currentIndex = 0;
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            await SAC_COMMON.init('gallery');
+            
+            await loadDynamicGallery();
+            translateGalleryLabels();
+            
+            window.addEventListener('sacLanguageChanged', () => {
+                translateGalleryLabels();
+                renderDynamicGallery();
+                if (document.getElementById('lightbox-overlay').classList.contains('open')) {
+                    updateLightboxContent();
+                }
+            });
+        });
+
+        async function loadDynamicGallery() {
+            try {
+                galleryData = await SAC_DATABASE.get("gallery") || [];
+                renderDynamicGallery();
+            } catch (err) {
+                console.error("Failed to load gallery:", err);
+            }
+        }
+
+        function renderDynamicGallery() {
+            const container = document.getElementById('gallery-grid-feed');
+            if (!container) return;
+
+            if (galleryData.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 50px;">
+                        <span class="material-icons" style="font-size:3rem; margin-bottom:12px; display:block; color:var(--text-muted);">photo_library</span>
+                        <span>புகைப்படங்கள் எதுவும் இல்லை / No photos found</span>
+                    </div>
+                `;
+                return;
+            }
+
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            container.innerHTML = galleryData.map((item, index) => {
+                const category = isTa ? item.catTa : item.catEn;
+                const title = isTa ? item.titleTa : item.titleEn;
+                return `
+                    <div class="gallery-card" onclick="openLightbox(${index})">
+                        <div class="gallery-img-wrapper">
+                            <img src="${item.src}" class="gallery-img" alt="${title}">
+                        </div>
+                        <div class="gallery-card-info">
+                            <span class="gallery-card-category">${category}</span>
+                            <h3 class="gallery-card-title">${title}</h3>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function translateGalleryLabels() {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            
+            const titleLbl = document.getElementById('gallery-title-label');
+            if (titleLbl) {
+                titleLbl.innerText = isTa ? "ஆலய புகைப்படங்கள்" : "Parish Photo Gallery";
+            }
+            
+            const subtitleLbl = document.getElementById('gallery-subtitle-label');
+            if (subtitleLbl) {
+                subtitleLbl.innerText = isTa ? "வடக்கு பாகனூர் புனித அந்தோணியார் ஆலயத்தின் அழகிய திருத்தலப் புகைப்படங்கள்." : "Beautiful snapshots of holy shrines, sacraments, and liturgical feasts.";
+            }
+
+            const copyrightLabel = document.getElementById('footer-church-name-copyright');
+            if (copyrightLabel) {
+                copyrightLabel.innerText = isTa ? "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்" : "St. Antony's Church, Vadakku Paganur";
+            }
+        }
+
+        // Lightbox Functions
+        function openLightbox(index) {
+            currentIndex = index;
+            const overlay = document.getElementById('lightbox-overlay');
+            overlay.classList.add('open');
+            updateLightboxContent();
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+        }
+
+        function closeLightboxOverlay() {
+            const overlay = document.getElementById('lightbox-overlay');
+            overlay.classList.remove('open');
+            document.body.style.overflow = ''; // Unlock scrolling
+        }
+
+        function closeLightbox(event) {
+            closeLightboxOverlay();
+        }
+
+        function updateLightboxContent() {
+            if (galleryData.length === 0) return;
+            const item = galleryData[currentIndex];
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            
+            const img = document.getElementById('lightbox-img');
+            const cat = document.getElementById('lightbox-cat');
+            const title = document.getElementById('lightbox-title');
+            
+            img.src = item.src;
+            cat.innerText = isTa ? item.catTa : item.catEn;
+            title.innerText = isTa ? item.titleTa : item.titleEn;
+        }
+
+        function nextImage() {
+            if (galleryData.length === 0) return;
+            currentIndex = (currentIndex + 1) % galleryData.length;
+            updateLightboxContent();
+        }
+
+        function prevImage() {
+            if (galleryData.length === 0) return;
+            currentIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
+            updateLightboxContent();
+        }
+
+        // Keyboard navigation support for lightbox
+        document.addEventListener('keydown', (e) => {
+            const overlay = document.getElementById('lightbox-overlay');
+            if (!overlay || !overlay.classList.contains('open')) return;
+            
+            if (e.key === 'ArrowRight') nextImage();
+            else if (e.key === 'ArrowLeft') prevImage();
+            else if (e.key === 'Escape') closeLightboxOverlay();
+        });
+    </script>
+</body>
+</html>

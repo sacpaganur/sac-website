@@ -20,7 +20,7 @@
     <!-- Navigation Header -->
     <header class="navbar" id="main-nav-bar">
         <div class="navbar-container">
-            <a href="index" class="brand-logo" id="nav-brand-link">
+            <a href="index.html" class="brand-logo" id="nav-brand-link">
                 <span class="logo-icon" id="nav-brand-icon">⛪</span>
                 <div class="brand-text">
                     <h1 class="brand-title" id="nav-brand-title">புனித அந்தோணியார் ஆலயம்</h1>
@@ -30,24 +30,17 @@
             
             <!-- Desktop Navigation Links -->
             <nav class="nav-menu" id="nav-links-menu">
-                <a href="index" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
-                <a href="schedule" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
-                <a href="legacy" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
-                <a href="notices" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
-                <a href="contact" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
+                <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
+                <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
+                <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
+                <a href="gallery.html" class="nav-link" id="nav-lnk-gallery" data-i18n="nav.gallery">புகைப்படங்கள்</a>
+                <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
+                <a href="contact.html" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
             </nav>
 
             <!-- Actions Buttons -->
             <div class="navbar-actions" id="nav-actions-container">
                 <button class="btn-lang" id="lang-toggle">ENG</button>
-                <a href="admin" class="btn-portal btn-admin" id="nav-portal-admin">
-                    <span class="material-icons btn-icon">admin_panel_settings</span>
-                    <span data-i18n="nav.admin">நிர்வாகி</span>
-                </a>
-                <a href="/#/login" class="btn-portal" id="nav-portal-member">
-                    <span class="material-icons btn-icon">lock_open</span>
-                    <span data-i18n="nav.portal">உறுப்பினர் பகுதி</span>
-                </a>
                 <button class="btn-mobile-menu" id="mobile-menu-trigger">
                     <span class="material-icons">menu</span>
                 </button>
@@ -58,25 +51,20 @@
     <!-- Mobile Drawer Overlay Menu -->
     <div class="mobile-drawer" id="mobile-drawer">
         <div class="drawer-content">
-            <a href="index" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
-            <a href="schedule" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
-            <a href="legacy" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
-            <a href="notices" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
-            <a href="contact" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
-            <a href="admin" class="drawer-link" style="color:var(--accent-gold);" data-i18n="nav.admin">நிர்வாகி</a>
-            <div class="drawer-divider"></div>
-            <a href="/#/login" class="drawer-portal-link">
-                <span class="material-icons">lock_open</span>
-                <span data-i18n="nav.portal">உறுப்பினர் பகுதி</span>
-            </a>
+            <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
+            <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
+            <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
+            <a href="gallery.html" class="drawer-link" data-i18n="nav.gallery">புகைப்படங்கள்</a>
+            <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
+            <a href="contact.html" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
         </div>
     </div>
 
     <!-- Main Content wrapper -->
     <main class="main-wrapper">
-        <section class="subpage-header">
+        <section class="subpage-header" style="background: linear-gradient(180deg, rgba(254, 252, 249, 0.85) 0%, var(--bg-light) 100%), url('images/hero_church_banner.png') no-repeat center center/cover; padding: 100px 24px 60px; border-bottom: 1px solid var(--border-glass);">
             <h2 class="subpage-title" id="schedule-title-label">வழிபாட்டு நேரங்கள்</h2>
-            <p class="subpage-subtitle" id="schedule-subtitle-label">திருப்பலி நேரங்கள் மற்றும் விபரங்கள் பங்கு மக்களின் ஆன்மீக வாழ்விற்காக.</p>
+            <p class="subpage-subtitle" id="schedule-subtitle-label" style="font-weight: 500;">திருப்பலி நேரங்கள் மற்றும் விபரங்கள் பங்கு மக்களின் ஆன்மீக வாழ்விற்காக.</p>
         </section>
         
         <section class="quick-summary-section" style="max-width:850px;">
@@ -84,6 +72,53 @@
                 <div class="timetable-list" id="mass-schedules-grid">
                     <!-- Dynamic Mass Schedules list mounted here -->
                     <div style="text-align:center;color:var(--text-muted);padding:30px;">வழிபாட்டு நேரங்கள் ஏற்றப்படுகின்றன... / Loading schedules...</div>
+                </div>
+        </section>
+
+        <!-- Additional Timetable & Devotion Information -->
+        <section class="section-container" style="padding-top:20px; padding-bottom:60px;">
+            <div style="text-align:center; margin-bottom:40px;">
+                <span class="liturgical-badge liturgical-lent" style="margin-bottom:12px;" data-i18n="sched.devotionTag">சிறப்பு வழிபாடுகள் | Special Devotions</span>
+                <h3 style="font-size:2rem; color:var(--primary);" data-i18n="sched.devotionTitle">மாதாந்திர மற்றும் சிறப்பு வழிபாட்டு விவரங்கள்</h3>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px;">
+                <!-- Tuesday Novena Box -->
+                <div class="summary-card" style="padding:28px;">
+                    <span class="liturgical-badge liturgical-lent" style="margin-bottom:10px;" data-i18n="sched.novenaBadge">செவ்வாய் நவநாள்</span>
+                    <h4 style="font-size:1.25rem; margin-bottom:12px;" data-i18n="sched.novenaTitle">புனித அந்தோணியார் நவநாள்</h4>
+                    <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.65; margin-bottom:16px;" data-i18n="sched.novenaDesc">ஒவ்வொரு செவ்வாய்க்கிழமையும் காலை 6:00 மணி மற்றும் மாலை 6:00 மணிக்கு புனித அந்தோணியாரின் சிறப்பு நவநாள் திருப்பலியும், எண்ணெய் அபிஷேகமும், தேர்ப்பவனியும் நடைபெறும்.</p>
+                </div>
+                
+                <!-- First Friday Box -->
+                <div class="summary-card" style="padding:28px;">
+                    <span class="liturgical-badge liturgical-martyrs" style="margin-bottom:10px;" data-i18n="sched.fridayBadge">முதல் வெள்ளி</span>
+                    <h4 style="font-size:1.25rem; margin-bottom:12px;" data-i18n="sched.fridayTitle">இயேசுவின் திருஇருதய வழிபாடு</h4>
+                    <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.65; margin-bottom:16px;" data-i18n="sched.fridayDesc">மாதத்தின் முதல் வெள்ளிக்கிழமை மாலை 5:30 மணிக்கு நற்கருணை ஆராதனையும், அதைத் தொடர்ந்து திருஇருதய சிறப்புத் திருப்பலியும், நற்கருணை ஆசீரும் வழங்கப்படும்.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parish Office & Sacramental Preparations -->
+        <section class="section-container" style="padding-top:20px; padding-bottom:60px; border-top: 1px solid var(--border-glass);">
+            <div style="text-align:center; margin-bottom:40px;">
+                <span class="liturgical-badge liturgical-ordinary" style="margin-bottom:12px;" data-i18n="sched.officeTag">அலுவலக தகவல்கள் | Parish Administration</span>
+                <h3 style="font-size:2rem; color:var(--primary);" data-i18n="sched.officeTitle">பங்கு அலுவலக வேலை நேரங்கள் & பதிவுகள்</h3>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+                <!-- Timing Details Card -->
+                <div class="summary-card" style="padding:28px; border-radius:24px; text-align: center;">
+                    <div style="font-size:2.5rem; margin-bottom:12px; display: inline-block;">📅</div>
+                    <h4 style="font-size:1.2rem; margin-bottom:10px; font-weight:800;" data-i18n="sched.offTimeTitle">அலுவலக வேலை நேரம்</h4>
+                    <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;" data-i18n="sched.offTimeDesc">திங்கள் முதல் சனி வரை: காலை 9:00 - மதியம் 12:30, மாலை 4:00 - 6:30 மணி. (ஞாயிறு விடுமுறை)</p>
+                </div>
+                
+                <!-- Baptism Card -->
+                <div class="summary-card" style="padding:28px; border-radius:24px; text-align: center;">
+                    <div style="font-size:2.5rem; margin-bottom:12px; display: inline-block;">💧</div>
+                    <h4 style="font-size:1.2rem; margin-bottom:10px; font-weight:800;" data-i18n="sched.baptTitle">திருமுழுக்கு (Baptism) பதிவுகள்</h4>
+                    <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;" data-i18n="sched.baptDesc">மாதத்தின் முதல் மற்றும் மூன்றாம் ஞாயிற்றுக்கிழமைகளில் ஞாயிறு திருப்பலியைத் தொடர்ந்து குழந்தைகளுக்கு திருமுழுக்கு வழங்கப்படும். ஒரு வாரத்திற்கு முன்பே பதிவு செய்யவும்.</p>
                 </div>
             </div>
         </section>
@@ -104,16 +139,15 @@
                 <div>
                     <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
                     <ul>
-                        <li><a href="index" data-i18n="nav.home">முகப்பு</a></li>
-                        <li><a href="schedule" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
-                        <li><a href="legacy" data-i18n="nav.legacy">வரலாறு</a></li>
+                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
+                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
+                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 data-i18n="footer.resources">வளங்கள்</h4>
                     <ul>
-                        <li><a href="notices" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
-                        <li><a href="/#/login" data-i18n="nav.portal">உறுப்பினர் பகுதி</a></li>
+                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
                     </ul>
                 </div>
             </div>
@@ -196,4 +230,6 @@
     </script>
 </body>
 </html>
+
+
 
