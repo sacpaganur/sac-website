@@ -209,6 +209,56 @@
                             <textarea id="set-heroLeadTa" class="form-control" required></textarea>
                         </div>
 
+                        <div class="drawer-divider" style="margin:24px 0;"></div>
+
+                        <div style="margin-bottom:16px;">
+                            <h4 style="color:var(--primary); margin-bottom:8px;">பங்குத் தந்தை (Parish Priest)</h4>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:12px;">
+                                <div class="form-group">
+                                    <label class="form-label">Name (English)</label>
+                                    <input type="text" id="set-priestNameEn" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">பெயர் (தமிழ்)</label>
+                                    <input type="text" id="set-priestNameTa" class="form-control">
+                                </div>
+                            </div>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                                <div class="form-group">
+                                    <label class="form-label">Phone / தொலைபேசி</label>
+                                    <input type="text" id="set-priestPhone" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email / மின்னஞ்சல்</label>
+                                    <input type="email" id="set-priestEmail" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:24px;">
+                            <h4 style="color:var(--primary); margin-bottom:8px;">மணியக்காரர் (Treasurer)</h4>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:12px;">
+                                <div class="form-group">
+                                    <label class="form-label">Name (English)</label>
+                                    <input type="text" id="set-treasurerNameEn" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">பெயர் (தமிழ்)</label>
+                                    <input type="text" id="set-treasurerNameTa" class="form-control">
+                                </div>
+                            </div>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                                <div class="form-group">
+                                    <label class="form-label">Phone / தொலைபேசி</label>
+                                    <input type="text" id="set-treasurerPhone" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email / மின்னஞ்சல்</label>
+                                    <input type="email" id="set-treasurerEmail" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
                         <button type="submit" class="btn-submit btn-admin-action" id="btn-save-settings">
                             <span class="material-icons">save</span> சேமிக்க / Save Settings
                         </button>
@@ -752,8 +802,18 @@
             document.getElementById('set-heroTagTa').value = settings.heroTagTa;
             document.getElementById('set-heroHeadlineEn').value = settings.heroHeadlineEn;
             document.getElementById('set-heroHeadlineTa').value = settings.heroHeadlineTa;
-            document.getElementById('set-heroLeadEn').value = settings.heroLeadEn;
-            document.getElementById('set-heroLeadTa').value = settings.heroLeadTa;
+            document.getElementById('set-heroLeadEn').value = settings.heroLeadEn || '';
+            document.getElementById('set-heroLeadTa').value = settings.heroLeadTa || '';
+            
+            document.getElementById('set-priestNameEn').value = settings.priestNameEn || '';
+            document.getElementById('set-priestNameTa').value = settings.priestNameTa || '';
+            document.getElementById('set-priestPhone').value = settings.priestPhone || '';
+            document.getElementById('set-priestEmail').value = settings.priestEmail || '';
+
+            document.getElementById('set-treasurerNameEn').value = settings.treasurerNameEn || '';
+            document.getElementById('set-treasurerNameTa').value = settings.treasurerNameTa || '';
+            document.getElementById('set-treasurerPhone').value = settings.treasurerPhone || '';
+            document.getElementById('set-treasurerEmail').value = settings.treasurerEmail || '';
         }
 
         async function saveGeneralSettings(e) {
@@ -772,7 +832,15 @@
                 heroHeadlineEn: document.getElementById('set-heroHeadlineEn').value,
                 heroHeadlineTa: document.getElementById('set-heroHeadlineTa').value,
                 heroLeadEn: document.getElementById('set-heroLeadEn').value,
-                heroLeadTa: document.getElementById('set-heroLeadTa').value
+                heroLeadTa: document.getElementById('set-heroLeadTa').value,
+                priestNameEn: document.getElementById('set-priestNameEn').value,
+                priestNameTa: document.getElementById('set-priestNameTa').value,
+                priestPhone: document.getElementById('set-priestPhone').value,
+                priestEmail: document.getElementById('set-priestEmail').value,
+                treasurerNameEn: document.getElementById('set-treasurerNameEn').value,
+                treasurerNameTa: document.getElementById('set-treasurerNameTa').value,
+                treasurerPhone: document.getElementById('set-treasurerPhone').value,
+                treasurerEmail: document.getElementById('set-treasurerEmail').value
             };
 
             await SAC_DATABASE.save("settings", data);

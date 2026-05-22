@@ -337,7 +337,8 @@ const SAC_DATABASE = {
     
     // Save to LocalStorage first (for instant local response and fallback)
     if (collectionName === "settings" || collectionName === "firebase_config") {
-      this.setCollection(localKey, data);
+      const existing = this.getCollection(localKey) || {};
+      this.setCollection(localKey, { ...existing, ...data });
     } else {
       // It's a collection array
       const items = this.getCollection(localKey) || [];
@@ -361,7 +362,7 @@ const SAC_DATABASE = {
     if (this.isFirebaseActive && this.db) {
       try {
         if (collectionName === "settings") {
-          await this.db.collection(collectionName).doc("general").set(data);
+          await this.db.collection(collectionName).doc("general").set(data, { merge: true });
         } else if (collectionName === "firebase_config") {
           // don't store secrets in public firestore for security
         } else {
