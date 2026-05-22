@@ -20,33 +20,10 @@ const SAC_DATABASE = {
       heroLeadTa: "அமைதியும் அன்பும் தவழும் புனித பூமியில், எங்கள் பங்கு சமூகத்துடன் இணைந்து இறைவனின் அருளையும் நன்மைகளையும் பெற்று மகிழுங்கள்."
     },
     mass_schedules: [
-      {
-        id: "mass_1",
-        dayEn: "Sunday",
-        dayTa: "ஞாயிற்றுக்கிழமை",
-        typeEn: "Sunday Holy Mass",
-        typeTa: "ஞாயிறு திருப்பலி",
-        time: "06:00 AM",
-        category: "sunday"
-      },
-      {
-        id: "mass_2",
-        dayEn: "Tuesday",
-        dayTa: "செவ்வாய்க்கிழமை",
-        typeEn: "Tuesday Novena Mass",
-        typeTa: "செவ்வாய் சிறப்பு திருப்பலி",
-        time: "06:00 AM & 06:00 PM",
-        category: "tuesday"
-      },
-      {
-        id: "mass_3",
-        dayEn: "Monday - Saturday",
-        dayTa: "திங்கள் - சனி",
-        typeEn: "Daily Holy Mass",
-        typeTa: "தினசரி திருப்பli",
-        time: "06:00 AM",
-        category: "daily"
-      }
+
+      { id: "mass_sun", dayEn: "SUNDAY", dayTa: "ஞாயிற்றுக்கிழமை", time: "06:00 AM", typeEn: "Sunday Mass", typeTa: "ஞாயிறு திருப்பலி", category: "SUNDAY", isActive: true },
+      { id: "mass_tue", dayEn: "TUESDAY", dayTa: "செவ்வாய்க்கிழமை", time: "06:00 AM & 06:00 PM", typeEn: "Tuesday Special Mass", typeTa: "செவ்வாய் சிறப்பு திருப்பலி", category: "TUESDAY", isActive: true },
+      { id: "mass_daily", dayEn: "MON - SAT", dayTa: "திங்கள் - சனி", time: "06:00 AM", typeEn: "Daily Mass", typeTa: "தினசரி திருப்பலி", category: "DAILY", isActive: true }
     ],
     announcements: [
       {
@@ -57,7 +34,9 @@ const SAC_DATABASE = {
         titleTa: "புனித அந்தோணியார் ஆண்டு பெருவிழா 2026",
         contentEn: "The annual grand festival of St. Antony will commence with the flag hoisting ceremony on June 4th, 2026, and conclude with the grand car procession on June 13th, 2026. All are welcome to receive blessings.",
         contentTa: "புனித அந்தோணியாரின் ஆண்டு பெருவிழா வருகிற ஜூன் 4, 2026 அன்று கொடியேற்றத்துடன் தொடங்கி, ஜூன் 13, 2026 அன்று ஆடம்பர தேர்ப்பவனியுடன் நிறைவடைகிறது. இறைமக்கள் அனைவரும் பங்கேற்று அருள்பெற அன்போடு அழைக்கிறோம்.",
-        expiryDate: "2026-06-15"
+        eventDate: "2026-06-04",
+        expiryDate: "2026-06-15",
+        isActive: true
       },
       {
         id: "notice_2",
@@ -67,7 +46,9 @@ const SAC_DATABASE = {
         titleTa: "மறைக்கல்வி வகுப்புகள் துவக்கம்",
         contentEn: "Sunday Catechism classes for children will resume on June 7th, 2026, immediately following the morning Holy Mass. Parents are requested to enroll their children.",
         contentTa: "குழந்தைகளுக்கான ஞாயிறு மறைக்கல்வி வகுப்புகள் வருகிற ஜூன் 7, 2026 முதல் காலை திருப்பலிக்குப் பின் துவங்க உள்ளன. பெற்றோர்கள் தங்கள் பிள்ளைகளை சேர்க்குமாறு கேட்டுக் கொள்ளப்படுகிறார்கள்.",
-        expiryDate: "2026-06-10"
+        eventDate: "2026-06-07",
+        expiryDate: "2026-06-10",
+        isActive: true
       }
     ],
     legacy_timeline: [
@@ -77,31 +58,35 @@ const SAC_DATABASE = {
         titleEn: "The Humble Foundation",
         titleTa: "ஆலய அடித்தளம்",
         descEn: "The first simple thatched roof chapel was constructed in Vadakku Paganur village, establishing a local place for communal prayer.",
-        descTa: "வடக்கு பாகனூர் கிராமத்தில் விசுவாசிகளின் ஜெபக் கூட்டத்திற்காக எளிய ஓலை வேய்ந்த கூரையின் கீழ் முதல் இறை இல்லம் அமைக்கப்பட்டது."
+        descTa: "வடக்கு பாகனூர் கிராமத்தில் விசுவாசிகளின் ஜெபக் கூட்டத்திற்காக எளிய ஓலை வேய்ந்த கூரையின் கீழ் முதல் இறை இல்லம் அமைக்கப்பட்டது.",
+        isActive: true
       },
       {
         id: "legacy_2",
         year: "1960",
-        titleEn: "The Stone Sanctuary",
+        titleEn: "New Stone Church",
         titleTa: "புதிய கல் கோவில்",
-        descEn: "With the unified contributions and manual labor of the parish community, a beautiful permanent stone sanctuary was built.",
-        descTa: "பங்கு மக்களின் கூட்டு முயற்சியாலும் உடல் உழைப்பாலும் ஆலயம் அழகிய கல் கட்டடமாக எழுப்பப்பட்டு அர்ப்பணிக்கப்பட்டது."
+        descEn: "Through the collective efforts and physical labor of the parishioners, the church was expanded and rebuilt with stone, replacing the old thatched structure.",
+        descTa: "பங்கு மக்களின் கூட்டு முயற்சியாலும் உடல் உழைப்பாலும் ஆலயம் விரிவாக்கப்பட்டு, பழைய ஓலைக் கூரைக்கு பதிலாக புதிய கல் கட்டடமாக எழுப்பப்பட்டது.",
+        isActive: true
       },
       {
         id: "legacy_3",
         year: "1995",
-        titleEn: "Independent Parish Status",
+        titleEn: "Elevation to Independent Parish",
         titleTa: "தனி பங்காக அறிவிப்பு",
-        descEn: "St. Antony's Church was canonically raised to an independent parish status, and the first resident parish priest was appointed.",
-        descTa: "புனித அந்தோணியார் ஆலயம் தனி பங்காக உயர்த்தப்பட்டு, முதல் பங்குத்தந்தை அதிகாரப்பூர்வமாக நியமிக்கப்பட்டார்."
+        descEn: "St. Antony's Church was officially elevated to the status of an independent parish, with its first resident parish priest appointed by the Bishop.",
+        descTa: "புனித அந்தோணியார் ஆலயம் தனி பங்காக உயர்த்தப்பட்டு, முதல் பங்குத் தந்தை ஆயரால் நியமிக்கப்பட்டார்.",
+        isActive: true
       },
       {
         id: "legacy_4",
         year: "2020",
-        titleEn: "Modern Shrine Renovation",
+        titleEn: "Renovated Shrine",
         titleTa: "புதுப்பிக்கப்பட்ட திருத்தலம்",
-        descEn: "The entire church structure was beautifully renovated with modern architectural inputs, stained glass designs, and beautiful surrounding shrines.",
-        descTa: "ஆலயத்தின் உள்கட்டமைப்புகள் முழுமையாக புதுப்பிக்கப்பட்டு, வண்ணக் கண்ணாடி ஓவியங்கள் மற்றும் எழிலார்ந்த பீடத்துடன் நவீன ஆலயமாக அர்ச்சிப்பு செய்யப்பட்டது."
+        descEn: "The church interior infrastructure was completely modernized, featuring new altar designs, advanced sound systems, and improved seating for the faithful.",
+        descTa: "ஆலயத்தின் உள்கட்டமைப்புகள் முழுமையாக புதுப்பிக்கப்பட்டு, புதிய பலிபீட வடிவமைப்பு, மேம்படுத்தப்பட்ட ஒலிபெருக்கி வசதிகள் மற்றும் இறைமக்களுக்கான புதிய இருக்கைகள் அமைக்கப்பட்டன.",
+        isActive: true
       }
     ],
     sacraments: [
@@ -176,7 +161,8 @@ const SAC_DATABASE = {
         catTa: "பலிபீடம் | Sanctuary",
         catEn: "Sanctuary Altar",
         titleTa: "அழகிய நற்கருணை பலிபீடம்",
-        titleEn: "Holy Eucharistic Sanctuary Altar"
+        titleEn: "Holy Eucharistic Sanctuary Altar",
+        isActive: true
       },
       {
         id: "gallery_2",
@@ -184,7 +170,8 @@ const SAC_DATABASE = {
         catTa: "திருவிழா | Festival",
         catEn: "Annual Festival",
         titleTa: "ஆண்டு திருவிழா மின்விளக்கு அலங்காரம்",
-        titleEn: "Grand Annual Feast Light Decoration"
+        titleEn: "Grand Annual Feast Light Decoration",
+        isActive: true
       },
       {
         id: "gallery_3",
@@ -192,7 +179,8 @@ const SAC_DATABASE = {
         catTa: "பங்கு பாடகர் குழு | Choir",
         catEn: "Parish Liturgical Choir",
         titleTa: "மெழுகுவர்த்தி வழிபாட்டு திருப்பலி பாடல்",
-        titleEn: "Solemn Candlelight Liturgical Choir Service"
+        titleEn: "Solemn Candlelight Liturgical Choir Service",
+        isActive: true
       },
       {
         id: "gallery_4",
@@ -200,7 +188,8 @@ const SAC_DATABASE = {
         catTa: "பாதுகாவலர் | Patron",
         catEn: "Patron Saint Devotion",
         titleTa: "அற்புத புனித அந்தோணியார் திருவுருவச் சிலை",
-        titleEn: "Miraculous Statue of St. Antony of Padua"
+        titleEn: "Miraculous Statue of St. Antony of Padua",
+        isActive: true
       }
     ]
   },
@@ -220,7 +209,8 @@ const SAC_DATABASE = {
   },
 
   _ensureCollection(key, defaultValue) {
-    if (!localStorage.getItem(key)) {
+    // Force refresh announcements to apply the new eventDate schema
+    if (!localStorage.getItem(key) || key === 'sac_announcements') {
       localStorage.setItem(key, JSON.stringify(defaultValue));
     }
   },

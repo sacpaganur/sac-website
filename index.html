@@ -15,6 +15,7 @@
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/hero-home.css">
+    <link rel="stylesheet" href="css/modal.css">
 </head>
 <body>
 
@@ -33,6 +34,7 @@
             <nav class="nav-menu" id="nav-links-menu">
                 <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
                 <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
+                <a href="calendar.html" class="nav-link" id="nav-lnk-calendar" data-i18n="nav.calendar">நாட்காட்டி</a>
                 <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
                 <a href="gallery.html" class="nav-link" id="nav-lnk-gallery" data-i18n="nav.gallery">புகைப்படங்கள்</a>
                 <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
@@ -54,6 +56,7 @@
         <div class="drawer-content">
             <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
             <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
+            <a href="calendar.html" class="drawer-link" data-i18n="nav.calendar">நாட்காட்டி</a>
             <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
             <a href="gallery.html" class="drawer-link" data-i18n="nav.gallery">புகைப்படங்கள்</a>
             <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
@@ -90,7 +93,7 @@
             </div>
             <p class="hero-cinema__lead" data-hero-animate data-i18n="hero.lead">அமைதியும் அன்பும் தவழும் புனித பூமியில், எங்கள் பங்கு சமூகத்துடன் இணைந்து இறைவனின் அருளையும் நன்மைகளையும் பெற்று மகிழுங்கள்.</p>
             <figure class="hero-cinema__scripture" data-hero-animate>
-                <blockquote data-i18n="hero.scripture">"அன்பே உருவான இறைவனிடம் கேளுங்கள், உங்களுக்குத் தரப்படும்; தேடுங்கள், நீங்கள் கண்டடைவீர்கள்." - மத்தேயு 7:7</blockquote>
+                <blockquote id="hero-daily-scripture"></blockquote>
             </figure>
             <div class="hero-cinema__cta" data-hero-animate>
                 <a href="schedule.html" class="hero-cinema__btn hero-cinema__btn--fill">
@@ -122,9 +125,12 @@
 
     <div class="hero-cinema__marquee" aria-hidden="true">
         <div class="hero-cinema__marquee-track">
-            <span>புனித அந்தோணியார் ஆலயம்</span><span>✦</span><span>Vadakku Paganur</span><span>✦</span>
-            <span>Shrine of St. Antony</span><span>✦</span><span>புனித அந்தோணியார் ஆலயம்</span><span>✦</span><span>Vadakku Paganur</span><span>✦</span>
-            <span>Shrine of St. Antony</span><span>✦</span>
+            <span>"Actions speak louder than words" - St. Antony</span><span>✦</span>
+            <span>"செயல்கள் வார்த்தைகளை விட சத்தமாக பேசுகின்றன" - புனித அந்தோனியார்</span><span>✦</span>
+            <span>"Let your words teach and your actions speak" - St. Antony</span><span>✦</span>
+            <span>"உங்கள் வார்த்தைகள் கற்பிக்கட்டும், உங்கள் செயல்கள் பேசட்டும்" - புனித அந்தோனியார்</span><span>✦</span>
+            <span>"Earthly riches are like the reed" - St. Antony</span><span>✦</span>
+            <span>"உலகப் செல்வங்கள் நாணல் போன்றவையே" - புனித அந்தோனியார்</span><span>✦</span>
         </div>
     </div>
 
@@ -265,6 +271,33 @@
     <!-- Global Footer (enhanced markup injected by js/footer.js) -->
     <footer class="footer" id="global-footer"></footer>
 
+    <!-- Upcoming Event Modal -->
+    <div class="event-modal-overlay" id="upcomingEventModal">
+        <div class="event-modal-content">
+            <button class="event-modal-close" onclick="closeEventModal()">
+                <span class="material-icons">close</span>
+            </button>
+            <div class="event-modal-header">
+                <div class="event-modal-icon">
+                    <span class="material-icons">campaign</span>
+                </div>
+                <h3 id="em-category">Upcoming Event</h3>
+            </div>
+            <div class="event-modal-body">
+                <div class="event-modal-countdown" id="em-countdown"></div>
+                <h2 id="em-title">Event Title</h2>
+                <div class="event-modal-date"><span class="material-icons" style="font-size:16px;">event</span> <span id="em-date-text">Date</span></div>
+                <p id="em-desc">Event description goes here...</p>
+            </div>
+            <div class="event-modal-footer">
+                <a href="notices.html" class="event-modal-btn" id="em-view-btn">
+                    <span>View All Announcements</span>
+                    <span class="material-icons" style="font-size: 18px;">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Firebase compatibility libraries (Admin configured Firestore connection support) -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
@@ -287,20 +320,78 @@
                 // Start Mass Countdown
                 startHomeCountdown();
                 
+                // Show upcoming event popup
+                await checkUpcomingEvent();
+                
+                // Set daily verse
+                updateDailyVerse();
+                
                 // Translate when language changes
                 window.addEventListener('sacLanguageChanged', async () => {
                     await loadHomeMassList();
                     translateHomeLabels();
                     await startHomeCountdown();
+                    updateDailyVerse();
                 });
             });
+
+        // Upcoming Event Popup Logic
+        async function checkUpcomingEvent() {
+            if (sessionStorage.getItem('eventPopupShown')) return;
+            const announcements = await SAC_DATABASE.get("announcements") || [];
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            
+            const upcomingEvents = announcements.filter(a => {
+                const expDate = new Date(a.expiryDate);
+                return expDate >= today && a.isActive !== false;
+            }).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            if (upcomingEvents.length > 0) {
+                const event = upcomingEvents[0];
+                const isTa = SAC_COMMON.currentLang === 'ta';
+                
+                document.getElementById('em-category').innerText = event.category || (isTa ? 'வரவிருக்கும் நிகழ்வு' : 'Upcoming Event');
+                document.getElementById('em-title').innerText = isTa ? (event.titleTa || event.titleEn) : (event.titleEn || event.titleTa);
+                
+                const targetDateStr = event.eventDate || event.date;
+                const eventDate = new Date(targetDateStr);
+                eventDate.setHours(0,0,0,0);
+                document.getElementById('em-date-text').innerText = eventDate.toLocaleDateString(isTa ? 'ta-IN' : 'en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                
+                const timeDiff = eventDate.getTime() - today.getTime();
+                const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                let countText = "";
+                if (diffDays === 0) {
+                    countText = isTa ? "இன்று நடைபெறும் நிகழ்வு!" : "Happening Today!";
+                } else if (diffDays > 0) {
+                    countText = isTa ? `இன்னும் ${diffDays} நாட்களில்` : `In ${diffDays} Days`;
+                } else {
+                    countText = isTa ? `${Math.abs(diffDays)} நாட்களுக்கு முன்` : `${Math.abs(diffDays)} Days Ago`;
+                }
+                document.getElementById('em-countdown').innerText = countText;
+                
+                document.getElementById('em-desc').innerText = isTa ? (event.contentTa || event.contentEn) : (event.contentEn || event.contentTa);
+                document.getElementById('em-view-btn').innerText = isTa ? 'அனைத்து அறிவிப்புகளையும் காண்க' : 'View All Announcements';
+                
+                setTimeout(() => {
+                    document.getElementById('upcomingEventModal').classList.add('active');
+                    sessionStorage.setItem('eventPopupShown', 'true');
+                }, 1500);
+            }
+        }
+        
+        window.closeEventModal = function() {
+            document.getElementById('upcomingEventModal').classList.remove('active');
+        };
 
         // Fetch schedules from DB and list them in the summary card
         async function loadHomeMassList() {
             const container = document.getElementById('home-mass-list');
             if (!container) return;
-
-            const masses = await SAC_DATABASE.get("mass_schedules");
+            
+            const allMasses = await SAC_DATABASE.get("mass_schedules");
+            const masses = allMasses.filter(m => m.isActive !== false);
             const isTa = SAC_COMMON.currentLang === 'ta';
 
             if (masses.length === 0) {
@@ -339,7 +430,8 @@
         async function startHomeCountdown() {
             if (countdownInterval) clearInterval(countdownInterval);
 
-            const masses = await SAC_DATABASE.get("mass_schedules");
+            const allMasses = await SAC_DATABASE.get("mass_schedules");
+            const masses = allMasses.filter(m => m.isActive !== false);
             
             const parseTime = (timeStr) => {
                 if (!timeStr) return null;
@@ -457,6 +549,30 @@
 
             updateTimer();
             countdownInterval = setInterval(updateTimer, 1000);
+        }
+
+        const dailyVerses = [
+            { textEn: '"Ask and it will be given to you; seek and you will find."', refEn: 'Matthew 7:7', textTa: '"கேளுங்கள், உங்களுக்குக் கொடுக்கப்படும்; தேடுங்கள், நீங்கள் கண்டடைவீர்கள்."', refTa: 'மத்தேயு 7:7' },
+            { textEn: '"I can do all this through him who gives me strength."', refEn: 'Philippians 4:13', textTa: '"என்னை வலுப்படுத்துபவர் வழியாக எல்லாவற்றையும் செய்ய எனக்கு ஆற்றல் உண்டு."', refTa: 'பிலிப்பியர் 4:13' },
+            { textEn: '"The Lord is my shepherd, I lack nothing."', refEn: 'Psalm 23:1', textTa: '"ஆண்டவரே என் ஆயர்; எனக்கேதும் குறையில்லை."', refTa: 'திருப்பாடல்கள் 23:1' },
+            { textEn: '"Trust in the LORD with all your heart."', refEn: 'Proverbs 3:5', textTa: '"உன் முழு மனத்தோடு ஆண்டவர்மேல் நம்பிக்கை வை."', refTa: 'நீதிமொழிகள் 3:5' },
+            { textEn: '"For God so loved the world that he gave his one and only Son."', refEn: 'John 3:16', textTa: '"தம் ஒரே மகனையே அளிக்கும் அளவுக்குக் கடவுள் உலகின்மேல் அன்பு கூர்ந்தார்."', refTa: 'யோவான் 3:16' },
+            { textEn: '"Be strong and courageous. Do not be afraid; for the LORD your God will be with you."', refEn: 'Joshua 1:9', textTa: '"வலிமையோடும் துணிவோடும் இரு; அஞ்சாதே; ஏனெனில் உன் கடவுளாகிய ஆண்டவர் உன்னோடு இருப்பார்."', refTa: 'யோசுவா 1:9' },
+            { textEn: '"Come to me, all you who are weary and burdened, and I will give you rest."', refEn: 'Matthew 11:28', textTa: '"பெருஞ்சுமை சுமந்து சோர்ந்திருப்பவர்களே, எல்லாரும் என்னிடம் வாருங்கள், நான் உங்களுக்கு இளைப்பாறுதல் தருவேன்."', refTa: 'மத்தேயு 11:28' }
+        ];
+
+        function updateDailyVerse() {
+            const today = new Date().getDate();
+            const verse = dailyVerses[today % dailyVerses.length];
+            const isTa = window.SAC_COMMON && window.SAC_COMMON.currentLang === 'ta';
+            
+            const verseText = isTa ? verse.textTa : verse.textEn;
+            const verseRef = isTa ? verse.refTa : verse.refEn;
+
+            const bq = document.getElementById('hero-daily-scripture');
+            if (bq) {
+                bq.innerHTML = `<strong>${verseText}</strong><br><small style="font-style: italic; opacity: 0.8; margin-top: 6px; display: inline-block; font-size: 0.85em;">- ${verseRef}</small>`;
+            }
         }
 
     </script>

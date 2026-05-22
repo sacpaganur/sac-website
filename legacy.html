@@ -33,6 +33,7 @@
             <nav class="nav-menu" id="nav-links-menu">
                 <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
                 <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
+                <a href="calendar.html" class="nav-link" id="nav-lnk-calendar" data-i18n="nav.calendar">நாட்காட்டி</a>
                 <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
                 <a href="gallery.html" class="nav-link" id="nav-lnk-gallery" data-i18n="nav.gallery">புகைப்படங்கள்</a>
                 <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
@@ -54,6 +55,7 @@
         <div class="drawer-content">
             <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
             <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
+            <a href="calendar.html" class="drawer-link" data-i18n="nav.calendar">நாட்காட்டி</a>
             <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
             <a href="gallery.html" class="drawer-link" data-i18n="nav.gallery">புகைப்படங்கள்</a>
             <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
@@ -361,7 +363,8 @@
             const container = document.getElementById('dynamic-timeline-feed');
             if (!container) return;
 
-            const events = await SAC_DATABASE.get("legacy_timeline") || [];
+            const allEvents = await SAC_DATABASE.get("legacy_timeline") || [];
+            const events = allEvents.filter(e => e.isActive !== false);
             const isTa = SAC_COMMON.currentLang === 'ta';
 
             if (events.length === 0) {

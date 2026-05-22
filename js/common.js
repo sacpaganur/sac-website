@@ -9,6 +9,7 @@ const SAC_COMMON = {
     "ta": {
       "nav.home": "முகப்பு",
       "nav.schedule": "வழிபாடுகள்",
+      "nav.calendar": "நாட்காட்டி",
       "nav.legacy": "வரலாறு",
       "nav.notices": "அறிவிப்புகள்",
       "nav.contact": "தொடர்பு",
@@ -207,7 +208,8 @@ const SAC_COMMON = {
     "en": {
       "nav.home": "Home",
       "nav.schedule": "Mass Schedules",
-      "nav.legacy": "History",
+      "nav.calendar": "Calendar",
+      "nav.legacy": "Legacy",
       "nav.notices": "Announcements",
       "nav.contact": "Contact",
       "nav.gallery": "Gallery",

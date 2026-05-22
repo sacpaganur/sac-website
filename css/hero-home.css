@@ -39,8 +39,13 @@
 }
 
 @keyframes cinemaKenBurns {
-  0% { transform: scale(1.12) translate(0, 0); }
-  100% { transform: scale(1.2) translate(-2%, -1.5%); }
+  0% {
+    transform: scale(1.12) translate(0, 0);
+  }
+
+  100% {
+    transform: scale(1.2) translate(-2%, -1.5%);
+  }
 }
 
 .hero-cinema__backdrop-gradient {
@@ -65,8 +70,15 @@
 }
 
 @keyframes cinemaHaloPulse {
-  0% { transform: scale(0.9); opacity: 0.5; }
-  100% { transform: scale(1.15); opacity: 0.85; }
+  0% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1.15);
+    opacity: 0.85;
+  }
 }
 
 .hero-cinema__rays {
@@ -92,15 +104,36 @@
   transform-origin: center bottom;
 }
 
-.hero-cinema__rays li:nth-child(1) { transform: rotate(0deg); }
-.hero-cinema__rays li:nth-child(2) { transform: rotate(45deg); }
-.hero-cinema__rays li:nth-child(3) { transform: rotate(90deg); }
-.hero-cinema__rays li:nth-child(4) { transform: rotate(135deg); }
-.hero-cinema__rays li:nth-child(5) { transform: rotate(22deg); opacity: 0.6; }
-.hero-cinema__rays li:nth-child(6) { transform: rotate(112deg); opacity: 0.5; }
+.hero-cinema__rays li:nth-child(1) {
+  transform: rotate(0deg);
+}
+
+.hero-cinema__rays li:nth-child(2) {
+  transform: rotate(45deg);
+}
+
+.hero-cinema__rays li:nth-child(3) {
+  transform: rotate(90deg);
+}
+
+.hero-cinema__rays li:nth-child(4) {
+  transform: rotate(135deg);
+}
+
+.hero-cinema__rays li:nth-child(5) {
+  transform: rotate(22deg);
+  opacity: 0.6;
+}
+
+.hero-cinema__rays li:nth-child(6) {
+  transform: rotate(112deg);
+  opacity: 0.5;
+}
 
 @keyframes cinemaRaysSpin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .hero-cinema__strip {
@@ -120,14 +153,36 @@
   animation: cinemaStripPulse 4s ease-in-out infinite alternate;
 }
 
-.hero-cinema__strip span:nth-child(1) { background: hsl(265, 75%, 48%); animation-delay: 0s; }
-.hero-cinema__strip span:nth-child(2) { background: hsl(325, 70%, 50%); animation-delay: 0.4s; }
-.hero-cinema__strip span:nth-child(3) { background: hsl(40, 90%, 52%); animation-delay: 0.8s; }
-.hero-cinema__strip span:nth-child(4) { background: hsl(265, 60%, 55%); animation-delay: 1.2s; }
+.hero-cinema__strip span:nth-child(1) {
+  background: hsl(265, 75%, 48%);
+  animation-delay: 0s;
+}
+
+.hero-cinema__strip span:nth-child(2) {
+  background: hsl(325, 70%, 50%);
+  animation-delay: 0.4s;
+}
+
+.hero-cinema__strip span:nth-child(3) {
+  background: hsl(40, 90%, 52%);
+  animation-delay: 0.8s;
+}
+
+.hero-cinema__strip span:nth-child(4) {
+  background: hsl(265, 60%, 55%);
+  animation-delay: 1.2s;
+}
 
 @keyframes cinemaStripPulse {
-  0% { opacity: 0.65; filter: brightness(0.9); }
-  100% { opacity: 1; filter: brightness(1.15); }
+  0% {
+    opacity: 0.65;
+    filter: brightness(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    filter: brightness(1.15);
+  }
 }
 
 /* --- Main grid --- */
@@ -177,8 +232,17 @@
 }
 
 @keyframes cinemaTagPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.35); opacity: 0.7; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.35);
+    opacity: 0.7;
+  }
 }
 
 .hero-cinema__title {
@@ -202,8 +266,13 @@ body:lang(ta) .hero-cinema__title {
 }
 
 @keyframes cinemaTitleShine {
-  0% { background-position: 0% center; }
-  100% { background-position: 100% center; }
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 100% center;
+  }
 }
 
 .hero-cinema__divider {
@@ -231,8 +300,17 @@ body:lang(ta) .hero-cinema__title {
 }
 
 @keyframes cinemaCrossGlow {
-  0%, 100% { filter: drop-shadow(0 0 4px hsla(40, 90%, 55%, 0.4)); transform: scale(1); }
-  50% { filter: drop-shadow(0 0 14px hsla(40, 95%, 60%, 0.9)); transform: scale(1.12); }
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px hsla(40, 90%, 55%, 0.4));
+    transform: scale(1);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 14px hsla(40, 95%, 60%, 0.9));
+    transform: scale(1.12);
+  }
 }
 
 .hero-cinema__lead {
@@ -306,8 +384,16 @@ body:lang(ta) .hero-cinema__scripture blockquote {
 }
 
 @keyframes cinemaBtnShine {
-  0%, 55%, 100% { transform: translateX(-120%); }
-  70% { transform: translateX(120%); }
+
+  0%,
+  55%,
+  100% {
+    transform: translateX(-120%);
+  }
+
+  70% {
+    transform: translateX(120%);
+  }
 }
 
 .hero-cinema__btn--fill:hover {
@@ -364,8 +450,15 @@ body:lang(ta) .hero-cinema__scripture blockquote {
 }
 
 @keyframes cinemaPortalImgFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .hero-cinema__portal-ring {
@@ -388,7 +481,9 @@ body:lang(ta) .hero-cinema__scripture blockquote {
 }
 
 @keyframes cinemaRingSpin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .hero-cinema__float-cards {
@@ -431,8 +526,15 @@ body:lang(ta) .hero-cinema__scripture blockquote {
 }
 
 @keyframes cinemaCardBob {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(-6px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-6px);
+  }
 }
 
 .hero-cinema__float-icon {
@@ -473,8 +575,13 @@ body:lang(ta) .hero-cinema__scripture blockquote {
 }
 
 @keyframes cinemaMarquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* --- Scroll cue --- */
@@ -508,8 +615,17 @@ body:lang(ta) .hero-cinema__scripture blockquote {
 }
 
 @keyframes cinemaScrollLine {
-  0%, 100% { transform: scaleY(0.6); opacity: 0.5; }
-  50% { transform: scaleY(1); opacity: 1; }
+
+  0%,
+  100% {
+    transform: scaleY(0.6);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 
 /* --- Entrance animations --- */
@@ -529,15 +645,37 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   filter: blur(0);
 }
 
-.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(1) { transition-delay: 0.05s; }
-.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(2) { transition-delay: 0.15s; }
-.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(3) { transition-delay: 0.25s; }
-.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(4) { transition-delay: 0.35s; }
-.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(5) { transition-delay: 0.45s; }
-.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(6) { transition-delay: 0.55s; }
+.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(1) {
+  transition-delay: 0.05s;
+}
 
-.hero-cinema.hero-cinema--ready .hero-cinema__float-card:nth-child(1) { transition-delay: 0.65s; }
-.hero-cinema.hero-cinema--ready .hero-cinema__float-card:nth-child(2) { transition-delay: 0.78s; }
+.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(2) {
+  transition-delay: 0.15s;
+}
+
+.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(3) {
+  transition-delay: 0.25s;
+}
+
+.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(4) {
+  transition-delay: 0.35s;
+}
+
+.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(5) {
+  transition-delay: 0.45s;
+}
+
+.hero-cinema.hero-cinema--ready .hero-cinema__copy [data-hero-animate]:nth-child(6) {
+  transition-delay: 0.55s;
+}
+
+.hero-cinema.hero-cinema--ready .hero-cinema__float-card:nth-child(1) {
+  transition-delay: 0.65s;
+}
+
+.hero-cinema.hero-cinema--ready .hero-cinema__float-card:nth-child(2) {
+  transition-delay: 0.78s;
+}
 
 .hero-cinema__portal {
   opacity: 0;
@@ -553,6 +691,7 @@ body:lang(ta) .hero-cinema__scripture blockquote {
 
 /* --- Reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
+
   .hero-cinema *,
   .hero-cinema *::before,
   .hero-cinema *::after {
@@ -720,7 +859,7 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   padding: 30px 16px 40px;
   background-color: #fafaf9;
   overflow: hidden;
-  border-top: 1px solid rgba(0,0,0,0.03);
+  border-top: 1px solid rgba(0, 0, 0, 0.03);
 }
 
 .patron-vision-bg {
@@ -728,9 +867,9 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: 
-    linear-gradient(to right, rgba(0,0,0,0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0,0,0,0.025) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
@@ -772,7 +911,7 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   gap: 6px;
   padding: 4px 14px;
   background: #fff;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 100px;
   font-size: 0.7rem;
   font-weight: 800;
@@ -780,7 +919,7 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   letter-spacing: 0.1em;
   color: hsl(265, 75%, 45%);
   margin-bottom: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .patron-vision-tag::before {
@@ -795,7 +934,7 @@ body:lang(ta) .hero-cinema__scripture blockquote {
 .patron-vision-title {
   font-size: clamp(1.4rem, 2.8vw, 2.1rem);
   font-weight: 900;
-  line-height: 1.15;
+  /* line-height: 1.15; */
   margin-bottom: 12px;
   letter-spacing: -0.02em;
   background: linear-gradient(135deg, hsl(265, 75%, 35%) 0%, hsl(40, 90%, 42%) 100%);
@@ -829,8 +968,9 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   overflow: hidden;
   background: #fff;
   border: 4px solid #fff;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-  transform: translateZ(0); /* Force hardware accel for smooth hover */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  transform: translateZ(0);
+  /* Force hardware accel for smooth hover */
 }
 
 .patron-vision-img {
@@ -857,15 +997,22 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   white-space: nowrap;
   animation: visionPillFloat 4s ease-in-out infinite;
 }
 
 @keyframes visionPillFloat {
-  0%, 100% { transform: translate(-50%, 0); }
-  50% { transform: translate(-50%, -8px); }
+
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, -8px);
+  }
 }
 
 .pill-avatars {
@@ -884,7 +1031,7 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   justify-content: center;
   font-size: 13px;
   margin-left: -10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .pill-avatars .avatar:first-child {
@@ -908,13 +1055,13 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   background: #fff;
   border-radius: 16px;
   padding: 16px 20px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid rgba(0,0,0,0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
   overflow: hidden;
 }
 
@@ -979,16 +1126,18 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   color: #fff;
 }
 
-.icon-blue { 
-  background: linear-gradient(135deg, #60a5fa, #3b82f6); 
+.icon-blue {
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
   box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
 }
-.icon-purple { 
-  background: linear-gradient(135deg, #a78bfa, #8b5cf6); 
+
+.icon-purple {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
   box-shadow: 0 6px 16px rgba(139, 92, 246, 0.3);
 }
-.icon-gold { 
-  background: linear-gradient(135deg, #fbbf24, #f59e0b); 
+
+.icon-gold {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
   box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
 }
 
@@ -1006,10 +1155,12 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   .patron-vision-section {
     padding: 30px 16px 40px;
   }
+
   .patron-vision-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+
   .patron-vision-image-wrapper {
     min-height: 250px;
   }

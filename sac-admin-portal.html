@@ -14,6 +14,130 @@
     
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* --- Admin Portal Active/Inactive Toggle Styles --- */
+        .inactive-item {
+            opacity: 0.6;
+            filter: grayscale(80%);
+            background: rgba(240, 240, 240, 0.5) !important;
+            border-left: 4px solid #999 !important;
+        }
+
+        .inactive-toggle {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #cbd5e1;
+        }
+
+        .active-toggle {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+        }
+        .password-toggle-btn:hover {
+            color: var(--primary);
+        }
+
+        /* Custom Confirm Modal */
+        .custom-confirm-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+        .custom-confirm-modal {
+            background: #fff;
+            border-radius: 20px;
+            padding: 32px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .custom-confirm-modal .confirm-icon {
+            background: #fee2e2;
+            color: #ef4444;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        .custom-confirm-modal .confirm-icon .material-icons {
+            font-size: 32px;
+        }
+        .custom-confirm-modal .confirm-title {
+            margin: 0 0 8px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .custom-confirm-modal .confirm-message {
+            margin: 0 0 24px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .custom-confirm-modal .confirm-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .custom-confirm-modal .confirm-actions button {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-confirm-cancel {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        .btn-confirm-cancel:hover {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        .btn-confirm-delete {
+            background: #ef4444;
+            color: white;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        .btn-confirm-delete:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+        }
+    </style>
 </head>
 <body>
 
@@ -32,6 +156,7 @@
             <nav class="nav-menu" id="nav-links-menu">
                 <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
                 <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
+                <a href="calendar.html" class="nav-link" id="nav-lnk-calendar" data-i18n="nav.calendar">நாட்காட்டி</a>
                 <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
                 <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
                 <a href="contact.html" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
@@ -52,6 +177,7 @@
         <div class="drawer-content">
             <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
             <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
+            <a href="calendar.html" class="drawer-link" data-i18n="nav.calendar">நாட்காட்டி</a>
             <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
             <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
             <a href="contact.html" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
@@ -72,7 +198,12 @@
                 <form onsubmit="handleAdminLogin(event)">
                     <div class="form-group" style="margin-bottom:20px;">
                         <label class="form-label" style="font-weight:600;">கடவுச்சொல் / Password</label>
-                        <input type="password" id="admin-password-input" class="form-control" placeholder="••••••••" required style="letter-spacing:3px; text-align:center; font-size:1.2rem;">
+                        <div class="password-wrapper">
+                            <input type="password" id="admin-password-input" class="form-control" placeholder="••••••••" required style="letter-spacing:3px; text-align:center; font-size:1.2rem; width:100%;">
+                            <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('admin-password-input', 'admin-pw-icon')">
+                                <span class="material-icons" id="admin-pw-icon">visibility</span>
+                            </button>
+                        </div>
                     </div>
                     <div id="login-error-msg" class="form-alert error" style="display:none; margin-bottom:16px; font-size:0.85rem; padding:10px;">
                         ⚠️ தவறான கடவுச்சொல்! / Incorrect Password!
@@ -242,6 +373,7 @@
                                     <label class="form-label">Name (English)</label>
                                     <input type="text" id="set-treasurerNameEn" class="form-control">
                                 </div>
+
                                 <div class="form-group">
                                     <label class="form-label">பெயர் (தமிழ்)</label>
                                     <input type="text" id="set-treasurerNameTa" class="form-control">
@@ -255,6 +387,19 @@
                                 <div class="form-group">
                                     <label class="form-label">Email / மின்னஞ்சல்</label>
                                     <input type="email" id="set-treasurerEmail" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:24px;">
+                            <h4 style="color:var(--primary); margin-bottom:8px;">செயற்கை நுண்ணறிவு (AI Services)</h4>
+                            <div class="form-group">
+                                <label class="form-label">Gemini AI API Key</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="set-aiApiKey" class="form-control" placeholder="API Key for AI Assistant & Voice features">
+                                    <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('set-aiApiKey', 'gemini-pw-icon')">
+                                        <span class="material-icons" id="gemini-pw-icon">visibility</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -707,6 +852,18 @@
             document.getElementById('admin-dashboard-panel').style.display = 'none';
         }
 
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.innerText = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.innerText = 'visibility';
+            }
+        }
+
         async function showAdminDashboard() {
             document.getElementById('admin-login-container').style.display = 'none';
             document.getElementById('admin-dashboard-panel').style.display = 'block';
@@ -721,6 +878,49 @@
             await populateDatabaseConfig();
 
             updateDBConnectionStatusBadge();
+        }
+
+        function showCustomConfirm(msgEn, msgTa, onConfirm) {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const overlay = document.getElementById('custom-confirm-overlay');
+            const titleEl = document.getElementById('custom-confirm-title');
+            const msgEl = document.getElementById('custom-confirm-message');
+            const cancelBtn = document.getElementById('custom-confirm-cancel');
+            const deleteBtn = document.getElementById('custom-confirm-delete');
+            
+            titleEl.innerText = isTa ? "நிச்சயமாக அழிக்க வேண்டுமா?" : "Are you sure?";
+            msgEl.innerText = isTa ? msgTa : msgEn;
+            cancelBtn.innerText = isTa ? "ரத்து செய்" : "Cancel";
+            deleteBtn.innerText = isTa ? "அழிக்கவும்" : "Delete";
+
+            overlay.style.display = 'flex';
+            
+            const closeFn = () => { overlay.style.display = 'none'; };
+            cancelBtn.onclick = closeFn;
+            
+            deleteBtn.onclick = () => {
+                closeFn();
+                onConfirm();
+            };
+        }
+
+        async function toggleItemStatus(collection, id, currentStatus) {
+            const items = await SAC_DATABASE.get(collection) || [];
+            const item = items.find(x => x.id === id);
+            if (!item) return;
+
+            // Flip the status
+            item.isActive = !currentStatus;
+            await SAC_DATABASE.save(collection, item);
+
+            // Re-render corresponding list
+            if (collection === 'mass_schedules') await populateMassSchedulesList();
+            if (collection === 'announcements') await populateNoticesList();
+            if (collection === 'legacy_timeline') await populateTimelineList();
+            if (collection === 'prayer_requests') await populatePrayersList();
+            if (collection === 'gallery') await populateGalleryList();
+            
+            showGlobalSuccessAlert("மாற்றம் சேமிக்கப்பட்டது!", "Item visibility toggled!");
         }
 
         function handleAdminLogin(e) {
@@ -814,6 +1014,7 @@
             document.getElementById('set-treasurerNameTa').value = settings.treasurerNameTa || '';
             document.getElementById('set-treasurerPhone').value = settings.treasurerPhone || '';
             document.getElementById('set-treasurerEmail').value = settings.treasurerEmail || '';
+            document.getElementById('set-aiApiKey').value = settings.aiApiKey || '';
         }
 
         async function saveGeneralSettings(e) {
@@ -840,7 +1041,8 @@
                 treasurerNameEn: document.getElementById('set-treasurerNameEn').value,
                 treasurerNameTa: document.getElementById('set-treasurerNameTa').value,
                 treasurerPhone: document.getElementById('set-treasurerPhone').value,
-                treasurerEmail: document.getElementById('set-treasurerEmail').value
+                treasurerEmail: document.getElementById('set-treasurerEmail').value,
+                aiApiKey: document.getElementById('set-aiApiKey').value
             };
 
             await SAC_DATABASE.save("settings", data);
@@ -864,7 +1066,7 @@
             }
 
             container.innerHTML = masses.map(m => `
-                <div class="crud-item">
+                <div class="crud-item ${m.isActive === false ? 'inactive-item' : ''}">
                     <div class="crud-info">
                         <div class="crud-title">${isTa ? m.typeTa : m.typeEn}</div>
                         <div class="crud-sub">
@@ -874,6 +1076,9 @@
                         </div>
                     </div>
                     <div class="crud-actions">
+                        <button class="btn-crud-icon ${m.isActive === false ? 'inactive-toggle' : 'active-toggle'}" onclick="toggleItemStatus('mass_schedules', '${m.id}', ${m.isActive !== false})" title="Toggle Visibility">
+                            <span class="material-icons">${m.isActive === false ? 'visibility_off' : 'visibility'}</span>
+                        </button>
                         <button class="btn-crud-icon" onclick="editMassSchedule('${m.id}')" title="Edit">
                             <span class="material-icons">edit</span>
                         </button>
@@ -924,11 +1129,11 @@
         }
 
         async function deleteMassSchedule(id) {
-            if (confirm("Are you sure you want to delete this schedule?")) {
+            showCustomConfirm("Are you sure you want to delete this schedule?", "இந்த வழிபாட்டு அட்டவணையை நிச்சயமாக அழிக்க வேண்டுமா?", async () => {
                 await SAC_DATABASE.delete("mass_schedules", id);
                 showGlobalSuccessAlert("வழிபாடு அட்டவணை நீக்கப்பட்டது!", "Schedule successfully deleted!");
                 await populateMassSchedulesList();
-            }
+            });
         }
 
         function resetMassForm() {
@@ -952,7 +1157,7 @@
             }
 
             container.innerHTML = notices.map(n => `
-                <div class="crud-item">
+                <div class="crud-item ${n.isActive === false ? 'inactive-item' : ''}">
                     <div class="crud-info">
                         <div class="crud-title">${isTa ? n.titleTa : n.titleEn}</div>
                         <div class="crud-sub">
@@ -962,6 +1167,9 @@
                         </div>
                     </div>
                     <div class="crud-actions">
+                        <button class="btn-crud-icon ${n.isActive === false ? 'inactive-toggle' : 'active-toggle'}" onclick="toggleItemStatus('announcements', '${n.id}', ${n.isActive !== false})" title="Toggle Visibility">
+                            <span class="material-icons">${n.isActive === false ? 'visibility_off' : 'visibility'}</span>
+                        </button>
                         <button class="btn-crud-icon" onclick="editNotice('${n.id}')" title="Edit">
                             <span class="material-icons">edit</span>
                         </button>
@@ -1014,11 +1222,11 @@
         }
 
         async function deleteNotice(id) {
-            if (confirm("Are you sure you want to delete this notice?")) {
+            showCustomConfirm("Are you sure you want to delete this notice?", "இந்த அறிவிப்பை நிச்சயமாக அழிக்க வேண்டுமா?", async () => {
                 await SAC_DATABASE.delete("announcements", id);
                 showGlobalSuccessAlert("அறிவிப்பு நீக்கப்பட்டது!", "Notice successfully deleted!");
                 await populateNoticesList();
-            }
+            });
         }
 
         function resetNoticeForm() {
@@ -1045,7 +1253,7 @@
             events.sort((a,b) => parseInt(a.year) - parseInt(b.year));
 
             container.innerHTML = events.map(e => `
-                <div class="crud-item">
+                <div class="crud-item ${e.isActive === false ? 'inactive-item' : ''}">
                     <div class="crud-info">
                         <div class="crud-title">${e.year} - ${isTa ? e.titleTa : e.titleEn}</div>
                         <div class="crud-sub">
@@ -1055,6 +1263,9 @@
                         </div>
                     </div>
                     <div class="crud-actions">
+                        <button class="btn-crud-icon ${e.isActive === false ? 'inactive-toggle' : 'active-toggle'}" onclick="toggleItemStatus('legacy_timeline', '${e.id}', ${e.isActive !== false})" title="Toggle Visibility">
+                            <span class="material-icons">${e.isActive === false ? 'visibility_off' : 'visibility'}</span>
+                        </button>
                         <button class="btn-crud-icon" onclick="editTimelineEvent('${e.id}')" title="Edit">
                             <span class="material-icons">edit</span>
                         </button>
@@ -1103,11 +1314,11 @@
         }
 
         async function deleteTimelineEvent(id) {
-            if (confirm("Are you sure you want to delete this historical milestone?")) {
+            showCustomConfirm("Are you sure you want to delete this historical milestone?", "இந்த வரலாற்று மைல்கல்லை நிச்சயமாக அழிக்க வேண்டுமா?", async () => {
                 await SAC_DATABASE.delete("legacy_timeline", id);
                 showGlobalSuccessAlert("மைல்கல் நீக்கப்பட்டது!", "Milestone successfully deleted!");
                 await populateTimelineList();
-            }
+            });
         }
 
         function resetTimelineForm() {
@@ -1148,7 +1359,7 @@
                        </button>`;
 
                 return `
-                    <div class="crud-item prayer-card ${p.status}">
+                    <div class="crud-item prayer-card ${p.status} ${p.isActive === false ? 'inactive-item' : ''}">
                         <div class="crud-info">
                             <div class="crud-title" style="display:flex; align-items:center; gap:12px;">
                                 <span>🙏 ${p.name} (${p.email})</span>
@@ -1160,6 +1371,9 @@
                             </div>
                         </div>
                         <div class="crud-actions">
+                            <button class="btn-crud-icon ${p.isActive === false ? 'inactive-toggle' : 'active-toggle'}" onclick="toggleItemStatus('prayer_requests', '${p.id}', ${p.isActive !== false})" title="Toggle Visibility">
+                                <span class="material-icons">${p.isActive === false ? 'visibility_off' : 'visibility'}</span>
+                            </button>
                             ${actionBtn}
                             <button class="btn-crud-icon btn-crud-delete" onclick="deletePrayerRequest('${p.id}')" title="Delete request">
                                 <span class="material-icons">delete</span>
@@ -1182,11 +1396,11 @@
         }
 
         async function deletePrayerRequest(id) {
-            if (confirm("Are you sure you want to delete this prayer intention?")) {
+            showCustomConfirm("Are you sure you want to delete this prayer intention?", "இந்த செப வேண்டுதலை நிச்சயமாக அழிக்க வேண்டுமா?", async () => {
                 await SAC_DATABASE.delete("prayer_requests", id);
                 showGlobalSuccessAlert("வேண்டுதல் நீக்கப்பட்டது!", "Prayer intention deleted!");
                 await populatePrayersList();
-            }
+            });
         }
 
         // ======================= TAB 5: GALLERY CRUD FUNCTIONS =======================
@@ -1278,11 +1492,14 @@
                 const category = isTa ? item.catTa : item.catEn;
                 const title = isTa ? item.titleTa : item.titleEn;
                 return `
-                    <div style="background:rgba(255,255,255,0.7); border: 1px solid var(--border-glass); border-radius:12px; padding:10px; text-align:center; position:relative;">
+                    <div class="${item.isActive === false ? 'inactive-item' : ''}" style="background:rgba(255,255,255,0.7); border: 1px solid var(--border-glass); border-radius:12px; padding:10px; text-align:center; position:relative;">
                         <img src="${item.src}" style="width:100%; height:80px; object-fit:cover; border-radius:8px; margin-bottom:6px;">
                         <div style="font-size:0.75rem; font-weight:800; color:var(--primary); text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${category}</div>
                         <div style="font-size:0.75rem; color:var(--text-secondary); text-overflow:ellipsis; overflow:hidden; white-space:nowrap; margin-bottom:8px;">${title}</div>
                         <div style="display:flex; justify-content:center; gap:6px;">
+                            <button type="button" class="btn-crud-icon ${item.isActive === false ? 'inactive-toggle' : 'active-toggle'}" onclick="toggleItemStatus('gallery', '${item.id}', ${item.isActive !== false})" title="Toggle Visibility" style="padding:4px; min-width:unset; width:26px; height:26px;">
+                                <span class="material-icons" style="font-size:1rem;">${item.isActive === false ? 'visibility_off' : 'visibility'}</span>
+                            </button>
                             <button type="button" class="btn-crud-icon" onclick="editGalleryImage('${item.id}')" title="Edit details" style="padding:4px; min-width:unset; width:26px; height:26px;">
                                 <span class="material-icons" style="font-size:1rem;">edit</span>
                             </button>
@@ -1356,11 +1573,11 @@
         }
 
         async function deleteGalleryImage(id) {
-            if (confirm("Are you sure you want to delete this gallery photo?")) {
+            showCustomConfirm("Are you sure you want to delete this gallery photo?", "இந்த புகைப்படத்தை நிச்சயமாக அழிக்க வேண்டுமா?", async () => {
                 await SAC_DATABASE.delete("gallery", id);
                 showGlobalSuccessAlert("புகைப்படம் நீக்கப்பட்டது!", "Photo successfully deleted!");
                 await populateGalleryList();
-            }
+            });
         }
 
         function resetGalleryForm() {
@@ -1449,6 +1666,18 @@
             }
         }
     </script>
+    <!-- Custom Confirm Modal -->
+    <div class="custom-confirm-overlay" id="custom-confirm-overlay" style="display: none;">
+        <div class="custom-confirm-modal">
+            <div class="confirm-icon"><span class="material-icons">warning</span></div>
+            <h3 class="confirm-title" id="custom-confirm-title">Are you sure?</h3>
+            <p class="confirm-message" id="custom-confirm-message">Do you really want to perform this action?</p>
+            <div class="confirm-actions">
+                <button class="btn-confirm-cancel" id="custom-confirm-cancel">Cancel</button>
+                <button class="btn-confirm-delete" id="custom-confirm-delete">Delete</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
