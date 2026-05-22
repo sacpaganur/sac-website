@@ -14,6 +14,7 @@
     
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/schedule-page.css">
 </head>
 <body>
 
@@ -28,7 +29,6 @@
                 </div>
             </a>
             
-            <!-- Desktop Navigation Links -->
             <nav class="nav-menu" id="nav-links-menu">
                 <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
                 <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
@@ -38,7 +38,6 @@
                 <a href="contact.html" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
             </nav>
 
-            <!-- Actions Buttons -->
             <div class="navbar-actions" id="nav-actions-container">
                 <button class="btn-lang" id="lang-toggle">ENG</button>
                 <button class="btn-mobile-menu" id="mobile-menu-trigger">
@@ -48,7 +47,7 @@
         </div>
     </header>
 
-    <!-- Mobile Drawer Overlay Menu -->
+    <!-- Mobile Drawer -->
     <div class="mobile-drawer" id="mobile-drawer">
         <div class="drawer-content">
             <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
@@ -60,109 +59,145 @@
         </div>
     </div>
 
-    <!-- Main Content wrapper -->
-    <main class="main-wrapper">
-        <section class="subpage-header" style="background: linear-gradient(180deg, rgba(254, 252, 249, 0.85) 0%, var(--bg-light) 100%), url('images/hero_church_banner.png') no-repeat center center/cover; padding: 100px 24px 60px; border-bottom: 1px solid var(--border-glass);">
-            <h2 class="subpage-title" id="schedule-title-label">வழிபாட்டு நேரங்கள்</h2>
-            <p class="subpage-subtitle" id="schedule-subtitle-label" style="font-weight: 500;">திருப்பலி நேரங்கள் மற்றும் விபரங்கள் பங்கு மக்களின் ஆன்மீக வாழ்விற்காக.</p>
-        </section>
-        
-        <section class="quick-summary-section" style="max-width:850px;">
-            <div class="summary-card">
-                <div class="timetable-list" id="mass-schedules-grid">
-                    <!-- Dynamic Mass Schedules list mounted here -->
-                    <div style="text-align:center;color:var(--text-muted);padding:30px;">வழிபாட்டு நேரங்கள் ஏற்றப்படுகின்றன... / Loading schedules...</div>
-                </div>
-        </section>
+    <!-- Main Content -->
+    <main class="main-wrapper schedule-page">
 
-        <!-- Additional Timetable & Devotion Information -->
-        <section class="section-container" style="padding-top:20px; padding-bottom:60px;">
-            <div style="text-align:center; margin-bottom:40px;">
-                <span class="liturgical-badge liturgical-lent" style="margin-bottom:12px;" data-i18n="sched.devotionTag">சிறப்பு வழிபாடுகள் | Special Devotions</span>
-                <h3 style="font-size:2rem; color:var(--primary);" data-i18n="sched.devotionTitle">மாதாந்திர மற்றும் சிறப்பு வழிபாட்டு விவரங்கள்</h3>
-            </div>
-            
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px;">
-                <!-- Tuesday Novena Box -->
-                <div class="summary-card" style="padding:28px;">
-                    <span class="liturgical-badge liturgical-lent" style="margin-bottom:10px;" data-i18n="sched.novenaBadge">செவ்வாய் நவநாள்</span>
-                    <h4 style="font-size:1.25rem; margin-bottom:12px;" data-i18n="sched.novenaTitle">புனித அந்தோணியார் நவநாள்</h4>
-                    <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.65; margin-bottom:16px;" data-i18n="sched.novenaDesc">ஒவ்வொரு செவ்வாய்க்கிழமையும் காலை 6:00 மணி மற்றும் மாலை 6:00 மணிக்கு புனித அந்தோணியாரின் சிறப்பு நவநாள் திருப்பலியும், எண்ணெய் அபிஷேகமும், தேர்ப்பவனியும் நடைபெறும்.</p>
+        <section class="notices-hero-header">
+            <div class="notices-hero-inner">
+                <div class="notices-liturgical-badge">
+                    <span>🕯️</span>
+                    <span id="schedule-hero-badge" data-i18n="sched.heroBadge">வழிபாட்டு நேரங்கள்</span>
                 </div>
-                
-                <!-- First Friday Box -->
-                <div class="summary-card" style="padding:28px;">
-                    <span class="liturgical-badge liturgical-martyrs" style="margin-bottom:10px;" data-i18n="sched.fridayBadge">முதல் வெள்ளி</span>
-                    <h4 style="font-size:1.25rem; margin-bottom:12px;" data-i18n="sched.fridayTitle">இயேசுவின் திருஇருதய வழிபாடு</h4>
-                    <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.65; margin-bottom:16px;" data-i18n="sched.fridayDesc">மாதத்தின் முதல் வெள்ளிக்கிழமை மாலை 5:30 மணிக்கு நற்கருணை ஆராதனையும், அதைத் தொடர்ந்து திருஇருதய சிறப்புத் திருப்பலியும், நற்கருணை ஆசீரும் வழங்கப்படும்.</p>
+                <h2 class="notices-hero-title" id="schedule-title-label" data-i18n="sched.titleLabel">வழிபாட்டு நேரங்கள்</h2>
+                <p class="notices-hero-subtitle" id="schedule-subtitle-label" data-i18n="sched.subtitleLabel">திருப்பலி நேரங்கள் மற்றும் விபரங்கள் பங்கு மக்களின் ஆன்மீக வாழ்விற்காக.</p>
+                <div class="notices-hero-counter">
+                    <span class="counter-number" id="schedule-mass-count">0</span>
+                    <span id="schedule-mass-count-label" data-i18n="sched.massCountLabel">திருப்பலி அட்டவணைகள்</span>
                 </div>
             </div>
         </section>
 
-        <!-- Parish Office & Sacramental Preparations -->
-        <section class="section-container" style="padding-top:20px; padding-bottom:60px; border-top: 1px solid var(--border-glass);">
-            <div style="text-align:center; margin-bottom:40px;">
-                <span class="liturgical-badge liturgical-ordinary" style="margin-bottom:12px;" data-i18n="sched.officeTag">அலுவலக தகவல்கள் | Parish Administration</span>
-                <h3 style="font-size:2rem; color:var(--primary);" data-i18n="sched.officeTitle">பங்கு அலுவலக வேலை நேரங்கள் & பதிவுகள்</h3>
-            </div>
-            
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
-                <!-- Timing Details Card -->
-                <div class="summary-card" style="padding:28px; border-radius:24px; text-align: center;">
-                    <div style="font-size:2.5rem; margin-bottom:12px; display: inline-block;">📅</div>
-                    <h4 style="font-size:1.2rem; margin-bottom:10px; font-weight:800;" data-i18n="sched.offTimeTitle">அலுவலக வேலை நேரம்</h4>
-                    <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;" data-i18n="sched.offTimeDesc">திங்கள் முதல் சனி வரை: காலை 9:00 - மதியம் 12:30, மாலை 4:00 - 6:30 மணி. (ஞாயிறு விடுமுறை)</p>
+        <div class="schedule-page-body">
+            <div class="schedule-page-inner">
+                <div class="schedule-today-strip">
+                    <div class="schedule-today-pill" id="schedule-today-pill">
+                        <span class="today-dot"></span>
+                        <span id="today-text">இன்று: ஞாயிற்றுக்கிழமை</span>
+                    </div>
+                    <div class="schedule-quick-chips">
+                        <a href="#sched-mass-panel" class="schedule-quick-chip schedule-quick-chip--sun">☀️ <span id="sched-chip-sun" data-i18n="sched.chipSun">ஞாயிறு</span></a>
+                        <a href="#sched-mass-panel" class="schedule-quick-chip schedule-quick-chip--tue">🙏 <span id="sched-chip-tue" data-i18n="sched.chipTue">செவ்வாய்</span></a>
+                        <a href="#sched-mass-panel" class="schedule-quick-chip schedule-quick-chip--daily">📿 <span id="sched-chip-daily" data-i18n="sched.chipDaily">தினசரி</span></a>
+                    </div>
                 </div>
-                
-                <!-- Baptism Card -->
-                <div class="summary-card" style="padding:28px; border-radius:24px; text-align: center;">
-                    <div style="font-size:2.5rem; margin-bottom:12px; display: inline-block;">💧</div>
-                    <h4 style="font-size:1.2rem; margin-bottom:10px; font-weight:800;" data-i18n="sched.baptTitle">திருமுழுக்கு (Baptism) பதிவுகள்</h4>
-                    <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;" data-i18n="sched.baptDesc">மாதத்தின் முதல் மற்றும் மூன்றாம் ஞாயிற்றுக்கிழமைகளில் ஞாயிறு திருப்பலியைத் தொடர்ந்து குழந்தைகளுக்கு திருமுழுக்கு வழங்கப்படும். ஒரு வாரத்திற்கு முன்பே பதிவு செய்யவும்.</p>
-                </div>
+
+                <section class="sched-panel sched-panel--mass" id="sched-mass-panel">
+                    <div class="schedule-section-header">
+                        <div class="schedule-section-badge badge-purple">
+                            <span>🕯️</span>
+                            <span id="mass-section-badge-label" data-i18n="sched.massBadgeLabel">திருப்பலி அட்டவணை</span>
+                        </div>
+                        <h3 class="schedule-section-title" id="mass-section-title" data-i18n="sched.massTitle">திருப்பலி நேரங்கள்</h3>
+                        <p class="schedule-section-lead" id="mass-section-lead" data-i18n="sched.massLead">Weekly Holy Mass times for our parish community.</p>
+                    </div>
+                    <div class="schedule-cards-grid" id="mass-schedules-grid">
+                        <div class="schedule-loading schedule-empty" id="schedule-loading">⏳ Loading schedules...</div>
+                    </div>
+                </section>
+
+                <section class="sched-panel sched-panel--devotion" id="sched-devotion-panel">
+                    <div class="schedule-section-header">
+                        <div class="schedule-section-badge badge-gold">
+                            <span>✨</span>
+                            <span id="devotion-section-badge-label" data-i18n="sched.devotionBadgeLabel">சிறப்பு வழிபாடுகள்</span>
+                        </div>
+                        <h3 class="schedule-section-title" id="devotion-section-title" data-i18n="sched.devotionTitle">மாதாந்திர மற்றும் சிறப்பு வழிபாட்டு விவரங்கள்</h3>
+                        <p class="schedule-section-lead" id="devotion-section-lead" data-i18n="sched.devotionLead">Novena, feast devotions, and monthly parish liturgies.</p>
+                    </div>
+                    <div class="devotion-cards-grid">
+                        <article class="devotion-card" style="animation-delay: 0.05s;">
+                            <div class="devotion-card-header">
+                                <div class="devotion-icon-circle icon-purple">🙏</div>
+                                <div>
+                                    <div class="devotion-badge badge-novena" data-i18n="sched.novenaBadge">செவ்வாய் நவநாள்</div>
+                                    <h4 class="devotion-card-title" data-i18n="sched.novenaTitle">புனித அந்தோணியார் நவநாள்</h4>
+                                </div>
+                            </div>
+                            <p class="devotion-card-desc" data-i18n="sched.novenaDesc">ஒவ்வொரு செவ்வாய்க்கிழமையும் காலை 6:00 மணி மற்றும் மாலை 6:00 மணிக்கு புனித அந்தோணியாரின் சிறப்பு நவநாள் திருப்பலியும், எண்ணெய் அபிஷேகமும், தேர்ப்பவனியும் நடைபெறும்.</p>
+                        </article>
+                        <article class="devotion-card" style="animation-delay: 0.12s;">
+                            <div class="devotion-card-header">
+                                <div class="devotion-icon-circle icon-red">❤️</div>
+                                <div>
+                                    <div class="devotion-badge badge-friday" data-i18n="sched.fridayBadge">முதல் வெள்ளி</div>
+                                    <h4 class="devotion-card-title" data-i18n="sched.fridayTitle">இயேசுவின் திருஇருதய வழிபாடு</h4>
+                                </div>
+                            </div>
+                            <p class="devotion-card-desc" data-i18n="sched.fridayDesc">மாதத்தின் முதல் வெள்ளிக்கிழமை மாலை 5:30 மணிக்கு நற்கருணை ஆராதனையும், அதைத் தொடர்ந்து திருஇருதய சிறப்புத் திருப்பலியும், நற்கருணை ஆசீரும் வழங்கப்படும்.</p>
+                        </article>
+                        <article class="devotion-card" style="animation-delay: 0.19s;">
+                            <div class="devotion-card-header">
+                                <div class="devotion-icon-circle icon-gold">🎉</div>
+                                <div>
+                                    <div class="devotion-badge badge-feast" data-i18n="sched.feastBadge">ஆண்டு திருவிழா</div>
+                                    <h4 class="devotion-card-title" data-i18n="sched.feastTitle">ஆண்டு திருவிழா</h4>
+                                </div>
+                            </div>
+                            <p class="devotion-card-desc" data-i18n="sched.feastDesc">ஆண்டுதோறும் பாஸ்கா காலம் இரண்டாம் சனிக்கிழமை</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="sched-panel sched-panel--office" id="sched-office-panel">
+                    <div class="schedule-section-header">
+                        <div class="schedule-section-badge badge-green">
+                            <span>🏛️</span>
+                            <span id="office-section-badge-label" data-i18n="sched.officeBadgeLabel">அலுவலக நிர்வாகம்</span>
+                        </div>
+                        <h3 class="schedule-section-title" id="office-section-title" data-i18n="sched.officeTitle">அலுவலக வேலை நேரங்கள் & பதிவுகள்</h3>
+                        <p class="schedule-section-lead" id="office-section-lead" data-i18n="sched.officeLead">Parish office hours and sacrament registration information.</p>
+                    </div>
+                    <div class="office-cards-grid">
+                        <article class="office-card" style="animation-delay: 0.05s;">
+                            <div class="office-card-top">
+                                <div class="office-card-icon icon-blue">📅</div>
+                                <h4 class="office-card-title" data-i18n="sched.offTimeTitle">அலுவலக வேலை நேரம்</h4>
+                            </div>
+                            <p class="office-card-desc" data-i18n="sched.offTimeDesc">திங்கள் முதல் சனி வரை: காலை 9:00 - மதியம் 12:30, மாலை 4:00 - 6:30 மணி. (ஞாயிறு விடுமுறை)</p>
+                        </article>
+                        <article class="office-card" style="animation-delay: 0.12s;">
+                            <div class="office-card-top">
+                                <div class="office-card-icon icon-cyan">💧</div>
+                                <h4 class="office-card-title" data-i18n="sched.baptTitle">திருமுழுக்கு பதிவுகள்</h4>
+                            </div>
+                            <p class="office-card-desc" data-i18n="sched.baptDesc">மாதத்தின் முதல் மற்றும் மூன்றாம் ஞாயிற்றுக்கிழமைகளில் ஞாயிறு திருப்பலியைத் தொடர்ந்து குழந்தைகளுக்கு திருமுழுக்கு வழங்கப்படும். ஒரு வாரத்திற்கு முன்பே பதிவு செய்யவும்.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="schedule-cta">
+                    <div class="schedule-cta-copy">
+                        <h3 id="schedule-cta-title" data-i18n="sched.ctaTitle">Questions about Mass or registrations?</h3>
+                        <p id="schedule-cta-text" data-i18n="sched.ctaText">Contact the parish office for bookings, baptisms, and special intentions.</p>
+                    </div>
+                    <a href="contact.html" class="schedule-cta-link">
+                        <span class="material-icons">mail</span>
+                        <span id="schedule-cta-link" data-i18n="sched.ctaLink">Contact Parish</span>
+                    </a>
+                </section>
             </div>
-        </section>
+        </div>
     </main>
 
-    <!-- Global Footer -->
-    <footer class="footer" id="global-footer">
-        <div class="footer-container">
-            <div class="footer-info">
-                <span class="footer-church-logo">⛪</span>
-                <h3>புனித அந்தோணியார் ஆலயம்</h3>
-                <p data-i18n="footer.tagline">அமைதியும் அருள்மரியும் பெருகும் புண்ணியத்தலம்</p>
-                <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);" class="footer-address-label">
-                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312.
-                </p>
-            </div>
-            <div class="footer-links-grid">
-                <div>
-                    <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
-                    <ul>
-                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
-                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
-                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 data-i18n="footer.resources">வளங்கள்</h4>
-                    <ul>
-                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <p>&copy; 2026 <span id="footer-church-name-copyright">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்</span>. <span data-i18n="footer.copyText">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span></p>
-        </div>
-    </footer>
+    <footer class="footer" id="global-footer"></footer>
 
-    <!-- Firebase compatibility libraries (needed ONLY for loading public notices/submitting prayers) -->
+    <!-- Firebase compatibility libraries -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
 
     <!-- Core Script dependencies -->
     <script src="js/database.js"></script>
+    <script src="js/footer.js"></script>
     <script src="js/common.js"></script>
 
     <script>
@@ -171,65 +206,117 @@
             await SAC_COMMON.init('schedule');
             
             await loadMassSchedules();
-            translateScheduleLabels();
+            updateTodayPill();
+
+            SAC_COMMON.revealPage();
 
             window.addEventListener('sacLanguageChanged', async () => {
                 await loadMassSchedules();
-                translateScheduleLabels();
+                updateTodayPill();
+            });
+
+            window.addEventListener('sacDataRefreshed', async (e) => {
+                if (e.detail && e.detail.collection === 'mass_schedules') {
+                    await loadMassSchedules();
+                }
             });
         });
 
-        // Load mass lists dynamically from DB
+        // Dynamic "Today" indicator in the hero
+        function updateTodayPill() {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const now = new Date();
+            const dayNames = {
+                ta: ['ஞாயிற்றுக்கிழமை', 'திங்கட்கிழமை', 'செவ்வாய்க்கிழமை', 'புதன்கிழமை', 'வியாழக்கிழமை', 'வெள்ளிக்கிழமை', 'சனிக்கிழமை'],
+                en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+            };
+            const dayName = isTa ? dayNames.ta[now.getDay()] : dayNames.en[now.getDay()];
+            const dateStr = now.toLocaleDateString(isTa ? 'ta-IN' : 'en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+            
+            const el = document.getElementById('today-text');
+            if (el) {
+                el.innerText = isTa ? `இன்று: ${dayName}, ${dateStr}` : `Today: ${dayName}, ${dateStr}`;
+            }
+        }
+
+        function isMassToday(m) {
+            const dow = new Date().getDay();
+            const cat = m.category || 'daily';
+            if (cat === 'sunday') return dow === 0;
+            if (cat === 'tuesday') return dow === 2;
+            if (cat === 'daily') return dow >= 1 && dow <= 6;
+            return false;
+        }
+
+        function updateMassCount(count) {
+            const el = document.getElementById('schedule-mass-count');
+            if (el) el.innerText = String(count);
+        }
+
+        // Load mass schedules dynamically from DB
         async function loadMassSchedules() {
             const container = document.getElementById('mass-schedules-grid');
             if (!container) return;
 
             const masses = await SAC_DATABASE.get("mass_schedules");
             const isTa = SAC_COMMON.currentLang === 'ta';
+            const todayLabel = isTa ? 'இன்று' : 'Today';
 
-            if (masses.length === 0) {
-                container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:40px;">தற்போது வழிபாட்டு அட்டவணைகள் எதுவும் இல்லை. / No liturgical schedules found.</div>`;
+            if (!masses || masses.length === 0) {
+                updateMassCount(0);
+                container.innerHTML = `
+                    <div class="schedule-empty">
+                        <span>📋</span>
+                        <span>${isTa ? "தற்போது வழிபாட்டு அட்டவணைகள் எதுவும் இல்லை." : "No liturgical schedules available at this time."}</span>
+                    </div>
+                `;
                 return;
             }
 
-            container.innerHTML = masses.map(m => {
-                let badgeClass = 'liturgical-ordinary';
-                if (m.category === 'sunday') badgeClass = 'liturgical-easter';
-                if (m.category === 'tuesday') badgeClass = 'liturgical-lent';
-                
+            updateMassCount(masses.length);
+
+            container.innerHTML = masses.map((m, idx) => {
+                const cat = m.category || 'daily';
+                let catClass = 'sched-daily';
+                let dayIcon = '📿';
+
+                if (cat === 'sunday') {
+                    catClass = 'sched-sunday';
+                    dayIcon = '☀️';
+                } else if (cat === 'tuesday') {
+                    catClass = 'sched-tuesday';
+                    dayIcon = '🙏';
+                }
+
+                const isToday = isMassToday(m);
+                const todayClass = isToday ? ' sched-today' : '';
+                const staggerDelay = Math.min(idx * 0.08, 0.5);
+                const day = (isTa ? m.dayTa : m.dayEn) || '';
+                const title = (isTa ? m.typeTa : m.typeEn) || '';
+                const time = m.time || '';
+
                 return `
-                    <div class="timetable-item" style="padding: 24px;">
-                        <div>
-                            <span class="liturgical-badge ${badgeClass}">${isTa ? m.dayTa : m.dayEn}</span>
-                            <div style="font-size: 1.25rem; font-weight: 800; margin-top: 8px;">${isTa ? m.typeTa : m.typeEn}</div>
+                    <article class="schedule-card ${catClass}${todayClass}" style="animation-delay: ${staggerDelay}s;">
+                        ${isToday ? `<span class="sched-today-tag">${todayLabel}</span>` : ''}
+                        <div class="sched-card-body">
+                            <div class="sched-day-badge">
+                                <span>${dayIcon}</span>
+                                ${day}
+                            </div>
+                            <h4 class="sched-card-title">${title}</h4>
                         </div>
-                        <div class="timetable-time" style="font-size: 0.95rem; padding: 8px 16px;">${m.time}</div>
-                    </div>
+                        <div class="sched-card-footer">
+                            <div class="sched-time-display">
+                                <span class="time-icon">🕐</span>
+                                ${time}
+                            </div>
+                        </div>
+                    </article>
                 `;
             }).join('');
         }
 
-        function translateScheduleLabels() {
-            const isTa = SAC_COMMON.currentLang === 'ta';
-            
-            const titleLbl = document.getElementById('schedule-title-label');
-            if (titleLbl) {
-                titleLbl.innerText = isTa ? "வழிபாட்டு நேரங்கள்" : "Mass Schedules";
-            }
-            
-            const subtitleLbl = document.getElementById('schedule-subtitle-label');
-            if (subtitleLbl) {
-                subtitleLbl.innerText = isTa ? "திருப்பலி நேரங்கள் மற்றும் விபரங்கள் பங்கு மக்களின் ஆன்மீக வாழ்விற்காக." : "Schedules, novenas, and holy Mass times of our parish community.";
-            }
-
-            const copyrightLabel = document.getElementById('footer-church-name-copyright');
-            if (copyrightLabel) {
-                copyrightLabel.innerText = isTa ? "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்" : "St. Antony's Church, Vadakku Paganur";
-            }
-        }
+        // Full bilingual translation is now handled by SAC_COMMON.translatePage via data-i18n
     </script>
 </body>
 </html>
-
-
-

@@ -14,6 +14,7 @@
     
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/legacy-page.css">
 </head>
 <body>
 
@@ -61,85 +62,268 @@
     </div>
 
     <!-- Main Content wrapper -->
-    <main class="main-wrapper">
-        <section class="subpage-header" style="background: linear-gradient(180deg, rgba(254, 252, 249, 0.85) 0%, var(--bg-light) 100%), url('images/parish_history_banner.png') no-repeat center center/cover; padding: 100px 24px 60px; border-bottom: 1px solid var(--border-glass);">
-            <h2 class="subpage-title" id="legacy-title-label">ஆலய வரலாறு & ஆன்மீக பாரம்பரியம்</h2>
-            <p class="subpage-subtitle" id="legacy-subtitle-label" style="font-weight: 500;">விசுவாசத்திலும் அர்ப்பணிப்பிலும் வடக்கு பாகனூர் பங்கு கடந்து வந்த ஆன்மீகப் பாதை.</p>
+    <main class="main-wrapper legacy-page">
+        <section class="notices-hero-header" id="legacy-hero">
+            <div class="notices-hero-inner" style="position: relative; z-index: 1;">
+                <div class="notices-liturgical-badge" id="liturgical-season-badge">
+                    <span class="material-icons" aria-hidden="true" style="font-size:1.2rem; margin-right:4px;">auto_awesome</span>
+                    <span id="legacy-hero-kicker-label" data-i18n="legacy.heroKicker">நம்பிக்கையின் பயணம்</span>
+                </div>
+                <h2 class="notices-hero-title" id="legacy-title-label" data-i18n="legacy.heroTitle">ஆலய வரலாறு & ஆன்மீக பாரம்பரியம்</h2>
+                <p class="notices-hero-subtitle" id="legacy-subtitle-label" data-i18n="legacy.heroSubtitle">விசுவாசத்திலும் அர்ப்பணிப்பிலும் வடக்கு பாகனூர் பங்கு கடந்து வந்த ஆன்மீகப் பாதை.</p>
+                <div class="notices-hero-actions" style="margin-top: 32px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                    <a href="#timeline-container-section" class="btn-hero-action primary" id="legacy-hero-primary-link">
+                        <span data-i18n="legacy.heroPrimaryLink">காலவரிசையைப் பாருங்கள்</span>
+                    </a>
+                    <a href="gallery.html" class="btn-hero-action secondary" id="legacy-hero-secondary-link">
+                        <span class="material-icons" aria-hidden="true">photo_library</span>
+                        <span data-i18n="legacy.heroSecondaryLink">வரலாற்றுப் படங்கள்</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="legacy-page-body">
+        <div class="legacy-hero-strip">
+        <div class="legacy-metrics-bar">
+                <div class="legacy-metric">
+                    <span class="legacy-metric-value">1985</span>
+                    <span class="legacy-metric-label" id="legacy-stat-foundation" data-i18n="legacy.statFoundation">முதல் ஜெபக் கூடம் நினைவு</span>
+                </div>
+                <div class="legacy-metric">
+                    <span class="legacy-metric-value">1960</span>
+                    <span class="legacy-metric-label" id="legacy-stat-stone" data-i18n="legacy.statStone">கல் ஆலயம் எழுந்த ஆண்டு</span>
+                </div>
+                <div class="legacy-metric">
+                    <span class="legacy-metric-value">1995</span>
+                    <span class="legacy-metric-label" id="legacy-stat-parish" data-i18n="legacy.statParish">தனி பங்காக உயர்வு</span>
+                </div>
+                <div class="legacy-metric">
+                    <span class="legacy-metric-value">2021</span>
+                    <span class="legacy-metric-label" id="legacy-stat-shrine" data-i18n="legacy.statShrine">ஆலயம் புதுப்பிப்பு</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="legacy-overview-section" id="legacy-overview">
+            <div class="legacy-overview-shell">
+                <div class="legacy-overview-grid">
+                    <div class="legacy-overview-intro">
+                        <span class="legacy-section-kicker legacy-overview-kicker" id="legacy-overview-kicker" data-i18n="legacy.overviewKicker">Living Heritage</span>
+                        <h3 class="legacy-section-title" id="legacy-overview-title" data-i18n="legacy.overviewTitle">Built by prayer, service, and shared sacrifice</h3>
+                        <p class="legacy-section-lead" id="legacy-overview-lead" data-i18n="legacy.overviewLead">From a humble village chapel to a beloved parish shrine, this history is carried by generations who prayed together, built together, and kept devotion to St. Antony alive through every season.</p>
+                        <blockquote class="legacy-overview-quote">
+                            <span class="legacy-overview-quote-icon" aria-hidden="true">❝</span>
+                            <p id="legacy-overview-quote-text" data-i18n="legacy.overviewQuoteText">Every stone, prayer, and feast day carries the faith of our parish forward.</p>
+                        </blockquote>
+                    </div>
+
+                    <div class="legacy-photo-story" aria-label="Historic and current church photos">
+                        <div class="legacy-photo-story-head">
+                            <span class="legacy-photo-story-badge" id="legacy-photo-compare-badge" data-i18n="legacy.photoCompareBadge">Then & Now</span>
+                            <p class="legacy-photo-story-sub" id="legacy-photo-compare-sub" data-i18n="legacy.photoCompareSub">Witness how our parish home has grown in beauty and grace.</p>
+                        </div>
+                        <div class="legacy-photo-stack">
+                            <figure class="legacy-photo-panel legacy-photo-panel--old">
+                                <span class="legacy-photo-era" id="legacy-old-era-label" data-i18n="legacy.oldEraLabel">Then</span>
+                                <img src="images/old_church.png" alt="Historical stone sanctuary of St. Antony's Church" loading="lazy">
+                                <figcaption class="legacy-photo-caption">
+                                    <span id="legacy-old-photo-year">1960</span>
+                                    <strong id="legacy-old-photo-title" data-i18n="legacy.oldPhotoTitle">The historical stone sanctuary</strong>
+                                </figcaption>
+                            </figure>
+                            <div class="legacy-photo-connector" aria-hidden="true">
+                                <span class="material-icons">arrow_forward</span>
+                            </div>
+                            <figure class="legacy-photo-panel legacy-photo-panel--new">
+                                <span class="legacy-photo-era legacy-photo-era--new" id="legacy-new-era-label" data-i18n="legacy.newEraLabel">Now</span>
+                                <img src="images/new_church.png" alt="New sanctuary of St. Antony's Church" loading="lazy">
+                                <figcaption class="legacy-photo-caption">
+                                    <span id="legacy-new-photo-year">2021</span>
+                                    <strong id="legacy-new-photo-title" data-i18n="legacy.newPhotoTitle">The renewed parish shrine</strong>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <a href="gallery.html" class="legacy-photo-gallery-link">
+                            <span class="material-icons" aria-hidden="true">collections</span>
+                            <span id="legacy-photo-gallery-link" data-i18n="legacy.photoGalleryLink">Browse full photo gallery</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="legacy-values-grid" role="list">
+                    <article class="legacy-value-card" role="listitem" style="--legacy-accent:hsl(40, 90%, 42%); --legacy-soft:hsla(40, 90%, 42%, 0.12); --legacy-icon:hsl(35, 90%, 40%);">
+                        <div class="legacy-value-icon"><span class="material-icons">church</span></div>
+                        <div class="legacy-value-body">
+                            <h4 id="legacy-value-faith-title" data-i18n="legacy.valueFaithTitle">Faith</h4>
+                            <p id="legacy-value-faith-desc" data-i18n="legacy.valueFaithDesc">A parish shaped by daily worship, feast-day devotion, and hope-filled prayer.</p>
+                        </div>
+                    </article>
+                    <article class="legacy-value-card" role="listitem" style="--legacy-accent:hsl(265, 42%, 35%); --legacy-soft:hsla(265, 42%, 35%, 0.08); --legacy-icon:hsl(265, 42%, 40%);">
+                        <div class="legacy-value-icon"><span class="material-icons">diversity_3</span></div>
+                        <div class="legacy-value-body">
+                            <h4 id="legacy-value-community-title" data-i18n="legacy.valueCommunityTitle">Community</h4>
+                            <p id="legacy-value-community-desc" data-i18n="legacy.valueCommunityDesc">United by our Catholic roots, celebrating milestones and carrying each other's burdens.</p>
+                        </div>
+                    </article>
+                    <article class="legacy-value-card" role="listitem" style="--legacy-accent:hsl(12, 76%, 61%); --legacy-soft:hsla(12, 76%, 61%, 0.1); --legacy-icon:hsl(12, 76%, 50%);">
+                        <div class="legacy-value-icon"><span class="material-icons">volunteer_activism</span></div>
+                        <div class="legacy-value-body">
+                            <h4 id="legacy-value-service-title" data-i18n="legacy.valueServiceTitle">Service</h4>
+                            <p id="legacy-value-service-desc" data-i18n="legacy.valueServiceDesc">Committed to charity, outreach, and extending Christ's love to the marginalized.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- St. Antony's History & Innovations -->
+        <section class="legacy-saint-section" id="saint-history">
+            <div class="saint-hero-parallax">
+                <div class="saint-parallax-bg"></div>
+                <div class="saint-hero-content">
+                    <span class="legacy-section-kicker" id="saint-hero-kicker" data-i18n="saint.heroKicker">Patron Saint History</span>
+                    <h2 class="legacy-section-title legacy-saint-hero-title" id="saint-hero-title" data-i18n="saint.heroTitle">St. Antony of Padua</h2>
+                    <div class="saint-hero-quote">
+                        <span class="quote-mark">"</span>
+                        <p id="saint-hero-quote" data-i18n="saint.heroQuote">Actions speak louder than words; let your words teach and your actions speak.</p>
+                        <span class="quote-mark right">"</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="saint-history-body">
+                <div class="saint-innovation-block">
+                    <div class="saint-block-header">
+                        <h4 id="saint-journey-title" data-i18n="saint.journeyTitle">A Journey of Devotion</h4>
+                        <p id="saint-journey-lead" data-i18n="saint.journeyLead">From a noble birth in Lisbon to becoming the most beloved Franciscan saint.</p>
+                    </div>
+                    <div class="saint-journey-grid">
+                        <div class="saint-journey-card">
+                            <div class="journey-node"></div>
+                            <span class="year">1195</span>
+                            <h5 id="saint-life-1-title" data-i18n="saint.life1Title">Early Life in Lisbon</h5>
+                            <p id="saint-life-1-desc" data-i18n="saint.life1Desc">Born Fernando Martins de Bulhões to a wealthy family, he surrendered his riches for spiritual wealth.</p>
+                        </div>
+                        <div class="saint-journey-card">
+                            <div class="journey-node"></div>
+                            <span class="year">1220</span>
+                            <h5 id="saint-life-2-title" data-i18n="saint.life2Title">Joining the Franciscans</h5>
+                            <p id="saint-life-2-desc" data-i18n="saint.life2Desc">Inspired by Franciscan martyrs, he joined the order and took the name Antony, seeking profound humility.</p>
+                        </div>
+                        <div class="saint-journey-card">
+                            <div class="journey-node"></div>
+                            <span class="year">1231</span>
+                            <h5 id="saint-life-3-title" data-i18n="saint.life3Title">Legacy & Canonization</h5>
+                            <p id="saint-life-3-desc" data-i18n="saint.life3Desc">He passed away at age 36 and was canonized within a year by Pope Gregory IX due to his immense miracles.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="saint-innovation-block saint-miracles-block">
+                    <div class="saint-block-header">
+                        <h4 id="saint-miracles-title" data-i18n="saint.miraclesTitle">Miracles & Patronage</h4>
+                        <p id="saint-miracles-lead" data-i18n="saint.miraclesLead">Known worldwide as the patron saint of lost things, the poor, and travelers.</p>
+                    </div>
+                    <div class="saint-miracles-flex">
+                        <div class="saint-miracle-glass-card">
+                            <div class="glass-icon"><span class="material-icons">auto_stories</span></div>
+                            <h5 id="saint-miracle-1-title" data-i18n="saint.miracle1Title">The Lost Psalter</h5>
+                            <p id="saint-miracle-1-desc" data-i18n="saint.miracle1Desc">A novice stole his valuable book. Antony prayed, the thief repented and returned it, making him the patron of lost items.</p>
+                        </div>
+                        <div class="saint-miracle-glass-card">
+                            <div class="glass-icon"><span class="material-icons">bakery_dining</span></div>
+                            <h5 id="saint-miracle-2-title" data-i18n="saint.miracle2Title">St. Antony's Bread</h5>
+                            <p id="saint-miracle-2-desc" data-i18n="saint.miracle2Desc">A mother promised to give bread to the poor equal to her child's weight if revived. Thus began the tradition of giving alms.</p>
+                        </div>
+                        <div class="saint-miracle-glass-card">
+                            <div class="glass-icon"><span class="material-icons">set_meal</span></div>
+                            <h5 id="saint-miracle-3-title" data-i18n="saint.miracle3Title">Preaching to Fishes</h5>
+                            <p id="saint-miracle-3-desc" data-i18n="saint.miracle3Desc">When heretics refused to listen, he preached to the fish by the river, who gathered to listen in reverence.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         
-        <section class="timeline-wrapper" id="timeline-container-section">
-            <div class="timeline-line"></div>
-            
-            <div id="dynamic-timeline-feed">
+        <section class="legacy-timeline-section" id="timeline-container-section">
+            <div class="ultimate-timeline-wrapper" style="position: relative; margin: 0 auto; max-width: 1100px;">
+                <div id="dynamic-timeline-feed">
                 <!-- Dynamic timeline events will be generated here -->
-                <div style="text-align:center;color:var(--text-muted);padding:40px;">வரலாற்று விபரங்கள் ஏற்றப்படுகின்றன... / Loading history...</div>
+                <div class="legacy-empty-state">
+                    <span class="material-icons" aria-hidden="true" data-fallback="...">hourglass_top</span>
+                    <span id="legacy-loading-label">Loading parish history...</span>
+                </div>
+            </div>
             </div>
         </section>
 
         <!-- Historical Milestones & Spiritual Achievements -->
-        <section class="section-container" style="padding-top:40px; padding-bottom:60px; border-top: 1px solid var(--border-glass);">
-            <div style="text-align:center; margin-bottom:40px;">
-                <span class="liturgical-badge liturgical-martyrs" style="margin-bottom:12px;" data-i18n="legacy.milestoneTag">வரலாற்று மைல்கற்கள் | Historical Milestones</span>
-                <h3 style="font-size:2rem; color:var(--primary);" data-i18n="legacy.milestoneTitle">ஆலயத்தின் முக்கிய வரலாற்றுத் தருணங்கள்</h3>
+        <section class="legacy-milestones-section">
+            <div class="legacy-milestones-header">
+                <span class="legacy-section-kicker" id="legacy-milestone-kicker" data-i18n="legacy.milestoneTag">Historical Milestones</span>
+                <h3 class="legacy-section-title" id="legacy-milestone-title" data-i18n="legacy.milestoneTitle">Key historical parish moments</h3>
             </div>
             
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
-                <!-- 1985 foundation -->
-                <div class="summary-card" style="padding:28px; text-align:center; border-radius:24px;">
-                    <div style="font-size:2.5rem; font-weight:900; color:var(--primary); margin-bottom:10px;">1985</div>
-                    <h4 style="font-size:1.15rem; margin-bottom:8px; font-weight:800;" data-i18n="legacy.ms85Title">அடித்தளம் & தொடக்கம்</h4>
-                    <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6;" data-i18n="legacy.ms85Desc">வடக்கு பாகனூரில் புனித அந்தோணியாரின் சிறு ஆலயமாக வழிபாடுகள் ஆரம்பிக்கப்பட்டு பங்குப் பணியாளர் நியமிக்கப்பட்ட ஆண்டாகும்.</p>
-                </div>
+            <div class="legacy-milestones-grid">
+                <article class="legacy-milestone-card" style="--milestone-accent:linear-gradient(90deg, hsl(40, 90%, 48%), hsl(30, 85%, 46%)); --milestone-soft:hsla(40, 90%, 42%, 0.1); --milestone-color:hsl(35, 85%, 34%);">
+                    <div class="legacy-milestone-icon">
+                        <span class="material-icons" aria-hidden="true" data-fallback="F">foundation</span>
+                    </div>
+                    <div class="legacy-milestone-year">1924</div>
+                    <h4 class="legacy-milestone-title" id="legacy-ms24-title" data-i18n="legacy.ms24Title">The Humble Foundation</h4>
+                <p class="legacy-milestone-desc" id="legacy-ms24-desc" data-i18n="legacy.ms24Desc">The first simple thatched chapel was built in Vadakku Paganur as a place of communal prayer.</p>
+                </article>
                 
-                <!-- 2010 jubilee -->
-                <div class="summary-card" style="padding:28px; text-align:center; border-radius:24px;">
-                    <div style="font-size:2.5rem; font-weight:900; color:var(--primary); margin-bottom:10px;">2010</div>
-                    <h4 style="font-size:1.15rem; margin-bottom:8px; font-weight:800;" data-i18n="legacy.ms10Title">வெள்ளி விழா கொண்டாட்டம்</h4>
-                    <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6;" data-i18n="legacy.ms10Desc">பங்கின் வெள்ளி விழா நிறைவை ஒட்டி நற்கருணை ஆராதனைக் கூடம் மற்றும் புனித அந்தோணியார் திருக்குளம் புனரமைக்கப்பட்ட ஆண்டு.</p>
-                </div>
+                <article class="legacy-milestone-card" style="--milestone-accent:linear-gradient(90deg, hsl(150, 55%, 38%), hsl(180, 58%, 36%)); --milestone-soft:hsla(150, 55%, 38%, 0.1); --milestone-color:hsl(150, 50%, 30%);">
+                    <div class="legacy-milestone-icon">
+                        <span class="material-icons" aria-hidden="true" data-fallback="B">account_balance</span>
+                    </div>
+                    <div class="legacy-milestone-year">1960</div>
+                    <h4 class="legacy-milestone-title" id="legacy-ms60-title" data-i18n="legacy.ms60Title">The Stone Sanctuary</h4>
+                <p class="legacy-milestone-desc" id="legacy-ms60-desc" data-i18n="legacy.ms60Desc">With united parish labor, a permanent stone sanctuary was built and consecrated for worship.</p>
+                </article>
+
+                <article class="legacy-milestone-card" style="--milestone-accent:linear-gradient(90deg, var(--primary), hsl(265, 70%, 55%)); --milestone-soft:hsla(265, 75%, 45%, 0.1); --milestone-color:var(--primary);">
+                    <div class="legacy-milestone-icon">
+                        <span class="material-icons" aria-hidden="true" data-fallback="P">church</span>
+                    </div>
+                    <div class="legacy-milestone-year">1995</div>
+                    <h4 class="legacy-milestone-title" id="legacy-ms95-title" data-i18n="legacy.ms95Title">Independent Parish Status</h4>
+                <p class="legacy-milestone-desc" id="legacy-ms95-desc" data-i18n="legacy.ms95Desc">St. Antony's Church was raised to an independent parish with its first resident parish priest.</p>
+                </article>
                 
-                <!-- 2021 consecration -->
-                <div class="summary-card" style="padding:28px; text-align:center; border-radius:24px;">
-                    <div style="font-size:2.5rem; font-weight:900; color:var(--primary); margin-bottom:10px;">2021</div>
-                    <h4 style="font-size:1.15rem; margin-bottom:8px; font-weight:800;" data-i18n="legacy.ms21Title">புதிய ஆலய அர்ச்சிப்பு விழா</h4>
-                    <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6;" data-i18n="legacy.ms21Desc">பங்கு மக்களின் கூட்டு முயற்சியால் கட்டப்பட்ட அழகிய புதிய எழில்மிகு பேராலயம் அர்ச்சிக்கப்பட்டு புனித அந்தோணியார் திருத்தலமாக அறிவிக்கப்பட்டது.</p>
-                </div>
+                <article class="legacy-milestone-card" style="--milestone-accent:linear-gradient(90deg, hsl(0, 65%, 45%), var(--primary)); --milestone-soft:hsla(0, 65%, 45%, 0.09); --milestone-color:hsl(0, 62%, 36%);">
+                    <div class="legacy-milestone-icon">
+                        <span class="material-icons" aria-hidden="true" data-fallback="#">workspace_premium</span>
+                    </div>
+                    <div class="legacy-milestone-year">2020</div>
+                    <h4 class="legacy-milestone-title" id="legacy-ms20-title" data-i18n="legacy.ms20Title">Modern Shrine Renovation</h4>
+                <p class="legacy-milestone-desc" id="legacy-ms20-desc" data-i18n="legacy.ms20Desc">The church was beautifully renovated with stained glass, renewed shrines, and a dignified sanctuary.</p>
+                </article>
             </div>
         </section>
+
+        <section class="legacy-memory-cta">
+            <div class="legacy-memory-panel">
+                <div class="legacy-memory-copy">
+                    <span class="legacy-hero-kicker">
+                        <span class="material-icons" aria-hidden="true" data-fallback="M">auto_stories</span>
+                        <span id="legacy-cta-kicker">Parish Memory</span>
+                    </span>
+                    <h3 id="legacy-cta-title">Every photograph carries a prayer</h3>
+                    <p id="legacy-cta-text">Continue the story through altar images, feast celebrations, choir moments, and historic parish photographs preserved in the gallery.</p>
+                </div>
+                <a href="gallery.html" class="legacy-action-link primary">
+                    <span class="material-icons" aria-hidden="true" data-fallback="P">collections</span>
+                    <span id="legacy-cta-link">Open Gallery</span>
+                </a>
+            </div>
+        </section>
+        </div>
     </main>
 
-    <!-- Global Footer -->
-    <footer class="footer" id="global-footer">
-        <div class="footer-container">
-            <div class="footer-info">
-                <span class="footer-church-logo">⛪</span>
-                <h3>புனித அந்தோணியார் ஆலயம்</h3>
-                <p data-i18n="footer.tagline">அமைதியும் அருள்மரியும் பெருகும் புண்ணியத்தலம்</p>
-                <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);" class="footer-address-label">
-                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312.
-                </p>
-            </div>
-            <div class="footer-links-grid">
-                <div>
-                    <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
-                    <ul>
-                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
-                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
-                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 data-i18n="footer.resources">வளங்கள்</h4>
-                    <ul>
-                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <p>&copy; 2026 <span id="footer-church-name-copyright">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்</span>. <span data-i18n="footer.copyText">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span></p>
-        </div>
-    </footer>
+    <footer class="footer" id="global-footer"></footer>
 
     <!-- Firebase compatibility libraries -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
@@ -147,19 +331,28 @@
 
     <!-- Core Script dependencies -->
     <script src="js/database.js"></script>
+    <script src="js/footer.js"></script>
     <script src="js/common.js"></script>
 
     <script>
         // Init page
         window.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('legacy');
+            applyLegacyIconFallback();
             
             await loadTimelineEvents();
-            translateLegacyLabels();
+
+            // Reveal the finished page frame
+            SAC_COMMON.revealPage();
 
             window.addEventListener('sacLanguageChanged', async () => {
                 await loadTimelineEvents();
-                translateLegacyLabels();
+            });
+
+            window.addEventListener('sacDataRefreshed', async (e) => {
+                if (e.detail && e.detail.collection === 'legacy_timeline') {
+                    await loadTimelineEvents();
+                }
             });
         });
 
@@ -168,47 +361,75 @@
             const container = document.getElementById('dynamic-timeline-feed');
             if (!container) return;
 
-            const events = await SAC_DATABASE.get("legacy_timeline");
+            const events = await SAC_DATABASE.get("legacy_timeline") || [];
             const isTa = SAC_COMMON.currentLang === 'ta';
 
             if (events.length === 0) {
-                container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:40px;">வரலாற்று தகவல்கள் எதுவும் இல்லை. / No timeline events found.</div>`;
+                updateTimelineCount(0);
+                container.innerHTML = `
+                    <div class="legacy-empty-state">
+                        <span class="material-icons" aria-hidden="true" data-fallback="!">event_busy</span>
+                        <span>${isTa ? "வரலாற்று தகவல்கள் எதுவும் இல்லை." : "No timeline events found."}</span>
+                    </div>
+                `;
                 return;
             }
 
             // Sort timeline events chronologically by year
             events.sort((a, b) => parseInt(a.year) - parseInt(b.year));
+            updateTimelineCount(events.length);
 
-            container.innerHTML = events.map(e => `
-                <div class="timeline-card-container">
-                    <div class="timeline-node"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-year">${e.year}</div>
-                        <h3 class="timeline-title">${isTa ? e.titleTa : e.titleEn}</h3>
-                        <p class="timeline-desc">${isTa ? e.descTa : e.descEn}</p>
-                    </div>
+            const yearLabel = isTa ? "ஆண்டு" : "Year";
+
+            container.innerHTML = events.map((e, index) => `
+                <div class="ultimate-timeline-item">
+                   <div class="ultimate-timeline-sidebar">
+                      <div class="sticky-anchor">
+                          <div class="anchor-year">${escapeLegacyHTML(e.year)}</div>
+                          <div class="anchor-node"></div>
+                      </div>
+                   </div>
+                   <div class="ultimate-timeline-content">
+                      <article class="ultimate-card">
+                         <span class="ultimate-kicker">${yearLabel} ${escapeLegacyHTML(e.year)}</span>
+                         <h3 class="ultimate-title">${escapeLegacyHTML(isTa ? e.titleTa : e.titleEn)}</h3>
+                         <p class="ultimate-desc">${escapeLegacyHTML(isTa ? e.descTa : e.descEn)}</p>
+                      </article>
+                   </div>
                 </div>
             `).join('');
         }
 
-        function translateLegacyLabels() {
-            const isTa = SAC_COMMON.currentLang === 'ta';
-            
-            const titleLbl = document.getElementById('legacy-title-label');
-            if (titleLbl) {
-                titleLbl.innerText = isTa ? "ஆலய வரலாறு & ஆன்மீக பாரம்பரியம்" : "Parish Legacy & History";
-            }
-            
-            const subtitleLbl = document.getElementById('legacy-subtitle-label');
-            if (subtitleLbl) {
-                subtitleLbl.innerText = isTa ? "விசுவாசத்திலும் அர்ப்பணிப்பிலும் வடக்கு பாகனூர் பங்கு கடந்து வந்த ஆன்மீகப் பாதை." : "The journey of St. Antony's Parish in Vadakku Paganur through faith, devotion, and community.";
-            }
+        function updateTimelineCount(count) {
+            const numEl = document.getElementById('legacy-event-count');
+            if (numEl) numEl.innerText = String(count);
+        }
 
-            const copyrightLabel = document.getElementById('footer-church-name-copyright');
-            if (copyrightLabel) {
-                copyrightLabel.innerText = isTa ? "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்" : "St. Antony's Church, Vadakku Paganur";
+        function escapeLegacyHTML(value) {
+            return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char]));
+        }
+
+        function applyLegacyIconFallback() {
+            const probe = document.createElement('span');
+            probe.className = 'material-icons';
+            probe.textContent = 'timeline';
+            probe.style.cssText = 'position:absolute;visibility:hidden;font-size:24px;white-space:nowrap;';
+            document.body.appendChild(probe);
+            const width = probe.getBoundingClientRect().width;
+            probe.remove();
+
+            if (width > 34) {
+                document.body.classList.add('icons-fallback');
             }
         }
+
+        // Full bilingual translation is now handled by SAC_COMMON.translatePage via data-i18n
     </script>
 </body>
 </html>

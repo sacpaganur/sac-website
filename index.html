@@ -14,6 +14,7 @@
     
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/hero-home.css">
 </head>
 <body>
 
@@ -63,126 +64,135 @@
     <!-- Main Content wrapper -->
     <main class="main-wrapper" id="home-page-mount">
         
-        <!-- Hero section with customized landing details -->
-        <section class="hero-premium-section" id="hero-banner" style="background: url('images/hero_church_banner.png') no-repeat center center/cover;">
-            <!-- Cinematic Ambient Divine Light Beams -->
-            <div class="hero-light-beams">
-                <div class="light-beam beam-1"></div>
-                <div class="light-beam beam-2"></div>
+        <!-- Hero — premium welcome + live mass widget -->
+       <!-- Hero Section -->
+<section class="hero-cinema" id="hero-banner" aria-label="Welcome">
+    <div class="hero-cinema__backdrop" aria-hidden="true">
+        <div class="hero-cinema__backdrop-img"></div>
+        <div class="hero-cinema__backdrop-gradient"></div>
+        <div class="hero-cinema__halo"></div>
+        <ul class="hero-cinema__rays" aria-hidden="true">
+            <li></li><li></li><li></li><li></li><li></li><li></li>
+        </ul>
+    </div>
+    <div class="hero-cinema__strip" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="hero-cinema__inner">
+        <div class="hero-cinema__copy">
+            <p class="hero-cinema__tag" data-hero-animate data-i18n="hero.tag">புனித அந்தோணியார் திருத்தலம்</p>
+            <h2 class="hero-cinema__title" data-hero-animate data-i18n="hero.headline">புனித அந்தோணியார் ஆலயத்திற்கு அன்போடு வரவேற்கிறோம்</h2>
+            <div class="hero-cinema__divider" data-hero-animate aria-hidden="true">
+                <span class="hero-cinema__divider-line"></span>
+                <span class="hero-cinema__divider-icon">✝</span>
+                <span class="hero-cinema__divider-line"></span>
             </div>
-
-            <!-- Slow Floating Warm Volumetric Candle Lights -->
-            <div class="candle-glow-particles">
-                <div class="candle-glow-orb orb-1"></div>
-                <div class="candle-glow-orb orb-2"></div>
-                <div class="candle-glow-orb orb-3"></div>
-                <div class="candle-glow-orb orb-4"></div>
+            <p class="hero-cinema__lead" data-hero-animate data-i18n="hero.lead">அமைதியும் அன்பும் தவழும் புனித பூமியில், எங்கள் பங்கு சமூகத்துடன் இணைந்து இறைவனின் அருளையும் நன்மைகளையும் பெற்று மகிழுங்கள்.</p>
+            <figure class="hero-cinema__scripture" data-hero-animate>
+                <blockquote data-i18n="hero.scripture">"அன்பே உருவான இறைவனிடம் கேளுங்கள், உங்களுக்குத் தரப்படும்; தேடுங்கள், நீங்கள் கண்டடைவீர்கள்." - மத்தேயு 7:7</blockquote>
+            </figure>
+            <div class="hero-cinema__cta" data-hero-animate>
+                <a href="schedule.html" class="hero-cinema__btn hero-cinema__btn--fill">
+                    <span class="hero-cinema__btn-glow" aria-hidden="true"></span>
+                    <span data-i18n="nav.schedule">வழிபாடுகள்</span>
+                </a>
+                <a href="legacy.html" class="hero-cinema__btn hero-cinema__btn--outline" data-i18n="nav.legacy">வரலாறு</a>
             </div>
+        </div>
 
-            <div class="hero-premium-container">
-                <!-- central horizontal Liturgical Altar Console -->
-                <div class="altar-console-deck" id="main-altar-console">
-                    
-                    <!-- Left Section: Branding & Holy Word -->
-                    <div class="console-left-branding">
-                        <div class="hero-badge-scripture">
-                            <span class="material-icons badge-glow-icon">auto_awesome</span>
-                            <span class="scripture-text" data-i18n="hero.scripture">"அன்பே உருவான இறைவனிடம் கேளுங்கள், உங்களுக்குத் தரப்படும்..."</span>
-                        </div>
-                        
-                        <div class="hero-brand-highlight">
-                            <span class="brand-glow-line left"></span>
-                            <span class="church-emoji">⛪</span>
-                            <span class="brand-glow-line right"></span>
-                        </div>
-                        
-                        <h2 class="premium-hero-headline" data-i18n="hero.headline">புனித அந்தோணியார் ஆலயம்<br>வடக்கு பாகனூர்</h2>
-                        
-                        <!-- Liturgical Pulse Cross Divider -->
-                        <div class="hero-divider-cross">
-                            <span class="divider-line"></span>
-                            <span class="material-icons divider-icon">church</span>
-                            <span class="divider-line"></span>
-                        </div>
-                        
-                        <p class="premium-hero-subtitle" data-i18n="hero.lead">அமைதியும் அன்பும் தவழும் புனித பூமியில், எங்கள் பங்கு சமூகத்துடன் இணைந்து இறைவனின் அருளையும் நன்மைகளையும் பெற்று மகிழுங்கள்.</p>
-                        
-                        <!-- CTA buttons nested in left branding section on desktop -->
-                        <div class="bento-buttons">
-                            <a href="schedule.html" class="btn-primary" id="btn-hero-mass">
-                                <span class="material-icons">schedule</span>
-                                <span data-i18n="nav.schedule">வழிபாட்டு நேரங்கள்</span>
-                            </a>
-                            <a href="legacy.html" class="btn-secondary" id="btn-hero-legacy">
-                                <span class="material-icons">auto_stories</span>
-                                <span data-i18n="nav.legacy">ஆலய வரலாறு</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Center Section: Tabernacle Shrine & Celestial Dial -->
-                    <div class="console-center-shrine">
-                        <div class="tabernacle-shrine-arch">
-                            
-                            <!-- Dotted Celestial Orbit Dial Rings -->
-                            <div class="celestial-dial-orbit">
-                                <div class="celestial-dial-ring inner-dial"></div>
-                                <div class="celestial-dial-ring outer-dial"></div>
-                                <div class="tabernacle-inner-pulsing-glow"></div>
-                            </div>
-                            
-                            <!-- Masked circular Cameo frame -->
-                            <div class="saint-cameo-frame">
-                                <img class="saint-cameo-img" src="images/saint_antony_hd.png" alt="Saint Antony of Padua">
-                            </div>
-
-                            <!-- Integrated countdown card hovering at base of tabernacle -->
-                            <div class="altar-countdown-card" id="card-countdown">
-                                <div class="countdown-header">
-                                    <div class="live-pulse-wrapper">
-                                        <span class="live-pulse-dot"></span>
-                                        <span class="premium-meta-badge countdown-badge" id="countdown-season-badge">அடுத்த திருப்பலி | Next Mass</span>
-                                    </div>
-                                </div>
-                                <div class="timer-display-box">
-                                    <div class="countdown-time" id="mass-timer">00:00:00</div>
-                                </div>
-                                <div class="countdown-label" id="countdown-label-text" data-i18n="home.timeRemaining">தொடங்குவதற்கு மீதமுள்ள நேரம்</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Section: Liturgical Weekly Scroll Ribbon -->
-                    <div class="console-right-schedules" id="card-weekly-masses">
-                        <div class="schedule-header">
-                            <span class="material-icons">event_note</span>
-                            <span class="premium-meta-badge schedule-badge" id="weekly-masses-title">வாராந்திர வழிபாடுகள்</span>
-                        </div>
-                        <div class="timetable-list" id="home-mass-list">
-                            <!-- Dynamic Mass Schedules load here -->
-                            <div class="loading-spinner-box">
-                                <span class="material-icons spin-icon">hourglass_empty</span>
-                                <span>ஏற்றப்படுகிறது... / Loading...</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+        <div class="hero-cinema__stage" id="hero-stage">
+            <div class="hero-cinema__portal" id="hero-portal">
+                <div class="hero-cinema__portal-ring" aria-hidden="true"></div>
+                <div class="hero-cinema__portal-ring hero-cinema__portal-ring--2" aria-hidden="true"></div>
+                <div class="hero-cinema__portal-img" role="img" aria-label="St. Antony of Padua – Full Standing Figure"></div>
             </div>
-        </section>
+            <div class="hero-cinema__float-cards">
+                <article class="hero-cinema__float-card hero-cinema__float-card--violet" data-hero-animate>
+                    <span class="hero-cinema__float-icon" aria-hidden="true">📿</span>
+                    <span data-i18n="hero.quoteAntony1">"புனித அந்தோணியாரே, எங்களுக்காக மன்றாடும்."</span>
+                </article>
+                <article class="hero-cinema__float-card hero-cinema__float-card--gold" data-hero-animate>
+                    <span class="hero-cinema__float-icon" aria-hidden="true">🕊️</span>
+                    <span data-i18n="hero.quoteAntony2">"நம்பிக்கையின் ஒளி, அன்பின் வழி."</span>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-cinema__marquee" aria-hidden="true">
+        <div class="hero-cinema__marquee-track">
+            <span>புனித அந்தோணியார் ஆலயம்</span><span>✦</span><span>Vadakku Paganur</span><span>✦</span>
+            <span>Shrine of St. Antony</span><span>✦</span><span>புனித அந்தோணியார் ஆலயம்</span><span>✦</span><span>Vadakku Paganur</span><span>✦</span>
+            <span>Shrine of St. Antony</span><span>✦</span>
+        </div>
+    </div>
+
+    <a href="#parish-welcome" class="hero-cinema__scroll" aria-label="Scroll to content">
+        <span class="hero-cinema__scroll-line" aria-hidden="true"></span>
+        <span data-i18n="hero.scrollCue">கீழே செல்லுங்கள்</span>
+    </a>
+</section>
         <!-- Spiritual Welcome & Patron Saint Details -->
-        <section class="section-container" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:48px; align-items:center; padding-top:40px; padding-bottom:60px;">
-            <div style="border-radius:28px; overflow:hidden; box-shadow:var(--shadow-premium); border:1px solid var(--border-glass);">
-                <img src="images/saint_antony_hd.png" alt="Saint Antony of Padua" style="width:100%; display:block; transition:var(--transition-smooth); object-fit:cover; aspect-ratio:4/3;" onmouseover="this.style.transform='scale(1.025)'" onmouseout="this.style.transform='scale(1)'">
-            </div>
-            <div>
-                <span class="liturgical-badge liturgical-easter" style="margin-bottom:16px;" data-i18n="home.patronBadge">நமது பாதுகாவலர் | Our Patron Saint</span>
-                <h3 style="font-size:2.2rem; color:var(--primary); margin-bottom:16px;" data-i18n="home.patronTitle">பதுவை நகர் புனித அந்தோணியார்</h3>
-                <p style="color:var(--text-secondary); font-size:1.05rem; line-height:1.75; margin-bottom:24px;" data-i18n="home.patronDesc">
+        <section class="section-container patron-vision-section" id="parish-welcome">
+            <div class="patron-vision-bg" aria-hidden="true"></div>
+            
+            <div class="patron-vision-header">
+                <span class="patron-vision-tag" data-i18n="home.patronBadge">நமது பாதுகாவலர் | Our Patron Saint</span>
+                <h3 class="patron-vision-title" data-i18n="home.patronTitle">பதுவை நகர் புனித அந்தோணியார்</h3>
+                <p class="patron-vision-lead" data-i18n="home.patronDesc">
                     நமது ஆலயத்தின் பாதுகாவலரான புனித அந்தோணியார், இறைவனின் பேரன்பையும் வல்லமையையும் மக்கள் மத்தியில் பகிர்ந்து வரும் அற்புதங்கள் நிறைந்த அருளாளர் ஆவார். ஏழைகள் மற்றும் தொலைந்த பொருட்களின் பாதுகாவலரான இவரின் பரிந்துரையால் எண்ணற்ற மக்கள் ஆறுதலும் ஆசீரும் பெற்று வருகிறார்கள்.
                 </p>
-                <div>
-                    <a href="legacy.html" class="btn-primary" style="padding:12px 28px; font-size:0.92rem;" data-i18n="home.learnPatronBtn">ஆலயப் பாரம்பரியம்</a>
+            </div>
+
+            <div class="patron-vision-grid">
+                <!-- Left: Image -->
+                <div class="patron-vision-image-wrapper">
+                    <img src="images/saint_antony_hd.png" alt="Saint Antony" class="patron-vision-img">
+                    <div class="patron-vision-pill">
+                        <div class="pill-avatars">
+                            <span class="avatar" aria-hidden="true">🙏</span>
+                            <span class="avatar" aria-hidden="true">✨</span>
+                            <span class="avatar" aria-hidden="true">🕊️</span>
+                        </div>
+                        <span class="pill-text" data-i18n="home.patronMiracles">எண்ணற்ற அற்புதங்கள்</span>
+                    </div>
+                </div>
+
+                <!-- Right: Cards -->
+                <div class="patron-vision-cards">
+                    <div class="vision-card">
+                        <div class="vision-card-content">
+                            <h4 data-i18n="home.patronCard1Title">ஏழைகளின் பாதுகாவலர்</h4>
+                            <p data-i18n="home.patronCard1Desc">எளியவர்கள் மற்றும் தேவையில் இருப்போரின் உற்ற துணையாக விளங்குகிறார்.</p>
+                        </div>
+                        <div class="vision-card-footer">
+                            <div class="vision-card-icon icon-blue">🍞</div>
+                            <div class="vision-card-num">01</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <div class="vision-card-content">
+                            <h4 data-i18n="home.patronCard2Title">இழந்தவற்றைக் கண்டடையும் அருளாளர்</h4>
+                            <p data-i18n="home.patronCard2Desc">நம்பிக்கையோடு செபிக்கும்போது, தொலைந்தவைகளை மீண்டும் பெற உதவுகிறார்.</p>
+                        </div>
+                        <div class="vision-card-footer">
+                            <div class="vision-card-icon icon-purple">🔍</div>
+                            <div class="vision-card-num">02</div>
+                        </div>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <div class="vision-card-content">
+                            <h4 data-i18n="home.patronCard3Title">அற்புதங்களின் நாயகன்</h4>
+                            <p data-i18n="home.patronCard3Desc">தம்மை நாடி வருவோரின் வாழ்வில் இறையருளால் பல அற்புதங்களை நிகழ்த்துகிறார்.</p>
+                        </div>
+                        <div class="vision-card-footer">
+                            <div class="vision-card-icon icon-gold">✨</div>
+                            <div class="vision-card-num">03</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -252,38 +262,8 @@
         </section>
     </main>
 
-    <!-- Global Footer -->
-    <footer class="footer" id="global-footer">
-        <div class="footer-container">
-            <div class="footer-info">
-                <span class="footer-church-logo">⛪</span>
-                <h3>புனித அந்தோணியார் ஆலயம்</h3>
-                <p data-i18n="footer.tagline">அமைதியும் அருள்மரியும் பெருகும் புண்ணியத்தலம்</p>
-                <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);" class="footer-address-label">
-                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312.
-                </p>
-            </div>
-            <div class="footer-links-grid">
-                <div>
-                    <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
-                    <ul>
-                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
-                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
-                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 data-i18n="footer.resources">வளங்கள்</h4>
-                    <ul>
-                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <p>&copy; 2026 <span id="footer-church-name-copyright">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்</span>. <span data-i18n="footer.copyText">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span></p>
-        </div>
-    </footer>
+    <!-- Global Footer (enhanced markup injected by js/footer.js) -->
+    <footer class="footer" id="global-footer"></footer>
 
     <!-- Firebase compatibility libraries (Admin configured Firestore connection support) -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
@@ -291,27 +271,29 @@
 
     <!-- Project JS dependencies -->
     <script src="js/database.js"></script>
+    <script src="js/footer.js"></script>
     <script src="js/common.js"></script>
-
+    <script src="js/hero-home.js"></script>
     <!-- Specific page home countdown & scheduling logic -->
     <script>
         // Init shared scripts
-        window.addEventListener('DOMContentLoaded', async () => {
-            await SAC_COMMON.init('home');
-            
-            // Load dynamic Mass schedules list
-            await loadHomeMassList();
-            
-            // Start Mass Countdown
-            startHomeCountdown();
-            
-            // Translate when language changes
-            window.addEventListener('sacLanguageChanged', async () => {
+            window.addEventListener('DOMContentLoaded', async () => {
+                await SAC_COMMON.init('home');
+                initHeroCinema();  // <-- Hero Cinema initialization triggered here
+                
+                // Load dynamic Mass schedules list
                 await loadHomeMassList();
-                translateHomeLabels();
-                await startHomeCountdown();
+                
+                // Start Mass Countdown
+                startHomeCountdown();
+                
+                // Translate when language changes
+                window.addEventListener('sacLanguageChanged', async () => {
+                    await loadHomeMassList();
+                    translateHomeLabels();
+                    await startHomeCountdown();
+                });
             });
-        });
 
         // Fetch schedules from DB and list them in the summary card
         async function loadHomeMassList() {
@@ -349,11 +331,6 @@
             const weeklyTitle = document.getElementById('weekly-masses-title');
             if (weeklyTitle) {
                 weeklyTitle.innerText = isTa ? "வாராந்திர வழிபாடுகள்" : "Weekly Liturgical Schedules";
-            }
-            
-            const copyrightLabel = document.getElementById('footer-church-name-copyright');
-            if (copyrightLabel) {
-                copyrightLabel.innerText = isTa ? "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்" : "St. Antony's Church, Vadakku Paganur";
             }
         }
 
@@ -481,6 +458,7 @@
             updateTimer();
             countdownInterval = setInterval(updateTimer, 1000);
         }
+
     </script>
 </body>
 </html>

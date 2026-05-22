@@ -14,195 +14,7 @@
     
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
-    
-    <style>
-        /* Premium custom style overrides for gallery grid */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 40px 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .gallery-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: var(--shadow-premium);
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .gallery-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow-hover);
-        }
-        
-        .gallery-img-wrapper {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-        }
-        
-        .gallery-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition-smooth);
-        }
-        
-        .gallery-card:hover .gallery-img {
-            transform: scale(1.08);
-        }
-        
-        .gallery-card-info {
-            padding: 20px;
-            border-top: 1px solid var(--border-glass);
-        }
-        
-        .gallery-card-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-        }
-        
-        .gallery-card-category {
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-gold);
-        }
-        
-        /* Lightbox Glassmorphic Overlay */
-        .lightbox-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(30, 25, 35, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        
-        .lightbox-overlay.open {
-            display: flex;
-            opacity: 1;
-        }
-        
-        .lightbox-container {
-            position: relative;
-            max-width: 90%;
-            max-height: 80%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .lightbox-img {
-            max-width: 100%;
-            max-height: 70vh;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transform: scale(0.95);
-            transition: transform 0.4s ease;
-            object-fit: contain;
-        }
-        
-        .lightbox-overlay.open .lightbox-img {
-            transform: scale(1);
-        }
-        
-        .lightbox-caption {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 16px 28px;
-            border-radius: 16px;
-            margin-top: 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-        }
-        
-        .lightbox-title {
-            font-size: 1.15rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-        
-        .lightbox-cat {
-            font-size: 0.8rem;
-            color: var(--accent-gold);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .lightbox-btn {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #fff;
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            user-select: none;
-            backdrop-filter: blur(10px);
-        }
-        
-        .lightbox-btn:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary-glow);
-            transform: scale(1.05);
-        }
-        
-        .btn-close {
-            position: absolute;
-            top: -60px;
-            right: 0;
-        }
-        
-        .btn-prev {
-            left: -80px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .btn-next {
-            right: -80px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        @media (max-width: 900px) {
-            .btn-prev { left: 10px; bottom: -80px; top: auto; transform: none; }
-            .btn-next { right: 10px; bottom: -80px; top: auto; transform: none; }
-            .btn-close { top: -70px; right: 10px; }
-        }
-    </style>
+    <link rel="stylesheet" href="css/gallery-page.css">
 </head>
 <body>
 
@@ -251,15 +63,48 @@
 
     <!-- Main Content wrapper -->
     <main class="main-wrapper">
-        <section class="subpage-header" style="background: linear-gradient(180deg, rgba(254, 252, 249, 0.85) 0%, var(--bg-light) 100%), url('images/hero_church_banner.png') no-repeat center center/cover; padding: 100px 24px 60px; border-bottom: 1px solid var(--border-glass);">
-            <h2 class="subpage-title" id="gallery-title-label">ஆலய புகைப்படங்கள்</h2>
-            <p class="subpage-subtitle" id="gallery-subtitle-label" style="font-weight: 500;">வடக்கு பாகனூர் புனித அந்தோணியார் ஆலயத்தின் அழகிய திருத்தலப் புகைப்படங்கள்.</p>
+        <section class="notices-hero-header">
+            <div class="notices-hero-inner">
+                <div class="notices-liturgical-badge" id="gallery-hero-badge">
+                    <span>📷</span>
+                    <span id="gallery-hero-badge-text">ஆலய புகைப்பட தொகுப்பு</span>
+                </div>
+                <h2 class="notices-hero-title" id="gallery-title-label">ஆலய புகைப்படங்கள்</h2>
+                <p class="notices-hero-subtitle" id="gallery-subtitle-label">வடக்கு பாகனூர் புனித அந்தோணியார் ஆலயத்தின் அழகிய திருத்தலப் புகைப்படங்கள்.</p>
+                <div class="notices-hero-counter" id="gallery-counter-badge">
+                    <span class="counter-number" id="gallery-count-number">0</span>
+                    <span id="gallery-count-label">புகைப்படங்கள்</span>
+                </div>
+            </div>
         </section>
-        
-        <!-- Gallery Grid -->
-        <section class="gallery-grid" id="gallery-grid-feed">
-            <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">புகைப்படங்கள் ஏற்றப்படுகின்றன... / Loading photos...</div>
-        </section>
+
+        <div class="gallery-page-body">
+            <div class="gallery-page-inner">
+                <!-- Current Trending -->
+                <section class="gallery-trending-section" id="gallery-trending-section" hidden>
+                    <div class="gallery-section-head">
+                        <span class="gallery-trending-badge" id="gallery-trending-badge-label">🔥 தற்போதைய பிரபலம்</span>
+                        <h2 class="gallery-section-title" id="gallery-trending-title">Current Trending</h2>
+                    </div>
+                    <div class="gallery-trending-row" id="gallery-trending-row"></div>
+                </section>
+
+                <!-- Category filters -->
+                <div class="gallery-filter-wrap">
+                    <div class="gallery-filter-bar" id="gallery-filter-tabs" role="tablist"></div>
+                </div>
+
+                <!-- All photos grid -->
+                <section class="gallery-grid-section">
+                    <div class="gallery-section-head">
+                        <h2 class="gallery-section-title" id="gallery-all-title">அனைத்து புகைப்படங்கள்</h2>
+                    </div>
+                    <div class="gallery-grid" id="gallery-grid-feed">
+                        <div class="gallery-loading" id="gallery-loading-msg">புகைப்படங்கள் ஏற்றப்படுகின்றன... / Loading photos...</div>
+                    </div>
+                </section>
+            </div>
+        </div>
     </main>
 
     <!-- Custom Lightbox Overlay -->
@@ -278,43 +123,12 @@
             <div class="lightbox-caption">
                 <div class="lightbox-cat" id="lightbox-cat">Category</div>
                 <div class="lightbox-title" id="lightbox-title">Title Text</div>
+                <div class="lightbox-counter" id="lightbox-counter"></div>
             </div>
         </div>
     </div>
 
-    <!-- Global Footer -->
-    <footer class="footer" id="global-footer">
-        <div class="footer-container">
-            <div class="footer-info">
-                <span class="footer-church-logo">⛪</span>
-                <h3>புனித அந்தோணியார் ஆலயம்</h3>
-                <p data-i18n="footer.tagline">அமைதியும் அருள்மரியும் பெருகும் புண்ணியத்தலம்</p>
-                <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);" class="footer-address-label">
-                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312.
-                </p>
-            </div>
-            <div class="footer-links-grid">
-                <div>
-                    <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
-                    <ul>
-                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
-                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
-                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 data-i18n="footer.resources">வளங்கள்</h4>
-                    <ul>
-                        <li><a href="gallery.html" data-i18n="nav.gallery">புகைப்படங்கள்</a></li>
-                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <p>&copy; 2026 <span id="footer-church-name-copyright">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்</span>. <span data-i18n="footer.copyText">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span></p>
-        </div>
-    </footer>
+    <footer class="footer" id="global-footer"></footer>
 
     <!-- Firebase compatibility libraries -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
@@ -322,23 +136,41 @@
 
     <!-- Core Script dependencies -->
     <script src="js/database.js"></script>
+    <script src="js/footer.js"></script>
     <script src="js/common.js"></script>
 
     <script>
         let galleryData = [];
         let currentIndex = 0;
+        let activeCategory = 'all';
+        let lightboxList = [];
+
+        const CATEGORY_ICONS = {
+            'patron saint devotion': '🙏',
+            'historical sanctuary': '🏛️',
+            'new church building': '⛪',
+            'sanctuary altar': '🕯️',
+            'annual festival': '🎉',
+            'parish liturgical choir': '🎵'
+        };
 
         window.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('gallery');
-            
             await loadDynamicGallery();
             translateGalleryLabels();
-            
+            SAC_COMMON.revealPage();
+
             window.addEventListener('sacLanguageChanged', () => {
                 translateGalleryLabels();
-                renderDynamicGallery();
+                renderGalleryPage();
                 if (document.getElementById('lightbox-overlay').classList.contains('open')) {
                     updateLightboxContent();
+                }
+            });
+
+            window.addEventListener('sacDataRefreshed', async (e) => {
+                if (e.detail && e.detail.collection === 'gallery') {
+                    await loadDynamicGallery();
                 }
             });
         });
@@ -346,113 +178,258 @@
         async function loadDynamicGallery() {
             try {
                 galleryData = await SAC_DATABASE.get("gallery") || [];
-                renderDynamicGallery();
+                renderGalleryPage();
             } catch (err) {
                 console.error("Failed to load gallery:", err);
             }
         }
 
-        function renderDynamicGallery() {
+        function getTrendingItems() {
+            const marked = galleryData.filter(item => item.trending);
+            if (marked.length > 0) return marked.slice(0, 3);
+            return galleryData.slice(0, 3);
+        }
+
+        function getUniqueCategories() {
+            const seen = new Set();
+            const cats = [];
+            galleryData.forEach(item => {
+                const key = (item.catEn || '').trim();
+                if (key && !seen.has(key)) {
+                    seen.add(key);
+                    cats.push(key);
+                }
+            });
+            return cats;
+        }
+
+        function getCategoryIcon(catEn) {
+            const key = (catEn || '').toLowerCase().trim();
+            return CATEGORY_ICONS[key] || '📷';
+        }
+
+        function getFilteredItems() {
+            if (activeCategory === 'all') return galleryData;
+            return galleryData.filter(item => (item.catEn || '').trim() === activeCategory);
+        }
+
+        function findGlobalIndex(item) {
+            return galleryData.findIndex(g => g.id === item.id);
+        }
+
+        function renderGalleryPage() {
+            updatePhotoCount();
+            renderTrending();
+            renderFilterTabs();
+            renderGrid();
+        }
+
+        function updatePhotoCount() {
+            const countEl = document.getElementById('gallery-count-number');
+            if (countEl) countEl.innerText = String(galleryData.length);
+        }
+
+        function renderTrending() {
+            const section = document.getElementById('gallery-trending-section');
+            const row = document.getElementById('gallery-trending-row');
+            if (!section || !row) return;
+
+            const trending = getTrendingItems();
+            if (galleryData.length === 0 || trending.length === 0) {
+                section.hidden = true;
+                return;
+            }
+
+            section.hidden = false;
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const hotLabel = isTa ? 'பிரபலம்' : 'Trending';
+
+            row.innerHTML = trending.map(item => {
+                const idx = findGlobalIndex(item);
+                const category = isTa ? item.catTa : item.catEn;
+                const title = isTa ? item.titleTa : item.titleEn;
+                return `
+                    <article class="gallery-trending-card" onclick="openLightbox(${idx})" role="button" tabindex="0" aria-label="${title}">
+                        <img src="${item.src}" alt="${title}" loading="lazy">
+                        <div class="gallery-trending-overlay">
+                            <span class="gallery-trending-hot">🔥 ${hotLabel}</span>
+                            <span class="gallery-trending-cat">${category}</span>
+                            <h3 class="gallery-trending-title">${title}</h3>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        function renderFilterTabs() {
+            const container = document.getElementById('gallery-filter-tabs');
+            if (!container) return;
+
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const allLabel = isTa ? 'அனைத்தும்' : 'All';
+            const categories = getUniqueCategories();
+
+            const tabs = [
+                { key: 'all', label: allLabel, icon: '🌟' },
+                ...categories.map(cat => ({
+                    key: cat,
+                    label: isTa
+                        ? (galleryData.find(g => g.catEn === cat)?.catTa || cat)
+                        : cat,
+                    icon: getCategoryIcon(cat)
+                }))
+            ];
+
+            container.innerHTML = tabs.map(tab => `
+                <button type="button" class="gallery-filter-tab${activeCategory === tab.key ? ' active' : ''}"
+                    data-category="${tab.key.replace(/"/g, '&quot;')}" role="tab"
+                    aria-selected="${activeCategory === tab.key}">
+                    <span class="tab-icon">${tab.icon}</span>
+                    <span class="tab-label">${tab.label}</span>
+                </button>
+            `).join('');
+
+            container.querySelectorAll('.gallery-filter-tab').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activeCategory = btn.getAttribute('data-category');
+                    renderFilterTabs();
+                    renderGrid();
+                });
+            });
+        }
+
+        function renderGrid() {
             const container = document.getElementById('gallery-grid-feed');
             if (!container) return;
 
+            const filtered = getFilteredItems();
+            const isTa = SAC_COMMON.currentLang === 'ta';
+
             if (galleryData.length === 0) {
                 container.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 50px;">
-                        <span class="material-icons" style="font-size:3rem; margin-bottom:12px; display:block; color:var(--text-muted);">photo_library</span>
-                        <span>புகைப்படங்கள் எதுவும் இல்லை / No photos found</span>
+                    <div class="gallery-empty">
+                        <span class="material-icons">photo_library</span>
+                        <span>${isTa ? 'புகைப்படங்கள் எதுவும் இல்லை' : 'No photos found'}</span>
                     </div>
                 `;
                 return;
             }
 
-            const isTa = SAC_COMMON.currentLang === 'ta';
-            container.innerHTML = galleryData.map((item, index) => {
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="gallery-empty">
+                        <span class="material-icons">filter_none</span>
+                        <span>${isTa ? 'இந்த வகையில் புகைப்படங்கள் இல்லை' : 'No photos in this category'}</span>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map((item, i) => {
+                const idx = findGlobalIndex(item);
                 const category = isTa ? item.catTa : item.catEn;
                 const title = isTa ? item.titleTa : item.titleEn;
                 return `
-                    <div class="gallery-card" onclick="openLightbox(${index})">
+                    <article class="gallery-card" style="animation-delay:${Math.min(i * 0.05, 0.35)}s"
+                        onclick="openLightbox(${idx})" role="button" tabindex="0">
                         <div class="gallery-img-wrapper">
-                            <img src="${item.src}" class="gallery-img" alt="${title}">
+                            <img src="${item.src}" class="gallery-img" alt="${title}" loading="lazy">
+                            <span class="gallery-zoom-hint material-icons" aria-hidden="true">zoom_in</span>
                         </div>
                         <div class="gallery-card-info">
                             <span class="gallery-card-category">${category}</span>
                             <h3 class="gallery-card-title">${title}</h3>
                         </div>
-                    </div>
+                    </article>
                 `;
             }).join('');
         }
 
         function translateGalleryLabels() {
             const isTa = SAC_COMMON.currentLang === 'ta';
-            
+
+            const badgeText = document.getElementById('gallery-hero-badge-text');
+            if (badgeText) badgeText.innerText = isTa ? 'ஆலய புகைப்பட தொகுப்பு' : 'Parish Photo Collection';
+
             const titleLbl = document.getElementById('gallery-title-label');
-            if (titleLbl) {
-                titleLbl.innerText = isTa ? "ஆலய புகைப்படங்கள்" : "Parish Photo Gallery";
-            }
-            
+            if (titleLbl) titleLbl.innerText = isTa ? 'ஆலய புகைப்படங்கள்' : 'Parish Photo Gallery';
+
             const subtitleLbl = document.getElementById('gallery-subtitle-label');
             if (subtitleLbl) {
-                subtitleLbl.innerText = isTa ? "வடக்கு பாகனூர் புனித அந்தோணியார் ஆலயத்தின் அழகிய திருத்தலப் புகைப்படங்கள்." : "Beautiful snapshots of holy shrines, sacraments, and liturgical feasts.";
+                subtitleLbl.innerText = isTa
+                    ? 'வடக்கு பாகனூர் புனித அந்தோணியார் ஆலயத்தின் அழகிய திருத்தலப் புகைப்படங்கள்.'
+                    : 'Beautiful snapshots of our sanctuary, feast celebrations, and parish life.';
             }
+
+            const countLabel = document.getElementById('gallery-count-label');
+            if (countLabel) countLabel.innerText = isTa ? 'புகைப்படங்கள்' : 'Photos';
+
+            const trendingBadge = document.getElementById('gallery-trending-badge-label');
+            if (trendingBadge) trendingBadge.innerText = isTa ? '🔥 தற்போதைய பிரபலம்' : '🔥 Current Trending';
+
+            const trendingTitle = document.getElementById('gallery-trending-title');
+            if (trendingTitle) trendingTitle.innerText = isTa ? 'பிரபலமான புகைப்படங்கள்' : 'Featured Highlights';
+
+            const allTitle = document.getElementById('gallery-all-title');
+            if (allTitle) allTitle.innerText = isTa ? 'அனைத்து புகைப்படங்கள்' : 'All Photos';
 
             const copyrightLabel = document.getElementById('footer-church-name-copyright');
             if (copyrightLabel) {
-                copyrightLabel.innerText = isTa ? "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்" : "St. Antony's Church, Vadakku Paganur";
+                copyrightLabel.innerText = isTa ? 'புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்' : "St. Antony's Church, Vadakku Paganur";
             }
         }
 
-        // Lightbox Functions
         function openLightbox(index) {
             currentIndex = index;
+            lightboxList = galleryData;
+
             const overlay = document.getElementById('lightbox-overlay');
             overlay.classList.add('open');
             updateLightboxContent();
-            document.body.style.overflow = 'hidden'; // Lock scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightboxOverlay() {
-            const overlay = document.getElementById('lightbox-overlay');
-            overlay.classList.remove('open');
-            document.body.style.overflow = ''; // Unlock scrolling
+            document.getElementById('lightbox-overlay').classList.remove('open');
+            document.body.style.overflow = '';
         }
 
-        function closeLightbox(event) {
+        function closeLightbox() {
             closeLightboxOverlay();
         }
 
         function updateLightboxContent() {
-            if (galleryData.length === 0) return;
-            const item = galleryData[currentIndex];
+            if (!lightboxList.length) return;
+            const item = lightboxList[currentIndex];
             const isTa = SAC_COMMON.currentLang === 'ta';
-            
-            const img = document.getElementById('lightbox-img');
-            const cat = document.getElementById('lightbox-cat');
-            const title = document.getElementById('lightbox-title');
-            
-            img.src = item.src;
-            cat.innerText = isTa ? item.catTa : item.catEn;
-            title.innerText = isTa ? item.titleTa : item.titleEn;
+
+            document.getElementById('lightbox-img').src = item.src;
+            document.getElementById('lightbox-cat').innerText = isTa ? item.catTa : item.catEn;
+            document.getElementById('lightbox-title').innerText = isTa ? item.titleTa : item.titleEn;
+
+            const counter = document.getElementById('lightbox-counter');
+            if (counter) {
+                counter.innerText = isTa
+                    ? `${currentIndex + 1} / ${lightboxList.length}`
+                    : `Photo ${currentIndex + 1} of ${lightboxList.length}`;
+            }
         }
 
         function nextImage() {
-            if (galleryData.length === 0) return;
-            currentIndex = (currentIndex + 1) % galleryData.length;
+            if (!lightboxList.length) return;
+            currentIndex = (currentIndex + 1) % lightboxList.length;
             updateLightboxContent();
         }
 
         function prevImage() {
-            if (galleryData.length === 0) return;
-            currentIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
+            if (!lightboxList.length) return;
+            currentIndex = (currentIndex - 1 + lightboxList.length) % lightboxList.length;
             updateLightboxContent();
         }
 
-        // Keyboard navigation support for lightbox
         document.addEventListener('keydown', (e) => {
             const overlay = document.getElementById('lightbox-overlay');
             if (!overlay || !overlay.classList.contains('open')) return;
-            
             if (e.key === 'ArrowRight') nextImage();
             else if (e.key === 'ArrowLeft') prevImage();
             else if (e.key === 'Escape') closeLightboxOverlay();

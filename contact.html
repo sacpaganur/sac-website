@@ -18,6 +18,7 @@
 
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/contact-page.css">
 </head>
 
 <body>
@@ -67,120 +68,157 @@
 
     <!-- Main Content wrapper -->
     <main class="main-wrapper">
-        <section class="subpage-header" style="background: linear-gradient(180deg, rgba(254, 252, 249, 0.85) 0%, var(--bg-light) 100%), url('images/parish_history_banner.png') no-repeat center center/cover; padding: 100px 24px 60px; border-bottom: 1px solid var(--border-glass);">
-            <h2 class="subpage-title" id="contact-title-label">எங்களை தொடர்பு கொள்ள</h2>
-            <p class="subpage-subtitle" id="contact-subtitle-label" style="font-weight: 500;">செப வேண்டுதல்கள், திருப்பலி கருத்துகள் மற்றும் இதர விபரங்களுக்கு தொடர்பு கொள்க.</p>
-        </section>
-
-        <section class="contact-layout">
-            <!-- Left Info Panel -->
-            <div class="contact-info-panel">
-                <div class="contact-item">
-                    <div class="contact-item-icon">📍</div>
-                    <div>
-                        <h4 id="contact-lbl-address">முகவரி</h4>
-                        <p style="font-size:0.92rem; color:var(--text-secondary); margin-top:6px;"
-                            class="footer-address-label">
-                            புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312, தமிழ்நாடு, இந்தியா.
-                        </p>
-                    </div>
+        <section class="notices-hero-header">
+            <div class="notices-hero-inner">
+                <div class="notices-liturgical-badge" id="contact-hero-badge">
+                    <span>✉️</span>
+                    <span id="contact-hero-badge-text">ஆலய தொடர்பு</span>
                 </div>
-
-                <div class="contact-item">
-                    <div class="contact-item-icon">📞</div>
-                    <div>
-                        <h4 id="contact-lbl-phone">தொலைபேசி</h4>
-                        <p style="font-size:0.92rem; color:var(--text-secondary); margin-top:6px;"
-                            id="contact-val-phone">+91 94860 12345</p>
-                    </div>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-item-icon">✉️</div>
-                    <div>
-                        <h4 id="contact-lbl-email">மின்னஞ்சல்</h4>
-                        <p style="font-size:0.92rem; color:var(--text-secondary); margin-top:6px;"
-                            id="contact-val-email">contact@stantonyschurchpaganur.in</p>
-                    </div>
-                </div>
-
-                <!-- Map iframe card -->
-                <div class="map-card">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1383.887480062082!2d78.60656129761547!3d10.743616220175811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baa60f4688c516b%3A0xfd70cbeaf0170fae!2sSt.%20Antony&#39;s%20Church%2C%20Vadakku%20Paganur!5e0!3m2!1sen!2sin!4v1779204335558!5m2!1sen!2sin"
-                        width="100%" height="260" style="border:0; display:block;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
-
-            <!-- Right Contact Form (Submit Prayer Request) -->
-            <div class="contact-form-panel">
-                <h3 id="form-prayer-title">உங்கள் செப வேண்டுதல்</h3>
-
-                <div id="prayer-form-alert" class="form-alert" style="display:none;"></div>
-
-                <form id="public-prayer-form" novalidate>
-                    <div class="form-group">
-                        <label class="form-label" id="lbl-form-name">உங்கள் பெயர்</label>
-                        <input type="text" id="form-name" class="form-control" placeholder="Your Name">
-                        <span id="err-name" class="input-error-msg"
-                            style="color:#ef4444; font-size:0.82rem; margin-top:6px; display:none; align-items:center; gap:4px; font-weight:500;"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" id="lbl-form-email">மின்னஞ்சல் முகவரி</label>
-                        <input type="email" id="form-email" class="form-control" placeholder="Email Address">
-                        <span id="err-email" class="input-error-msg"
-                            style="color:#ef4444; font-size:0.82rem; margin-top:6px; display:none; align-items:center; gap:4px; font-weight:500;"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" id="lbl-form-msg">உங்கள் கருத்து / செப வேண்டுதல்</label>
-                        <textarea id="form-message" class="form-control" placeholder="Your Prayer Intention"></textarea>
-                        <span id="err-message" class="input-error-msg"
-                            style="color:#ef4444; font-size:0.82rem; margin-top:6px; display:none; align-items:center; gap:4px; font-weight:500;"></span>
-                    </div>
-
-                    <button type="submit" class="btn-submit" id="btn-form-submit">சமர்ப்பிக்கவும்</button>
-                </form>
+                <h2 class="notices-hero-title" id="contact-title-label">எங்களை தொடர்பு கொள்ள</h2>
+                <p class="notices-hero-subtitle" id="contact-subtitle-label">செப வேண்டுதல்கள், திருப்பலி கருத்துகள் மற்றும் இதர விபரங்களுக்கு தொடர்பு கொள்ளுங்கள்.</p>
             </div>
         </section>
+
+        <div class="contact-page-body">
+            <div class="contact-container">
+                <div class="contact-quick-strip">
+                    <a class="contact-quick-card contact-quick-card--static" id="contact-quick-address" href="#" onclick="return false;">
+                        <span class="contact-quick-icon">📍</span>
+                        <div>
+                            <div class="contact-quick-label" id="contact-quick-lbl-address">முகவரி</div>
+                            <div class="contact-quick-value footer-address-label">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312</div>
+                        </div>
+                    </a>
+                    <a class="contact-quick-card" id="contact-quick-phone" href="tel:+919486012345">
+                        <span class="contact-quick-icon">📞</span>
+                        <div>
+                            <div class="contact-quick-label" id="contact-quick-lbl-phone">தொலைபேசி</div>
+                            <div class="contact-quick-value" id="contact-val-phone">+91 94860 12345</div>
+                        </div>
+                    </a>
+                    <a class="contact-quick-card" id="contact-quick-email" href="mailto:contact@stantonyschurchpaganur.in">
+                        <span class="contact-quick-icon">✉️</span>
+                        <div>
+                            <div class="contact-quick-label" id="contact-quick-lbl-email">மின்னஞ்சல்</div>
+                            <div class="contact-quick-value" id="contact-val-email">contact@stantonyschurchpaganur.in</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="contact-main-grid">
+                    <div class="contact-left">
+                        <section class="contact-reach-panel">
+                            <div class="contact-panel-head">
+                                <span class="contact-panel-badge">📍</span>
+                                <h2 class="contact-panel-title" id="contact-lbl-reach">எங்களை அணுகுங்கள்</h2>
+                            </div>
+                            <div class="contact-reach-list">
+                                <div class="contact-reach-item">
+                                    <span class="contact-reach-icon">📍</span>
+                                    <div>
+                                        <h4 id="contact-lbl-address">முகவரி</h4>
+                                        <p class="footer-address-label">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312, தமிழ்நாடு, இந்தியா.</p>
+                                    </div>
+                                </div>
+                                <div class="contact-reach-item">
+                                    <span class="contact-reach-icon">📞</span>
+                                    <div>
+                                        <h4 id="contact-lbl-phone">தொலைபேசி</h4>
+                                        <a id="contact-link-phone" href="tel:+919486012345">+91 94860 12345</a>
+                                    </div>
+                                </div>
+                                <div class="contact-reach-item">
+                                    <span class="contact-reach-icon">✉️</span>
+                                    <div>
+                                        <h4 id="contact-lbl-email">மின்னஞ்சல்</h4>
+                                        <a id="contact-link-email" href="mailto:contact@stantonyschurchpaganur.in">contact@stantonyschurchpaganur.in</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="contact-officials-block official-contacts-section">
+                            <h3 class="official-contacts-title" id="contact-lbl-officials">ஆலயப் பொறுப்பாளர்கள்</h3>
+                            <div class="official-contacts-grid">
+                                <div class="contact-official-card">
+                                    <div class="official-card-top-glow bg-priest"></div>
+                                    <div class="official-avatar-box">⛪</div>
+                                    <div class="official-role-badge" id="contact-lbl-priest-role">பங்குத் தந்தை</div>
+                                    <div class="official-name" id="priest-card-name"></div>
+                                    <a class="official-contact-link" id="priest-card-phone" href=""><span class="material-icons">phone</span> <span></span></a>
+                                    <a class="official-contact-link" id="priest-card-email" href=""><span class="material-icons">email</span> <span></span></a>
+                                </div>
+                                <div class="contact-official-card">
+                                    <div class="official-card-top-glow bg-treasurer"></div>
+                                    <div class="official-avatar-box">🔑</div>
+                                    <div class="official-role-badge" id="contact-lbl-treasurer-role">மணியக்காரர்</div>
+                                    <div class="official-name" id="treasurer-card-name"></div>
+                                    <a class="official-contact-link" id="treasurer-card-phone" href=""><span class="material-icons">phone</span> <span></span></a>
+                                    <a class="official-contact-link" id="treasurer-card-email" href=""><span class="material-icons">email</span> <span></span></a>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="contact-map-block">
+                            <div class="contact-map-head">
+                                <h4 id="contact-lbl-map">ஆலய இருப்பிடம்</h4>
+                                <a class="contact-map-link" id="contact-map-directions" href="https://maps.google.com/?q=St.+Antony's+Church+Vadakku+Paganur" target="_blank" rel="noopener noreferrer">
+                                    <span class="material-icons" style="font-size:1rem;">near_me</span>
+                                    <span id="contact-lbl-directions">வழிகாட்டி</span>
+                                </a>
+                            </div>
+                            <div class="map-card">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1383.887480062082!2d78.60656129761547!3d10.743616220175811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baa60f4688c516b%3A0xfd70cbeaf0170fae!2sSt.%20Antony&#39;s%20Church%2C%20Vadakku%20Paganur!5e0!3m2!1sen!2sin!4v1779204335558!5m2!1sen!2sin"
+                                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                                    title="St. Antony's Church location map">
+                                </iframe>
+                            </div>
+                        </section>
+                    </div>
+
+                    <aside class="contact-form-panel">
+                        <div class="contact-form-head">
+                            <h3 id="form-prayer-title">உங்கள் செப வேண்டுதல்</h3>
+                            <p class="contact-form-note" id="contact-form-note">உங்கள் செப வேண்டுதலை பங்கு சமூகத்துடன் பகிர்ந்து கொள்ளுங்கள். நாங்கள் உங்களுக்காக இறைவனிடம் செபிப்போம்.</p>
+                        </div>
+
+                        <div id="prayer-form-alert" class="form-alert" style="display:none;"></div>
+
+                        <form id="public-prayer-form" novalidate>
+                            <div class="form-group">
+                                <label class="form-label" id="lbl-form-name">உங்கள் பெயர்</label>
+                                <input type="text" id="form-name" class="form-control" placeholder="Your Name" autocomplete="name">
+                                <span id="err-name" class="input-error-msg"
+                                    style="color:#ef4444; font-size:0.82rem; margin-top:6px; display:none; align-items:center; gap:4px; font-weight:500;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" id="lbl-form-email">மின்னஞ்சல் முகவரி</label>
+                                <input type="email" id="form-email" class="form-control" placeholder="Email Address" autocomplete="email">
+                                <span id="err-email" class="input-error-msg"
+                                    style="color:#ef4444; font-size:0.82rem; margin-top:6px; display:none; align-items:center; gap:4px; font-weight:500;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" id="lbl-form-msg">உங்கள் கருத்து / செப வேண்டுதல்</label>
+                                <textarea id="form-message" class="form-control" placeholder="Your Prayer Intention"></textarea>
+                                <span id="err-message" class="input-error-msg"
+                                    style="color:#ef4444; font-size:0.82rem; margin-top:6px; display:none; align-items:center; gap:4px; font-weight:500;"></span>
+                            </div>
+
+                            <button type="submit" class="btn-submit" id="btn-form-submit">
+                                <span class="material-icons">send</span>
+                                <span id="btn-form-submit-text">சமர்ப்பிக்கவும்</span>
+                            </button>
+                        </form>
+                    </aside>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <!-- Global Footer -->
-    <footer class="footer" id="global-footer">
-        <div class="footer-container">
-            <div class="footer-info">
-                <span class="footer-church-logo">⛪</span>
-                <h3>புனித அந்தோணியார் ஆலயம்</h3>
-                <p data-i18n="footer.tagline">அமைதியும் அருள்மரியும் பெருகும் புண்ணியத்தலம்</p>
-                <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);" class="footer-address-label">
-                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312.
-                </p>
-            </div>
-            <div class="footer-links-grid">
-                <div>
-                    <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
-                    <ul>
-                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
-                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
-                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 data-i18n="footer.resources">வளங்கள்</h4>
-                    <ul>
-                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <p>&copy; 2026 <span id="footer-church-name-copyright">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்</span>. <span
-                    data-i18n="footer.copyText">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span></p>
-        </div>
-    </footer>
+    <footer class="footer" id="global-footer"></footer>
 
     <!-- Firebase compatibility libraries -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
@@ -188,6 +226,7 @@
 
     <!-- Core Script dependencies -->
     <script src="js/database.js"></script>
+    <script src="js/footer.js"></script>
     <script src="js/common.js"></script>
 
     <script>
@@ -197,6 +236,9 @@
 
             await loadContactDetails();
             translateContactLabels();
+
+            // Reveal the finished page frame
+            SAC_COMMON.revealPage();
 
             // Set up form submission handler
             const form = document.getElementById('public-prayer-form');
@@ -208,17 +250,127 @@
                 await loadContactDetails();
                 translateContactLabels();
             });
+
+            window.addEventListener('sacDataRefreshed', async (e) => {
+                if (e.detail && e.detail.collection === 'settings') {
+                    await loadContactDetails();
+                }
+            });
         });
+
+        function cleanSettingValue(value) {
+            if (value === undefined || value === null) return "";
+            const str = String(value).trim();
+            return str === "undefined" ? "" : str;
+        }
+
+        function officialDisplayName(settings, role, isTa) {
+            const en = cleanSettingValue(settings[role + "NameEn"]);
+            const ta = cleanSettingValue(settings[role + "NameTa"]);
+            const primary = isTa ? ta : en;
+            const fallback = isTa ? en : ta;
+            return primary || fallback || (isTa ? "விவரம் விரைவில் புதுப்பிக்கப்படும்" : "Details coming soon");
+        }
+
+        function setOfficialName(el, settings, role, isTa) {
+            if (!el) return;
+            const en = cleanSettingValue(settings[role + "NameEn"]);
+            const ta = cleanSettingValue(settings[role + "NameTa"]);
+            el.innerText = officialDisplayName(settings, role, isTa);
+            el.classList.toggle("official-name--pending", !(en || ta));
+        }
+
+        function bindPhoneEmail(phone, email) {
+            const dash = "—";
+
+            const phoneVal = document.getElementById("contact-val-phone");
+            if (phoneVal) phoneVal.innerText = phone || dash;
+
+            const phoneQuick = document.getElementById("contact-quick-phone");
+            if (phoneQuick) {
+                if (phone) {
+                    phoneQuick.href = `tel:${phone.replace(/\s+/g, "")}`;
+                    phoneQuick.classList.remove("contact-quick-card--static");
+                } else {
+                    phoneQuick.href = "#";
+                    phoneQuick.classList.add("contact-quick-card--static");
+                }
+            }
+
+            const linkPhone = document.getElementById("contact-link-phone");
+            if (linkPhone) {
+                linkPhone.innerText = phone || dash;
+                linkPhone.href = phone ? `tel:${phone.replace(/\s+/g, "")}` : "#";
+            }
+
+            const emailVal = document.getElementById("contact-val-email");
+            if (emailVal) emailVal.innerText = email || dash;
+
+            const emailQuick = document.getElementById("contact-quick-email");
+            if (emailQuick) {
+                if (email) {
+                    emailQuick.href = `mailto:${email}`;
+                    emailQuick.classList.remove("contact-quick-card--static");
+                } else {
+                    emailQuick.href = "#";
+                    emailQuick.classList.add("contact-quick-card--static");
+                }
+            }
+
+            const linkEmail = document.getElementById("contact-link-email");
+            if (linkEmail) {
+                linkEmail.innerText = email || dash;
+                linkEmail.href = email ? `mailto:${email}` : "#";
+            }
+        }
 
         // Load contact information dynamically from DB
         async function loadContactDetails() {
-            const settings = await SAC_DATABASE.get("settings");
+            const raw = await SAC_DATABASE.get("settings");
+            const settings = raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
 
-            const phoneEl = document.getElementById('contact-val-phone');
-            if (phoneEl) phoneEl.innerText = settings.phone;
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const phone = cleanSettingValue(settings.phone);
+            const email = cleanSettingValue(settings.email);
+            bindPhoneEmail(phone, email);
 
-            const emailEl = document.getElementById('contact-val-email');
-            if (emailEl) emailEl.innerText = settings.email;
+            // Priest Card population
+            setOfficialName(document.getElementById("priest-card-name"), settings, "priest", isTa);
+
+            const priestPhone = cleanSettingValue(settings.priestPhone);
+            const priestPhoneEl = document.getElementById('priest-card-phone');
+            if (priestPhoneEl) {
+                priestPhoneEl.href = priestPhone ? `tel:${priestPhone.replace(/\s+/g, '')}` : "";
+                priestPhoneEl.querySelector('span:not(.material-icons)').innerText = priestPhone;
+                priestPhoneEl.style.display = priestPhone ? "inline-flex" : "none";
+            }
+
+            const priestEmail = cleanSettingValue(settings.priestEmail);
+            const priestEmailEl = document.getElementById('priest-card-email');
+            if (priestEmailEl) {
+                priestEmailEl.href = priestEmail ? `mailto:${priestEmail}` : "";
+                priestEmailEl.querySelector('span:not(.material-icons)').innerText = priestEmail;
+                priestEmailEl.style.display = priestEmail ? "inline-flex" : "none";
+            }
+
+            // Treasurer Card population
+            setOfficialName(document.getElementById("treasurer-card-name"), settings, "treasurer", isTa);
+
+            const treasurerPhone = cleanSettingValue(settings.treasurerPhone);
+            const treasurerPhoneEl = document.getElementById('treasurer-card-phone');
+            if (treasurerPhoneEl) {
+                treasurerPhoneEl.href = treasurerPhone ? `tel:${treasurerPhone.replace(/\s+/g, '')}` : "";
+                treasurerPhoneEl.querySelector('span:not(.material-icons)').innerText = treasurerPhone;
+                treasurerPhoneEl.style.display = treasurerPhone ? "inline-flex" : "none";
+            }
+
+            const treasurerEmail = cleanSettingValue(settings.treasurerEmail);
+            const treasurerEmailEl = document.getElementById('treasurer-card-email');
+            if (treasurerEmailEl) {
+                treasurerEmailEl.href = treasurerEmail ? `mailto:${treasurerEmail}` : "";
+                treasurerEmailEl.querySelector('span:not(.material-icons)').innerText = treasurerEmail;
+                treasurerEmailEl.style.display = treasurerEmail ? "inline-flex" : "none";
+            }
         }
 
         // Form submission logic
@@ -318,6 +470,9 @@
         function translateContactLabels() {
             const isTa = SAC_COMMON.currentLang === 'ta';
 
+            const badgeText = document.getElementById('contact-hero-badge-text');
+            if (badgeText) badgeText.innerText = isTa ? "ஆலய தொடர்பு" : "Parish Contact";
+
             const titleLbl = document.getElementById('contact-title-label');
             if (titleLbl) {
                 titleLbl.innerText = isTa ? "எங்களை தொடர்பு கொள்ள" : "Get in Touch";
@@ -325,7 +480,34 @@
 
             const subtitleLbl = document.getElementById('contact-subtitle-label');
             if (subtitleLbl) {
-                subtitleLbl.innerText = isTa ? "செப வேண்டுதல்கள், திருப்பலி கருத்துகள் மற்றும் இதர விபரங்களுக்கு தொடர்பு கொள்க." : "Reach out to St. Antony's Parish for prayers, sacraments booking, and general inquiries.";
+                subtitleLbl.innerText = isTa
+                    ? "செப வேண்டுதல்கள், திருப்பலி கருத்துகள் மற்றும் இதர விபரங்களுக்கு தொடர்பு கொள்ளுங்கள்."
+                    : "Reach out for prayer requests, mass inquiries, sacraments, and parish information.";
+            }
+
+            const lblReach = document.getElementById('contact-lbl-reach');
+            if (lblReach) lblReach.innerText = isTa ? "எங்களை அணுகுங்கள்" : "Reach Us";
+
+            const quickLblAddress = document.getElementById('contact-quick-lbl-address');
+            if (quickLblAddress) quickLblAddress.innerText = isTa ? "முகவரி" : "Address";
+
+            const quickLblPhone = document.getElementById('contact-quick-lbl-phone');
+            if (quickLblPhone) quickLblPhone.innerText = isTa ? "தொலைபேசி" : "Phone";
+
+            const quickLblEmail = document.getElementById('contact-quick-lbl-email');
+            if (quickLblEmail) quickLblEmail.innerText = isTa ? "மின்னஞ்சல்" : "Email";
+
+            const lblMap = document.getElementById('contact-lbl-map');
+            if (lblMap) lblMap.innerText = isTa ? "ஆலய இருப்பிடம்" : "Church Location";
+
+            const lblDirections = document.getElementById('contact-lbl-directions');
+            if (lblDirections) lblDirections.innerText = isTa ? "வழிகாட்டி" : "Directions";
+
+            const formNote = document.getElementById('contact-form-note');
+            if (formNote) {
+                formNote.innerText = isTa
+                    ? "உங்கள் செப வேண்டுதலை பங்கு சமூகத்துடன் பகிர்ந்து கொள்ளுங்கள். நாங்கள் உங்களுக்காக இறைவனிடம் செபிப்போம்."
+                    : "Share your prayer intention with our parish community. We will lift you up in prayer.";
             }
 
             const lblAddress = document.getElementById('contact-lbl-address');
@@ -352,8 +534,17 @@
             if (formMsg) formMsg.innerText = isTa ? "உங்கள் கருத்து / செப வேண்டுதல்" : "Your Prayer Intention";
             document.getElementById('form-message').setAttribute('placeholder', isTa ? "உங்கள் கருத்து / செப வேண்டுதல்" : "Your Prayer Intention");
 
-            const btnSubmit = document.getElementById('btn-form-submit');
-            if (btnSubmit) btnSubmit.innerText = isTa ? "அனுப்புக" : "Submit Request";
+            const btnSubmitText = document.getElementById('btn-form-submit-text');
+            if (btnSubmitText) btnSubmitText.innerText = isTa ? "சமர்ப்பிக்கவும்" : "Submit Request";
+
+            const lblOfficials = document.getElementById('contact-lbl-officials');
+            if (lblOfficials) lblOfficials.innerText = isTa ? "ஆலயப் பொறுப்பாளர்கள்" : "Parish Officials";
+
+            const lblPriestRole = document.getElementById('contact-lbl-priest-role');
+            if (lblPriestRole) lblPriestRole.innerText = isTa ? "பங்குத் தந்தை" : "Parish Priest";
+
+            const lblTreasurerRole = document.getElementById('contact-lbl-treasurer-role');
+            if (lblTreasurerRole) lblTreasurerRole.innerText = isTa ? "மணியக்காரர்" : "Treasurer";
 
             const copyrightLabel = document.getElementById('footer-church-name-copyright');
             if (copyrightLabel) {

@@ -60,62 +60,84 @@
         </div>
     </div>
 
-    <!-- Main Content wrapper -->
+    <!-- Main Content Wrapper -->
     <main class="main-wrapper">
-        <section class="subpage-header" style="background: linear-gradient(180deg, rgba(254, 252, 249, 0.85) 0%, var(--bg-light) 100%), url('images/hero_church_banner.png') no-repeat center center/cover; padding: 100px 24px 60px; border-bottom: 1px solid var(--border-glass);">
-            <h2 class="subpage-title" id="notices-title-label">முக்கிய அறிவிப்புகள் & நிகழ்வுகள்</h2>
-            <p class="subpage-subtitle" id="notices-subtitle-label" style="font-weight: 500;">ஆலயத்தின் தற்போதைய நிகழ்வுகள், திருவிழாக்கள் மற்றும் சமுதாயச் செய்திகள்.</p>
-        </section>
-        
-        <!-- Announcement guidelines card -->
-        <section class="section-container" style="max-width:850px; padding-top:40px; padding-bottom:10px;">
-            <div class="summary-card" style="border: 1px solid var(--accent-gold-glow); background: rgba(217, 119, 6, 0.02); display:flex; align-items:center; gap:20px; padding:24px; border-radius: 20px;">
-                <div style="font-size:2.5rem;">📢</div>
-                <div>
-                    <h4 style="font-size:1.1rem; color:var(--accent-gold); margin-bottom:6px;" data-i18n="notices.infoTitle">அறிவிப்பு பலகை விபரம்</h4>
-                    <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6;" data-i18n="notices.infoDesc">பங்குப் பேரவை மற்றும் ஆன்மீகச் சபைகளின் கூட்ட முடிவுகள், திருப்பலி நேர மாற்றங்கள் மற்றும் திருவிழா விபரங்கள் உடனுக்குடன் இங்கு புதுப்பிக்கப்படும். புதிய அறிவிப்புகள் பெற அவ்வப்போது சரிபார்க்கவும்.</p>
+
+        <!-- Immersive Hero Header with Liturgical Badge -->
+        <section class="notices-hero-header">
+            <div class="notices-hero-inner">
+                <div class="notices-liturgical-badge" id="liturgical-season-badge">
+                    <span>🕊️</span>
+                    <span id="liturgical-season-text">திருச்சபை காலம்</span>
+                </div>
+                <h2 class="notices-hero-title" id="notices-title-label">அறிவிப்பு பலகை</h2>
+                <p class="notices-hero-subtitle" id="notices-subtitle-label">ஆலயத்தின் தற்போதைய நிகழ்வுகள், திருவிழாக்கள் மற்றும் சமுதாயச் செய்திகள்.</p>
+                <div class="notices-hero-counter" id="notices-counter-badge">
+                    <span class="counter-number" id="notices-count-number">0</span>
+                    <span id="notices-count-label">செயலில் உள்ள அறிவிப்புகள்</span>
                 </div>
             </div>
         </section>
         
-        <section class="notices-grid" id="public-notices-container">
-            <!-- Dynamic Notices list will be generated here -->
-            <div style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:40px;">அறிவிப்புகள் ஏற்றப்படுகின்றன... / Loading announcements...</div>
+        <!-- Segmented Pill Filter & Search Bar -->
+        <section style="max-width: 1100px; margin: -28px auto 0; padding: 0 24px; position: relative; z-index: 2;">
+            <div class="notices-filter-bar">
+                <div class="filter-tabs" id="notices-filter-tabs">
+                    <button class="filter-tab active" data-category="all" id="filter-tab-all">
+                        <span class="tab-icon">🌟</span>
+                        <span class="tab-label">அனைத்தும்</span>
+                    </button>
+                    <button class="filter-tab" data-category="feast" id="filter-tab-feast">
+                        <span class="tab-icon">🕯️</span>
+                        <span class="tab-label">திருவிழாக்கள்</span>
+                    </button>
+                    <button class="filter-tab" data-category="announcement" id="filter-tab-announcement">
+                        <span class="tab-icon">📢</span>
+                        <span class="tab-label">அறிவிப்புகள்</span>
+                    </button>
+                    <button class="filter-tab" data-category="special" id="filter-tab-special">
+                        <span class="tab-icon">🛐</span>
+                        <span class="tab-label">சிறப்பு</span>
+                    </button>
+                </div>
+                <div class="notices-search-box">
+                    <input type="text" class="notices-search-input" id="notices-search-input" placeholder="தேடுக...">
+                    <svg class="search-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Notices Grid -->
+        <section style="max-width: 1100px; margin: 0 auto; padding: 32px 24px 40px;">
+            <div class="notices-grid" id="public-notices-container">
+                <!-- Dynamic Notices rendered by JS -->
+                <div class="notices-empty-state">
+                    <div class="empty-icon">📢</div>
+                    <p class="empty-text">அறிவிப்புகள் ஏற்றப்படுகின்றன... / Loading announcements...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Subscription Card -->
+        <section style="max-width: 1100px; margin: 0 auto; padding: 0 24px 60px;">
+            <div class="notices-subscribe-card">
+                <div class="subscribe-info">
+                    <div class="subscribe-icon-circle">🔔</div>
+                    <h3 class="subscribe-title" id="subscribe-title-label">மின்-அறிவிப்புகள் பெறுக</h3>
+                    <p class="subscribe-desc" id="subscribe-desc-label">புதிய அறிவிப்புகள் மற்றும் திருவிழா செய்திகளை உடனுக்குடன் உங்களது மின்னஞ்சல் முகவரியில் பெற இன்றே பதிவு செய்யுங்கள்.</p>
+                </div>
+                <form class="subscribe-form" id="newsletter-subscribe-form" onsubmit="handleSubscription(event)">
+                    <input type="email" class="subscribe-input" id="subscribe-email-input" placeholder="உங்களது மின்னஞ்சல் முகவரி..." required>
+                    <button type="submit" class="btn-subscribe" id="subscribe-btn-label">பதிவு செய்க</button>
+                </form>
+            </div>
         </section>
     </main>
 
-    <!-- Global Footer -->
-    <footer class="footer" id="global-footer">
-        <div class="footer-container">
-            <div class="footer-info">
-                <span class="footer-church-logo">⛪</span>
-                <h3>புனித அந்தோணியார் ஆலயம்</h3>
-                <p data-i18n="footer.tagline">அமைதியும் அருள்மரியும் பெருகும் புண்ணியத்தலம்</p>
-                <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);" class="footer-address-label">
-                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312.
-                </p>
-            </div>
-            <div class="footer-links-grid">
-                <div>
-                    <h4 data-i18n="footer.quickLinks">விரைவு இணைப்புகள்</h4>
-                    <ul>
-                        <li><a href="index.html" data-i18n="nav.home">முகப்பு</a></li>
-                        <li><a href="schedule.html" data-i18n="nav.schedule">வழிபாடுகள்</a></li>
-                        <li><a href="legacy.html" data-i18n="nav.legacy">வரலாறு</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 data-i18n="footer.resources">வளங்கள்</h4>
-                    <ul>
-                        <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <p>&copy; 2026 <span id="footer-church-name-copyright">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்</span>. <span data-i18n="footer.copyText">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span></p>
-        </div>
-    </footer>
+    <footer class="footer" id="global-footer"></footer>
 
     <!-- Firebase compatibility libraries -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
@@ -123,88 +145,375 @@
 
     <!-- Core Script dependencies -->
     <script src="js/database.js"></script>
+    <script src="js/footer.js"></script>
     <script src="js/common.js"></script>
 
     <script>
+        let allAnnouncements = [];
+        let activeCategory = 'all';
+        let searchQuery = '';
+
         // Init page
         window.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('notices');
             
-            await loadAnnouncements();
+            // Interactive filter tabs with category-specific active states
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const btn = e.currentTarget;
+                    filterTabs.forEach(t => t.classList.remove('active', 'active-feast', 'active-announcement', 'active-special'));
+                    activeCategory = btn.getAttribute('data-category');
+                    
+                    if (activeCategory === 'feast') {
+                        btn.classList.add('active-feast');
+                    } else if (activeCategory === 'announcement') {
+                        btn.classList.add('active-announcement');
+                    } else if (activeCategory === 'special') {
+                        btn.classList.add('active-special');
+                    } else {
+                        btn.classList.add('active');
+                    }
+                    renderAnnouncements();
+                });
+            });
+
+            // Live search with debounce
+            const searchInput = document.getElementById('notices-search-input');
+            let searchTimer = null;
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(searchTimer);
+                    searchTimer = setTimeout(() => {
+                        searchQuery = e.target.value.toLowerCase().trim();
+                        renderAnnouncements();
+                    }, 150);
+                });
+            }
+            
+            await fetchAndRender();
             translateNoticesLabels();
+            updateLiturgicalBadge();
+
+            SAC_COMMON.revealPage();
 
             window.addEventListener('sacLanguageChanged', async () => {
-                await loadAnnouncements();
+                renderAnnouncements();
                 translateNoticesLabels();
+                updateLiturgicalBadge();
+            });
+
+            window.addEventListener('sacDataRefreshed', async (e) => {
+                if (e.detail && e.detail.collection === 'announcements') {
+                    await fetchAndRender();
+                }
             });
         });
 
-        // Load active notices dynamically from DB
-        async function loadAnnouncements() {
+        // Fetch announcements from dynamic database
+        async function fetchAndRender() {
+            try {
+                allAnnouncements = await SAC_DATABASE.get("announcements") || [];
+                renderAnnouncements();
+            } catch (err) {
+                console.error("Error fetching announcements:", err);
+            }
+        }
+
+        // Dynamic liturgical season badge (based on current date)
+        function updateLiturgicalBadge() {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const now = new Date();
+            const month = now.getMonth(); // 0-indexed
+            const day = now.getDate();
+            
+            let seasonText = isTa ? 'பொதுக் காலம்' : 'Ordinary Time';
+            let seasonIcon = '🕊️';
+            
+            // Approximate liturgical seasons
+            if (month === 11 && day >= 1) { seasonText = isTa ? 'திருவருகைக் காலம்' : 'Advent Season'; seasonIcon = '🕯️'; }
+            else if (month === 11 && day >= 25 || (month === 0 && day <= 6)) { seasonText = isTa ? 'கிறிஸ்மஸ் காலம்' : 'Christmas Season'; seasonIcon = '⭐'; }
+            else if (month >= 1 && month <= 2) { seasonText = isTa ? 'தவக்காலம்' : 'Lenten Season'; seasonIcon = '✝️'; }
+            else if (month === 3 && day <= 20) { seasonText = isTa ? 'உயிர்ப்புக் காலம்' : 'Easter Season'; seasonIcon = '🌅'; }
+            else if (month === 4 || month === 5) { seasonText = isTa ? 'தூய ஆவியார் காலம்' : 'Pentecost Season'; seasonIcon = '🔥'; }
+            
+            const badgeEl = document.getElementById('liturgical-season-badge');
+            if (badgeEl) {
+                badgeEl.innerHTML = `<span>${seasonIcon}</span><span id="liturgical-season-text">${seasonText}</span>`;
+            }
+        }
+
+        // Render notices dynamically with staggered card animations
+        function renderAnnouncements() {
             const container = document.getElementById('public-notices-container');
             if (!container) return;
 
-            const notices = await SAC_DATABASE.get("announcements");
             const isTa = SAC_COMMON.currentLang === 'ta';
             const today = new Date().toISOString().split('T')[0];
 
-            // Filter active notices (no expiryDate or not yet expired)
-            const activeNotices = notices.filter(n => !n.expiryDate || n.expiryDate >= today);
+            // Filter active (non-expired) notices
+            let filtered = allAnnouncements.filter(n => !n.expiryDate || n.expiryDate >= today);
 
-            if (activeNotices.length === 0) {
+            // Sort by date descending
+            filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Apply category filter
+            if (activeCategory !== 'all') {
+                filtered = filtered.filter(n => n.category && n.category.toLowerCase() === activeCategory);
+            }
+
+            // Apply search query
+            if (searchQuery) {
+                filtered = filtered.filter(n => {
+                    const fields = [n.titleEn, n.titleTa, n.contentEn, n.contentTa].map(f => (f || '').toLowerCase());
+                    return fields.some(f => f.includes(searchQuery));
+                });
+            }
+
+            // Update counter badge
+            const countEl = document.getElementById('notices-count-number');
+            const countLabel = document.getElementById('notices-count-label');
+            if (countEl) countEl.innerText = filtered.length;
+            if (countLabel) countLabel.innerText = isTa 
+                ? `செயலில் உள்ள அறிவிப்புகள்` 
+                : `Active Announcements`;
+
+            // Empty state
+            if (filtered.length === 0) {
                 container.innerHTML = `
-                    <div style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:60px 20px;">
-                        <span style="font-size:3.5rem;">📢</span>
-                        <p style="margin-top:15px; font-size:1.1rem;" id="empty-notices-msg">
-                            ${isTa ? "தற்போது புதிய அறிவிப்புகள் ஏதுமில்லை." : "There are no notices active at this moment."}
+                    <div class="notices-empty-state">
+                        <div class="empty-icon">📭</div>
+                        <p class="empty-text">
+                            ${isTa ? "தற்போது புதிய அறிவிப்புகள் ஏதுமில்லை." : "There are no announcements at this moment."}
                         </p>
                     </div>
                 `;
                 return;
             }
 
-            // Sort notices by date descending (latest first)
-            activeNotices.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            container.innerHTML = activeNotices.map(n => {
-                let badgeClass = 'liturgical-ordinary';
-                if (n.category && n.category.toLowerCase() === 'feast') badgeClass = 'liturgical-easter';
-                if (n.category && n.category.toLowerCase() === 'special') badgeClass = 'liturgical-lent';
+            container.innerHTML = filtered.map((n, idx) => {
+                const cat = (n.category || 'general').toLowerCase();
                 
+                let borderClass = 'cat-general';
+                let badgeClass = 'badge-general';
+                let categoryName = isTa ? 'பொதுவானது' : 'General';
+                let categoryIcon = '📋';
+
+                if (cat === 'feast' || cat === 'festival') {
+                    borderClass = 'cat-feast';
+                    badgeClass = 'badge-feast';
+                    categoryName = isTa ? 'திருவிழா' : 'Feast';
+                    categoryIcon = '🕯️';
+                } else if (cat === 'announcement') {
+                    borderClass = 'cat-announcement';
+                    badgeClass = 'badge-announcement';
+                    categoryName = isTa ? 'அறிவிப்பு' : 'Announcement';
+                    categoryIcon = '📢';
+                } else if (cat === 'special' || cat === 'liturgical') {
+                    borderClass = 'cat-special';
+                    badgeClass = 'badge-special';
+                    categoryName = isTa ? 'சிறப்பு' : 'Special';
+                    categoryIcon = '🛐';
+                }
+
+                const isFeatured = idx === 0 && activeCategory === 'all' && !searchQuery;
+                const cardClasses = `public-notice-card ${borderClass}${isFeatured ? ' featured-notice' : ''}`;
+                const staggerDelay = Math.min(idx * 0.08, 0.6);
+
+                // Gold corner ribbon for featured card
+                const ribbonHtml = isFeatured 
+                    ? `<div class="featured-ribbon">${isTa ? '⭐ முக்கியம்' : '⭐ Featured'}</div>` 
+                    : '';
+
+                // Format date nicely
+                const dateObj = new Date(n.date + 'T00:00:00');
+                const dateStr = dateObj.toLocaleDateString(isTa ? 'ta-IN' : 'en-IN', { 
+                    year: 'numeric', month: 'short', day: 'numeric' 
+                });
+
+                const readMoreText = isTa ? 'மேலும் படிக்க' : 'Read more';
+
                 return `
-                    <div class="public-notice-card">
-                        <div class="notice-meta">
-                            <span>🕒 ${n.date}</span>
-                            <span class="liturgical-badge ${badgeClass}">${n.category || 'General'}</span>
+                    <div class="${cardClasses}" style="animation-delay: ${staggerDelay}s;">
+                        ${ribbonHtml}
+                        <div class="notice-card-body">
+                            <div class="notice-meta">
+                                <span class="notice-date">
+                                    <span class="date-icon">📅</span>
+                                    ${dateStr}
+                                </span>
+                                <span class="notice-category-badge ${badgeClass}">
+                                    ${categoryIcon} ${categoryName}
+                                </span>
+                            </div>
+                            <h3 class="notice-title">${isTa ? (n.titleTa || n.titleEn) : (n.titleEn || n.titleTa)}</h3>
+                            <p class="notice-desc">${isTa ? (n.contentTa || n.contentEn) : (n.contentEn || n.contentTa)}</p>
                         </div>
-                        <h3 class="notice-title">${isTa ? (n.titleTa || n.titleEn) : (n.titleEn || n.titleTa)}</h3>
-                        <p class="notice-desc">${isTa ? (n.contentTa || n.contentEn) : (n.contentEn || n.contentTa)}</p>
+                        <div class="notice-card-footer">
+                            <span class="notice-read-more">
+                                ${readMoreText}
+                                <span class="arrow-icon material-icons">arrow_forward</span>
+                            </span>
+                        </div>
                     </div>
                 `;
             }).join('');
         }
 
+        // Full bilingual translation of all page-specific labels
         function translateNoticesLabels() {
             const isTa = SAC_COMMON.currentLang === 'ta';
             
+            // Hero header
             const titleLbl = document.getElementById('notices-title-label');
-            if (titleLbl) {
-                titleLbl.innerText = isTa ? "முக்கிய அறிவிப்புகள் & திருவிழாக்கள்" : "Announcements & Feasts";
-            }
+            if (titleLbl) titleLbl.innerText = isTa ? "அறிவிப்பு பலகை" : "Parish Notice Board";
             
             const subtitleLbl = document.getElementById('notices-subtitle-label');
-            if (subtitleLbl) {
-                subtitleLbl.innerText = isTa ? "ஆலயத்தின் தற்போதைய நிகழ்வுகள், திருவிழாக்கள் மற்றும் சமுதாய செய்திகள்." : "Latest parish announcements, liturgical feeds, and notifications.";
+            if (subtitleLbl) subtitleLbl.innerText = isTa 
+                ? "ஆலயத்தின் தற்போதைய நிகழ்வுகள், திருவிழாக்கள் மற்றும் சமுதாயச் செய்திகள்." 
+                : "Latest parish announcements, liturgical feasts, and community news.";
+
+            // Search
+            const searchInput = document.getElementById('notices-search-input');
+            if (searchInput) searchInput.placeholder = isTa ? "தேடுக..." : "Search notices...";
+
+            // Filter tab labels
+            const tabAll = document.getElementById('filter-tab-all');
+            if (tabAll) tabAll.querySelector('.tab-label').innerText = isTa ? "அனைத்தும்" : "All";
+            
+            const tabFeast = document.getElementById('filter-tab-feast');
+            if (tabFeast) tabFeast.querySelector('.tab-label').innerText = isTa ? "திருவிழாக்கள்" : "Feasts";
+
+            const tabAnn = document.getElementById('filter-tab-announcement');
+            if (tabAnn) tabAnn.querySelector('.tab-label').innerText = isTa ? "அறிவிப்புகள்" : "Notices";
+
+            const tabSpec = document.getElementById('filter-tab-special');
+            if (tabSpec) tabSpec.querySelector('.tab-label').innerText = isTa ? "சிறப்பு" : "Special";
+
+            // Newsletter subscription
+            const subTitle = document.getElementById('subscribe-title-label');
+            if (subTitle) subTitle.innerText = isTa ? "மின்-அறிவிப்புகள் பெறுக" : "Subscribe to Notifications";
+
+            const subDesc = document.getElementById('subscribe-desc-label');
+            if (subDesc) subDesc.innerText = isTa 
+                ? "புதிய அறிவிப்புகள் மற்றும் திருவிழா செய்திகளை உடனுக்குடன் உங்களது மின்னஞ்சல் முகவரியில் பெற இன்றே பதிவு செய்யுங்கள்." 
+                : "Stay updated with the latest parish announcements and feast reminders delivered to your inbox.";
+
+            const subInput = document.getElementById('subscribe-email-input');
+            if (subInput) subInput.placeholder = isTa ? "உங்களது மின்னஞ்சல் முகவரி..." : "Enter your email address...";
+
+            const subBtn = document.getElementById('subscribe-btn-label');
+            if (subBtn) subBtn.innerText = isTa ? "பதிவு செய்க" : "Subscribe";
+
+            // Footer copyright
+            const copyrightLabel = document.getElementById('footer-church-name-copyright');
+            if (copyrightLabel) copyrightLabel.innerText = isTa 
+                ? "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்" 
+                : "St. Antony's Church, Vadakku Paganur";
+        }
+
+        // Newsletter subscription handler
+        function handleSubscription(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('subscribe-email-input');
+            const email = emailInput.value.trim();
+            if (!email) return;
+
+            let subscribers = [];
+            try {
+                subscribers = JSON.parse(localStorage.getItem('sac_subscribers')) || [];
+            } catch (e) {
+                subscribers = [];
             }
 
-            const copyrightLabel = document.getElementById('footer-church-name-copyright');
-            if (copyrightLabel) {
-                copyrightLabel.innerText = isTa ? "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்" : "St. Antony's Church, Vadakku Paganur";
+            if (subscribers.includes(email)) {
+                showToast(
+                    SAC_COMMON.currentLang === 'ta' 
+                        ? 'இந்த மின்னஞ்சல் ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது!' 
+                        : 'This email is already subscribed!', 
+                    'warning'
+                );
+            } else {
+                subscribers.push(email);
+                localStorage.setItem('sac_subscribers', JSON.stringify(subscribers));
+                showToast(
+                    SAC_COMMON.currentLang === 'ta' 
+                        ? 'நன்றி! வெற்றிகரமாக பதிவு செய்யப்பட்டது.' 
+                        : 'Thank you! Successfully subscribed.', 
+                    'success'
+                );
+                emailInput.value = '';
             }
+        }
+
+        // Premium glassmorphic toast notification
+        function showToast(message, type = 'success') {
+            const oldToast = document.getElementById('sac-custom-toast');
+            if (oldToast) oldToast.remove();
+
+            const toast = document.createElement('div');
+            toast.id = 'sac-custom-toast';
+            
+            let borderColor = 'var(--primary)';
+            let icon = '🔔';
+            let bgTint = 'hsla(265, 75%, 96%, 0.95)';
+            if (type === 'success') {
+                borderColor = 'hsl(150, 55%, 40%)';
+                icon = '✅';
+                bgTint = 'hsla(150, 50%, 97%, 0.95)';
+            } else if (type === 'warning') {
+                borderColor = 'var(--accent-gold)';
+                icon = '⚠️';
+                bgTint = 'hsla(40, 60%, 97%, 0.95)';
+            }
+            
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                z-index: 99999;
+                background: ${bgTint};
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1.5px solid ${borderColor};
+                border-radius: 100px;
+                padding: 14px 24px;
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+                color: var(--text-primary);
+                font-weight: 700;
+                font-size: 0.88rem;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                opacity: 0;
+                transform: translateY(20px);
+                animation: toastSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                max-width: 420px;
+            `;
+            
+            toast.innerHTML = `<span style="font-size:1.1rem;">${icon}</span><span>${message}</span>`;
+            
+            // Inject animation keyframe if not present
+            if (!document.getElementById('toast-anim-style')) {
+                const style = document.createElement('style');
+                style.id = 'toast-anim-style';
+                style.textContent = `
+                    @keyframes toastSlideIn {
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
         }
     </script>
 </body>
 </html>
-
-
-
