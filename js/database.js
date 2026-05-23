@@ -300,18 +300,13 @@ const SAC_DATABASE = {
     const isArrayType = Array.isArray(localData || this.defaultData[collectionName]);
     
     // Auto-heal helper to repair any literal "undefined" string values corrupted in Firestore
-    const sanitizeSettings = (obj) => {
-      const defaults = this.defaultData.settings;
+    const sanitizeObj = (obj, colName) => {
+      const defaults = this.defaultData[colName] || {};
       if (!obj) return { ...defaults };
       const clean = { ...defaults, ...obj };
       for (const key in clean) {
-        if (
-          clean[key] === undefined || 
-          clean[key] === null || 
-          clean[key] === "undefined" || 
-          clean[key] === ""
-        ) {
-          clean[key] = defaults[key];
+        if (clean[key] === "undefined" || clean[key] === null) {
+          clean[key] = defaults[key] !== undefined ? defaults[key] : "";
         }
       }
       return clean;
@@ -327,7 +322,7 @@ const SAC_DATABASE = {
           } else {
             // It's a single object (like settings)
             const genDoc = results.find(r => r.id === "general") || results[0];
-            const healed = sanitizeSettings(genDoc);
+            const healed = sanitizeObj(genDoc, collectionName);
             
             // If the Firestore was corrupted with "undefined" strings, auto-update it with healed values
             if (JSON.stringify(genDoc) !== JSON.stringify(healed)) {
@@ -344,7 +339,7 @@ const SAC_DATABASE = {
               await this.db.collection(collectionName).doc(id).set(dataWithoutId);
             }
           } else if (dataToSeed) {
-            const healed = sanitizeSettings(dataToSeed);
+            const healed = sanitizeObj(dataToSeed, collectionName);
             await this.db.collection(collectionName).doc("general").set(healed);
             return healed;
           }
@@ -352,11 +347,11 @@ const SAC_DATABASE = {
         }
       } catch (err) {
         console.warn(`Firestore read failed for ${collectionName}, falling back to LocalStorage:`, err);
-        return isArrayType ? (localData || []) : sanitizeSettings(localData);
+        return isArrayType ? (localData || []) : sanitizeObj(localData, collectionName);
       }
     }
 
-    return isArrayType ? (localData || []) : sanitizeSettings(localData);
+    return isArrayType ? (localData || []) : sanitizeObj(localData, collectionName);
   },
 
   getCollection(key) {
