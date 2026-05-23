@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/sacpaganur/sac-website#readme",
   "dependencies": {
-    "jsdom": "^29.1.1"
+    "express": "^5.2.1",
+    "jsdom": "^29.1.1",
+    "puppeteer": "^25.0.4"
   }
 }

@@ -1,55 +1,109 @@
 <!DOCTYPE html>
 <html lang="ta">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AI Bible Companion - Explore the Holy Scriptures with a dedicated Digital Catholic Voice Companion | புனித அந்தோணியார் ஆலயம்">
+    <meta name="description"
+        content="AI Bible Companion - Explore the Holy Scriptures with a dedicated Digital Catholic Voice Companion | புனித அந்தோணியார் ஆலயம்">
     <title>டிஜிட்டல் விவிலியம் | AI Bible Companion</title>
-    
+
     <!-- Google Fonts & Icon Sets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Custom Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bible-page.css">
     <!-- Navbar script handles AI CSS/JS injections -->
     <script src="js/navbar.js"></script>
 </head>
+
 <body class="bg-gray-50">
+    <!-- Global Page Loader -->
+    <style id="sac-loader-scroll">
+        body {
+            overflow: hidden !important;
+        }
+    </style>
+    <div id="sac-global-loader"
+        style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
+        <div style="position:relative; width:70px; height:70px;">
+            <div
+                style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;">
+            </div>
+            <div
+                style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">
+                ⛪</div>
+        </div>
+        <div
+            style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">
+            LOADING</div>
+        <style>
+            @keyframes sacSpin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes sacPulse {
+
+                0%,
+                100% {
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0.4;
+                }
+            }
+        </style>
+    </div>
+
     <!-- Navigation Header -->
     <div id="global-navbar"></div>
+    <script>
+        if (window.SAC_NAVBAR) {
+            SAC_NAVBAR.inject();
+        }
+    </script>
 
     <main class="bible-hub-container">
-        
+
         <!-- Left Panel: Digital Bible Reader -->
         <div class="bible-reader-panel">
             <div class="bible-header">
                 <div>
-                    <h2 style="margin:0; font-size:1.5rem; color:var(--text-primary);" id="bible-book-title">விவிலியம்</h2>
-                    <p style="margin:4px 0 0 0; font-size:0.9rem; color:var(--text-secondary);" id="bible-book-subtitle">புனித வேதாகமம்</p>
+                    <h2 style="margin:0; font-size:1rem; color:var(--text-primary);" id="bible-book-title">விவிலியம்
+                    </h2>
+                    <p style="margin:0px 0 0 0; font-size:0.9rem; color:var(--text-secondary);"
+                        id="bible-book-subtitle">புனித வேதாகமம்</p>
                 </div>
-                <div class="bible-controls">
-                    <select class="bible-select" id="bible-book-select" onchange="window.SAC_BIBLE.loadChapter()">
-                        <option value="Matthew">மத்தேயு (Matthew)</option>
-                        <option value="Mark">மாற்கு (Mark)</option>
-                        <option value="Luke">லூக்கா (Luke)</option>
-                        <option value="John">யோவான் (John)</option>
-                        <option value="Acts">திருத்தூதர் பணிகள் (Acts)</option>
-                        <option value="Romans">உரோமையர் (Romans)</option>
-                        <option value="Psalms" selected>திருப்பாடல்கள் (Psalms)</option>
-                        <option value="Proverbs">நீதிமொழிகள் (Proverbs)</option>
-                    </select>
-                    <select class="bible-select" id="bible-chapter-select" onchange="window.SAC_BIBLE.loadChapter()">
-                        <option value="1">அதிகாரம் 1</option>
-                        <option value="2">அதிகாரம் 2</option>
-                        <option value="23" selected>அதிகாரம் 23</option>
-                    </select>
+                <div class="bible-controls" style="display: flex; gap: 12px; align-items: center;">
+                    <div class="sac-custom-select" id="custom-book-select">
+                        <div class="sac-select-trigger">
+                            <span class="sac-select-text">...</span>
+                            <span class="material-icons">expand_more</span>
+                        </div>
+                        <div class="sac-select-dropdown"></div>
+                    </div>
+                    <div class="sac-custom-select" id="custom-chapter-select">
+                        <div class="sac-select-trigger">
+                            <span class="sac-select-text">...</span>
+                            <span class="material-icons">expand_more</span>
+                        </div>
+                        <div class="sac-select-dropdown"></div>
+                    </div>
+                    <!-- Hidden original selects to maintain state -->
+                    <select id="bible-book-select" style="display:none;"></select>
+                    <select id="bible-chapter-select" style="display:none;"></select>
                 </div>
             </div>
-            
+
             <div class="bible-content-area" id="bible-content-area">
                 <div class="bible-loading" id="bible-loading" style="display:none;">
                     <div class="bible-spinner"></div>
@@ -63,11 +117,35 @@
 
         <!-- Right Panel: AI Companion -->
         <div class="ai-companion-panel">
-            <div class="ai-panel-header">
-                <span class="material-icons">auto_awesome</span>
-                <div>
-                    <h2 class="ai-panel-title">AI Companion</h2>
-                    <p class="ai-panel-subtitle" data-i18n="ai.embedded_subtitle">Discuss the scripture alongside your reading</p>
+            <div class="ai-panel-header"
+                style="background: linear-gradient(135deg, var(--primary) 0%, var(--accent-gold) 100%); color: white; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px;">
+                <div class="sac-ai-title-area" style="display: flex; gap: 12px; align-items: center; min-width: 0;">
+                    <div class="sac-ai-avatar"
+                        style="width: 40px; height: 40px; flex-shrink: 0; background: #6d28d9; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <span class="material-icons" style="color: white; font-size: 20px;">menu_book</span>
+                    </div>
+                    <div>
+                        <h3 class="sac-ai-title" data-i18n="ai.title"
+                            style="color:white; margin:0; font-size:1.1rem; font-weight: 700;">SAC AI</h3>
+                        <div style="display:flex; align-items:center; gap:6px; margin-top: 2px;">
+                            <div class="sac-ai-status-dot"
+                                style="width: 8px; height: 8px; background: #10b981; border-radius: 50%;"></div>
+                            <p class="sac-ai-subtitle" data-i18n="ai.subtitle"
+                                style="color:rgba(255,255,255,0.9); margin:0; font-size:0.8rem;">ஆன்லைனில்</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="sac-ai-header-actions" style="display: flex; gap: 8px;">
+                    <button class="sac-ai-btn sac-ai-voice-btn" onclick="SAC_AI_UI.openVoice()"
+                        title="Voice to Voice Conversation"
+                        style="background: #6d28d9; color: white; border-radius: 12px; width: 36px; height: 36px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                        <span class="material-icons" style="font-size: 20px;">record_voice_over</span>
+                    </button>
+                    <button class="sac-ai-btn" id="sac-ai-mute-btn" onclick="SAC_AI_UI.toggleMute()"
+                        title="குரலை இயக்கு"
+                        style="background: rgba(255, 255, 255, 0.2); color: white; border-radius: 50%; width: 36px; height: 36px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <span class="material-icons" style="font-size: 20px;">volume_off</span>
+                    </button>
                 </div>
             </div>
             <!-- The Chat UI will be dynamically embedded here by js/ai-chat-ui.js -->
@@ -78,16 +156,18 @@
 
     </main>
 
+
     <!-- App Scripts -->
     <script src="js/database.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/bible-data.js"></script>
+
     <script>
         // Init page
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window.SAC_NAVBAR) SAC_NAVBAR.inject();
-            // Allow common.js translation framework to hook
-            SAC_COMMON.pageName = 'bible';
-            
+        const initBiblePage = async () => {
+            // Proper initialization
+            await SAC_COMMON.init('bible');
+
             // Build Bible logic inline for this page
             window.SAC_BIBLE = {
                 async loadChapter() {
@@ -95,12 +175,12 @@
                     const chapter = document.getElementById('bible-chapter-select').value;
                     const container = document.getElementById('bible-verses-container');
                     const loader = document.getElementById('bible-loading');
-                    
+
                     container.style.display = 'none';
                     loader.style.display = 'flex';
-                    
+
                     const isTa = SAC_COMMON.currentLang === 'ta';
-                    const cacheKey = \`sac_bible_\${book}_\${chapter}_\${isTa ? 'ta' : 'en'}\`;
+                    const cacheKey = `sac_bible_${book}_${chapter}_${isTa ? 'ta' : 'en'}`;
                     const cached = localStorage.getItem(cacheKey);
 
                     if (cached) {
@@ -110,80 +190,312 @@
                         return;
                     }
 
-                    // Fallback to Gemini to fetch the chapter if not cached locally
                     try {
-                        if (!window.SAC_AI || !SAC_AI.isInitialized) await SAC_AI.init();
-                        
-                        const prompt = isTa 
-                            ? \`Provide the complete text of \${book} chapter \${chapter} from the Tamil Catholic Bible. Format your response strictly as a JSON array of strings, where each string is a verse starting from verse 1. Do not include any markdown or commentary, JUST the JSON array.\`
-                            : \`Provide the complete text of \${book} chapter \${chapter} from the English Catholic Bible (NRSVCE or similar). Format your response strictly as a JSON array of strings, where each string is a verse starting from verse 1. Do not include any markdown or commentary, JUST the JSON array.\`;
-                            
-                        const url = \`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=\${SAC_AI.apiKey}\`;
-                        const res = await fetch(url, {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                contents: [{role: "user", parts: [{text: prompt}]}],
-                                generationConfig: { temperature: 0.1 }
-                            })
-                        });
-                        
-                        if (!res.ok) throw new Error("Failed to fetch chapter");
-                        
-                        const data = await res.json();
-                        const rawText = data.candidates[0].content.parts[0].text;
-                        
-                        // Extract JSON array from text response
-                        const match = rawText.match(/\\[.*\\]/s);
-                        let verses = [];
-                        if (match) {
-                            verses = JSON.parse(match[0]);
-                            localStorage.setItem(cacheKey, JSON.stringify(verses));
-                        } else {
-                            throw new Error("Invalid format received");
-                        }
-                        
-                        this.renderVerses(verses);
+                        const isTa = SAC_COMMON.currentLang === 'ta';
 
-                    } catch (e) {
-                        console.error(e);
-                        container.innerHTML = \`<div class="verse-row"><div class="verse-text" style="color:red;">Error loading chapter. Please try again or check your AI API key.</div></div>\`;
+                        // 1. Try fetching from Fast Static DB or Public API
+                        let staticVerses = null;
+
+                        if (isTa) {
+                            // Try Local Static JSON for Tamil
+                            try {
+                                const staticRes = await fetch(`data/bible/ta/${book}.json`);
+                                if (staticRes.ok) {
+                                    const bookData = await staticRes.json();
+                                    if (bookData[chapter]) {
+                                        staticVerses = bookData[chapter];
+                                    }
+                                }
+                            } catch (e) {
+                                console.warn("Static Tamil DB fetch failed", e);
+                            }
+                        } else {
+                            // Try Fast Public API for English (WEB version)
+                            try {
+                                const apiRes = await fetch(`https://bible-api.com/${book}+${chapter}?translation=web`);
+                                if (apiRes.ok) {
+                                    const apiData = await apiRes.json();
+                                    if (apiData.verses && apiData.verses.length > 0) {
+                                        staticVerses = apiData.verses.map(v => v.text.trim());
+                                    }
+                                }
+                            } catch (e) {
+                                console.warn("Public English API fetch failed", e);
+                            }
+                        }
+
+                        // If we successfully got verses from fast static sources
+                        if (staticVerses && staticVerses.length > 0) {
+                            localStorage.setItem(cacheKey, JSON.stringify(staticVerses));
+                            this.renderVerses(staticVerses);
+                            loader.style.display = 'none';
+                            container.style.display = 'block';
+                            return;
+                        }
+
+                        // 2. Fallback to Gemini AI (for Deuterocanonical Catholic books missing from static DB)
+                        let retries = 3;
+                        while (retries > 0) {
+                            try {
+                                if (!window.SAC_AI || !SAC_AI.isInitialized) await SAC_AI.init();
+
+                                const prompt = isTa
+                                    ? `Provide the complete text of ${book} chapter ${chapter} from the Tamil Catholic Bible. Format your response strictly as a JSON array of strings, where each string is a verse starting from verse 1. Do not include any markdown or commentary, JUST the JSON array.`
+                                    : `Provide the complete text of ${book} chapter ${chapter} from the English Catholic Bible (NRSVCE or similar). Format your response strictly as a JSON array of strings, where each string is a verse starting from verse 1. Do not include any markdown or commentary, JUST the JSON array.`;
+
+                                const url = `https://generativelanguage.googleapis.com/v1beta/models/${SAC_AI.modelName || 'gemini-1.5-flash'}:generateContent?key=${SAC_AI.apiKey}`;
+                                const res = await fetch(url, {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({
+                                        contents: [{ role: "user", parts: [{ text: prompt }] }],
+                                        generationConfig: { temperature: 0.1 }
+                                    })
+                                });
+
+                                if (!res.ok) {
+                                    let errMsg = "Failed to fetch chapter";
+                                    try {
+                                        const errData = await res.json();
+                                        if (errData.error && errData.error.message) {
+                                            errMsg = errData.error.message;
+                                        }
+                                    } catch (e) { }
+                                    throw new Error(errMsg);
+                                }
+
+                                const data = await res.json();
+                                if (data.error) throw new Error(data.error.message);
+                                if (!data.candidates || !data.candidates[0]) throw new Error("No content received from AI.");
+
+                                let text = data.candidates[0].content.parts[0].text;
+                                text = text.replace(/```json/g, "").replace(/```/g, "").trim();
+
+                                const verses = JSON.parse(text);
+                                localStorage.setItem(cacheKey, JSON.stringify(verses));
+                                this.renderVerses(verses);
+
+                                loader.style.display = 'none';
+                                container.style.display = 'block';
+                                return; // Success, exit loop
+
+                            } catch (e) {
+                                console.error("Gemini Fallback Error:", e);
+                                let errorMsg = e.message;
+
+                                if (!SAC_AI.apiKey) {
+                                    container.innerHTML = `<div class="verse-row"><div class="verse-text" style="color:#ef4444; font-weight: 500;"><span class="material-icons" style="vertical-align: middle; margin-right: 8px;">error_outline</span>Gemini API Key is missing. Please add it in the Admin Portal.</div></div>`;
+                                    loader.style.display = 'none';
+                                    container.style.display = 'block';
+                                    return;
+                                }
+
+                                if (errorMsg.includes("Quota exceeded") || errorMsg.includes("429")) {
+                                    retries--;
+                                    if (retries > 0) {
+                                        const match = errorMsg.match(/retry in ([\d\.]+)s/);
+                                        const secs = match ? Math.ceil(parseFloat(match[1])) : 20;
+
+                                        // Update loader text seamlessly
+                                        const loaderText = loader.querySelector('p');
+                                        if (loaderText) {
+                                            loaderText.innerText = isTa
+                                                ? `Google AI வரம்பு மீறப்பட்டது. ${secs} வினாடிகளில் தானாகவே மீண்டும் முயற்சிக்கிறது...`
+                                                : `Google AI Rate Limit. Auto-retrying seamlessly in ${secs}s...`;
+                                        }
+
+                                        // Wait and retry silently
+                                        await new Promise(resolve => setTimeout(resolve, secs * 1000 + 1000));
+                                        continue;
+                                    }
+                                }
+
+                                // If it's not a quota error, or we ran out of retries
+                                container.innerHTML = `<div class="verse-row"><div class="verse-text" style="color:#ef4444; font-weight: 500;"><span class="material-icons" style="vertical-align: middle; margin-right: 8px;">error_outline</span>${errorMsg}</div></div>`;
+                                loader.style.display = 'none';
+                                container.style.display = 'block';
+                                return;
+                            }
+                        }
+                    } catch (fatalError) {
+                        console.error("Fatal Bible Loader Error:", fatalError);
+                        container.innerHTML = `<div class="verse-row"><div class="verse-text" style="color:#ef4444; font-weight: 500;"><span class="material-icons" style="vertical-align: middle; margin-right: 8px;">error_outline</span>System Error: ${fatalError.message}</div></div>`;
+                        loader.style.display = 'none';
+                        container.style.display = 'block';
                     }
-                    
-                    loader.style.display = 'none';
-                    container.style.display = 'block';
                 },
-                
+
                 renderVerses(verses) {
                     const container = document.getElementById('bible-verses-container');
-                    container.innerHTML = '';
-                    verses.forEach((text, i) => {
-                        const row = document.createElement('div');
-                        row.className = 'verse-row';
-                        row.innerHTML = \`<div class="verse-number">\${i + 1}</div><div class="verse-text">\${text}</div>\`;
-                        container.appendChild(row);
+
+                    // Smooth fade out
+                    container.style.opacity = '0';
+
+                    setTimeout(() => {
+                        container.style.display = 'none'; // Force browser repaint
+                        container.innerHTML = '';
+                        verses.forEach((text, i) => {
+                            const row = document.createElement('div');
+                            row.className = 'verse-row';
+                            row.innerHTML = `<div class="verse-number">${i + 1}</div><div class="verse-text">${text}</div>`;
+                            container.appendChild(row);
+                        });
+
+                        // Smooth fade in
+                        container.style.display = 'block'; // Force browser repaint
+
+                        // Force a reflow before applying opacity
+                        void container.offsetWidth;
+
+                        container.style.opacity = '1';
+
+                        // Scroll to top of content area
+                        const contentArea = document.querySelector('.bible-content-area');
+                        if (contentArea) contentArea.scrollTop = 0;
+                    }, 200);
+                },
+
+                populateBooks() {
+                    const isTa = SAC_COMMON.currentLang === 'ta';
+                    const bookSelect = document.getElementById('bible-book-select');
+                    bookSelect.innerHTML = '';
+
+                    let customHTML = '';
+
+                    // Add Old Testament Group
+                    const otLabel = isTa ? "பழைய ஏற்பாடு (Old Testament)" : "Old Testament";
+                    customHTML += `<div class="sac-select-group">${otLabel}</div>`;
+                    window.BIBLE_BOOKS.OT.forEach(book => {
+                        const opt = document.createElement('option');
+                        opt.value = book.id;
+                        opt.setAttribute('data-chapters', book.chapters);
+                        opt.textContent = isTa ? book.ta : book.en;
+                        bookSelect.appendChild(opt);
+                        customHTML += `<div class="sac-select-option" data-value="${book.id}">${isTa ? book.ta : book.en}</div>`;
+                    });
+
+                    // Add New Testament Group
+                    const ntLabel = isTa ? "புதிய ஏற்பாடு (New Testament)" : "New Testament";
+                    customHTML += `<div class="sac-select-group">${ntLabel}</div>`;
+                    window.BIBLE_BOOKS.NT.forEach(book => {
+                        const opt = document.createElement('option');
+                        opt.value = book.id;
+                        opt.setAttribute('data-chapters', book.chapters);
+                        opt.textContent = isTa ? book.ta : book.en;
+                        bookSelect.appendChild(opt);
+                        customHTML += `<div class="sac-select-option" data-value="${book.id}">${isTa ? book.ta : book.en}</div>`;
+                    });
+
+                    document.querySelector('#custom-book-select .sac-select-dropdown').innerHTML = customHTML;
+
+                    // Set default to John
+                    bookSelect.value = "John";
+                    this.updateCustomSelectUI('custom-book-select', bookSelect);
+                    this.updateChapters();
+                },
+
+                updateChapters() {
+                    const isTa = SAC_COMMON.currentLang === 'ta';
+                    const bookSelect = document.getElementById('bible-book-select');
+                    const chapSelect = document.getElementById('bible-chapter-select');
+
+                    const selectedOption = bookSelect.options[bookSelect.selectedIndex >= 0 ? bookSelect.selectedIndex : 0];
+                    const maxChapters = selectedOption ? parseInt(selectedOption.getAttribute('data-chapters') || 1) : 1;
+
+                    chapSelect.innerHTML = '';
+                    let customHTML = '';
+                    for (let i = 1; i <= maxChapters; i++) {
+                        const text = `${isTa ? 'அதிகாரம்' : 'Chapter'} ${i}`;
+                        const opt = document.createElement('option');
+                        opt.value = i;
+                        opt.textContent = text;
+                        chapSelect.appendChild(opt);
+                        customHTML += `<div class="sac-select-option" data-value="${i}">${text}</div>`;
+                    }
+                    document.querySelector('#custom-chapter-select .sac-select-dropdown').innerHTML = customHTML;
+
+                    chapSelect.value = "1";
+                    this.updateCustomSelectUI('custom-chapter-select', chapSelect);
+                    this.loadChapter();
+                },
+
+                updateCustomSelectUI(customId, nativeSelect) {
+                    const custom = document.getElementById(customId);
+                    if (!custom) return;
+                    const selectedIndex = nativeSelect.selectedIndex >= 0 ? nativeSelect.selectedIndex : 0;
+                    const selectedOpt = nativeSelect.options[selectedIndex];
+                    custom.querySelector('.sac-select-text').innerText = selectedOpt ? selectedOpt.text : '...';
+
+                    custom.querySelectorAll('.sac-select-option').forEach(opt => {
+                        if (opt.dataset.value === nativeSelect.value) opt.classList.add('selected');
+                        else opt.classList.remove('selected');
+                    });
+                },
+
+                initCustomSelects() {
+                    document.querySelectorAll('.sac-custom-select').forEach(custom => {
+                        const trigger = custom.querySelector('.sac-select-trigger');
+                        const dropdown = custom.querySelector('.sac-select-dropdown');
+                        const nativeId = custom.id === 'custom-book-select' ? 'bible-book-select' : 'bible-chapter-select';
+                        const nativeSelect = document.getElementById(nativeId);
+
+                        trigger.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const isOpen = custom.classList.contains('open');
+                            document.querySelectorAll('.sac-custom-select').forEach(c => c.classList.remove('open'));
+                            if (!isOpen) custom.classList.add('open');
+
+                            if (!isOpen) {
+                                // Scroll selected item into view
+                                const selected = dropdown.querySelector('.selected');
+                                if (selected) {
+                                    setTimeout(() => selected.scrollIntoView({ block: 'nearest' }), 10);
+                                }
+                            }
+                        });
+
+                        dropdown.addEventListener('click', (e) => {
+                            if (e.target.classList.contains('sac-select-option')) {
+                                nativeSelect.value = e.target.dataset.value;
+                                this.updateCustomSelectUI(custom.id, nativeSelect);
+                                custom.classList.remove('open');
+
+                                if (custom.id === 'custom-book-select') {
+                                    this.updateChapters();
+                                } else {
+                                    this.loadChapter();
+                                }
+                            }
+                        });
+                    });
+
+                    document.addEventListener('click', () => {
+                        document.querySelectorAll('.sac-custom-select').forEach(c => c.classList.remove('open'));
                     });
                 }
             };
 
+            // Init custom selects
+            window.SAC_BIBLE.initCustomSelects();
+
             // Hook into language change to reload the chapter
             window.addEventListener('sacLanguageChanged', () => {
-                window.SAC_BIBLE.loadChapter();
+                window.SAC_BIBLE.populateBooks();
+                // Chapters will auto-update inside populateBooks
             });
 
             // Initial load
-            setTimeout(() => {
-                // Prepopulate chapter options for Psalms (150 chapters) dynamically
-                const chapSelect = document.getElementById('bible-chapter-select');
-                chapSelect.innerHTML = '';
-                for(let i=1; i<=150; i++) {
-                    chapSelect.innerHTML += \`<option value="\${i}">\${SAC_COMMON.currentLang === 'ta' ? 'அதிகாரம்' : 'Chapter'} \${i}</option>\`;
-                }
-                chapSelect.value = "23"; // Default Psalm 23
-                window.SAC_BIBLE.loadChapter();
-            }, 500);
+            SAC_BIBLE.populateBooks();
+            SAC_BIBLE.loadChapter();
+            SAC_COMMON.revealPage();
+        };
 
-        });
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initBiblePage);
+        } else {
+            initBiblePage();
+        }
     </script>
 </body>
+
 </html>
