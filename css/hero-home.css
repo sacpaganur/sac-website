@@ -280,6 +280,7 @@ body:lang(ta) .hero-cinema__title {
   align-items: center;
   gap: 12px;
   margin-bottom: 10px;
+  width: 100%;
   max-width: 240px;
 }
 
@@ -721,6 +722,28 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   .hero-cinema__portal {
     width: min(100%, 280px);
   }
+  
+  /* Desktop English specific enhancements for hero copy */
+  body:lang(en) .hero-cinema__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  
+  body:lang(en) .hero-cinema__copy > * {
+    margin-bottom: 0 !important;
+  }
+  
+  body:lang(en) .hero-cinema__title {
+    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    line-height: 1.1;
+  }
+  
+  body:lang(en) .hero-cinema__lead {
+    font-size: 1.15rem;
+    max-width: 560px;
+  }
 }
 
 /* Short desktop screens — tighten further */
@@ -823,6 +846,19 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   .hero-cinema {
     padding-top: 96px;
     padding-bottom: 100px;
+    padding-inline: 16px;
+  }
+
+  .hero-cinema__title {
+    font-size: 1.7rem;
+    line-height: 1.35;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .hero-cinema__stage {
+    flex-direction: column;
   }
 
   .hero-cinema__float-cards {

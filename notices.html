@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="அறிவிப்புகள் - புனித அந்தோணியார் ஆலயம் | Latest announcements, community news, and liturgical feast alerts from Vadakku Paganur.">
     <title>அறிவிப்புகள் | புனித அந்தோணியார் ஆலயம் – வடக்கு பாகனூர்</title>
+    <meta name="view-transition" content="same-origin" />
     
     <!-- Google Fonts & Icon Sets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,53 +15,28 @@
     
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/navbar.js"></script>
 </head>
 <body>
+    <!-- Global Page Loader -->
+    <style id="sac-loader-scroll">body { overflow: hidden !important; }</style>
+    <div id="sac-global-loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
+      <div style="position:relative; width:70px; height:70px;">
+        <div style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;"></div>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">⛪</div>
+      </div>
+      <div style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">LOADING</div>
+      <style>
+        @keyframes sacSpin { to { transform: rotate(360deg); } }
+        @keyframes sacPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+      </style>
+    </div>
+
 
     <!-- Navigation Header -->
-    <header class="navbar" id="main-nav-bar">
-        <div class="navbar-container">
-            <a href="index.html" class="brand-logo" id="nav-brand-link">
-                <span class="logo-icon" id="nav-brand-icon">⛪</span>
-                <div class="brand-text">
-                    <h1 class="brand-title" id="nav-brand-title">புனித அந்தோணியார் ஆலயம்</h1>
-                    <span class="brand-sub" id="nav-brand-sub">வடக்கு பாகனூர்</span>
-                </div>
-            </a>
-            
-            <!-- Desktop Navigation Links -->
-            <nav class="nav-menu" id="nav-links-menu">
-                <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
-                <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
-                <a href="calendar.html" class="nav-link" id="nav-lnk-calendar" data-i18n="nav.calendar">நாட்காட்டி</a>
-                <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
-                <a href="gallery.html" class="nav-link" id="nav-lnk-gallery" data-i18n="nav.gallery">புகைப்படங்கள்</a>
-                <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
-                <a href="contact.html" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
-            </nav>
+    <div id="global-navbar"></div>
 
-            <!-- Actions Buttons -->
-            <div class="navbar-actions" id="nav-actions-container">
-                <button class="btn-lang" id="lang-toggle">ENG</button>
-                <button class="btn-mobile-menu" id="mobile-menu-trigger">
-                    <span class="material-icons">menu</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mobile Drawer Overlay Menu -->
-    <div class="mobile-drawer" id="mobile-drawer">
-        <div class="drawer-content">
-            <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
-            <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
-            <a href="calendar.html" class="drawer-link" data-i18n="nav.calendar">நாட்காட்டி</a>
-            <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
-            <a href="gallery.html" class="drawer-link" data-i18n="nav.gallery">புகைப்படங்கள்</a>
-            <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
-            <a href="contact.html" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
-        </div>
-    </div>
+    
 
     <!-- Main Content Wrapper -->
     <main class="main-wrapper">
@@ -123,18 +99,14 @@
             </div>
         </section>
 
-        <!-- Newsletter Subscription Card -->
+        <!-- St. Antony's Teachings Card -->
         <section style="max-width: 1100px; margin: 0 auto; padding: 0 24px 60px;">
-            <div class="notices-subscribe-card">
-                <div class="subscribe-info">
-                    <div class="subscribe-icon-circle">🔔</div>
-                    <h3 class="subscribe-title" id="subscribe-title-label">மின்-அறிவிப்புகள் பெறுக</h3>
-                    <p class="subscribe-desc" id="subscribe-desc-label">புதிய அறிவிப்புகள் மற்றும் திருவிழா செய்திகளை உடனுக்குடன் உங்களது மின்னஞ்சல் முகவரியில் பெற இன்றே பதிவு செய்யுங்கள்.</p>
+            <div class="notices-subscribe-card" style="text-align: center;">
+                <div class="subscribe-info" style="margin: 0 auto; max-width: 800px;">
+                    <div class="subscribe-icon-circle" style="background: var(--primary-glow); color: var(--primary);">📖</div>
+                    <h3 class="subscribe-title" id="quote-section-title">புனித அந்தோணியாரின் வார்த்தைகள்</h3>
+                    <p class="subscribe-desc" id="quote-section-desc" style="font-style: italic; font-size: 1.15rem; color: var(--text-primary); margin-top: 16px;">"தாழ்ச்சியின் ஆவி தேனை விட இனிமையானது, இந்த தேனால் தங்களை போஷிப்பவர்கள் இனிமையான கனிகளை தருவார்கள்."</p>
                 </div>
-                <form class="subscribe-form" id="newsletter-subscribe-form" onsubmit="handleSubscription(event)">
-                    <input type="email" class="subscribe-input" id="subscribe-email-input" placeholder="உங்களது மின்னஞ்சல் முகவரி..." required>
-                    <button type="submit" class="btn-subscribe" id="subscribe-btn-label">பதிவு செய்க</button>
-                </form>
             </div>
         </section>
     </main>
@@ -352,10 +324,9 @@
                             <h3 class="notice-title">${isTa ? (n.titleTa || n.titleEn) : (n.titleEn || n.titleTa)}</h3>
                             <p class="notice-desc">${isTa ? (n.contentTa || n.contentEn) : (n.contentEn || n.contentTa)}</p>
                         </div>
-                        <div class="notice-card-footer">
-                            <span class="notice-read-more">
-                                ${readMoreText}
-                                <span class="arrow-icon material-icons">arrow_forward</span>
+                        <div class="notice-card-footer" style="padding-top: 16px; border-top: 1px dashed var(--border-glass); margin-top: 16px;">
+                            <span style="font-size: 0.88rem; font-style: italic; color: var(--primary); display: flex; gap: 8px; align-items: flex-start; line-height: 1.4;">
+                                <span>🙏</span> <span>${isTa ? '"அன்பே விசுவாசத்தின் உயிர்; அன்பில்லாமல் விசுவாசம் மரிக்கிறது." - புனித அந்தோணியார்' : '"Charity is the soul of faith; without love, faith dies." - St. Antony'}</span>
                             </span>
                         </div>
                     </div>
@@ -393,20 +364,14 @@
             const tabSpec = document.getElementById('filter-tab-special');
             if (tabSpec) tabSpec.querySelector('.tab-label').innerText = isTa ? "சிறப்பு" : "Special";
 
-            // Newsletter subscription
-            const subTitle = document.getElementById('subscribe-title-label');
-            if (subTitle) subTitle.innerText = isTa ? "மின்-அறிவிப்புகள் பெறுக" : "Subscribe to Notifications";
+            // Teachings section
+            const quoteTitle = document.getElementById('quote-section-title');
+            if (quoteTitle) quoteTitle.innerText = isTa ? "புனித அந்தோணியாரின் வார்த்தைகள்" : "Words of St. Antony";
 
-            const subDesc = document.getElementById('subscribe-desc-label');
-            if (subDesc) subDesc.innerText = isTa 
-                ? "புதிய அறிவிப்புகள் மற்றும் திருவிழா செய்திகளை உடனுக்குடன் உங்களது மின்னஞ்சல் முகவரியில் பெற இன்றே பதிவு செய்யுங்கள்." 
-                : "Stay updated with the latest parish announcements and feast reminders delivered to your inbox.";
-
-            const subInput = document.getElementById('subscribe-email-input');
-            if (subInput) subInput.placeholder = isTa ? "உங்களது மின்னஞ்சல் முகவரி..." : "Enter your email address...";
-
-            const subBtn = document.getElementById('subscribe-btn-label');
-            if (subBtn) subBtn.innerText = isTa ? "பதிவு செய்க" : "Subscribe";
+            const quoteDesc = document.getElementById('quote-section-desc');
+            if (quoteDesc) quoteDesc.innerText = isTa 
+                ? '"தாழ்ச்சியின் ஆவி தேனை விட இனிமையானது, இந்த தேனால் தங்களை போஷிப்பவர்கள் இனிமையான கனிகளை தருவார்கள்."' 
+                : '"The spirit of humility is sweeter than honey, and those who nourish themselves with it produce sweet fruit."';
 
             // Footer copyright
             const copyrightLabel = document.getElementById('footer-church-name-copyright');

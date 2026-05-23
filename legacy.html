@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ஆலய வரலாறு - புனித அந்தோணியார் ஆலயம் | The historical legacy and spiritual journey of St. Antony's Parish in Vadakku Paganur.">
     <title>ஆலய வரலாறு | புனித அந்தோணியார் ஆலயம் – வடக்கு பாகனூர்</title>
+    <meta name="view-transition" content="same-origin" />
+    
+    <meta name="view-transition" content="same-origin" />
     
     <!-- Google Fonts & Icon Sets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,56 +15,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
+    <!-- Pannellum 360 Viewer -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/legacy-page.css">
+    <script src="js/navbar.js"></script>
 </head>
 <body>
+    <!-- Global Page Loader -->
+    <style id="sac-loader-scroll">body { overflow: hidden !important; }</style>
+    <div id="sac-global-loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
+      <div style="position:relative; width:70px; height:70px;">
+        <div style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;"></div>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">⛪</div>
+      </div>
+      <div style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">LOADING</div>
+      <style>
+        @keyframes sacSpin { to { transform: rotate(360deg); } }
+        @keyframes sacPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+      </style>
+    </div>
+
 
     <!-- Navigation Header -->
-    <header class="navbar" id="main-nav-bar">
-        <div class="navbar-container">
-            <a href="index.html" class="brand-logo" id="nav-brand-link">
-                <span class="logo-icon" id="nav-brand-icon">⛪</span>
-                <div class="brand-text">
-                    <h1 class="brand-title" id="nav-brand-title">புனித அந்தோணியார் ஆலயம்</h1>
-                    <span class="brand-sub" id="nav-brand-sub">வடக்கு பாகனூர்</span>
-                </div>
-            </a>
-            
-            <!-- Desktop Navigation Links -->
-            <nav class="nav-menu" id="nav-links-menu">
-                <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
-                <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
-                <a href="calendar.html" class="nav-link" id="nav-lnk-calendar" data-i18n="nav.calendar">நாட்காட்டி</a>
-                <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
-                <a href="gallery.html" class="nav-link" id="nav-lnk-gallery" data-i18n="nav.gallery">புகைப்படங்கள்</a>
-                <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
-                <a href="contact.html" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
-            </nav>
+    <div id="global-navbar"></div>
 
-            <!-- Actions Buttons -->
-            <div class="navbar-actions" id="nav-actions-container">
-                <button class="btn-lang" id="lang-toggle">ENG</button>
-                <button class="btn-mobile-menu" id="mobile-menu-trigger">
-                    <span class="material-icons">menu</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mobile Drawer Overlay Menu -->
-    <div class="mobile-drawer" id="mobile-drawer">
-        <div class="drawer-content">
-            <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
-            <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
-            <a href="calendar.html" class="drawer-link" data-i18n="nav.calendar">நாட்காட்டி</a>
-            <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
-            <a href="gallery.html" class="drawer-link" data-i18n="nav.gallery">புகைப்படங்கள்</a>
-            <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
-            <a href="contact.html" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
-        </div>
-    </div>
+    
 
     <!-- Main Content wrapper -->
     <main class="main-wrapper legacy-page">
@@ -86,6 +66,24 @@
         </section>
 
         <div class="legacy-page-body">
+        
+        <!-- 360 Virtual Tour Section -->
+        <section class="legacy-overview-section" style="padding-top: 40px; padding-bottom: 20px;">
+            <div class="legacy-section-header" style="text-align: center; margin-bottom: 30px;">
+                <span class="legacy-section-kicker" data-i18n="heritage.tourTitle" style="background: rgba(139, 92, 246, 0.1); color: var(--primary); padding: 6px 16px; border-radius: 20px; font-weight: 700; letter-spacing: 1px; font-size: 0.85rem; display: inline-block; margin-bottom: 12px;">360° மெய்நிகர் தரிசனம்</span>
+                <h3 class="legacy-section-title" data-i18n="heritage.tourTitle" style="font-size: 2rem; font-weight: 800; color: var(--text-primary);">360° Virtual Tour</h3>
+                <p class="legacy-section-lead" data-i18n="heritage.tourDesc" style="color: var(--text-secondary); max-width: 600px; margin: 12px auto 0;">Experience the beauty of our church interior through an interactive 360-degree panorama.</p>
+            </div>
+            
+            <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-premium); position: relative; max-width: 1100px; margin: 0 auto;">
+                <div id="panorama" style="width: 100%; height: 500px; background: #000;"></div>
+                <div style="background: var(--gradient-brand-soft); padding: 12px 24px; text-align: center; color: var(--primary); font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; border-top: 1px solid var(--border-glow);">
+                    <span class="material-icons">360</span>
+                    <span data-i18n="heritage.tourHint">Drag to look around. Scroll to zoom.</span>
+                </div>
+            </div>
+        </section>
+
         <div class="legacy-hero-strip">
         <div class="legacy-metrics-bar">
                 <div class="legacy-metric">
@@ -288,21 +286,59 @@
 
                 <article class="legacy-milestone-card" style="--milestone-accent:linear-gradient(90deg, var(--primary), hsl(265, 70%, 55%)); --milestone-soft:hsla(265, 75%, 45%, 0.1); --milestone-color:var(--primary);">
                     <div class="legacy-milestone-icon">
-                        <span class="material-icons" aria-hidden="true" data-fallback="P">church</span>
+                        <span class="material-icons" aria-hidden="true" data-fallback="P">workspace_premium</span>
                     </div>
                     <div class="legacy-milestone-year">1995</div>
-                    <h4 class="legacy-milestone-title" id="legacy-ms95-title" data-i18n="legacy.ms95Title">Independent Parish Status</h4>
-                <p class="legacy-milestone-desc" id="legacy-ms95-desc" data-i18n="legacy.ms95Desc">St. Antony's Church was raised to an independent parish with its first resident parish priest.</p>
+                    <h4 class="legacy-milestone-title" id="legacy-ms95-title" data-i18n="legacy.ms95Title">Elevated as Independent Parish</h4>
+                    <p class="legacy-milestone-desc" id="legacy-ms95-desc" data-i18n="legacy.ms95Desc">St. Antony's Church was elevated to an independent parish, and the first parish priest took charge.</p>
                 </article>
-                
+
                 <article class="legacy-milestone-card" style="--milestone-accent:linear-gradient(90deg, hsl(0, 65%, 45%), var(--primary)); --milestone-soft:hsla(0, 65%, 45%, 0.09); --milestone-color:hsl(0, 62%, 36%);">
                     <div class="legacy-milestone-icon">
-                        <span class="material-icons" aria-hidden="true" data-fallback="#">workspace_premium</span>
+                        <span class="material-icons" aria-hidden="true" data-fallback="R">architecture</span>
                     </div>
-                    <div class="legacy-milestone-year">2020</div>
+                    <div class="legacy-milestone-year">2021</div>
                     <h4 class="legacy-milestone-title" id="legacy-ms20-title" data-i18n="legacy.ms20Title">Modern Shrine Renovation</h4>
-                <p class="legacy-milestone-desc" id="legacy-ms20-desc" data-i18n="legacy.ms20Desc">The church was beautifully renovated with stained glass, renewed shrines, and a dignified sanctuary.</p>
+                    <p class="legacy-milestone-desc" id="legacy-ms20-desc" data-i18n="legacy.ms20Desc">The church was completely renovated with stained glass, new altars, and beautiful interiors.</p>
                 </article>
+            </div>
+        </section>
+
+        <section class="legacy-past-officials-section" id="legacy-past-officials-container" style="position: relative; padding: 60px 20px; background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary)); margin: 40px auto; max-width: 1200px; border-radius: 32px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.4), 0 20px 40px rgba(0,0,0,0.03); overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.05) 0%, transparent 50%); pointer-events: none;"></div>
+            
+            <div class="legacy-section-header" style="text-align: center; margin-bottom: 48px; position: relative; z-index: 1;">
+                <span class="legacy-section-kicker" id="past-officials-kicker" style="background: rgba(139, 92, 246, 0.1); color: var(--primary); padding: 6px 16px; border-radius: 20px; font-weight: 700; letter-spacing: 1px; font-size: 0.85rem; display: inline-block; margin-bottom: 12px; border: 1px solid rgba(139, 92, 246, 0.2);">Our Leaders</span>
+                <h3 class="legacy-section-title" id="past-officials-title" style="font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--text-primary), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">முன்னாள் பொறுப்பாளர்கள் (Past Officials)</h3>
+                <p class="legacy-section-lead" id="past-officials-lead" style="max-width: 700px; margin: 16px auto 0; font-size: 1.1rem; color: var(--text-secondary); line-height: 1.6;">ஆலயத்தின் வளர்ச்சிக்கு உழைத்த முன்னாள் மணியக்காரர்கள் மற்றும் பட்டையதாரர்கள்.</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; position: relative; z-index: 1;" id="past-officials-grid">
+                
+                <div class="past-officials-column" style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); border-radius: 24px; padding: 32px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+                    <h4 style="color: var(--primary); font-size: 1.3rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; font-weight: 700;">
+                        <div style="background: linear-gradient(135deg, var(--primary), hsl(265, 80%, 65%)); width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);">
+                            <span class="material-icons" style="font-size:1.4rem;">account_balance</span>
+                        </div>
+                        <span id="past-treasurers-title">மணியக்காரர்கள் (Treasurers)</span>
+                    </h4>
+                    <div id="list-past-treasurers" style="display: flex; flex-direction: column; gap: 16px;">
+                        <!-- JS Loaded -->
+                    </div>
+                </div>
+
+                <div class="past-officials-column" style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); border-radius: 24px; padding: 32px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+                    <h4 style="color: var(--primary); font-size: 1.3rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; font-weight: 700;">
+                        <div style="background: linear-gradient(135deg, #0ea5e9, #38bdf8); width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);">
+                            <span class="material-icons" style="font-size:1.4rem;">verified</span>
+                        </div>
+                        <span id="past-patrons-title">பட்டையதாரர்கள் (Patrons)</span>
+                    </h4>
+                    <div id="list-past-patrons" style="display: flex; flex-direction: column; gap: 16px;">
+                        <!-- JS Loaded -->
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -322,7 +358,6 @@
                 </a>
             </div>
         </section>
-        </div>
     </main>
 
     <footer class="footer" id="global-footer"></footer>
@@ -330,6 +365,9 @@
     <!-- Firebase compatibility libraries -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
+
+    <!-- Pannellum 360 Viewer -->
+    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
     <!-- Core Script dependencies -->
     <script src="js/database.js"></script>
@@ -343,20 +381,81 @@
             applyLegacyIconFallback();
             
             await loadTimelineEvents();
+            await loadPastOfficials();
+            initPannellumViewer();
 
             // Reveal the finished page frame
             SAC_COMMON.revealPage();
 
             window.addEventListener('sacLanguageChanged', async () => {
                 await loadTimelineEvents();
+                await loadPastOfficials();
             });
 
             window.addEventListener('sacDataRefreshed', async (e) => {
                 if (e.detail && e.detail.collection === 'legacy_timeline') {
                     await loadTimelineEvents();
                 }
+                if (e.detail && e.detail.collection === 'past_officials') {
+                    await loadPastOfficials();
+                }
             });
         });
+
+        function initPannellumViewer() {
+            if(typeof pannellum !== 'undefined') {
+                pannellum.viewer('panorama', {
+                    "type": "equirectangular",
+                    "panorama": "images/church_panorama.png",
+                    "autoLoad": true,
+                    "compass": true,
+                    "mouseZoom": false,
+                    "showControls": true,
+                    "pitch": 0,
+                    "yaw": 0,
+                    "hfov": 100
+                });
+            }
+        }
+
+        async function loadPastOfficials() {
+            const officials = await SAC_DATABASE.get("past_officials") || [];
+            const isTa = SAC_COMMON.currentLang === 'ta';
+
+            // Translate headers manually since data-i18n is not populated in dictionary
+            document.getElementById('past-officials-kicker').innerText = isTa ? "நமது தலைவர்கள்" : "Our Leaders";
+            document.getElementById('past-officials-title').innerText = isTa ? "முன்னாள் பொறுப்பாளர்கள்" : "Past Officials";
+            document.getElementById('past-officials-lead').innerText = isTa ? "ஆலயத்தின் வளர்ச்சிக்கு உழைத்த முன்னாள் மணியக்காரர்கள் மற்றும் பட்டையதாரர்கள்." : "The past treasurers and patrons who worked for the growth of the parish.";
+            document.getElementById('past-treasurers-title').innerText = isTa ? "மணியக்காரர்கள்" : "Past Treasurers";
+            document.getElementById('past-patrons-title').innerText = isTa ? "பட்டையதாரர்கள்" : "Church Patrons";
+
+            const treasurers = officials.filter(o => o.role === 'treasurer');
+            const patrons = officials.filter(o => o.role === 'patron');
+
+            const treasurersList = document.getElementById('list-past-treasurers');
+            const patronsList = document.getElementById('list-past-patrons');
+
+            const renderCard = (o) => `
+                <div style="background: var(--bg-primary); padding: 16px 24px; border-radius: 12px; border-left: 4px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 4px;">${isTa ? o.nameTa : o.nameEn}</div>
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); display: flex; align-items: center; gap: 4px;">
+                        <span class="material-icons" style="font-size: 1rem;">event</span> ${isTa ? o.periodTa : o.periodEn}
+                    </div>
+                </div>
+            `;
+
+            if (treasurersList) {
+                treasurersList.innerHTML = treasurers.length > 0 
+                    ? treasurers.map(renderCard).join('')
+                    : `<div style="text-align:center; color:var(--text-muted); font-size:0.9rem;">${isTa ? 'தகவல்கள் இல்லை' : 'No records found'}</div>`;
+            }
+
+            if (patronsList) {
+                patronsList.innerHTML = patrons.length > 0 
+                    ? patrons.map(renderCard).join('')
+                    : `<div style="text-align:center; color:var(--text-muted); font-size:0.9rem;">${isTa ? 'தகவல்கள் இல்லை' : 'No records found'}</div>`;
+            }
+        }
 
         // Load timeline cards dynamically from DB
         async function loadTimelineEvents() {

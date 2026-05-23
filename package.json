@@ -1,0 +1,24 @@
+{
+  "name": "sac-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fix_divs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sacpaganur/sac-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sacpaganur/sac-website/issues"
+  },
+  "homepage": "https://github.com/sacpaganur/sac-website#readme",
+  "dependencies": {
+    "jsdom": "^29.1.1"
+  }
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - அதிகாரப்பூர்வ பொது வலைத்தளம் | St. Antony's Church Vadakku Paganur - Official Public Website.">
     <title>முகப்பு | புனித அந்தோணியார் ஆலயம் – வடக்கு பாகனூர்</title>
+    <meta name="view-transition" content="same-origin" />
     
     <!-- Google Fonts & Icon Sets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,53 +17,26 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/hero-home.css">
     <link rel="stylesheet" href="css/modal.css">
+    <script src="js/navbar.js"></script>
 </head>
 <body>
-
-    <!-- Navigation Header -->
-    <header class="navbar" id="main-nav-bar">
-        <div class="navbar-container">
-            <a href="index.html" class="brand-logo" id="nav-brand-link">
-                <span class="logo-icon" id="nav-brand-icon">⛪</span>
-                <div class="brand-text">
-                    <h1 class="brand-title" id="nav-brand-title">புனித அந்தோணியார் ஆலயம்</h1>
-                    <span class="brand-sub" id="nav-brand-sub">வடக்கு பாகனூர்</span>
-                </div>
-            </a>
-            
-            <!-- Desktop Navigation Links -->
-            <nav class="nav-menu" id="nav-links-menu">
-                <a href="index.html" class="nav-link" id="nav-lnk-home" data-i18n="nav.home">முகப்பு</a>
-                <a href="schedule.html" class="nav-link" id="nav-lnk-schedule" data-i18n="nav.schedule">வழிபாடுகள்</a>
-                <a href="calendar.html" class="nav-link" id="nav-lnk-calendar" data-i18n="nav.calendar">நாட்காட்டி</a>
-                <a href="legacy.html" class="nav-link" id="nav-lnk-legacy" data-i18n="nav.legacy">வரலாறு</a>
-                <a href="gallery.html" class="nav-link" id="nav-lnk-gallery" data-i18n="nav.gallery">புகைப்படங்கள்</a>
-                <a href="notices.html" class="nav-link" id="nav-lnk-notices" data-i18n="nav.notices">அறிவிப்புகள்</a>
-                <a href="contact.html" class="nav-link" id="nav-lnk-contact" data-i18n="nav.contact">தொடர்பு</a>
-            </nav>
-
-            <!-- Language and Portal Buttons -->
-            <div class="navbar-actions" id="nav-actions-container">
-                <button class="btn-lang" id="lang-toggle">ENG</button>
-                <button class="btn-mobile-menu" id="mobile-menu-trigger">
-                    <span class="material-icons">menu</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mobile Drawer Overlay Menu -->
-    <div class="mobile-drawer" id="mobile-drawer">
-        <div class="drawer-content">
-            <a href="index.html" class="drawer-link" data-i18n="nav.home">முகப்பு</a>
-            <a href="schedule.html" class="drawer-link" data-i18n="nav.schedule">வழிபாடுகள்</a>
-            <a href="calendar.html" class="drawer-link" data-i18n="nav.calendar">நாட்காட்டி</a>
-            <a href="legacy.html" class="drawer-link" data-i18n="nav.legacy">வரலாறு</a>
-            <a href="gallery.html" class="drawer-link" data-i18n="nav.gallery">புகைப்படங்கள்</a>
-            <a href="notices.html" class="drawer-link" data-i18n="nav.notices">அறிவிப்புகள்</a>
-            <a href="contact.html" class="drawer-link" data-i18n="nav.contact">தொடர்பு</a>
-            </div>
+    <!-- Global Page Loader -->
+    <style id="sac-loader-scroll">body { overflow: hidden !important; }</style>
+    <div id="sac-global-loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
+      <div style="position:relative; width:70px; height:70px;">
+        <div style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;"></div>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">⛪</div>
+      </div>
+      <div style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">LOADING</div>
+      <style>
+        @keyframes sacSpin { to { transform: rotate(360deg); } }
+        @keyframes sacPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+      </style>
     </div>
+
+
+    <!-- Navigation Header Component -->
+    <div id="global-navbar"></div>
 
     <!-- Main Content wrapper -->
     <main class="main-wrapper" id="home-page-mount">
@@ -236,6 +210,18 @@
         </section>
 
         <!-- Parish Ministries & Associations Section -->
+        <style>
+            .ministries-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+            @media (max-width: 768px) {
+                .ministries-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
         <section class="section-container" style="padding-top:40px; padding-bottom:60px; border-top: 1px solid var(--border-glass);">
             <div style="text-align:center; margin-bottom:45px;">
                 <span class="liturgical-badge liturgical-martyrs" style="margin-bottom:12px;" data-i18n="home.ministriesTag">ஆலய இயக்கங்கள் | Parish Ministries</span>
@@ -243,7 +229,7 @@
                 <p style="color:var(--text-secondary); max-width:600px; margin:10px auto 0;" data-i18n="home.ministriesSub">ஆலயத்தின் ஆன்மீகப் பணிகள் மற்றும் சமுதாய நற்பணிகளில் செயலாற்றி வரும் முக்கியப் பிரிவுகள்.</p>
             </div>
             
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+            <div class="ministries-grid">
                 <!-- Catechism -->
                 <div class="summary-card" style="padding:28px; border-radius:24px; text-align: center;">
                     <div style="font-size:2.5rem; margin-bottom:14px; display: inline-block;">📖</div>
@@ -263,6 +249,13 @@
                     <div style="font-size:2.5rem; margin-bottom:14px; display: inline-block;">🕯️</div>
                     <h4 style="font-size:1.2rem; margin-bottom:10px; font-weight:800;" data-i18n="home.minLitTitle">வழிபாட்டுக் குழு</h4>
                     <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;" data-i18n="home.minLitDesc">வழிபாடுகளில் ஒழுங்கு, வாசகர் பயிற்சி, திருப்பலி பீடப் பணி மற்றும் ஆராதனை செபங்களை தயாரித்து வழிநடத்தும் ஆன்மீகப் பிரிவு.</p>
+                </div>
+                
+                <!-- Anbiyam -->
+                <div class="summary-card" style="padding:28px; border-radius:24px; text-align: center;">
+                    <div style="font-size:2.5rem; margin-bottom:14px; display: inline-block;">🏘️</div>
+                    <h4 style="font-size:1.2rem; margin-bottom:10px; font-weight:800;" data-i18n="home.minAnbiyamTitle">அன்பியங்கள்</h4>
+                    <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.6;" data-i18n="home.minAnbiyamDesc">பங்குத் தளத்தில் இறைமக்களை சிறு குழுக்களாக ஒருங்கிணைத்து, விவிலியப் பகிர்வு மற்றும் கூட்டுப் பொறுப்புணர்வை வளர்க்கும் அடிப்படை கிறிஸ்தவ சமூகங்கள்.</p>
                 </div>
             </div>
         </section>
@@ -564,7 +557,7 @@
         function updateDailyVerse() {
             const today = new Date().getDate();
             const verse = dailyVerses[today % dailyVerses.length];
-            const isTa = window.SAC_COMMON && window.SAC_COMMON.currentLang === 'ta';
+            const isTa = typeof SAC_COMMON !== 'undefined' && SAC_COMMON.currentLang === 'ta';
             
             const verseText = isTa ? verse.textTa : verse.textEn;
             const verseRef = isTa ? verse.refTa : verse.refEn;

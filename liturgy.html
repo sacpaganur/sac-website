@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="இன்றைய வாசகங்கள் மற்றும் நற்செய்தி சிந்தனை - புனித அந்தோணியார் ஆலயம் | Daily Catholic Liturgy, Gospel Readings, and Reflections.">
+    <title>இன்றைய வாசகங்கள் | Daily Liturgy</title>
+    <meta name="view-transition" content="same-origin" />
+    
+    <!-- Google Fonts & Icon Sets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/liturgy-page.css">
+    <script src="js/navbar.js"></script>
+</head>
+<body class="liturgy-theme">
+    <!-- Global Page Loader -->
+    <style id="sac-loader-scroll">body { overflow: hidden !important; }</style>
+    <div id="sac-global-loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
+      <div style="position:relative; width:70px; height:70px;">
+        <div style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;"></div>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">⛪</div>
+      </div>
+      <div style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">LOADING</div>
+      <style>
+        @keyframes sacSpin { to { transform: rotate(360deg); } }
+        @keyframes sacPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+      </style>
+    </div>
+
+    <!-- Navigation Header -->
+    <div id="global-navbar"></div>
+
+    <main class="main-wrapper liturgy-page">
+        <!-- Hero Section -->
+        <section class="notices-hero-header" id="liturgy-hero">
+            <div class="notices-hero-inner">
+                <div class="notices-liturgical-badge">
+                    <span class="material-icons" aria-hidden="true" style="font-size: 16px;">menu_book</span>
+                    <span id="liturgy-date-display">Today's Liturgy</span>
+                </div>
+                <h2 class="notices-hero-title" data-i18n="liturgy.heroTitle">இன்றைய இறைவார்த்தை</h2>
+                <p class="notices-hero-subtitle" id="liturgy-feast-display" style="margin-bottom: 24px;">Loading liturgical day...</p>
+                
+                <div class="saint-of-day-banner" id="saint-banner" style="display: none;">
+                    <div class="saint-icon"><span class="material-icons">stars</span></div>
+                    <div class="saint-info">
+                        <span class="saint-label" data-i18n="liturgy.saintLabel">இன்றைய புனிதர்</span>
+                        <strong id="saint-name">St. Name</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Content Section -->
+        <section class="liturgy-content-section" id="liturgy-content-container">
+            <!-- Populated via JS -->
+            <div class="legacy-empty-state">
+                <span class="material-icons" aria-hidden="true" data-fallback="...">hourglass_top</span>
+                <span data-i18n="liturgy.loadingMsg">இறைவார்த்தைகள் ஏற்றப்படுகின்றன...</span>
+            </div>
+        </section>
+
+        <section class="liturgy-cta-section">
+            <div class="liturgy-cta-card">
+                <h3 data-i18n="liturgy.ctaTitle">திருப்பலியில் பங்கேற்போம்</h3>
+                <p data-i18n="liturgy.ctaDesc">இறைவார்த்தையை வாழ்வாக்க வாராந்திர திருப்பலிகளில் பங்கேற்று இறையாசீர் பெறுவோம்.</p>
+                <a href="schedule.html" class="btn-hero-action primary">
+                    <span class="material-icons">church</span>
+                    <span data-i18n="liturgy.ctaBtn">திருப்பலி நேரங்கள்</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Footer -->
+    <div id="global-footer"></div>
+
+    <!-- Script imports -->
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/footer.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await SAC_COMMON.init('liturgy');
+            await loadDailyLiturgy();
+
+            window.addEventListener('sacLanguageChanged', async () => {
+                await loadDailyLiturgy();
+            });
+            
+            SAC_COMMON.revealPage();
+        });
+
+        async function loadDailyLiturgy() {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const readingsData = await SAC_DATABASE.get("daily_liturgy") || [];
+            const container = document.getElementById('liturgy-content-container');
+            const feastDisplay = document.getElementById('liturgy-feast-display');
+            const dateDisplay = document.getElementById('liturgy-date-display');
+            const saintBanner = document.getElementById('saint-banner');
+            const saintName = document.getElementById('saint-name');
+
+            if (readingsData.length === 0) {
+                container.innerHTML = `
+                    <div class="legacy-empty-state">
+                        <span class="material-icons" aria-hidden="true">menu_book</span>
+                        <span>${isTa ? "இன்றைய வாசகங்கள் இன்னும் பதிவேற்றப்படவில்லை." : "Today's readings have not been uploaded yet."}</span>
+                    </div>
+                `;
+                feastDisplay.innerText = isTa ? "பொதுக்காலம்" : "Ordinary Time";
+                dateDisplay.innerText = new Date().toLocaleDateString(isTa ? 'ta-IN' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                return;
+            }
+
+            // In a real app, find today's reading. For this demo, just pick the first one.
+            const todayLiturgy = readingsData[0];
+            
+            // Format Date
+            const dateObj = new Date(todayLiturgy.date);
+            dateDisplay.innerText = dateObj.toLocaleDateString(isTa ? 'ta-IN' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            
+            // Feast / Season
+            feastDisplay.innerText = isTa ? todayLiturgy.seasonTa : todayLiturgy.seasonEn;
+
+            // Saint of the Day
+            if (todayLiturgy.saintEn) {
+                saintBanner.style.display = 'flex';
+                saintName.innerText = isTa ? todayLiturgy.saintTa : todayLiturgy.saintEn;
+            } else {
+                saintBanner.style.display = 'none';
+            }
+
+            // Build HTML
+            const renderReading = (type, titleTa, titleEn, ref, textTa, textEn) => {
+                if (!textEn && !textTa) return '';
+                const typeLabel = isTa 
+                    ? (type === 'first' ? 'முதல் வாசகம்' : (type === 'second' ? 'இரண்டாம் வாசகம்' : (type === 'psalm' ? 'பதிலுரைப்பாடல்' : 'நற்செய்தி')))
+                    : (type === 'first' ? 'First Reading' : (type === 'second' ? 'Second Reading' : (type === 'psalm' ? 'Responsorial Psalm' : 'Gospel')));
+                
+                const icon = type === 'gospel' ? 'auto_awesome' : 'menu_book';
+                const highlightClass = type === 'gospel' ? 'reading-gospel' : '';
+
+                return `
+                    <article class="liturgy-reading-card ${highlightClass}">
+                        <div class="reading-header">
+                            <span class="reading-badge"><span class="material-icons">${icon}</span> ${typeLabel}</span>
+                            <span class="reading-reference">${ref}</span>
+                        </div>
+                        <h3 class="reading-title">${isTa ? titleTa : titleEn}</h3>
+                        <div class="reading-body">
+                            ${(isTa ? textTa : textEn).split('\n').map(p => `<p>${p}</p>`).join('')}
+                        </div>
+                    </article>
+                `;
+            };
+
+            const firstReadingHTML = renderReading('first', todayLiturgy.reading1TitleTa, todayLiturgy.reading1TitleEn, todayLiturgy.reading1Ref, todayLiturgy.reading1TextTa, todayLiturgy.reading1TextEn);
+            const psalmHTML = renderReading('psalm', todayLiturgy.psalmResponseTa, todayLiturgy.psalmResponseEn, todayLiturgy.psalmRef, todayLiturgy.psalmTextTa, todayLiturgy.psalmTextEn);
+            const secondReadingHTML = renderReading('second', todayLiturgy.reading2TitleTa, todayLiturgy.reading2TitleEn, todayLiturgy.reading2Ref, todayLiturgy.reading2TextTa, todayLiturgy.reading2TextEn);
+            const gospelHTML = renderReading('gospel', todayLiturgy.gospelTitleTa, todayLiturgy.gospelTitleEn, todayLiturgy.gospelRef, todayLiturgy.gospelTextTa, todayLiturgy.gospelTextEn);
+
+            const reflectionLabel = isTa ? "இன்றைய சிந்தனை" : "Gospel Reflection";
+            const reflectionHTML = `
+                <div class="liturgy-reflection-box">
+                    <div class="reflection-header">
+                        <span class="material-icons">lightbulb</span>
+                        <h4>${reflectionLabel}</h4>
+                    </div>
+                    <div class="reflection-body">
+                        ${(isTa ? todayLiturgy.reflectionTa : todayLiturgy.reflectionEn).split('\n').map(p => `<p>${p}</p>`).join('')}
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = `
+                <div class="liturgy-layout-grid">
+                    <div class="liturgy-readings-column">
+                        ${firstReadingHTML}
+                        ${psalmHTML}
+                        ${secondReadingHTML}
+                        ${gospelHTML}
+                    </div>
+                    <div class="liturgy-sidebar-column">
+                        ${reflectionHTML}
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,3 +1,78 @@
+// --- GLOBAL PAGE LOADER INJECTION ---
+(function() {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  
+  const loaderHTML = `
+    <style id="sac-loader-scroll">body { overflow: hidden !important; }</style>\n    <div id="sac-global-loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
+      <div style="position:relative; width:70px; height:70px;">
+        <div style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;"></div>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">⛪</div>
+      </div>
+      <div style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">LOADING</div>
+      <style>
+        @keyframes sacSpin { to { transform: rotate(360deg); } }
+        @keyframes sacPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+      </style>
+    </div>
+  `;
+  
+  // Inject if body exists, else wait for DOMContentLoaded
+  // Expose hideLoader globally so revealPage can call it
+  window.hideSACLoader = () => {
+    document.body.style.overflow = ''; // Restore scrolling
+    const loaders = document.querySelectorAll('#sac-global-loader');
+    loaders.forEach(loader => {
+      if (loader.style.opacity !== '0') {
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
+        setTimeout(() => {
+          loader.remove();
+          const scrollLock = document.getElementById('sac-loader-scroll');
+          if (scrollLock) scrollLock.remove();
+        }, 800);
+      }
+    });
+  };
+
+  // Ultimate fallback: forcefully hide after 3000ms no matter what
+  setTimeout(window.hideSACLoader, 3000);
+
+
+
+  // Intercept navigation links to show loader
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    const target = link.getAttribute('target');
+    
+    // Only intercept internal standard links
+    if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && target !== '_blank' && !link.hasAttribute('download')) {
+      e.preventDefault();
+      
+      let loader = document.getElementById('sac-global-loader');
+      if (!loader) {
+        document.body.insertAdjacentHTML('afterbegin', loaderHTML);
+        loader = document.getElementById('sac-global-loader');
+      }
+      
+      // Start hidden to avoid harsh flash
+      document.body.style.overflow = 'hidden'; // Disable scrolling
+      loader.style.transition = 'none';
+      loader.style.opacity = '0';
+      loader.style.visibility = 'visible';
+      
+      // Force reflow
+      void loader.offsetWidth;
+      loader.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+      loader.style.opacity = '1';
+      
+      window.location.href = href;
+    }
+  });
+})();
+// --- END PAGE LOADER ---
+
 /* St. Antony's Church Public Website Shared Core JavaScript */
 
 const SAC_COMMON = {
@@ -9,13 +84,16 @@ const SAC_COMMON = {
     "ta": {
       "nav.home": "முகப்பு",
       "nav.schedule": "வழிபாடுகள்",
+      "nav.liturgy": "இறைவார்த்தை",
       "nav.calendar": "நாட்காட்டி",
       "nav.legacy": "வரலாறு",
+      "nav.devotion": "பக்தி",
       "nav.notices": "அறிவிப்புகள்",
       "nav.contact": "தொடர்பு",
       "nav.gallery": "புகைப்படங்கள்",
       "nav.portal": "உறுப்பினர் பகுதி",
       "nav.admin": "நிர்வாகி",
+      "nav.more": "மேலும் ▾",
       "footer.tagline": "அமைதியும் அன்பும் அருளும் பெருகும் புண்ணியத்தலம்",
       "footer.quickLinks": "விரைவு இணைப்புகள்",
       "footer.resources": "வளங்கள்",
@@ -62,6 +140,38 @@ const SAC_COMMON = {
       "sched.feastBadge": "ஆண்டு திருவிழா",
       "sched.feastTitle": "ஆண்டு திருவிழா",
       "sched.feastDesc": "ஆண்டுதோறும் பாஸ்கா காலம் இரண்டாம் சனிக்கிழமை",
+      "sched.juneFeastBadge": "ஜூன் 13 திருவிழா",
+      "sched.juneFeastTitle": "புனித அந்தோணியார் பெருவிழா",
+      "sched.juneFeastDesc": "ஒவ்வொரு ஆண்டும் ஜூன் 13-ஆம் தேதி நமது பாதுகாவலரான புனித அந்தோணியாரின் பெருவிழா மிகவும் சிறப்பான முறையில் கொண்டாடப்படும்.",
+      "notices.noNotices": "தற்போது எந்த அறிவிப்புகளும் இல்லை. பின்னர் சரிபார்க்கவும்.",
+      "heritage.heroKicker": "நமது பாரம்பரியம் (Our Heritage)",
+      "heritage.heroTitle": "ஆலயத்தின் திருவரலாறு",
+      "heritage.heroSubtitle": "A Journey Through Time & Faith",
+      "heritage.tourTitle": "360° மெய்நிகர் தரிசனம்",
+      "heritage.tourDesc": "ஆலயத்தின் உள்ளே ஒரு 360-டிகிரி விர்ச்சுவல் பயணம்.",
+      "heritage.tourHint": "Drag to look around. Scroll to zoom. (சுழற்றிப் பார்க்க திரையைத் தொடவும்)",
+      "heritage.timelineTitle": "பங்கு வரலாறு",
+      "heritage.timelineDesc": "வடக்கு பாகனூர் மண்ணில் உதித்த நம்பிக்கையின் மைல்கற்கள்.",
+      "heritage.y1920Title": "நம்பிக்கையின் விதை",
+      "heritage.y1920Desc": "வடக்கு பாகனூர் கிராமத்தில் ஒரு சிறிய கூரை கொட்டகையில் புனித அந்தோணியாரின் சுரூபம் வைக்கப்பட்டு முதல் செபக்கூட்டம் ஆரம்பமானது.",
+      "heritage.y1955Title": "முதல் செங்கல்",
+      "heritage.y1955Desc": "மக்களின் பேராதரவுடன் முதல் முறையாக செங்கல் வைத்து சிறிய ஆலயம் கட்டப்பட்டது. அன்று முதல் வாராந்திர திருப்பலிகள் நடைபெறத் துவங்கின.",
+      "heritage.y1982Title": "தனிப் பங்காக உதயம்",
+      "heritage.y1982Desc": "புனித அந்தோணியார் ஆலயம் தனிப் பங்காக உயர்த்தப்பட்டு, முதல் பங்குத் தந்தை பொறுப்பேற்றார். இது நமது திருச்சபை வரலாற்றில் ஒரு பொற்காலம்.",
+      "heritage.y2010Title": "புதிய ஆலய அற்பணிப்பு",
+      "heritage.y2010Desc": "விரிவாக்கப்பட்ட புதிய ஆலயம் கட்டி முடிக்கப்பட்டு, மேதகு ஆயர் அவர்களால் புனிதப்படுத்தப்பட்டது.",
+      "heritage.y2026Title": "டிஜிட்டல் சகாப்தம்",
+      "heritage.y2026Desc": "உலகெங்கும் உள்ள நமது உறவுகளை இணைக்கும் வகையில், பங்கு இணையதளம் மற்றும் விர்ச்சுவல் டூர் சேவை துவங்கப்பட்டது.",
+      "liturgy.heroTitle": "இன்றைய இறைவார்த்தை",
+      "liturgy.saintLabel": "இன்றைய புனிதர்",
+      "liturgy.loadingMsg": "இறைவார்த்தைகள் ஏற்றப்படுகின்றன...",
+      "liturgy.ctaTitle": "திருப்பலியில் பங்கேற்போம்",
+      "liturgy.ctaDesc": "இறைவார்த்தையை வாழ்வாக்க வாராந்திர திருப்பலிகளில் பங்கேற்று இறையாசீர் பெறுவோம்.",
+      "liturgy.ctaBtn": "திருப்பலி நேரங்கள்",
+      "devotion.heroKicker": "நம்பிக்கையின் ஒளி (Light of Faith)",
+      "devotion.heroTitle": "மெழுகுவர்த்தி ஏற்றி செபிப்போம்",
+      "devotion.quoteText": "\"செபம் இருளுக்கு ஒளியூட்டும் விளக்கு.\"",
+      "devotion.quoteAuthor": "- புனித அந்தோணியார்",
       "notices.infoTitle": "அறிவிப்பு பலகை விவரம்",
       "notices.infoDesc": "பங்குப் பேரவை முடிவுகள், சிறப்பு திருவிழா அட்டவணைகள், திருப்பலி நேர மாற்றங்கள் மற்றும் முக்கிய அறிவிப்புகள் உடனுக்குடன் இங்கு புதுப்பிக்கப்படும். விபரங்களை அறிய அவ்வப்போது சரிபார்க்கவும்.",
       "hero.scripture": "\"அன்பே உருவான இறைவனிடம் கேளுங்கள், உங்களுக்குத் தரப்படும்; தேடுங்கள், நீங்கள் கண்டடைவீர்கள்.\"",
@@ -89,7 +199,6 @@ const SAC_COMMON = {
       "hero.scrollCue": "கீழே செல்லுங்கள்",
       "hero.quoteAntony1": "\"புனித அந்தோணியாரே, எங்களுக்காக மன்றாடும்.\"",
       "hero.quoteAntony2": "\"நம்பிக்கையின் ஒளி, அன்பின் வழி.\"",
-      "hero.scrollCue": "கீழே செல்லுங்கள்",
       "hero.viewGallery": "புகைப்படங்கள்",
       "hero.captionNew": "புதிய பேராலயம்",
       "hero.captionOld": "பாரம்பரிய ஆலயம்",
@@ -107,10 +216,12 @@ const SAC_COMMON = {
       "home.ministriesSub": "ஆலயத்தின் ஆன்மீகப் பணிகள் மற்றும் சமுதாய நற்பணிகளில் செயலாற்றி வரும் முக்கியப் பிரிவுகள்.",
       "home.minCatTitle": "மறைக்கல்வி மன்றம்",
       "home.minCatDesc": "ஒவ்வொரு ஞாயிற்றுக்கிழமையும் திருப்பலிக்கு முன்னதாக பங்கு சிறுவர்களுக்கு விவிலிய போதனைகளும் கிறிஸ்தவ நம்பிக்கைப் பயிற்சிகளும் வழங்கப்படுகிறது.",
-      "home.minYouthTitle": "இளையோர் இயக்கம் (Youth Movement)",
+      "home.minYouthTitle": "இளையோர் இயக்கம்",
       "home.minYouthDesc": "பங்கின் ஆற்றல்மிக்க இளையோரை ஒருங்கிணைத்து ஆலயப் பெருவிழாக்கள், தொண்டுப்பணிகள் மற்றும் வழிபாட்டுப் பணிகளில் ஈடுபடுத்துகிறது.",
       "home.minLitTitle": "வழிபாட்டுக் குழு",
       "home.minLitDesc": "வழிபாடுகளில் ஒழுங்கு, வாசகர் பயிற்சி, திருப்பலி பீடப் பணி மற்றும் ஆராதனை செபங்களை தயாரித்து வழிநடத்தும் ஆன்மீகப் பிரிவு.",
+      "home.minAnbiyamTitle": "அன்பியங்கள்",
+      "home.minAnbiyamDesc": "நமது பங்குத் தளத்தில் மத்தேயு, மாற்கு, லூக்கா மற்றும் அன்னை தெரசா ஆகிய நான்கு அன்பியங்கள் செயல்பட்டு வருகின்றன. இவை இறைமக்களை ஒருங்கிணைத்து விவிலியப் பகிர்வை வளர்க்கும் அடிப்படை கிறிஸ்தவ சமூகங்களாகும்.",
       "sched.officeTag": "அலுவலக நிர்வாகம்",
       "sched.officeTitle": "அலுவலக வேலை நேரங்கள் & பதிவுகள்",
       "sched.offTimeTitle": "அலுவலக வேலை நேரம்",
@@ -208,13 +319,16 @@ const SAC_COMMON = {
     "en": {
       "nav.home": "Home",
       "nav.schedule": "Mass Schedules",
+      "nav.liturgy": "Liturgy",
       "nav.calendar": "Calendar",
       "nav.legacy": "Legacy",
-      "nav.notices": "Announcements",
+      "nav.devotion": "Devotion",
+      "nav.notices": "Notices",
       "nav.contact": "Contact",
       "nav.gallery": "Gallery",
       "nav.portal": "Member Portal",
       "nav.admin": "Admin",
+      "nav.more": "More ▾",
       "footer.tagline": "A Sanctuary of Peace, Grace, and Divine Blessings",
       "footer.quickLinks": "Quick Links",
       "footer.resources": "Resources",
@@ -261,8 +375,40 @@ const SAC_COMMON = {
       "sched.feastBadge": "Annual Feast",
       "sched.feastTitle": "Annual Feast",
       "sched.feastDesc": "Annually on the second Saturday of the Easter Season",
+      "sched.juneFeastBadge": "June 13 Feast",
+      "sched.juneFeastTitle": "St. Antony's Feast Day",
+      "sched.juneFeastDesc": "Every year on June 13th, the grand feast of our patron St. Antony is celebrated in a very special way.",
       "notices.infoTitle": "Parish Notice Board Details",
       "notices.infoDesc": "Parish council decisions, special feast schedules, holy Mass timing changes, and announcements are instantly updated here. Check back regularly.",
+      "notices.noNotices": "There are currently no active notices. Check back later.",
+      "heritage.heroKicker": "Our Heritage",
+      "heritage.heroTitle": "History of the Church",
+      "heritage.heroSubtitle": "A Journey Through Time & Faith",
+      "heritage.tourTitle": "360° Virtual Tour",
+      "heritage.tourDesc": "Experience the beauty of our church interior through an interactive 360-degree panorama.",
+      "heritage.tourHint": "Drag to look around. Scroll to zoom.",
+      "heritage.timelineTitle": "Parish History",
+      "heritage.timelineDesc": "Milestones of faith born in the soil of Vadakku Paganur.",
+      "heritage.y1920Title": "The Seed of Faith",
+      "heritage.y1920Desc": "A small prayer gathering started with a statue of St. Antony placed in a thatched hut in Vadakku Paganur village.",
+      "heritage.y1955Title": "The First Brick",
+      "heritage.y1955Desc": "With immense support from the people, a small church was built with bricks. Weekly masses began to be held regularly.",
+      "heritage.y1982Title": "Elevated as an Independent Parish",
+      "heritage.y1982Desc": "St. Antony's Church was elevated to an independent parish, and the first parish priest took charge. A golden era in our church history.",
+      "heritage.y2010Title": "Dedication of the New Church",
+      "heritage.y2010Desc": "The newly expanded church was completed and consecrated by His Excellency the Bishop.",
+      "heritage.y2026Title": "The Digital Era",
+      "heritage.y2026Desc": "To connect our community worldwide, the official parish website and virtual tour service were launched.",
+      "liturgy.heroTitle": "Daily Liturgy",
+      "liturgy.saintLabel": "Saint of the Day",
+      "liturgy.loadingMsg": "Loading today's liturgy...",
+      "liturgy.ctaTitle": "Join the Holy Mass",
+      "liturgy.ctaDesc": "Let the Word of God transform your life. Join us for our weekly Eucharistic celebrations.",
+      "liturgy.ctaBtn": "Mass Schedule",
+      "devotion.heroKicker": "Light of Faith",
+      "devotion.heroTitle": "Light a Candle & Pray",
+      "devotion.quoteText": "\"Prayer is the lamp that illuminates the darkness.\"",
+      "devotion.quoteAuthor": "- St. Antony",
       "hero.scripture": "\"Ask, and it will be given to you; seek, and you will find.\"",
       "hero.scriptureRef": "Matthew 7:7",
       "hero.welcomeKicker": "Vadakku Paganur · A Parish Family of Faith",
@@ -306,10 +452,12 @@ const SAC_COMMON = {
       "home.ministriesSub": "Socio-spiritual groups actively contributing to the parish welfare and pastoral services.",
       "home.minCatTitle": "Sunday Catechism Association",
       "home.minCatDesc": "Biblical faith formation classes held every Sunday before holy Mass to nurture parish children in Christian values.",
-      "home.minYouthTitle": "St. Antony's Parish Youth Movement",
+      "home.minYouthTitle": "St. Antony's Youth Movement",
       "home.minYouthDesc": "Empowering young minds to participate in parish development, charity, and liturgical celebrations.",
       "home.minLitTitle": "Liturgical Commission",
       "home.minLitDesc": "Organizing holy services, practicing readers, altar servers, and preparing devotional community prayers.",
+      "home.minAnbiyamTitle": "Basic Christian Communities (Anbiyam)",
+      "home.minAnbiyamDesc": "Our parish consists of four Anbiyams: Mathew, Mark, Luke, and Annai Theresa, connecting parishioners to share the Word of God and foster mutual support.",
       "sched.officeTag": "Parish Administration",
       "sched.officeTitle": "Parish Office Timings & Registrations",
       "sched.offTimeTitle": "Office Working Hours",
@@ -409,7 +557,7 @@ const SAC_COMMON = {
   // Initialize shared scripts across pages
   async init(pageName) {
     this.pageName = pageName;
-    
+
     // Normalize language value strictly to 'ta' or 'en'
     let lang = 'ta';
     try {
@@ -427,7 +575,7 @@ const SAC_COMMON = {
     }
     this.currentLang = lang;
     document.documentElement.setAttribute('lang', this.currentLang);
-    
+
     // Make sure futc style is present if not already added by inline head script
     let futcStyle = document.getElementById('sac-futc-style');
     if (!futcStyle) {
@@ -449,8 +597,8 @@ const SAC_COMMON = {
       try {
         const liveContent = await SAC_DATABASE.get("global_content");
         if (liveContent && Object.keys(liveContent).length > 0) {
-            this.translations.ta = { ...this.translations.ta, ...(liveContent.ta || {}) };
-            this.translations.en = { ...this.translations.en, ...(liveContent.en || {}) };
+          this.translations.ta = { ...this.translations.ta, ...(liveContent.ta || {}) };
+          this.translations.en = { ...this.translations.en, ...(liveContent.en || {}) };
         }
       } catch (e) {
         console.warn("Failed to load global content CMS:", e);
@@ -462,6 +610,11 @@ const SAC_COMMON = {
       // Inject background particles container
       this._injectParticlesContainer();
       this._generateParticles();
+
+      // Inject unified navbar
+      if (window.SAC_NAVBAR) {
+        SAC_NAVBAR.inject();
+      }
 
       // Attach core event listeners
       this._setupNavbarListeners();
@@ -480,7 +633,7 @@ const SAC_COMMON = {
 
       // Translate page content
       await this.translatePage();
-      
+
       // Set active nav styling
       this._highlightActiveNav();
 
@@ -497,9 +650,17 @@ const SAC_COMMON = {
       });
 
       // Set up automatic failsafe to reveal the page after 2000ms in case the page script has an error
-      this._failsafeTimer = setTimeout(() => {
-        this.revealPage();
-      }, 2000);
+      
+      // Instant reveal for performance
+      if (this.pageName === 'home') {
+          this.revealPage();
+      } else {
+          // Allow other pages to reveal themselves immediately or use a very short 500ms fallback
+          this._failsafeTimer = setTimeout(() => {
+            this.revealPage();
+          }, 500);
+      }
+
 
     } catch (err) {
       console.error("Error initializing SAC_COMMON:", err);
@@ -537,12 +698,19 @@ const SAC_COMMON = {
   },
 
   _injectFavicon() {
-    if (!document.querySelector("link[rel*='icon']")) {
-      const link = document.createElement('link');
-      link.type = 'image/svg+xml';
+    let link = document.querySelector("link[rel*='icon']");
+    if (!link) {
+      link = document.createElement('link');
       link.rel = 'icon';
-      link.href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛪</text></svg>';
       document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    const siteLogoUrl = this.settings && this.settings.siteLogo ? this.settings.siteLogo : null;
+    if (siteLogoUrl) {
+      link.removeAttribute('type');
+      link.href = siteLogoUrl;
+    } else {
+      link.type = 'image/svg+xml';
+      link.href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛪</text></svg>';
     }
   },
 
@@ -560,7 +728,7 @@ const SAC_COMMON = {
     const container = document.getElementById('particles');
     if (!container) return;
     container.innerHTML = '';
-    
+
     // Ambient glowing light circles
     const orb1 = document.createElement('div');
     orb1.className = 'glow-orb orb-primary';
@@ -599,17 +767,17 @@ const SAC_COMMON = {
   // Highlights current page on navigation bars
   _highlightActiveNav() {
     const page = this.pageName;
-    
+
     document.querySelectorAll('.nav-link, .drawer-link').forEach(el => {
       let href = el.getAttribute('href');
       if (!href) return;
-      
+
       // Clean up href for comparison
       href = href.replace('.html', '').replace(/^\//, '');
-      
+
       const isHomeMatch = (page === 'home' && (href === '' || href === 'index' || href === './'));
       const isPageMatch = (href === page);
-      
+
       if (isHomeMatch || isPageMatch) {
         el.classList.add('active');
       } else {
@@ -626,9 +794,11 @@ const SAC_COMMON = {
     if (drawer.classList.contains('open')) {
       drawer.classList.remove('open');
       if (icon) icon.innerText = 'menu';
+      document.body.style.overflow = '';
     } else {
       drawer.classList.add('open');
       if (icon) icon.innerText = 'close';
+      document.body.style.overflow = 'hidden';
     }
   },
 
@@ -637,6 +807,7 @@ const SAC_COMMON = {
     const icon = document.querySelector('.btn-mobile-menu span');
     if (drawer) drawer.classList.remove('open');
     if (icon) icon.innerText = 'menu';
+    document.body.style.overflow = '';
   },
 
   // Toggle Language between English and Tamil instantly without flickering or refresh feel
@@ -644,7 +815,7 @@ const SAC_COMMON = {
     // Premium glassmorphic continuity: dim opacity slightly before translating
     document.body.style.transition = 'opacity 0.2s ease-in-out';
     document.body.style.opacity = '0.3';
-    
+
     // Allow the browser to paint the dim effect
     await new Promise(r => setTimeout(r, 100));
 
@@ -655,23 +826,23 @@ const SAC_COMMON = {
       console.warn("Failed to save language setting:", e);
     }
     document.documentElement.setAttribute('lang', this.currentLang);
-    
+
     // Update language toggle button labels
     document.querySelectorAll('.btn-lang, #lang-toggle').forEach(btn => {
       btn.innerText = this.currentLang === 'ta' ? 'ENG' : 'தமிழ்';
     });
 
     await this.translatePage();
-    
+
     // Trigger custom translation events on specific pages if they need it (like Home countdown or Admin lists)
     window.dispatchEvent(new CustomEvent('sacLanguageChanged', { detail: { lang: this.currentLang } }));
 
     // Fade back to full opacity instantly
     setTimeout(() => {
-        document.body.style.opacity = '1';
-        setTimeout(() => {
-            document.body.style.transition = '';
-        }, 250);
+      document.body.style.opacity = '1';
+      setTimeout(() => {
+        document.body.style.transition = '';
+      }, 250);
     }, 50);
   },
 
@@ -698,6 +869,16 @@ const SAC_COMMON = {
     document.querySelectorAll('.brand-sub, .footer-location').forEach(el => el.innerText = location);
     document.querySelectorAll('.footer-address-label').forEach(el => el.innerText = address);
 
+    const siteLogoUrl = settings.siteLogo || '';
+    document.querySelectorAll('.logo-icon, .footer-church-logo').forEach(el => {
+      if (siteLogoUrl) {
+        el.innerHTML = `<img src="${siteLogoUrl}" alt="Church Logo" class="dynamic-logo-img">`;
+      } else {
+        el.innerHTML = '⛪';
+      }
+    });
+    this._injectFavicon();
+
     const yearEl = document.getElementById('footer-year');
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
@@ -721,10 +902,10 @@ const SAC_COMMON = {
 
     // 2. Static standard translations with highly defensive dictionary lookup
     const dict = this.staticTranslations[this.currentLang] || this.staticTranslations['ta'] || {};
-    
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      
+
       // Check local dynamic data settings overrides first
       if (key === 'hero.headline') {
         el.innerText = isTa ? settings.heroHeadlineTa : settings.heroHeadlineEn;
@@ -735,7 +916,7 @@ const SAC_COMMON = {
       } else if (key === 'contact.addressVal') {
         el.innerText = address;
       }
-      
+
       // Fallback to static dictionaries
       else if (dict && dict[key]) {
         if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
