@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Bible Companion - Explore the Holy Scriptures with a dedicated Digital Catholic Voice Companion | புனித அந்தோணியார் ஆலயம்">
+    <title>டிஜிட்டல் விவிலியம் | AI Bible Companion</title>
+    
+    <!-- Google Fonts & Icon Sets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bible-page.css">
+    <!-- Navbar script handles AI CSS/JS injections -->
+    <script src="js/navbar.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Header -->
+    <div id="global-navbar"></div>
+
+    <main class="bible-hub-container">
+        
+        <!-- Left Panel: Digital Bible Reader -->
+        <div class="bible-reader-panel">
+            <div class="bible-header">
+                <div>
+                    <h2 style="margin:0; font-size:1.5rem; color:var(--text-primary);" id="bible-book-title">விவிலியம்</h2>
+                    <p style="margin:4px 0 0 0; font-size:0.9rem; color:var(--text-secondary);" id="bible-book-subtitle">புனித வேதாகமம்</p>
+                </div>
+                <div class="bible-controls">
+                    <select class="bible-select" id="bible-book-select" onchange="window.SAC_BIBLE.loadChapter()">
+                        <option value="Matthew">மத்தேயு (Matthew)</option>
+                        <option value="Mark">மாற்கு (Mark)</option>
+                        <option value="Luke">லூக்கா (Luke)</option>
+                        <option value="John">யோவான் (John)</option>
+                        <option value="Acts">திருத்தூதர் பணிகள் (Acts)</option>
+                        <option value="Romans">உரோமையர் (Romans)</option>
+                        <option value="Psalms" selected>திருப்பாடல்கள் (Psalms)</option>
+                        <option value="Proverbs">நீதிமொழிகள் (Proverbs)</option>
+                    </select>
+                    <select class="bible-select" id="bible-chapter-select" onchange="window.SAC_BIBLE.loadChapter()">
+                        <option value="1">அதிகாரம் 1</option>
+                        <option value="2">அதிகாரம் 2</option>
+                        <option value="23" selected>அதிகாரம் 23</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="bible-content-area" id="bible-content-area">
+                <div class="bible-loading" id="bible-loading" style="display:none;">
+                    <div class="bible-spinner"></div>
+                    <div>ஏற்றப்படுகிறது... (Loading...)</div>
+                </div>
+                <div id="bible-verses-container">
+                    <!-- Default loaded text -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: AI Companion -->
+        <div class="ai-companion-panel">
+            <div class="ai-panel-header">
+                <span class="material-icons">auto_awesome</span>
+                <div>
+                    <h2 class="ai-panel-title">AI Companion</h2>
+                    <p class="ai-panel-subtitle" data-i18n="ai.embedded_subtitle">Discuss the scripture alongside your reading</p>
+                </div>
+            </div>
+            <!-- The Chat UI will be dynamically embedded here by js/ai-chat-ui.js -->
+            <div id="bible-ai-panel" style="flex:1; overflow:hidden; position:relative;">
+                <!-- Embedded Chat -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- App Scripts -->
+    <script src="js/database.js"></script>
+    <script src="js/common.js"></script>
+    <script>
+        // Init page
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.SAC_NAVBAR) SAC_NAVBAR.inject();
+            // Allow common.js translation framework to hook
+            SAC_COMMON.pageName = 'bible';
+            
+            // Build Bible logic inline for this page
+            window.SAC_BIBLE = {
+                async loadChapter() {
+                    const book = document.getElementById('bible-book-select').value;
+                    const chapter = document.getElementById('bible-chapter-select').value;
+                    const container = document.getElementById('bible-verses-container');
+                    const loader = document.getElementById('bible-loading');
+                    
+                    container.style.display = 'none';
+                    loader.style.display = 'flex';
+                    
+                    const isTa = SAC_COMMON.currentLang === 'ta';
+                    const cacheKey = \`sac_bible_\${book}_\${chapter}_\${isTa ? 'ta' : 'en'}\`;
+                    const cached = localStorage.getItem(cacheKey);
+
+                    if (cached) {
+                        this.renderVerses(JSON.parse(cached));
+                        loader.style.display = 'none';
+                        container.style.display = 'block';
+                        return;
+                    }
+
+                    // Fallback to Gemini to fetch the chapter if not cached locally
+                    try {
+                        if (!window.SAC_AI || !SAC_AI.isInitialized) await SAC_AI.init();
+                        
+                        const prompt = isTa 
+                            ? \`Provide the complete text of \${book} chapter \${chapter} from the Tamil Catholic Bible. Format your response strictly as a JSON array of strings, where each string is a verse starting from verse 1. Do not include any markdown or commentary, JUST the JSON array.\`
+                            : \`Provide the complete text of \${book} chapter \${chapter} from the English Catholic Bible (NRSVCE or similar). Format your response strictly as a JSON array of strings, where each string is a verse starting from verse 1. Do not include any markdown or commentary, JUST the JSON array.\`;
+                            
+                        const url = \`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=\${SAC_AI.apiKey}\`;
+                        const res = await fetch(url, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                contents: [{role: "user", parts: [{text: prompt}]}],
+                                generationConfig: { temperature: 0.1 }
+                            })
+                        });
+                        
+                        if (!res.ok) throw new Error("Failed to fetch chapter");
+                        
+                        const data = await res.json();
+                        const rawText = data.candidates[0].content.parts[0].text;
+                        
+                        // Extract JSON array from text response
+                        const match = rawText.match(/\\[.*\\]/s);
+                        let verses = [];
+                        if (match) {
+                            verses = JSON.parse(match[0]);
+                            localStorage.setItem(cacheKey, JSON.stringify(verses));
+                        } else {
+                            throw new Error("Invalid format received");
+                        }
+                        
+                        this.renderVerses(verses);
+
+                    } catch (e) {
+                        console.error(e);
+                        container.innerHTML = \`<div class="verse-row"><div class="verse-text" style="color:red;">Error loading chapter. Please try again or check your AI API key.</div></div>\`;
+                    }
+                    
+                    loader.style.display = 'none';
+                    container.style.display = 'block';
+                },
+                
+                renderVerses(verses) {
+                    const container = document.getElementById('bible-verses-container');
+                    container.innerHTML = '';
+                    verses.forEach((text, i) => {
+                        const row = document.createElement('div');
+                        row.className = 'verse-row';
+                        row.innerHTML = \`<div class="verse-number">\${i + 1}</div><div class="verse-text">\${text}</div>\`;
+                        container.appendChild(row);
+                    });
+                }
+            };
+
+            // Hook into language change to reload the chapter
+            window.addEventListener('sacLanguageChanged', () => {
+                window.SAC_BIBLE.loadChapter();
+            });
+
+            // Initial load
+            setTimeout(() => {
+                // Prepopulate chapter options for Psalms (150 chapters) dynamically
+                const chapSelect = document.getElementById('bible-chapter-select');
+                chapSelect.innerHTML = '';
+                for(let i=1; i<=150; i++) {
+                    chapSelect.innerHTML += \`<option value="\${i}">\${SAC_COMMON.currentLang === 'ta' ? 'அதிகாரம்' : 'Chapter'} \${i}</option>\`;
+                }
+                chapSelect.value = "23"; // Default Psalm 23
+                window.SAC_BIBLE.loadChapter();
+            }, 500);
+
+        });
+    </script>
+</body>
+</html>

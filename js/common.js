@@ -83,6 +83,7 @@ const SAC_COMMON = {
   staticTranslations: {
     "ta": {
       "nav.home": "முகப்பு",
+      "nav.bible": "விவிலியம் AI",
       "nav.schedule": "வழிபாடுகள்",
       "nav.liturgy": "இறைவார்த்தை",
       "nav.calendar": "நாட்காட்டி",
@@ -318,6 +319,7 @@ const SAC_COMMON = {
     },
     "en": {
       "nav.home": "Home",
+      "nav.bible": "Bible AI",
       "nav.schedule": "Mass Schedules",
       "nav.liturgy": "Liturgy",
       "nav.calendar": "Calendar",
@@ -931,6 +933,7 @@ const SAC_COMMON = {
     const titlePrefixes = {
       ta: {
         home: "முகப்பு",
+        bible: "டிஜிட்டல் விவிலியம்",
         schedule: "வழிபாட்டு நேரங்கள்",
         legacy: "ஆலய வரலாறு",
         gallery: "ஆலய புகைப்படங்கள்",
@@ -940,6 +943,7 @@ const SAC_COMMON = {
       },
       en: {
         home: "Home",
+        bible: "Digital Bible Hub",
         schedule: "Schedules",
         legacy: "Our History",
         gallery: "Photo Gallery",

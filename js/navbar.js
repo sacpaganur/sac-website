@@ -5,6 +5,7 @@ window.SAC_NAVBAR = {
   // Define menu items once here. They will automatically be mirrored to both desktop and mobile views.
   links: [
     { href: 'index.html', id: 'nav-lnk-home', i18n: 'nav.home', label: 'முகப்பு', icon: 'home' },
+    { href: 'bible.html', id: 'nav-lnk-bible', i18n: 'nav.bible', label: 'விவிலியம் AI', icon: 'auto_awesome' },
     { href: 'schedule.html', id: 'nav-lnk-schedule', i18n: 'nav.schedule', label: 'வழிபாடுகள்', icon: 'church' },
     { href: 'legacy.html', id: 'nav-lnk-legacy', i18n: 'nav.legacy', label: 'வரலாறு', icon: 'history_edu' },
     { href: 'notices.html', id: 'nav-lnk-notices', i18n: 'nav.notices', label: 'அறிவிப்புகள்', icon: 'campaign' },
@@ -101,3 +102,25 @@ window.SAC_NAVBAR = {
     `;
   }
 };
+
+// Global AI Assets Injector (Loads CSS/JS for the AI Companion on every page)
+(function injectAIAssets() {
+  if (typeof document === 'undefined') return;
+  // Don't inject on admin portal
+  if (window.location.pathname.includes('admin-portal')) return;
+
+  const head = document.getElementsByTagName('head')[0];
+  
+  const aiCSS = document.createElement('link');
+  aiCSS.rel = 'stylesheet';
+  aiCSS.href = 'css/ai-chat.css';
+  head.appendChild(aiCSS);
+
+  const aiService = document.createElement('script');
+  aiService.src = 'js/ai-service.js';
+  head.appendChild(aiService);
+
+  const aiUI = document.createElement('script');
+  aiUI.src = 'js/ai-chat-ui.js';
+  head.appendChild(aiUI);
+})();
