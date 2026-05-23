@@ -297,7 +297,10 @@ const SAC_DATABASE = {
   async get(collectionName) {
     const localKey = "sac_" + collectionName;
     const localData = this.getCollection(localKey);
-    const isArrayType = Array.isArray(localData || this.defaultData[collectionName]);
+    
+    // Explicitly define which collections are single objects. Everything else is an array collection.
+    const objectCollections = ["settings", "firebase_config"];
+    const isArrayType = !objectCollections.includes(collectionName);
     
     // Auto-heal helper to repair any literal "undefined" string values corrupted in Firestore
     const sanitizeObj = (obj, colName) => {
@@ -332,13 +335,17 @@ const SAC_DATABASE = {
           }
         } else {
           // If Firestore collection is empty, seed it with LocalStorage data so it's not blank
-          const dataToSeed = localData || this.defaultData[collectionName];
+          const fallbackData = localData || this.defaultData[collectionName];
+          const dataToSeed = fallbackData || (isArrayType ? [] : {});
+          
           if (isArrayType) {
             for (const item of dataToSeed) {
               const { id, ...dataWithoutId } = item;
-              await this.db.collection(collectionName).doc(id).set(dataWithoutId);
+              if (id) {
+                 await this.db.collection(collectionName).doc(id).set(dataWithoutId);
+              }
             }
-          } else if (dataToSeed) {
+          } else if (Object.keys(dataToSeed).length > 0) {
             const healed = sanitizeObj(dataToSeed, collectionName);
             await this.db.collection(collectionName).doc("general").set(healed);
             return healed;
