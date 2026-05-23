@@ -118,7 +118,7 @@
                             ? \`Provide the complete text of \${book} chapter \${chapter} from the Tamil Catholic Bible. Format your response strictly as a JSON array of strings, where each string is a verse starting from verse 1. Do not include any markdown or commentary, JUST the JSON array.\`
                             : \`Provide the complete text of \${book} chapter \${chapter} from the English Catholic Bible (NRSVCE or similar). Format your response strictly as a JSON array of strings, where each string is a verse starting from verse 1. Do not include any markdown or commentary, JUST the JSON array.\`;
                             
-                        const url = \`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=\${SAC_AI.apiKey}\`;
+                        const url = \`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=\${SAC_AI.apiKey}\`;
                         const res = await fetch(url, {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
