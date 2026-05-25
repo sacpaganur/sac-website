@@ -205,6 +205,9 @@ window.SAC_AI_UI = {
     const fab = document.getElementById('sac-ai-fab');
     modal.classList.toggle('active');
     
+    // Prevent background scrolling when modal is open
+    document.body.classList.toggle('ai-modal-open', modal.classList.contains('active'));
+    
     if (fab) {
         fab.classList.toggle('active-fab');
         const fabIcon = fab.querySelector('.material-icons');

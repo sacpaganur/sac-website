@@ -14,10 +14,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <!-- Custom Light Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/hero-home.css">
-    <link rel="stylesheet" href="css/modal.css">
-    <script src="js/navbar.js"></script>
+    <link rel="stylesheet" href="css/style.css?v=1.1">
+    <link rel="stylesheet" href="css/hero-home.css?v=1.1">
+    <link rel="stylesheet" href="css/modal.css?v=1.1">
+    <script src="js/navbar.js?v=1.1"></script>
 </head>
 <body>
     <!-- Global Page Loader -->
@@ -51,9 +51,6 @@
         <ul class="hero-cinema__rays" aria-hidden="true">
             <li></li><li></li><li></li><li></li><li></li><li></li>
         </ul>
-    </div>
-    <div class="hero-cinema__strip" aria-hidden="true">
-        <span></span><span></span><span></span><span></span>
     </div>
 
     <div class="hero-cinema__inner">
@@ -296,10 +293,10 @@
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
 
     <!-- Project JS dependencies -->
-    <script src="js/database.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/common.js"></script>
-    <script src="js/hero-home.js"></script>
+    <script src="js/database.js?v=1.1"></script>
+    <script src="js/footer.js?v=1.1"></script>
+    <script src="js/common.js?v=1.1"></script>
+    <script src="js/hero-home.js?v=1.1"></script>
     <!-- Specific page home countdown & scheduling logic -->
     <script>
         // Init shared scripts
@@ -338,7 +335,7 @@
             const upcomingEvents = announcements.filter(a => {
                 const expDate = new Date(a.expiryDate);
                 return expDate >= today && a.isActive !== false;
-            }).sort((a, b) => new Date(a.date) - new Date(b.date));
+            }).sort((a, b) => new Date(a.eventDate || a.date) - new Date(b.eventDate || b.date));
 
             if (upcomingEvents.length > 0) {
                 const event = upcomingEvents[0];
@@ -571,6 +568,7 @@
     </script>
 </body>
 </html>
+
 
 
 

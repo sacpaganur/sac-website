@@ -496,7 +496,7 @@ const VoiceInput = {
     const langLabel = isTa ? 'TA' : 'EN';
     
     return `
-      <div class="voice-btn-group" style="display:flex; align-items:center; gap:2px; padding:2px; background:var(--bg-primary, #f9fafb); border-radius: 20px; border:1px solid var(--border-light, #e5e7eb); box-shadow: 0 1px 2px rgba(0,0,0,0.05); position: absolute; right: 8px; top: 50%; transform: translateY(-50%); z-index: 10;">
+      <div class="voice-btn-group" style="display:flex; align-items:center; gap:2px; padding:2px; background:var(--bg-primary, #f9fafb); border-radius: 20px; border:1px solid var(--border-light, #e5e7eb); box-shadow: 0 1px 2px rgba(0,0,0,0.05); position: absolute; right: 8px; top: 8px; z-index: 10;">
         <button type="button" class="voice-lang-btn" onclick="VoiceInput.toggleLang(event)" 
           style="font-size:10px; font-weight:800; border:none; background:none; cursor:pointer; padding:4px 6px; color:var(--primary-700, #512da8); border-right:1px solid var(--border-light, #e5e7eb);">${langLabel}</button>
         <button type="button" class="voice-btn" data-for="${inputId}" 

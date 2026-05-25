@@ -37,12 +37,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .saint-info {
     display: flex;
     flex-direction: column;
     text-align: left;
+    max-width: 100%;
 }
 
 .saint-label {
@@ -51,11 +53,14 @@
     font-weight: 800;
     color: var(--primary);
     letter-spacing: 1px;
+    margin-bottom: 2px;
 }
 
 #saint-name {
     font-size: 1.05rem;
     color: var(--text-primary);
+    line-height: 1.4;
+    word-break: break-word;
 }
 
 /* Content Area */
@@ -129,7 +134,8 @@
 .reading-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 12px;
     margin-bottom: 12px;
     border-bottom: 1px dashed var(--border-glass);
     padding-bottom: 12px;
@@ -146,6 +152,8 @@
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.5px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .reading-badge .material-icons {
@@ -159,6 +167,9 @@
     background: var(--bg-secondary);
     padding: 4px 12px;
     border-radius: 6px;
+    text-align: right;
+    line-height: 1.4;
+    word-break: break-word;
 }
 
 .reading-title {
@@ -170,7 +181,7 @@
 }
 
 .reading-body {
-    font-family: 'Lora', serif;
+    /* font-family: 'Lora', serif; */
     font-size: 1.15rem;
     line-height: 1.8;
     color: var(--text-primary);
@@ -261,4 +272,16 @@
 
 .liturgy-cta-card .btn-hero-action {
     display: inline-flex;
+}
+
+/* Mobile specific fixes */
+@media (max-width: 600px) {
+    .reading-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .reading-reference {
+        text-align: left;
+    }
 }

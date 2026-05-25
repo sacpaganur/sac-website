@@ -14,9 +14,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <!-- Custom Stylesheets -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/liturgy-page.css">
-    <script src="js/navbar.js"></script>
+    <link rel="stylesheet" href="css/style.css?v=1.1">
+    <link rel="stylesheet" href="css/liturgy-page.css?v=1.1">
+    <script src="js/navbar.js?v=1.1"></script>
 </head>
 <body class="liturgy-theme">
     <!-- Global Page Loader -->
@@ -84,10 +84,11 @@
     <!-- Script imports -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
-    <script src="js/database.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/common.js"></script>
-    <script src="js/footer.js"></script>
+    <script src="js/database.js?v=1.1"></script>
+    <script src="js/services.js?v=1.1"></script>
+    <script src="js/ai-service.js?v=1.1"></script>
+    <script src="js/common.js?v=1.1"></script>
+    <script src="js/footer.js?v=1.1"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
@@ -122,8 +123,59 @@
                 return;
             }
 
-            // In a real app, find today's reading. For this demo, just pick the first one.
-            const todayLiturgy = readingsData[0];
+            // Get today's date in YYYY-MM-DD format (local time)
+            const today = new Date();
+            const localTodayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+
+            // Sort readings by date descending (newest first)
+            const sortedReadings = [...readingsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Find today's reading, or fallback to the most recent one
+            let todayLiturgy = sortedReadings.find(r => r.date === localTodayStr);
+            
+            if (!todayLiturgy) {
+                try {
+                    // Show loading state for AI generation
+                    container.innerHTML = `
+                        <div class="legacy-empty-state" style="display:flex; flex-direction:column; gap:16px;">
+                            <div class="bible-spinner" style="border-top-color: var(--primary);"></div>
+                            <span data-i18n="liturgy.loadingMsg">Fetching today's liturgy via AI...</span>
+                        </div>
+                    `;
+                    
+                    if (!window.SAC_AI || !SAC_AI.isInitialized) await SAC_AI.init();
+                    
+                    const prompt = `Provide the Catholic Daily Liturgy readings for today (${localTodayStr}). Format the response strictly as a JSON object with no markdown formatting. Do not include \`\`\`json.
+Required keys:
+{"date": "${localTodayStr}","seasonEn": "Current Liturgical Season in English","seasonTa": "Current Liturgical Season in Tamil","saintEn": "Saint of the day (if any) or empty string","saintTa": "Saint of the day in Tamil or empty string","reading1TitleEn": "e.g., A reading from the Acts of the Apostles","reading1TitleTa": "முதல் வாசகம் தலைப்பு","reading1Ref": "e.g., Acts 10:25-26","reading1TextEn": "First reading text","reading1TextTa": "முதல் வாசகம் உரை","psalmRef": "e.g., Ps 98:1","psalmResponseEn": "Responsorial Psalm response","psalmResponseTa": "பதிலுரைப்பாடல் பல்லவி","psalmTextEn": "Psalm verses","psalmTextTa": "பதிலுரைப்பாடல் உரை","reading2TitleEn": "Second reading title or empty if none","reading2TitleTa": "இரண்டாம் வாசகம் தலைப்பு or empty","reading2Ref": "Second reading reference or empty","reading2TextEn": "Second reading text or empty","reading2TextTa": "இரண்டாம் வாசகம் உரை or empty","gospelTitleEn": "e.g., A reading from the holy Gospel according to John","gospelTitleTa": "நற்செய்தி வாசகம் தலைப்பு","gospelRef": "e.g., Jn 15:9-17","gospelTextEn": "Gospel text","gospelTextTa": "நற்செய்தி வாசகம் உரை","reflectionEn": "A short reflection on the Gospel","reflectionTa": "நற்செய்தி சிந்தனை"}`;
+
+                    const url = `https://generativelanguage.googleapis.com/v1beta/models/${SAC_AI.modelName || 'gemini-1.5-flash'}:generateContent?key=${SAC_AI.apiKey}`;
+                    const res = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            contents: [{ role: "user", parts: [{ text: prompt }] }],
+                            generationConfig: { temperature: 0.1 }
+                        })
+                    });
+                    
+                    if (!res.ok) throw new Error("API request failed");
+                    const data = await res.json();
+                    let text = data.candidates[0].content.parts[0].text;
+                    text = text.replace(/```json/g, "").replace(/```/g, "").trim();
+                    
+                    const aiLiturgy = JSON.parse(text);
+                    aiLiturgy.id = "liturgy_" + Date.now();
+                    
+                    // Save to database so we don't fetch again today
+                    await SAC_DATABASE.save("daily_liturgy", aiLiturgy);
+                    todayLiturgy = aiLiturgy;
+                } catch (error) {
+                    console.error("AI Fetch Failed:", error);
+                    // Fallback to the most recent reading we have
+                    todayLiturgy = sortedReadings[0];
+                }
+            }
             
             // Format Date
             const dateObj = new Date(todayLiturgy.date);
@@ -140,6 +192,37 @@
                 saintBanner.style.display = 'none';
             }
 
+            // Book abbreviations for Tamil translation
+            const bookMap = {
+                'Gn': 'தொநூ', 'Gen': 'தொநூ', 'Ex': 'விப', 'Exo': 'விப', 'Lev': 'லேவி', 'Nm': 'எண்', 'Num': 'எண்',
+                'Dt': 'இச', 'Deut': 'இச', 'Jos': 'யோசு', 'Jgs': 'நீதி', 'Ru': 'ரூத்', '1 Sm': '1 சாமு', '1 Sam': '1 சாமு',
+                '2 Sm': '2 சாமு', '2 Sam': '2 சாமு', '1 Kgs': '1 அர', '2 Kgs': '2 அர', '1 Chr': '1 குறி', '2 Chr': '2 குறி',
+                'Ezr': 'எஸ்றா', 'Neh': 'நெகே', 'Tb': 'தோபி', 'Jdt': 'யூதி', 'Est': 'எஸ்த', '1 Mc': '1 மக்க', '2 Mc': '2 மக்க',
+                'Jb': 'யோபு', 'Ps': 'திபா', 'Prv': 'நீமொ', 'Eccl': 'சஉ', 'Sg': 'இபா', 'Wis': 'சாஞா', 'Sir': 'சீரா',
+                'Is': 'எசா', 'Isa': 'எசா', 'Jer': 'எரே', 'Lam': 'புல', 'Bar': 'பாரூ', 'Ez': 'எசே', 'Ezek': 'எசே',
+                'Dn': 'தானி', 'Dan': 'தானி', 'Hos': 'ஓசே', 'Jl': 'யோவே', 'Am': 'ஆமோ', 'Ob': 'ஒப', 'Jon': 'யோனா',
+                'Mi': 'மீக்', 'Mic': 'மீக்', 'Na': 'நாகூ', 'Nah': 'நாகூ', 'Hb': 'அப', 'Hab': 'அப', 'Zep': 'செப்',
+                'Hg': 'ஆகா', 'Hag': 'ஆகா', 'Zec': 'செக்', 'Zech': 'செக்', 'Mal': 'மல்', 'Mt': 'மத்', 'Matt': 'மத்',
+                'Mk': 'மாற்', 'Lk': 'லூக்', 'Jn': 'யோவா', 'Acts': 'தி.ப', 'Rom': 'உரோ', '1 Cor': '1 கொரி',
+                '2 Cor': '2 கொரி', 'Gal': 'கலா', 'Eph': 'எபே', 'Phil': 'பிலி', 'Col': 'கொலோ', '1 Thes': '1 தெச',
+                '2 Thes': '2 தெச', '1 Thess': '1 தெச', '2 Thess': '2 தெச', '1 Tm': '1 திமொ', '2 Tm': '2 திமொ',
+                '1 Tim': '1 திமொ', '2 Tim': '2 திமொ', 'Ti': 'தீத்', 'Phlm': 'பில', 'Heb': 'எபி', 'Jas': 'யாக்',
+                '1 Pt': '1 பேது', '2 Pt': '2 பேது', '1 Pet': '1 பேது', '2 Pet': '2 பேது', '1 Jn': '1 யோவா',
+                '2 Jn': '2 யோவா', '3 Jn': '3 யோவா', 'Jude': 'யூதா', 'Rev': 'திரு', 'and': 'மற்றும்'
+            };
+
+            const translateRef = (refStr, toTamil) => {
+                if (!toTamil || !refStr) return refStr;
+                let translated = refStr;
+                // Sort keys by length descending so '1 Cor' matches before 'Cor'
+                const keys = Object.keys(bookMap).sort((a,b) => b.length - a.length);
+                for (const k of keys) {
+                    const regex = new RegExp(`\\b${k}\\b`, 'g');
+                    translated = translated.replace(regex, bookMap[k]);
+                }
+                return translated;
+            };
+
             // Build HTML
             const renderReading = (type, titleTa, titleEn, ref, textTa, textEn) => {
                 if (!textEn && !textTa) return '';
@@ -149,12 +232,13 @@
                 
                 const icon = type === 'gospel' ? 'auto_awesome' : 'menu_book';
                 const highlightClass = type === 'gospel' ? 'reading-gospel' : '';
+                const displayRef = translateRef(ref, isTa);
 
                 return `
                     <article class="liturgy-reading-card ${highlightClass}">
                         <div class="reading-header">
                             <span class="reading-badge"><span class="material-icons">${icon}</span> ${typeLabel}</span>
-                            <span class="reading-reference">${ref}</span>
+                            <span class="reading-reference">${displayRef}</span>
                         </div>
                         <h3 class="reading-title">${isTa ? titleTa : titleEn}</h3>
                         <div class="reading-body">
@@ -199,3 +283,4 @@
     </script>
 </body>
 </html>
+

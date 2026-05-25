@@ -76,11 +76,12 @@ html {
   visibility: hidden;
 }
 
-body {
+html, body {
   font-family: var(--font-primary);
   background-color: var(--bg-light);
   color: var(--text-primary);
   overflow-x: hidden;
+  max-width: 100vw;
   line-height: 1.6;
   position: relative;
   min-height: 100vh;
@@ -288,7 +289,7 @@ a {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--accent-gold);
+  background: var(--gradient-brand-90);
   transition: var(--transition-smooth);
 }
 
@@ -7280,4 +7281,36 @@ body:lang(ta) .footer-back-top span:last-child {
   .schedule-section-title {
     font-size: 1.5rem;
   }
+}
+
+/* Mobile Navbar Text Adjustments */
+@media (max-width: 600px) {
+  .navbar-container {
+    padding: 0 10px;
+  }
+
+  html[lang="ta"] .brand-title {
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .brand-sub {
+    font-size: 0.82rem;
+  }
+}
+
+/* --- Admin Portal Inline Form Validation --- */
+.form-group {
+  position: relative;
+  /* padding-bottom: 24px; */
+}
+
+.sac-validation-error {
+  color: #e11d48;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: none;
+  font-weight: 500;
 }

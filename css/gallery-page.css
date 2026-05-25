@@ -442,6 +442,11 @@ body:lang(ta) .gallery-card-title {
 .btn-prev { left: -76px; top: 50%; transform: translateY(-50%); }
 .btn-next { right: -76px; top: 50%; transform: translateY(-50%); }
 
+.btn-prev:hover, 
+.btn-next:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
 /* Responsive */
 @media (max-width: 992px) {
   .gallery-trending-row {

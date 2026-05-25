@@ -46,6 +46,9 @@
   z-index: 2;
   line-height: 1;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sac-ai-fab.active-fab::after {
@@ -429,9 +432,21 @@
     border-radius: 0;
     border: none;
   }
+  body.ai-modal-open {
+    overflow: hidden !important;
+  }
+  body.ai-modal-open .bible-content-area,
+  body.ai-modal-open .sac-layout-content {
+    overflow: hidden !important;
+  }
   .sac-ai-fab {
     bottom: 20px;
     right: 20px;
+  }
+  .sac-ai-fab.active-fab {
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
   }
 }
 

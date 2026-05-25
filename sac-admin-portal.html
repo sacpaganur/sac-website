@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <!-- Custom Light Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=1.1">
     <style>
         /* --- Admin Portal Active/Inactive Toggle Styles --- */
         .inactive-item {
@@ -139,7 +139,7 @@
             box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
         }
     </style>
-    <script src="js/navbar.js"></script>
+    <script src="js/navbar.js?v=1.1"></script>
 </head>
 <body>
     <!-- Global Page Loader -->
@@ -171,7 +171,7 @@
                     <h3 style="color:var(--primary); font-size:1.5rem; margin-bottom:8px;">நிர்வாகி உள்நுழைவு</h3>
                     <p style="color:var(--text-secondary); font-size:0.88rem;">தொடர கடவுச்சொல்லை உள்ளிடவும் / Enter Admin Password</p>
                 </div>
-                <form onsubmit="handleAdminLogin(event)">
+                <form novalidate onsubmit="handleAdminLogin(event)">
                     <div class="form-group" style="margin-bottom:20px;">
                         <label class="form-label" style="font-weight:600;">கடவுச்சொல் / Password</label>
                         <div class="password-wrapper">
@@ -249,7 +249,7 @@
                         <span class="material-icons">display_settings</span>
                         <span id="card-lbl-settings">ஆலய விபரங்கள் & முகப்புப் பக்க மாற்றங்கள்</span>
                     </div>
-                    <form id="form-admin-settings" onsubmit="saveGeneralSettings(event)">
+                    <form novalidate id="form-admin-settings" onsubmit="saveGeneralSettings(event)">
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
                             <div class="form-group">
                                 <label class="form-label">Church Name (English)</label>
@@ -424,7 +424,7 @@
                             <span class="material-icons">add_circle</span>
                             <span id="mass-form-title">வழிபாடு சேர் / திருத்து</span>
                         </div>
-                        <form id="form-crud-mass" onsubmit="saveMassSchedule(event)">
+                        <form novalidate id="form-crud-mass" onsubmit="saveMassSchedule(event)">
                             <input type="hidden" id="mass-id">
                             
                             <div class="form-group">
@@ -489,7 +489,7 @@
                             <span class="material-icons">announcement</span>
                             <span id="notice-form-title">அறிவிப்பு சேர் / திருத்து</span>
                         </div>
-                        <form id="form-crud-notice" onsubmit="saveNotice(event)">
+                        <form novalidate id="form-crud-notice" onsubmit="saveNotice(event)">
                             <input type="hidden" id="notice-id">
                             
                             <div class="form-group">
@@ -554,7 +554,7 @@
                             <span class="material-icons">more_time</span>
                             <span id="timeline-form-title">வரலாற்று மைல்கல் சேர் / திருத்து</span>
                         </div>
-                        <form id="form-crud-timeline" onsubmit="saveTimelineEvent(event)">
+                        <form novalidate id="form-crud-timeline" onsubmit="saveTimelineEvent(event)">
                             <input type="hidden" id="time-id">
                             
                             <div class="form-group">
@@ -626,7 +626,7 @@
                             <span class="material-icons">add_photo_alternate</span>
                             <span id="gallery-form-title">புகைப்படம் சேர் / திருத்து</span>
                         </div>
-                        <form id="form-crud-gallery" onsubmit="saveGalleryImage(event)">
+                        <form novalidate id="form-crud-gallery" onsubmit="saveGalleryImage(event)">
                             <input type="hidden" id="gallery-id">
                             
                             <!-- Image Selection Options -->
@@ -722,7 +722,7 @@
                             <span class="material-icons">add_box</span>
                             <span id="form-title-past-official">முன்னாள் பொறுப்பாளர் சேர் / திருத்து</span>
                         </div>
-                        <form id="form-past-official" onsubmit="savePastOfficial(event)">
+                        <form novalidate id="form-past-official" onsubmit="savePastOfficial(event)">
                             <input type="hidden" id="po-id">
                             <div class="form-group">
                                 <label class="form-label">பதவி / Role</label>
@@ -744,11 +744,11 @@
                             <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:10px;">
                                 <div class="form-group">
                                     <label class="form-label">காலம் / Period (English) e.g. 2010 - 2015</label>
-                                    <input type="text" id="po-periodEn" class="form-control" required>
+                                    <input type="text" id="po-periodEn" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">காலம் / Period (தமிழ்) e.g. 2010 - 2015</label>
-                                    <input type="text" id="po-periodTa" class="form-control" required>
+                                    <input type="text" id="po-periodTa" class="form-control">
                                 </div>
                             </div>
                             
@@ -787,7 +787,7 @@
                             இணையதளத்தை கோப்பு திருத்தாமல், லைவ் டேட்டாபேஸில் இணைக்க உங்கள் Firebase Firestore விபரங்களை பதிவிடவும். இயக்கப்பட்டவுடன், இந்த வலைத்தளம் நேரடியாக உங்கள் Firebase இல் தகவல்களை சேமிக்கும்.
                         </p>
                         
-                        <form id="form-db-config" onsubmit="saveDatabaseConfig(event)">
+                        <form novalidate id="form-db-config" onsubmit="saveDatabaseConfig(event)">
                             <div class="form-group" style="display:flex; align-items:center; gap:10px;">
                                 <input type="checkbox" id="db-enabled" style="width:20px; height:20px;">
                                 <label for="db-enabled" style="font-weight:800; cursor:pointer;">Enable Live Firestore Database Sync</label>
@@ -891,9 +891,9 @@
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
 
     <!-- Core Script dependencies -->
-    <script src="js/database.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/common.js"></script>
+    <script src="js/database.js?v=2"></script>
+    <script src="js/footer.js?v=1.1"></script>
+    <script src="js/common.js?v=1.1"></script>
 
     <!-- Admin dashboard operations script -->
     <script>
@@ -992,6 +992,7 @@
 
         function handleAdminLogin(e) {
             e.preventDefault();
+            if (!validateAdminForm(e.target)) return;
             const password = document.getElementById('admin-password-input').value;
             
             // Secure predefined password for St. Antony's Church
@@ -1052,6 +1053,45 @@
             }
         }
 
+        
+        // ======================= GLOBAL FORM VALIDATION =======================
+        function validateAdminForm(form) {
+            let isValid = true;
+            const isTa = window.SAC_COMMON ? SAC_COMMON.currentLang === 'ta' : false;
+            
+            form.querySelectorAll('.sac-validation-error').forEach(el => el.remove());
+            
+            const requiredInputs = form.querySelectorAll('[required]');
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'sac-validation-error';
+                    errorMsg.innerText = isTa ? 'இப்புலம் கட்டாயம் நிரப்பப்பட வேண்டும்.' : 'This field is required.';
+                    errorMsg.style.display = 'block';
+                    
+                    let targetContainer = input.parentNode;
+                    if (targetContainer.classList.contains('password-wrapper')) {
+                        targetContainer = targetContainer.parentNode;
+                    }
+                    
+                    targetContainer.style.position = 'relative';
+                    targetContainer.style.paddingBottom = '24px';
+                    targetContainer.appendChild(errorMsg);
+                    
+                    input.style.borderColor = '#e11d48';
+                    
+                    input.addEventListener('input', function onInput() {
+                        input.style.borderColor = '';
+                        targetContainer.style.paddingBottom = '';
+                        if (errorMsg.parentNode) errorMsg.remove();
+                        input.removeEventListener('input', onInput);
+                    });
+                }
+            });
+            return isValid;
+        }
+
         // ======================= TAB 1: SETTINGS FUNCTIONS =======================
         async function populateGeneralSettings() {
             const settings = await SAC_DATABASE.get("settings");
@@ -1092,6 +1132,7 @@
 
         async function saveGeneralSettings(e) {
             e.preventDefault();
+            if (!validateAdminForm(e.target)) return;
             const data = {
                 churchNameEn: document.getElementById('set-churchNameEn').value,
                 churchNameTa: document.getElementById('set-churchNameTa').value,
@@ -1186,6 +1227,7 @@
 
         async function saveMassSchedule(e) {
             e.preventDefault();
+            if (!validateAdminForm(e.target)) return;
             
             const id = document.getElementById('mass-id').value;
             const data = {
@@ -1278,6 +1320,7 @@
 
         async function saveNotice(e) {
             e.preventDefault();
+            if (!validateAdminForm(e.target)) return;
             
             const id = document.getElementById('notice-id').value;
             const data = {
@@ -1372,6 +1415,7 @@
 
         async function saveTimelineEvent(e) {
             e.preventDefault();
+            if (!validateAdminForm(e.target)) return;
             
             const id = document.getElementById('time-id').value;
             const data = {
@@ -1623,6 +1667,7 @@
 
         async function saveGalleryImage(e) {
             e.preventDefault();
+            if (!validateAdminForm(e.target)) return;
             
             const id = document.getElementById('gallery-id').value;
             const isFileMode = document.querySelector('input[name="img-source-type"]:checked').value === 'file';
@@ -1721,6 +1766,7 @@
 
         async function savePastOfficial(e) {
             e.preventDefault();
+            if (!validateAdminForm(e.target)) return;
             const id = document.getElementById('po-id').value;
             const data = {
                 role: document.getElementById('po-role').value,
@@ -1773,6 +1819,7 @@
 
         async function saveDatabaseConfig(e) {
             e.preventDefault();
+            if (!validateAdminForm(e.target)) return;
             
             const data = {
                 enabled: document.getElementById('db-enabled').checked,
@@ -1800,6 +1847,7 @@
             document.getElementById('tab-lbl-masses').innerText = isTa ? "வழிபாடுகள் (CRUD)" : "Schedules (CRUD)";
             document.getElementById('tab-lbl-notices').innerText = isTa ? "அறிவிப்புகள் (CRUD)" : "Announcements (CRUD)";
             document.getElementById('tab-lbl-timeline').innerText = isTa ? "வரலாறு (CRUD)" : "History (CRUD)";
+            document.getElementById('tab-lbl-past-officials').innerText = isTa ? "முன்னாள் பொறுப்பாளர்கள்" : "Past Officials";
             document.getElementById('tab-lbl-gallery').innerText = isTa ? "புகைப்படங்கள் (CRUD)" : "Gallery (CRUD)";
             document.getElementById('tab-lbl-prayers').innerText = isTa ? "செப வேண்டுதல்கள்" : "Prayers";
             document.getElementById('tab-lbl-db').innerText = isTa ? "தரவுத்தளம் (Firebase)" : "Database Sync";
@@ -1845,5 +1893,6 @@
     </div>
 </body>
 </html>
+
 
 

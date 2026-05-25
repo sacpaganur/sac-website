@@ -310,6 +310,21 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-    .devotion-hero-title { font-size: 2rem; }
-    .prayer-block { padding: 24px; }
+    .devotion-hero-title { font-size: 1.6rem; }
+    .devotion-hero-subtitle-en { font-size: 1rem; }
+    .quote-text { font-size: 0.95rem; }
+    .quote-author { font-size: 0.85rem; }
+    
+    .section-heading { font-size: 1.5rem; }
+    .section-desc { font-size: 0.9rem; }
+    
+    .lang-label { padding: 6px 20px; font-size: 0.85rem; }
+    
+    .prayer-block { padding: 16px; }
+    .prayer-title { font-size: 1.1rem; margin-bottom: 12px; }
+    .prayer-text { font-size: 0.9rem; line-height: 1.6; margin-bottom: 12px; }
+    .prayer-instruction { font-size: 0.8rem; margin: 12px 0; }
+    
+    .prayer-card-content h4 { font-size: 1rem; }
+    .prayer-card-content p { font-size: 0.8rem; }
 }

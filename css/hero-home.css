@@ -136,54 +136,6 @@
   }
 }
 
-.hero-cinema__strip {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 6px;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  pointer-events: none;
-}
-
-.hero-cinema__strip span {
-  flex: 1;
-  animation: cinemaStripPulse 4s ease-in-out infinite alternate;
-}
-
-.hero-cinema__strip span:nth-child(1) {
-  background: hsl(265, 75%, 48%);
-  animation-delay: 0s;
-}
-
-.hero-cinema__strip span:nth-child(2) {
-  background: hsl(325, 70%, 50%);
-  animation-delay: 0.4s;
-}
-
-.hero-cinema__strip span:nth-child(3) {
-  background: hsl(40, 90%, 52%);
-  animation-delay: 0.8s;
-}
-
-.hero-cinema__strip span:nth-child(4) {
-  background: hsl(265, 60%, 55%);
-  animation-delay: 1.2s;
-}
-
-@keyframes cinemaStripPulse {
-  0% {
-    opacity: 0.65;
-    filter: brightness(0.9);
-  }
-
-  100% {
-    opacity: 1;
-    filter: brightness(1.15);
-  }
-}
 
 /* --- Main grid --- */
 .hero-cinema__inner {
@@ -252,7 +204,7 @@
   line-height: 1.18;
   letter-spacing: -0.03em;
   margin-bottom: 10px;
-  background: linear-gradient(135deg, #ffffff 0%, hsl(40, 90%, 78%) 50%, #ffffff 100%);
+  background: linear-gradient(135deg, #ffd700 0%, #f59e0b 50%, #ffd700 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -327,7 +279,7 @@ body:lang(ta) .hero-cinema__lead {
 }
 
 .hero-cinema__scripture {
-  margin: 0 0 14px;
+  margin: 0 0 30px;
   padding: 0;
   max-width: 500px;
 }
@@ -440,7 +392,7 @@ body:lang(ta) .hero-cinema__scripture blockquote {
 .hero-cinema__portal-img {
   position: absolute;
   inset: 6%;
-  background: url('../images/saint_antony_standing.png') center / cover no-repeat;
+  background: url('../images/st_antony_statue.jpeg') center / cover no-repeat;
   clip-path: ellipse(48% 50% at 50% 45%);
   border-radius: 50%;
   box-shadow:
@@ -722,7 +674,7 @@ body:lang(ta) .hero-cinema__scripture blockquote {
   .hero-cinema__portal {
     width: min(100%, 280px);
   }
-  
+
   /* Desktop English specific enhancements for hero copy */
   body:lang(en) .hero-cinema__copy {
     display: flex;
@@ -730,16 +682,16 @@ body:lang(ta) .hero-cinema__scripture blockquote {
     gap: 24px;
     align-items: flex-start;
   }
-  
-  body:lang(en) .hero-cinema__copy > * {
+
+  body:lang(en) .hero-cinema__copy>* {
     margin-bottom: 0 !important;
   }
-  
+
   body:lang(en) .hero-cinema__title {
     font-size: clamp(2.4rem, 4vw, 3.2rem);
     line-height: 1.1;
   }
-  
+
   body:lang(en) .hero-cinema__lead {
     font-size: 1.15rem;
     max-width: 560px;
@@ -1199,5 +1151,14 @@ body:lang(ta) .hero-cinema__scripture blockquote {
 
   .patron-vision-image-wrapper {
     min-height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-cinema__title {
+    background: none;
+    -webkit-text-fill-color: #ffffff;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 4px 20px rgba(0, 0, 0, 0.6);
   }
 }

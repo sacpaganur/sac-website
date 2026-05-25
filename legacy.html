@@ -18,9 +18,9 @@
     <!-- Pannellum 360 Viewer -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
     <!-- Custom Light Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/legacy-page.css">
-    <script src="js/navbar.js"></script>
+    <link rel="stylesheet" href="css/style.css?v=1.5">
+    <link rel="stylesheet" href="css/legacy-page.css?v=1.5">
+    <script src="js/navbar.js?v=1.1"></script>
 </head>
 <body>
     <!-- Global Page Loader -->
@@ -304,37 +304,37 @@
             </div>
         </section>
 
-        <section class="legacy-past-officials-section" id="legacy-past-officials-container" style="position: relative; padding: 60px 20px; background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary)); margin: 40px auto; max-width: 1200px; border-radius: 32px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.4), 0 20px 40px rgba(0,0,0,0.03); overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.05) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.05) 0%, transparent 50%); pointer-events: none;"></div>
+        <section class="legacy-past-officials-section" id="legacy-past-officials-container">
+            <div class="legacy-po-bg"></div>
             
-            <div class="legacy-section-header" style="text-align: center; margin-bottom: 48px; position: relative; z-index: 1;">
-                <span class="legacy-section-kicker" id="past-officials-kicker" style="background: rgba(139, 92, 246, 0.1); color: var(--primary); padding: 6px 16px; border-radius: 20px; font-weight: 700; letter-spacing: 1px; font-size: 0.85rem; display: inline-block; margin-bottom: 12px; border: 1px solid rgba(139, 92, 246, 0.2);">Our Leaders</span>
-                <h3 class="legacy-section-title" id="past-officials-title" style="font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--text-primary), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">முன்னாள் பொறுப்பாளர்கள் (Past Officials)</h3>
-                <p class="legacy-section-lead" id="past-officials-lead" style="max-width: 700px; margin: 16px auto 0; font-size: 1.1rem; color: var(--text-secondary); line-height: 1.6;">ஆலயத்தின் வளர்ச்சிக்கு உழைத்த முன்னாள் மணியக்காரர்கள் மற்றும் பட்டையதாரர்கள்.</p>
+            <div class="legacy-section-header legacy-po-header">
+                <span class="legacy-section-kicker" id="past-officials-kicker">Our Leaders</span>
+                <h3 class="legacy-section-title legacy-po-title" id="past-officials-title">முன்னாள் பொறுப்பாளர்கள் (Past Officials)</h3>
+                <p class="legacy-section-lead legacy-po-lead" id="past-officials-lead">ஆலயத்தின் வளர்ச்சிக்கு உழைத்த முன்னாள் மணியக்காரர்கள் மற்றும் பட்டையதாரர்கள்.</p>
             </div>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; position: relative; z-index: 1;" id="past-officials-grid">
+            <div class="legacy-po-grid" id="past-officials-grid">
                 
-                <div class="past-officials-column" style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); border-radius: 24px; padding: 32px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
-                    <h4 style="color: var(--primary); font-size: 1.3rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; font-weight: 700;">
-                        <div style="background: linear-gradient(135deg, var(--primary), hsl(265, 80%, 65%)); width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);">
-                            <span class="material-icons" style="font-size:1.4rem;">account_balance</span>
+                <div class="legacy-po-column legacy-po-treasurers">
+                    <h4 class="legacy-po-col-title">
+                        <div class="legacy-po-icon-wrap icon-purple">
+                            <span class="material-icons">account_balance</span>
                         </div>
                         <span id="past-treasurers-title">மணியக்காரர்கள் (Treasurers)</span>
                     </h4>
-                    <div id="list-past-treasurers" style="display: flex; flex-direction: column; gap: 16px;">
+                    <div id="list-past-treasurers" class="legacy-po-list">
                         <!-- JS Loaded -->
                     </div>
                 </div>
 
-                <div class="past-officials-column" style="background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); border-radius: 24px; padding: 32px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
-                    <h4 style="color: var(--primary); font-size: 1.3rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; font-weight: 700;">
-                        <div style="background: linear-gradient(135deg, #0ea5e9, #38bdf8); width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);">
-                            <span class="material-icons" style="font-size:1.4rem;">verified</span>
+                <div class="legacy-po-column legacy-po-patrons">
+                    <h4 class="legacy-po-col-title">
+                        <div class="legacy-po-icon-wrap icon-blue">
+                            <span class="material-icons">verified</span>
                         </div>
                         <span id="past-patrons-title">பட்டையதாரர்கள் (Patrons)</span>
                     </h4>
-                    <div id="list-past-patrons" style="display: flex; flex-direction: column; gap: 16px;">
+                    <div id="list-past-patrons" class="legacy-po-list">
                         <!-- JS Loaded -->
                     </div>
                 </div>
@@ -370,9 +370,9 @@
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
     <!-- Core Script dependencies -->
-    <script src="js/database.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/common.js"></script>
+    <script src="js/database.js?v=1.1"></script>
+    <script src="js/footer.js?v=1.1"></script>
+    <script src="js/common.js?v=1.1"></script>
 
     <script>
         // Init page
@@ -435,14 +435,23 @@
             const treasurersList = document.getElementById('list-past-treasurers');
             const patronsList = document.getElementById('list-past-patrons');
 
-            const renderCard = (o) => `
-                <div style="background: var(--bg-primary); padding: 16px 24px; border-radius: 12px; border-left: 4px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                    <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 4px;">${isTa ? o.nameTa : o.nameEn}</div>
-                    <div style="font-size: 0.9rem; color: var(--text-secondary); display: flex; align-items: center; gap: 4px;">
-                        <span class="material-icons" style="font-size: 1rem;">event</span> ${isTa ? o.periodTa : o.periodEn}
+            const renderCard = (o, index) => {
+                const period = isTa ? o.periodTa : o.periodEn;
+                const periodHtml = period ? `<div class="legacy-po-period">
+                        <span class="material-icons">event</span> ${period}
+                    </div>` : '';
+                return `
+                <div class="legacy-po-card" style="animation-delay: ${index * 0.1}s;">
+                    <div class="legacy-po-avatar">
+                        <span class="material-icons">person_outline</span>
+                    </div>
+                    <div class="legacy-po-info">
+                        <div class="legacy-po-name">${isTa ? o.nameTa : o.nameEn}</div>
+                        ${periodHtml}
                     </div>
                 </div>
             `;
+            };
 
             if (treasurersList) {
                 treasurersList.innerHTML = treasurers.length > 0 
@@ -535,6 +544,7 @@
     </script>
 </body>
 </html>
+
 
 
 

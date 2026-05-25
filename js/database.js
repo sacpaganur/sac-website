@@ -222,6 +222,15 @@ const SAC_DATABASE = {
         titleTa: "அற்புத புனித அந்தோணியார் திருவுருவச் சிலை",
         titleEn: "Miraculous Statue of St. Antony of Padua",
         isActive: true
+      },
+      {
+        id: "gallery_5",
+        src: "images/old_church_altar.png",
+        catTa: "பழைய ஆலயம் | Historical",
+        catEn: "Historical Sanctuary",
+        titleTa: "வரலாற்று சிறப்புமிக்க பழைய ஆலய பீடம்",
+        titleEn: "Glorious Old Church Altar",
+        isActive: true
       }
     ]
   },
@@ -239,6 +248,23 @@ const SAC_DATABASE = {
     this._ensureCollection("sac_daily_liturgy", this.defaultData.daily_liturgy);
 
     this.setupFirebaseConnection();
+
+    // Async force migration for new gallery items (works for both Local and Firebase)
+    setTimeout(async () => {
+      try {
+        const items = await this.get("gallery");
+        if (items && !items.some(i => i.id === 'gallery_5')) {
+          const newItem = this.defaultData.gallery.find(i => i.id === 'gallery_5');
+          if (newItem) {
+            await this.save("gallery", newItem);
+            // Trigger refresh event so UI updates if already loaded
+            window.dispatchEvent(new CustomEvent('sacDataRefreshed', { detail: { collection: 'gallery' } }));
+          }
+        }
+      } catch (e) {
+        console.error("Migration failed", e);
+      }
+    }, 500);
   },
 
   _ensureCollection(key, defaultValue) {
@@ -257,6 +283,16 @@ const SAC_DATABASE = {
       });
       if (modified) {
         localStorage.setItem(key, JSON.stringify(parsed));
+      }
+    } else if (key === 'sac_gallery') {
+      // Migrate existing gallery to include the old_church_altar.png if missing
+      let parsed = JSON.parse(existing);
+      if (!parsed.some(item => item.id === 'gallery_5')) {
+        let newItem = defaultValue.find(i => i.id === 'gallery_5');
+        if (newItem) {
+          parsed.push(newItem);
+          localStorage.setItem(key, JSON.stringify(parsed));
+        }
       }
     }
   },

@@ -194,9 +194,17 @@ body:lang(ta) .contact-panel-title {
   flex-shrink: 0;
 }
 
-.contact-reach-item:nth-child(1) .contact-reach-icon { background: hsl(265, 65%, 94%); }
-.contact-reach-item:nth-child(2) .contact-reach-icon { background: hsl(40, 90%, 96%); }
-.contact-reach-item:nth-child(3) .contact-reach-icon { background: hsl(40, 80%, 92%); }
+.contact-reach-item:nth-child(1) .contact-reach-icon {
+  background: var(--gradient-brand-soft);
+}
+
+.contact-reach-item:nth-child(2) .contact-reach-icon {
+  background: var(--gradient-brand-soft);
+}
+
+.contact-reach-item:nth-child(3) .contact-reach-icon {
+  background: var(--gradient-brand-soft);
+}
 
 .contact-reach-item h4 {
   margin: 0 0 4px;
@@ -396,6 +404,7 @@ body:lang(ta) .contact-form-note {
 
 .contact-form-panel .form-group {
   margin-bottom: 18px;
+  padding-bottom: 0;
 }
 
 .contact-form-panel .form-label {

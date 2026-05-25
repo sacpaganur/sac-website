@@ -1,43 +1,74 @@
 <!DOCTYPE html>
 <html lang="ta">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="வழிபாட்டு நேரங்கள் - புனித அந்தோணியார் ஆலயம் | Liturgical schedules and holy mass times of St. Antony's Church.">
+    <meta name="description"
+        content="வழிபாட்டு நேரங்கள் - புனித அந்தோணியார் ஆலயம் | Liturgical schedules and holy mass times of St. Antony's Church.">
     <title>வழிபாடுகள் | புனித அந்தோணியார் ஆலயம் – வடக்கு பாகனூர்</title>
     <meta name="view-transition" content="same-origin" />
-    
+
     <!-- Google Fonts & Icon Sets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Custom Light Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/schedule-page.css">
-    <script src="js/navbar.js"></script>
+    <link rel="stylesheet" href="css/style.css?v=1.1">
+    <link rel="stylesheet" href="css/schedule-page.css?v=1.1">
+    <script src="js/navbar.js?v=1.1"></script>
 </head>
+
 <body>
     <!-- Global Page Loader -->
-    <style id="sac-loader-scroll">body { overflow: hidden !important; }</style>
-    <div id="sac-global-loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
-      <div style="position:relative; width:70px; height:70px;">
-        <div style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;"></div>
-        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">⛪</div>
-      </div>
-      <div style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">LOADING</div>
-      <style>
-        @keyframes sacSpin { to { transform: rotate(360deg); } }
-        @keyframes sacPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-      </style>
+    <style id="sac-loader-scroll">
+        body {
+            overflow: hidden !important;
+        }
+    </style>
+    <div id="sac-global-loader"
+        style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
+        <div style="position:relative; width:70px; height:70px;">
+            <div
+                style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;">
+            </div>
+            <div
+                style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">
+                ⛪</div>
+        </div>
+        <div
+            style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">
+            LOADING</div>
+        <style>
+            @keyframes sacSpin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes sacPulse {
+
+                0%,
+                100% {
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0.4;
+                }
+            }
+        </style>
     </div>
 
 
     <!-- Navigation Header -->
     <div id="global-navbar"></div>
 
-    
+
 
     <!-- Main Content -->
     <main class="main-wrapper schedule-page">
@@ -48,8 +79,10 @@
                     <span>🕯️</span>
                     <span id="schedule-hero-badge" data-i18n="sched.heroBadge">வழிபாட்டு நேரங்கள்</span>
                 </div>
-                <h2 class="notices-hero-title" id="schedule-title-label" data-i18n="sched.titleLabel">வழிபாட்டு நேரங்கள்</h2>
-                <p class="notices-hero-subtitle" id="schedule-subtitle-label" data-i18n="sched.subtitleLabel">திருப்பலி நேரங்கள் மற்றும் விபரங்கள் பங்கு மக்களின் ஆன்மீக வாழ்விற்காக.</p>
+                <h2 class="notices-hero-title" id="schedule-title-label" data-i18n="sched.titleLabel">வழிபாட்டு நேரங்கள்
+                </h2>
+                <p class="notices-hero-subtitle" id="schedule-subtitle-label" data-i18n="sched.subtitleLabel">திருப்பலி
+                    நேரங்கள் மற்றும் விபரங்கள் பங்கு மக்களின் ஆன்மீக வாழ்விற்காக.</p>
                 <div class="notices-hero-counter">
                     <span class="counter-number" id="schedule-mass-count">0</span>
                     <span id="schedule-mass-count-label" data-i18n="sched.massCountLabel">திருப்பலி அட்டவணைகள்</span>
@@ -65,9 +98,11 @@
                         <span id="today-text">இன்று: ஞாயிற்றுக்கிழமை</span>
                     </div>
                     <div class="schedule-quick-chips">
-                        <a href="#sched-mass-panel" class="schedule-quick-chip schedule-quick-chip--sun">☀️ <span id="sched-chip-sun" data-i18n="sched.chipSun">ஞாயிறு</span></a>
-                        <a href="#sched-mass-panel" class="schedule-quick-chip schedule-quick-chip--tue">🙏 <span id="sched-chip-tue" data-i18n="sched.chipTue">செவ்வாய்</span></a>
-                        <a href="#sched-mass-panel" class="schedule-quick-chip schedule-quick-chip--daily">📿 <span id="sched-chip-daily" data-i18n="sched.chipDaily">தினசரி</span></a>
+                        <a href="#sched-mass-panel" class="schedule-quick-chip schedule-quick-chip--sun">☀️ <span
+                                id="sched-chip-sun" data-i18n="sched.chipSun">ஞாயிறு</span></a>
+                        <a href="#sched-mass-panel" class="schedule-quick-chip schedule-quick-chip--tue">🙏 <span
+                                id="sched-chip-tue" data-i18n="sched.chipTue">செவ்வாய்</span></a>
+                        <!-- <a href="#sched-mass-panel" class="schedule-quick-chip schedule-quick-chip--daily">📿 <span id="sched-chip-daily" data-i18n="sched.chipDaily">தினசரி</span></a> -->
                     </div>
                 </div>
 
@@ -75,10 +110,13 @@
                     <div class="schedule-section-header">
                         <div class="schedule-section-badge badge-purple">
                             <span>🕯️</span>
-                            <span id="mass-section-badge-label" data-i18n="sched.massBadgeLabel">திருப்பலி அட்டவணை</span>
+                            <span id="mass-section-badge-label" data-i18n="sched.massBadgeLabel">திருப்பலி
+                                அட்டவணை</span>
                         </div>
-                        <h3 class="schedule-section-title" id="mass-section-title" data-i18n="sched.massTitle">திருப்பலி நேரங்கள்</h3>
-                        <p class="schedule-section-lead" id="mass-section-lead" data-i18n="sched.massLead">Weekly Holy Mass times for our parish community.</p>
+                        <h3 class="schedule-section-title" id="mass-section-title" data-i18n="sched.massTitle">திருப்பலி
+                            நேரங்கள்</h3>
+                        <p class="schedule-section-lead" id="mass-section-lead" data-i18n="sched.massLead">Weekly Holy
+                            Mass times for our parish community.</p>
                     </div>
                     <div class="schedule-cards-grid" id="mass-schedules-grid">
                         <div class="schedule-loading schedule-empty" id="schedule-loading">⏳ Loading schedules...</div>
@@ -89,53 +127,71 @@
                     <div class="schedule-section-header">
                         <div class="schedule-section-badge badge-gold">
                             <span>✨</span>
-                            <span id="devotion-section-badge-label" data-i18n="sched.devotionBadgeLabel">சிறப்பு வழிபாடுகள்</span>
+                            <span id="devotion-section-badge-label" data-i18n="sched.devotionBadgeLabel">சிறப்பு
+                                வழிபாடுகள்</span>
                         </div>
-                        <h3 class="schedule-section-title" id="devotion-section-title" data-i18n="sched.devotionTitle">மாதாந்திர மற்றும் சிறப்பு வழிபாட்டு விவரங்கள்</h3>
-                        <p class="schedule-section-lead" id="devotion-section-lead" data-i18n="sched.devotionLead">Novena, feast devotions, and monthly parish liturgies.</p>
+                        <h3 class="schedule-section-title" id="devotion-section-title" data-i18n="sched.devotionTitle">
+                            மாதாந்திர மற்றும் சிறப்பு வழிபாட்டு விவரங்கள்</h3>
+                        <p class="schedule-section-lead" id="devotion-section-lead" data-i18n="sched.devotionLead">
+                            Novena, feast devotions, and monthly parish liturgies.</p>
                     </div>
                     <div class="devotion-cards-grid">
                         <article class="devotion-card" style="animation-delay: 0.05s;">
                             <div class="devotion-card-header">
                                 <div class="devotion-icon-circle icon-purple">🙏</div>
                                 <div>
-                                    <div class="devotion-badge badge-novena" data-i18n="sched.novenaBadge">செவ்வாய் நவநாள்</div>
-                                    <h4 class="devotion-card-title" data-i18n="sched.novenaTitle">புனித அந்தோணியார் நவநாள்</h4>
+                                    <div class="devotion-badge badge-novena" data-i18n="sched.novenaBadge">செவ்வாய்
+                                        நவநாள்</div>
+                                    <h4 class="devotion-card-title" data-i18n="sched.novenaTitle">புனித அந்தோணியார்
+                                        நவநாள்</h4>
                                 </div>
                             </div>
-                            <p class="devotion-card-desc" data-i18n="sched.novenaDesc">ஒவ்வொரு செவ்வாய்க்கிழமையும் காலை 6:00 மணி மற்றும் மாலை 6:00 மணிக்கு புனித அந்தோணியாரின் சிறப்பு நவநாள் திருப்பலியும், எண்ணெய் அபிஷேகமும், தேர்ப்பவனியும் நடைபெறும்.</p>
+                            <p class="devotion-card-desc" data-i18n="sched.novenaDesc">ஒவ்வொரு செவ்வாய்க்கிழமையும் காலை
+                                6:00 மணி மற்றும் மாலை 6:00 மணிக்கு புனித அந்தோணியாரின் சிறப்பு நவநாள் திருப்பலியும்,
+                                எண்ணெய் அபிஷேகமும், தேர்ப்பவனியும் நடைபெறும்.</p>
                         </article>
                         <article class="devotion-card" style="animation-delay: 0.12s;">
                             <div class="devotion-card-header">
                                 <div class="devotion-icon-circle icon-red">❤️</div>
                                 <div>
-                                    <div class="devotion-badge badge-friday" data-i18n="sched.fridayBadge">முதல் வெள்ளி</div>
-                                    <h4 class="devotion-card-title" data-i18n="sched.fridayTitle">இயேசுவின் திருஇருதய வழிபாடு</h4>
+                                    <div class="devotion-badge badge-friday" data-i18n="sched.fridayBadge">முதல் வெள்ளி
+                                    </div>
+                                    <h4 class="devotion-card-title" data-i18n="sched.fridayTitle">இயேசுவின் திருஇருதய
+                                        வழிபாடு</h4>
                                 </div>
                             </div>
-                            <p class="devotion-card-desc" data-i18n="sched.fridayDesc">மாதத்தின் முதல் வெள்ளிக்கிழமை மாலை 5:30 மணிக்கு நற்கருணை ஆராதனையும், அதைத் தொடர்ந்து திருஇருதய சிறப்புத் திருப்பலியும், நற்கருணை ஆசீரும் வழங்கப்படும்.</p>
+                            <p class="devotion-card-desc" data-i18n="sched.fridayDesc">அம்சம் பங்கு ஆலயத்தில் ஒவ்வொரு
+                                மாதமும் முதல் வெள்ளிக்கிழமை இரவு 10 மணி முதல் அதிகாலை 4 மணி வரை இரவு முழு ஜெபவிழிப்பு
+                                நடைபெறுகிறது.</p>
                         </article>
-                        
+
                         <article class="devotion-card" style="animation-delay: 0.19s;">
                             <div class="devotion-card-header">
                                 <div class="devotion-icon-circle icon-gold">🎉</div>
                                 <div>
-                                    <div class="devotion-badge badge-feast" data-i18n="sched.feastBadge">ஆண்டு திருவிழா</div>
+                                    <div class="devotion-badge badge-feast" data-i18n="sched.feastBadge">ஆண்டு திருவிழா
+                                    </div>
                                     <h4 class="devotion-card-title" data-i18n="sched.feastTitle">ஆண்டு திருவிழா</h4>
                                 </div>
                             </div>
-                            <p class="devotion-card-desc" data-i18n="sched.feastDesc">ஆண்டுதோறும் பாஸ்கா காலம் இரண்டாம் சனிக்கிழமை</p>
+                            <p class="devotion-card-desc" data-i18n="sched.feastDesc">ஆண்டுதோறும் பாஸ்கா காலம் இரண்டாம்
+                                சனிக்கிழமை</p>
                         </article>
 
                         <article class="devotion-card" style="animation-delay: 0.26s;">
                             <div class="devotion-card-header">
-                                <div class="devotion-icon-circle icon-gold" style="background: var(--accent-gold-glow); color: var(--accent-gold);">🌟</div>
+                                <div class="devotion-icon-circle icon-gold"
+                                    style="background: var(--accent-gold-glow); color: var(--accent-gold);">🌟</div>
                                 <div>
-                                    <div class="devotion-badge badge-feast" data-i18n="sched.juneFeastBadge">ஜூன் 13 திருவிழா</div>
-                                    <h4 class="devotion-card-title" data-i18n="sched.juneFeastTitle">புனித அந்தோணியார் பெருவிழா</h4>
+                                    <div class="devotion-badge badge-feast" data-i18n="sched.juneFeastBadge">ஜூன் 13
+                                        திருவிழா</div>
+                                    <h4 class="devotion-card-title" data-i18n="sched.juneFeastTitle">புனித அந்தோணியார்
+                                        பெருவிழா</h4>
                                 </div>
                             </div>
-                            <p class="devotion-card-desc" data-i18n="sched.juneFeastDesc">ஒவ்வொரு ஆண்டும் ஜூன் 13-ஆம் தேதி நமது பாதுகாவலரான புனித அந்தோணியாரின் பெருவிழா மிகவும் சிறப்பான முறையில் கொண்டாடப்படும்.</p>
+                            <p class="devotion-card-desc" data-i18n="sched.juneFeastDesc">ஒவ்வொரு ஆண்டும் ஜூன் 13-ஆம்
+                                தேதி நமது பாதுகாவலரான புனித அந்தோணியாரின் பெருவிழா மிகவும் சிறப்பான முறையில்
+                                கொண்டாடப்படும்.</p>
                         </article>
                     </div>
                 </section>
@@ -144,10 +200,13 @@
                     <div class="schedule-section-header">
                         <div class="schedule-section-badge badge-green">
                             <span>🏛️</span>
-                            <span id="office-section-badge-label" data-i18n="sched.officeBadgeLabel">அலுவலக நிர்வாகம்</span>
+                            <span id="office-section-badge-label" data-i18n="sched.officeBadgeLabel">அலுவலக
+                                நிர்வாகம்</span>
                         </div>
-                        <h3 class="schedule-section-title" id="office-section-title" data-i18n="sched.officeTitle">அலுவலக வேலை நேரங்கள் & பதிவுகள்</h3>
-                        <p class="schedule-section-lead" id="office-section-lead" data-i18n="sched.officeLead">Parish office hours and sacrament registration information.</p>
+                        <h3 class="schedule-section-title" id="office-section-title" data-i18n="sched.officeTitle">
+                            அலுவலக வேலை நேரங்கள் & பதிவுகள்</h3>
+                        <p class="schedule-section-lead" id="office-section-lead" data-i18n="sched.officeLead">Parish
+                            office hours and sacrament registration information.</p>
                     </div>
                     <div class="office-cards-grid">
                         <article class="office-card" style="animation-delay: 0.05s;">
@@ -155,22 +214,27 @@
                                 <div class="office-card-icon icon-blue">📅</div>
                                 <h4 class="office-card-title" data-i18n="sched.offTimeTitle">அலுவலக வேலை நேரம்</h4>
                             </div>
-                            <p class="office-card-desc" data-i18n="sched.offTimeDesc">திங்கள் முதல் சனி வரை: காலை 9:00 - மதியம் 12:30, மாலை 4:00 - 6:30 மணி. (ஞாயிறு விடுமுறை)</p>
+                            <p class="office-card-desc" data-i18n="sched.offTimeDesc">திங்கள் முதல் சனி வரை: காலை 9:00 -
+                                மதியம் 12:30, மாலை 4:00 - 6:30 மணி. (ஞாயிறு விடுமுறை)</p>
                         </article>
                         <article class="office-card" style="animation-delay: 0.12s;">
                             <div class="office-card-top">
                                 <div class="office-card-icon icon-cyan">💧</div>
                                 <h4 class="office-card-title" data-i18n="sched.baptTitle">திருமுழுக்கு பதிவுகள்</h4>
                             </div>
-                            <p class="office-card-desc" data-i18n="sched.baptDesc">மாதத்தின் முதல் மற்றும் மூன்றாம் ஞாயிற்றுக்கிழமைகளில் ஞாயிறு திருப்பலியைத் தொடர்ந்து குழந்தைகளுக்கு திருமுழுக்கு வழங்கப்படும். ஒரு வாரத்திற்கு முன்பே பதிவு செய்யவும்.</p>
+                            <p class="office-card-desc" data-i18n="sched.baptDesc">மாதத்தின் முதல் மற்றும் மூன்றாம்
+                                ஞாயிற்றுக்கிழமைகளில் ஞாயிறு திருப்பலியைத் தொடர்ந்து குழந்தைகளுக்கு திருமுழுக்கு
+                                வழங்கப்படும். ஒரு வாரத்திற்கு முன்பே பதிவு செய்யவும்.</p>
                         </article>
                     </div>
                 </section>
 
                 <section class="schedule-cta">
                     <div class="schedule-cta-copy">
-                        <h3 id="schedule-cta-title" data-i18n="sched.ctaTitle">Questions about Mass or registrations?</h3>
-                        <p id="schedule-cta-text" data-i18n="sched.ctaText">Contact the parish office for bookings, baptisms, and special intentions.</p>
+                        <h3 id="schedule-cta-title" data-i18n="sched.ctaTitle">Questions about Mass or registrations?
+                        </h3>
+                        <p id="schedule-cta-text" data-i18n="sched.ctaText">Contact the parish office for bookings,
+                            baptisms, and special intentions.</p>
                     </div>
                     <a href="contact.html" class="schedule-cta-link">
                         <span class="material-icons">mail</span>
@@ -188,15 +252,15 @@
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
 
     <!-- Core Script dependencies -->
-    <script src="js/database.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/common.js"></script>
+    <script src="js/database.js?v=1.1"></script>
+    <script src="js/footer.js?v=1.1"></script>
+    <script src="js/common.js?v=1.1"></script>
 
     <script>
         // Init page
         window.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('schedule');
-            
+
             await loadMassSchedules();
             updateTodayPill();
 
@@ -224,7 +288,7 @@
             };
             const dayName = isTa ? dayNames.ta[now.getDay()] : dayNames.en[now.getDay()];
             const dateStr = now.toLocaleDateString(isTa ? 'ta-IN' : 'en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
-            
+
             const el = document.getElementById('today-text');
             if (el) {
                 el.innerText = isTa ? `இன்று: ${dayName}, ${dateStr}` : `Today: ${dayName}, ${dateStr}`;
@@ -312,4 +376,5 @@
         // Full bilingual translation is now handled by SAC_COMMON.translatePage via data-i18n
     </script>
 </body>
+
 </html>

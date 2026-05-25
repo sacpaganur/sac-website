@@ -1,7 +1,7 @@
 // --- GLOBAL PAGE LOADER INJECTION ---
-(function() {
+(function () {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  
+
   const loaderHTML = `
     <style id="sac-loader-scroll">body { overflow: hidden !important; }</style>\n    <div id="sac-global-loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
       <div style="position:relative; width:70px; height:70px;">
@@ -15,7 +15,7 @@
       </style>
     </div>
   `;
-  
+
   // Inject if body exists, else wait for DOMContentLoaded
   // Expose hideLoader globally so revealPage can call it
   window.hideSACLoader = () => {
@@ -45,28 +45,28 @@
     if (!link) return;
     const href = link.getAttribute('href');
     const target = link.getAttribute('target');
-    
+
     // Only intercept internal standard links
     if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && target !== '_blank' && !link.hasAttribute('download')) {
       e.preventDefault();
-      
+
       let loader = document.getElementById('sac-global-loader');
       if (!loader) {
         document.body.insertAdjacentHTML('afterbegin', loaderHTML);
         loader = document.getElementById('sac-global-loader');
       }
-      
+
       // Start hidden to avoid harsh flash
       document.body.style.overflow = 'hidden'; // Disable scrolling
       loader.style.transition = 'none';
       loader.style.opacity = '0';
       loader.style.visibility = 'visible';
-      
+
       // Force reflow
       void loader.offsetWidth;
       loader.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
       loader.style.opacity = '1';
-      
+
       window.location.href = href;
     }
   });
@@ -136,11 +136,11 @@ const SAC_COMMON = {
       "sched.novenaTitle": "புனித அந்தோணியார் நவநாள்",
       "sched.novenaDesc": "ஒவ்வொரு செவ்வாய்க்கிழமையும் காலை 6:00 மணி மற்றும் மாலை 6:00 மணிக்கு புனித அந்தோணியாரின் சிறப்பு நவநாள் திருப்பலியும், எண்ணெய் அபிஷேகமும், தேர்ப்பவனியும் நடைபெறும்.",
       "sched.fridayBadge": "முதல் வெள்ளி",
-      "sched.fridayTitle": "இயேசுவின் திருஇருதய வழிபாடு",
-      "sched.fridayDesc": "மாதத்தின் முதல் வெள்ளிக்கிழமை மாலை 5:30 மணிக்கு நற்கருணை ஆராதனையும், அதைத் தொடர்ந்து திருஇருதய சிறப்புத் திருப்பலியும், நற்கருணை ஆசீரும் வழங்கப்படும்.",
+      "sched.fridayTitle": "முழு இரவு ஜெபம்",
+      "sched.fridayDesc": "அம்சம் பங்கு ஆலயத்தில் ஒவ்வொரு மாதமும் முதல் வெள்ளிக்கிழமை இரவு 10 மணி முதல் அதிகாலை 4 மணி வரை முழு இரவு ஜெபம் நடைபெறுகிறது.",
       "sched.feastBadge": "ஆண்டு திருவிழா",
       "sched.feastTitle": "ஆண்டு திருவிழா",
-      "sched.feastDesc": "ஆண்டுதோறும் பாஸ்கா காலம் இரண்டாம் சனிக்கிழமை",
+      "sched.feastDesc": "ஆண்டுதோறும் பாஸ்கா காலத்தின் இரண்டாம் சனிக்கிழமையன்று ஆலயத்தின் ஆண்டு திருவிழாவானது சிறப்புத்  திருப்பலி மற்றும் உயிர்த்தெழுந்த இயேசு கிறிஸ்துவின் திரு உருவம் மற்றும் புனிதரின் திருஉருவம் தாங்கிய தேர்பவனியும் நடைபெறும்.",
       "sched.juneFeastBadge": "ஜூன் 13 திருவிழா",
       "sched.juneFeastTitle": "புனித அந்தோணியார் பெருவிழா",
       "sched.juneFeastDesc": "ஒவ்வொரு ஆண்டும் ஜூன் 13-ஆம் தேதி நமது பாதுகாவலரான புனித அந்தோணியாரின் பெருவிழா மிகவும் சிறப்பான முறையில் கொண்டாடப்படும்.",
@@ -279,8 +279,8 @@ const SAC_COMMON = {
       "legacy.valueCommunityDesc": "குடும்பங்கள், மூப்பர்கள், இளையோர், பங்கு தலைவர்கள் இணைந்து காத்து வரும் ஒரே வரலாறு.",
       "legacy.valueServiceTitle": "சேவை",
       "legacy.valueServiceDesc": "தியாகம், தாராளம், மேய்ப்புப் பராமரிப்பு ஆகியவற்றால் பலமடைந்த பாரம்பரியம்.",
-      "legacy.oldPhotoTitle": "வரலாற்றுச் சிறப்புமிக்க கல் ஆலயம்",
-      "legacy.newPhotoTitle": "புதுப்பிக்கப்பட்ட பங்கு திருத்தலம்",
+      "legacy.oldPhotoTitle": "பழமையான கல் ஆலயம்",
+      "legacy.newPhotoTitle": "புதிய பங்கு திருத்தலம்",
       "legacy.timelineKicker": "வரலாற்றுப் பாதை",
       "legacy.timelineTitle": "அருளும் வளர்ச்சியும் கொண்ட காலவரிசை",
       "legacy.timelineLead": "வழிபாடு, கட்டிடம், கொண்டாட்டங்கள், சமூகச் சாட்சி ஆகியவற்றின் வழியாக உயிருடன் இருக்கும் பங்கின் முக்கிய நினைவுத் தருணங்கள்.",
@@ -372,11 +372,11 @@ const SAC_COMMON = {
       "sched.novenaTitle": "Novena of St. Antony of Padua",
       "sched.novenaDesc": "Every Tuesday, special Novena Mass for St. Antony is held at 6:00 AM and 6:00 PM, followed by oil anointing and a car procession.",
       "sched.fridayBadge": "First Friday",
-      "sched.fridayTitle": "Sacred Heart Devotion",
-      "sched.fridayDesc": "On the first Friday of each month, Adoration of the Blessed Sacrament starts at 5:30 PM, followed by the Holy Mass and Benediction.",
+      "sched.fridayTitle": "All-Night Vigil",
+      "sched.fridayDesc": "The All-Night Vigil is held on every first Friday of the month at Amsam Parish Church from 10:00 PM to 4:00 AM.",
       "sched.feastBadge": "Annual Feast",
       "sched.feastTitle": "Annual Feast",
-      "sched.feastDesc": "Annually on the second Saturday of the Easter Season",
+      "sched.feastDesc": "Every year, on the second Saturday of the Easter season, the Annual Feast of the church is celebrated with a special Holy Mass, followed by a grand chariot procession carrying the statues of the Risen Jesus Christ and the Patron Saint",
       "sched.juneFeastBadge": "June 13 Feast",
       "sched.juneFeastTitle": "St. Antony's Feast Day",
       "sched.juneFeastDesc": "Every year on June 13th, the grand feast of our patron St. Antony is celebrated in a very special way.",
@@ -652,15 +652,15 @@ const SAC_COMMON = {
       });
 
       // Set up automatic failsafe to reveal the page after 2000ms in case the page script has an error
-      
+
       // Instant reveal for performance
       if (this.pageName === 'home') {
-          this.revealPage();
+        this.revealPage();
       } else {
-          // Allow other pages to reveal themselves immediately or use a very short 500ms fallback
-          this._failsafeTimer = setTimeout(() => {
-            this.revealPage();
-          }, 500);
+        // Allow other pages to reveal themselves immediately or use a very short 500ms fallback
+        this._failsafeTimer = setTimeout(() => {
+          this.revealPage();
+        }, 500);
       }
 
 
