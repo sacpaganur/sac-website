@@ -73,6 +73,24 @@
 })();
 // --- END PAGE LOADER ---
 
+// --- A11Y (ACCESSIBILITY) AUTO-INJECTION ---
+(function () {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+  // Inject A11y stylesheet
+  const a11yCSS = document.createElement('link');
+  a11yCSS.rel = 'stylesheet';
+  a11yCSS.href = 'css/a11y.css';
+  document.head.appendChild(a11yCSS);
+
+  // Inject A11y script
+  const a11yJS = document.createElement('script');
+  a11yJS.src = 'js/a11y.js';
+  a11yJS.defer = true;
+  document.head.appendChild(a11yJS);
+})();
+// --- END A11Y INJECTION ---
+
 /* St. Antony's Church Public Website Shared Core JavaScript */
 
 const SAC_COMMON = {
