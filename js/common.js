@@ -80,16 +80,28 @@
   // Inject A11y stylesheet
   const a11yCSS = document.createElement('link');
   a11yCSS.rel = 'stylesheet';
-  a11yCSS.href = 'css/a11y.css';
+  a11yCSS.href = 'css/a11y.css?v=1.1';
   document.head.appendChild(a11yCSS);
 
-  // Inject A11y script
+  // Inject A11y script (loaded after DOM, so don't use defer — it won't work on dynamic scripts)
   const a11yJS = document.createElement('script');
-  a11yJS.src = 'js/a11y.js';
-  a11yJS.defer = true;
-  document.head.appendChild(a11yJS);
+  a11yJS.src = 'js/a11y.js?v=1.1';
+  document.body ? document.body.appendChild(a11yJS) : document.head.appendChild(a11yJS);
 })();
 // --- END A11Y INJECTION ---
+
+// --- CALENDAR (ADD-TO-CALENDAR) AUTO-INJECTION ---
+(function () {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+  // Inject Calendar script if not already present
+  if (!document.querySelector('script[src*="calendar-links.js"]')) {
+    const calJS = document.createElement('script');
+    calJS.src = 'js/calendar-links.js?v=1.0';
+    document.body ? document.body.appendChild(calJS) : document.head.appendChild(calJS);
+  }
+})();
+// --- END CALENDAR INJECTION ---
 
 /* St. Antony's Church Public Website Shared Core JavaScript */
 
@@ -333,7 +345,35 @@ const SAC_COMMON = {
       "saint.miracle2Title": "அந்தோணியார் அப்பம்",
       "saint.miracle2Desc": "இறந்த தன் குழந்தை உயிர் பெற்றால், குழந்தையின் எடைக்கு சமமான அப்பத்தை ஏழைகளுக்கு வழங்குவதாக ஒரு தாய் நேர்ந்துகொண்டார். இவ்வாறு ஏழைகளுக்கு உணவளிக்கும் வழக்கம் உருவானது.",
       "saint.miracle3Title": "மீன்களுக்கு மறையுரை",
-      "saint.miracle3Desc": "மக்கள் அவரது போதனையைக் கேட்க மறுத்தபோது, அவர் ஆற்றங்கரையில் மீன்களுக்கு மறையுரை ஆற்றினார். மீன்கள் அனைத்தும் திரண்டு வந்து பக்தியுடன் செவிமடுத்தன."
+      "saint.miracle3Desc": "மக்கள் அவரது போதனையைக் கேட்க மறுத்தபோது, அவர் ஆற்றங்கரையில் மீன்களுக்கு மறையுரை ஆற்றினார். மீன்கள் அனைத்தும் திரண்டு வந்து பக்தியுடன் செவிமடுத்தன.",
+      "wall.title": "செப விண்ணப்பங்கள்",
+      "wall.subtitle": "உங்களது செப தேவைகளை சமர்ப்பிக்கவும் மற்றும் பிறருக்காக இணைந்து செபிக்கவும்.",
+      "wall.submitBtn": "செப தேவையை சமர்ப்பிக்க",
+      "wall.modalTitle": "செப விண்ணப்பம் சமர்ப்பித்தல்",
+      "wall.formName": "பெயர் (விரும்பினால்)",
+      "wall.formEmail": "மின்னஞ்சல் (விரும்பினால் - வெளியில் தெரியாது)",
+      "wall.formAnon": "பெயர் குறிப்பிடாமல் அநாமதேயமாக சமர்ப்பிக்கவும்",
+      "wall.formCategory": "விண்ணப்ப வகை",
+      "wall.formMessage": "செப விண்ணப்ப விபரம் (அதிகபட்சம் 300 எழுத்துக்கள்)",
+      "wall.formMessagePlholder": "உங்களது செபத் தேவையை விளக்கி எழுதவும்...",
+      "wall.btnSubmit": "சமர்ப்பிக்கவும்",
+      "wall.btnCancel": "ரத்து",
+      "wall.cat.health": "❤️ உடல்நலம்",
+      "wall.cat.family": "🏠 குடும்பம்",
+      "wall.cat.thanks": "🙏 நன்றியறிதல்",
+      "wall.cat.rest": "👼 ஆன்ம இளைப்பாற்றி",
+      "wall.cat.special": "🕯️ சிறப்புத் தேவை",
+      "wall.successTitle": "சமர்ப்பிக்கப்பட்டது!",
+      "wall.successMsg": "உங்களது செப விண்ணப்பம் செபச் சுவரில் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது. புனித அந்தோணியார் உங்களுக்காக பரிந்து பேசுவார்!",
+      "wall.successScripture": "\"கேளுங்கள், உங்களுக்குத் தரப்படும்; தேடுங்கள், நீங்கள் கண்டடைவீர்கள்.\" - மத்தேயு 7:7",
+      "wall.successClose": "சரி",
+      "wall.prayBtn": "செபிக்கவும்",
+      "wall.prayedCount": "{count} பேர் செபித்தனர்",
+      "wall.prayedCountSingle": "1 நபர் செபித்தார்",
+      "wall.prayedCountNone": "துணை நிற்கிறோம்",
+      "wall.btnAiFill": "🎤 AI உதவியாளர் மூலம் நிரப்பவும்",
+      "wall.anonymous": "அநாமதேயர்",
+      "wall.timeAgo": "மணிநேரத்திற்கு முன்"
     },
     "en": {
       "nav.home": "Home",
@@ -570,8 +610,36 @@ const SAC_COMMON = {
       "saint.miracle2Title": "St. Antony's Bread",
       "saint.miracle2Desc": "A mother promised to give bread to the poor equal to her child's weight if revived. Thus began the tradition of giving alms.",
       "saint.miracle3Title": "Preaching to Fishes",
-      "saint.miracle3Desc": "When heretics refused to listen, he preached to the fish by the river, who gathered to listen in reverence."
-    }
+      "saint.miracle3Desc": "When heretics refused to listen, he preached to the fish by the river, who gathered to listen in reverence.",
+      "wall.title": "Interactive Prayer Wall",
+      "wall.subtitle": "Share your prayer intentions and join in prayer with our community.",
+      "wall.submitBtn": "Share a Prayer Intention",
+      "wall.modalTitle": "Submit a Prayer Intention",
+      "wall.formName": "Your Name (Optional)",
+      "wall.formEmail": "Email Address (Optional - never shown publicly)",
+      "wall.formAnon": "Submit anonymously without your name",
+      "wall.formCategory": "Intention Category",
+      "wall.formMessage": "Prayer Request Details (Max 300 characters)",
+      "wall.formMessagePlholder": "Describe your prayer request here...",
+      "wall.btnSubmit": "Submit Request",
+      "wall.btnCancel": "Cancel",
+      "wall.cat.health": "❤️ Health & Recovery",
+      "wall.cat.family": "🏠 Family & Home",
+      "wall.cat.thanks": "🙏 Thanksgiving",
+      "wall.cat.rest": "👼 Eternal Rest",
+      "wall.cat.special": "🕯️ Special Intention",
+      "wall.successTitle": "Submitted Successfully!",
+      "wall.successMsg": "Your prayer request has been placed on the wall. Our community will join you in prayer. May St. Antony intercede for you!",
+      "wall.successScripture": "\"Ask, and it will be given to you; seek, and you will find.\" - Matthew 7:7",
+      "wall.successClose": "Close",
+      "wall.prayBtn": "Pray for this",
+      "wall.prayedCount": "{count} people prayed",
+      "wall.prayedCountSingle": "1 person prayed",
+      "wall.prayedCountNone": "Standing in prayer",
+      "wall.btnAiFill": "🎤 Ask AI to Fill Form",
+      "wall.anonymous": "Anonymous",
+      "wall.timeAgo": "ago"
+    },
   },
 
   // Initialize shared scripts across pages
@@ -706,7 +774,7 @@ const SAC_COMMON = {
     // Register PWA Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(err => {
+        navigator.serviceWorker.register('sw.js').catch(err => {
           console.warn('Service Worker registration failed:', err);
         });
       });

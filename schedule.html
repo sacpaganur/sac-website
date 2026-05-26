@@ -255,20 +255,31 @@
     <script src="js/database.js?v=1.7"></script>
     <script src="js/footer.js?v=1.1"></script>
     <script src="js/common.js?v=1.7"></script>
+    <script src="js/calendar-links.js?v=1.0"></script>
 
     <script>
+        // Devotion card calendar data definitions
+        const DEVOTION_CAL_DATA = [
+            { id: 'cal-devotion-novena', titleTa: 'புனித அந்தோணியார் நவநாள்', titleEn: 'Novena of St. Antony of Padua', descTa: 'செவ்வாய் நவநாள் திருப்பலி, எண்ணெய் அபிஷேகம் மற்றும் தேர்ப்பவனி', descEn: 'Tuesday Novena Mass with oil anointing and procession', dayOfWeek: 2, startHour: 18, startMinute: 0, durationMinutes: 90 },
+            { id: 'cal-devotion-friday', titleTa: 'முழு இரவு ஜெபம்', titleEn: 'All-Night Vigil', descTa: 'முதல் வெள்ளிக்கிழமை இரவு 10 மணி முதல் அதிகாலை 4 மணி வரை ஜெபவிழிப்பு', descEn: 'First Friday all-night prayer vigil from 10 PM to 4 AM', dayOfWeek: 5, startHour: 22, startMinute: 0, durationMinutes: 360 },
+            { id: 'cal-devotion-feast', titleTa: 'ஆண்டு திருவிழா', titleEn: 'Annual Feast', descTa: 'பாஸ்கா காலம் இரண்டாம் சனிக்கிழமை ஆண்டு பெருவிழா', descEn: 'Annual parish feast on second Saturday of Easter season', dayOfWeek: 6, startHour: 8, startMinute: 30, durationMinutes: 180 },
+            { id: 'cal-devotion-june13', titleTa: 'புனித அந்தோணியார் பெருவிழா', titleEn: "St. Antony's Feast Day", descTa: 'ஜூன் 13 புனித அந்தோணியார் பெருவிழா', descEn: "Grand feast of St. Antony on June 13", specificDate: `${new Date().getFullYear()}-06-13`, startHour: 6, startMinute: 0, durationMinutes: 240 }
+        ];
+
         // Init page
         window.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('schedule');
 
             await loadMassSchedules();
             updateTodayPill();
+            renderDevotionCalendarButtons();
 
             SAC_COMMON.revealPage();
 
             window.addEventListener('sacLanguageChanged', async () => {
                 await loadMassSchedules();
                 updateTodayPill();
+                renderDevotionCalendarButtons();
             });
 
             window.addEventListener('sacDataRefreshed', async (e) => {
@@ -277,6 +288,28 @@
                 }
             });
         });
+
+        // Render calendar buttons for the static devotion cards
+        function renderDevotionCalendarButtons() {
+            if (typeof SAC_CALENDAR === 'undefined') return;
+            const lang = SAC_COMMON.currentLang;
+            DEVOTION_CAL_DATA.forEach((devotion, idx) => {
+                // Find or create the mount point inside each devotion card
+                const cards = document.querySelectorAll('.devotion-card');
+                if (!cards[idx]) return;
+                let mount = cards[idx].querySelector('.cal-mount');
+                if (!mount) {
+                    mount = document.createElement('div');
+                    mount.className = 'cal-mount';
+                    mount.style.marginTop = '12px';
+                    cards[idx].appendChild(mount);
+                } else {
+                    mount.innerHTML = '';
+                }
+                const calEvents = SAC_CALENDAR.buildFromDevotion(devotion, lang);
+                SAC_CALENDAR.renderButton(calEvents, mount, lang);
+            });
+        }
 
         // Dynamic "Today" indicator in the hero
         function updateTodayPill() {
@@ -353,7 +386,7 @@
                 const time = m.time || '';
 
                 return `
-                    <article class="schedule-card ${catClass}${todayClass}" style="animation-delay: ${staggerDelay}s;">
+                    <article class="schedule-card ${catClass}${todayClass}" style="animation-delay: ${staggerDelay}s;" data-mass-idx="${idx}">
                         ${isToday ? `<span class="sched-today-tag">${todayLabel}</span>` : ''}
                         <div class="sched-card-body">
                             <div class="sched-day-badge">
@@ -367,10 +400,22 @@
                                 <span class="time-icon">🕐</span>
                                 ${time}
                             </div>
+                            <div class="cal-mount" id="cal-mass-${idx}"></div>
                         </div>
                     </article>
                 `;
             }).join('');
+
+            // Render Add-to-Calendar buttons for each mass card
+            if (typeof SAC_CALENDAR !== 'undefined') {
+                masses.forEach((m, idx) => {
+                    const mount = document.getElementById(`cal-mass-${idx}`);
+                    if (mount) {
+                        const calEvents = SAC_CALENDAR.buildFromMass(m, SAC_COMMON.currentLang);
+                        SAC_CALENDAR.renderButton(calEvents, mount, SAC_COMMON.currentLang);
+                    }
+                });
+            }
         }
 
         // Full bilingual translation is now handled by SAC_COMMON.translatePage via data-i18n

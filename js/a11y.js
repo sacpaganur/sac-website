@@ -190,10 +190,20 @@ const SAC_A11Y = {
   }
 };
 
-// Initialize after DOM is ready
-window.addEventListener('DOMContentLoaded', () => {
-  // Give priority to critical UI first, then load A11y widget slightly delayed
-  setTimeout(() => {
-    SAC_A11Y.init();
-  }, 1500);
-});
+// Initialize after DOM is ready (handles both early load and late dynamic injection)
+(function initA11y() {
+  function startA11y() {
+    // Give priority to critical UI first, then load A11y widget slightly delayed
+    setTimeout(() => {
+      SAC_A11Y.init();
+    }, 800);
+  }
+
+  if (document.readyState === 'loading') {
+    // DOM hasn't finished loading yet
+    window.addEventListener('DOMContentLoaded', startA11y);
+  } else {
+    // DOM is already ready (script was loaded dynamically after DOMContentLoaded)
+    startA11y();
+  }
+})();

@@ -134,6 +134,8 @@ const SAC_DATABASE = {
         email: "savar@example.com",
         message: "Requesting special prayers for the good health of my elderly parents.",
         date: "2026-05-19T10:00:00Z",
+        category: "health",
+        prayCount: 24,
         status: "pending"
       },
       {
@@ -142,6 +144,8 @@ const SAC_DATABASE = {
         email: "maria@example.com",
         message: "Prayers for the successful completion of university exams for my daughter.",
         date: "2026-05-18T14:30:00Z",
+        category: "family",
+        prayCount: 42,
         status: "prayed"
       }
     ],

@@ -162,10 +162,158 @@
             </div>
         </section>
 
+        <!-- ======================= INTERACTIVE PRAYER WALL ======================= -->
+        <section id="prayer-wall-section" class="prayer-wall-section">
+            <div class="prayer-wall-container">
+                <div class="devotion-section-header" style="text-align: center;">
+                    <h3 class="section-heading" data-i18n="wall.title">செப விண்ணப்பங்கள்</h3>
+                    <p class="section-desc" data-i18n="wall.subtitle">உங்களது செப தேவைகளை சமர்ப்பிக்கவும் மற்றும் பிறருக்காக இணைந்து செபிக்கவும்.</p>
+                </div>
+                
+                <div class="prayer-wall-grid" id="prayer-wall-cards-grid">
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-weight: 600;" id="prayer-wall-loading">
+                        ⏳ Loading prayer wall...
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Global Footer -->
     <div id="global-footer"></div>
+
+    <!-- Floating Share Intention FAB Button -->
+    <button class="share-prayer-fab" id="share-prayer-fab-btn" onclick="openPrayerWallModal()">
+        <span class="material-icons">add</span>
+        <span data-i18n="wall.submitBtn">செப தேவையை சமர்ப்பிக்க</span>
+    </button>
+
+    <!-- Submit Intention Modal -->
+    <div class="prayer-modal-overlay" id="prayer-submit-modal-overlay">
+        <div class="prayer-modal-inner" style="max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; padding: 0;">
+            <!-- Floating Close Button -->
+            <button onclick="closePrayerWallModal()" style="position:absolute; top:20px; right:20px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer; z-index:10; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <span class="material-icons">close</span>
+            </button>
+
+            <!-- Modal Header -->
+            <div style="padding: 30px 30px 20px; border-bottom: 1px solid var(--border-glass); background: linear-gradient(to bottom, rgba(139,92,246,0.02), transparent);">
+                <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--primary); margin: 0; display: flex; align-items: center; gap: 8px;" data-i18n="wall.modalTitle">செப விண்ணப்பம் சமர்ப்பித்தல்</h3>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div style="padding: 30px; overflow-y: auto; flex-grow: 1;">
+                <form id="prayer-submit-form" onsubmit="handlePrayerSubmit(event)" style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- AI Assistant Button -->
+                    <button type="button" class="pray-btn" onclick="PrayerAIService.startAssistant()" style="width: 100%; justify-content: center; padding: 12px; background: var(--gradient-brand-soft); border-color: var(--border-glow); margin-bottom: 8px;">
+                        <span class="material-icons" style="color:var(--primary);">psychology</span>
+                        <span style="font-weight:800; color:var(--primary);" data-i18n="wall.btnAiFill">🎤 AI உதவியாளர் மூலம் நிரப்பவும்</span>
+                    </button>
+
+                    <!-- Anonymous Toggle -->
+                    <div style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.02); padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border-glass);">
+                        <input type="checkbox" id="form-anonymous" onchange="toggleAnonymousState()" style="width: 18px; height: 18px; cursor: pointer;">
+                        <label for="form-anonymous" style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); cursor: pointer;" data-i18n="wall.formAnon">பெயர் குறிப்பிடாமல் அநாமதேயமாக சமர்ப்பிக்கவும்</label>
+                    </div>
+
+                    <!-- Name Input -->
+                    <div class="form-group" id="form-group-name">
+                        <label class="form-label" for="form-name" style="font-weight: 700; margin-bottom: 6px; display: block;" data-i18n="wall.formName">பெயர் (விரும்பினால்)</label>
+                        <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                            <input type="text" id="form-name" class="form-input-premium" placeholder="e.g. Maria" style="padding-right: 80px; width: 100%;">
+                            <div id="voice-name-mount" style="position: absolute; right: 8px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="form-group">
+                        <label class="form-label" for="form-email" style="font-weight: 700; margin-bottom: 6px; display: block;" data-i18n="wall.formEmail">மின்னஞ்சல் (விரும்பினால் - வெளியில் தெரியாது)</label>
+                        <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                            <input type="email" id="form-email" class="form-input-premium" placeholder="e.g. maria@example.com" style="padding-right: 80px; width: 100%;">
+                            <div id="voice-email-mount" style="position: absolute; right: 8px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Category Selector -->
+                    <div class="form-group">
+                        <label class="form-label" for="form-category" style="font-weight: 700; margin-bottom: 6px; display: block;" data-i18n="wall.formCategory">விண்ணப்ப வகை</label>
+                        <div class="cat-select-wrapper">
+                            <select id="form-category" class="form-input-premium" style="appearance: none; -webkit-appearance: none; cursor: pointer; width: 100%;" required>
+                                <option value="health" data-i18n="wall.cat.health">❤️ உடல்நலம்</option>
+                                <option value="family" data-i18n="wall.cat.family">🏠 குடும்பம்</option>
+                                <option value="thanks" data-i18n="wall.cat.thanks">🙏 நன்றியறிதல்</option>
+                                <option value="rest" data-i18n="wall.cat.rest">👼 ஆன்ம இளைப்பாற்றி</option>
+                                <option value="special" data-i18n="wall.cat.special" selected>🕯️ சிறப்புத் தேவை</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Message TextArea -->
+                    <div class="form-group">
+                        <label class="form-label" for="form-message" style="font-weight: 700; margin-bottom: 6px; display: block;" data-i18n="wall.formMessage">செப விண்ணப்ப விபரம் (அதிகபட்சம் 300 எழுத்துக்கள்)</label>
+                        <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                            <textarea id="form-message" class="form-input-premium" rows="4" style="resize: none; padding-right: 80px; width: 100%;" required maxlength="300" placeholder="உங்களது செபத் தேவையை விளக்கி எழுதவும்..."></textarea>
+                            <div id="voice-message-mount" style="position: absolute; right: 8px; top: 8px;"></div>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                            <span id="form-char-counter">0/300</span>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div style="display: flex; gap: 12px; margin-top: 10px; border-top: 1px solid var(--border-glass); padding-top: 20px;">
+                        <button type="submit" class="share-prayer-fab" style="position: static; flex-grow: 1; justify-content: center; padding: 14px;" id="form-submit-btn">
+                            <span class="material-icons">send</span>
+                            <span data-i18n="wall.btnSubmit">சமர்ப்பிக்கவும்</span>
+                        </button>
+                        <button type="button" class="pray-btn" onclick="closePrayerWallModal()" style="border-radius: 50px; padding: 0 24px; font-weight: 800; font-size: 0.9rem;" data-i18n="wall.btnCancel">ரத்து</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Confirmation Modal -->
+    <div class="prayer-modal-overlay" id="prayer-success-modal-overlay" style="z-index: 10001;">
+        <div class="prayer-modal-inner" style="text-align: center; max-width: 440px;">
+            <div class="checkmark-circle">
+                <span class="material-icons">done</span>
+            </div>
+            
+            <h3 style="font-size: 1.5rem; font-weight: 800; color: #10b981; margin-bottom: 8px;" data-i18n="wall.successTitle">சமர்ப்பிக்கப்பட்டது!</h3>
+            
+            <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin-bottom: 24px;" data-i18n="wall.successMsg">உங்களது செப விண்ணப்பம் செபச் சுவரில் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது. புனித அந்தோணியார் உங்களுக்காக பரிந்து பேசுவார்!</p>
+            
+            <div class="scripture-quote-box" data-i18n="wall.successScripture">
+                "கேளுங்கள், உங்களுக்குத் தரப்படும்; தேடுங்கள், நீங்கள் கண்டடைவீர்கள்." - மத்தேயு 7:7
+            </div>
+            
+            <button class="share-prayer-fab" onclick="closePrayerSuccessModal()" style="position: static; width: 100%; justify-content: center;" data-i18n="wall.successClose">
+                சரி
+            </button>
+        </div>
+    </div>
+
+    <!-- AI Assistant Overlays -->
+    <div id="ai-assistant-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.85); backdrop-filter:blur(16px); z-index:11000; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; padding:30px;">
+        <div style="width:120px; height:120px; border-radius:50%; background:rgba(139,92,246,0.15); display:flex; align-items:center; justify-content:center; margin-bottom:30px; border:2px solid rgba(139,92,246,0.3); animation:pulseMic 2s infinite;">
+            <span class="material-icons" style="font-size:3.5rem; color:#a78bfa;">mic</span>
+        </div>
+        <h3 style="font-size:1.8rem; font-weight:800; margin-bottom:12px; background:linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Listening to your prayer...</h3>
+        <p style="color:rgba(255,255,255,0.7); max-width:400px; line-height:1.6; margin-bottom:30px;" id="ai-mic-instruction">Speak your name, email, and prayer request naturally. St. Antony's AI organized form for you.</p>
+        <div id="ai-live-text" style="font-size:1.15rem; color:#fff; font-weight:600; font-style:italic; max-width:600px; padding:16px 24px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:16px;">"Listening..."</div>
+        <button class="pray-btn" onclick="VoiceInput.stop()" style="margin-top:40px; border-radius:30px; padding:10px 24px; color:white; background:#ef4444; border-color:#ef4444; font-weight:800;">Cancel</button>
+    </div>
+
+    <div id="ai-processing-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.85); backdrop-filter:blur(16px); z-index:11000; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; padding:30px;">
+        <div style="width:100px; height:100px; position:relative; margin-bottom:30px; display:flex; align-items:center; justify-content:center;">
+            <div style="position:absolute; width:100%; height:100%; border:4px dashed #a78bfa; border-radius:50%; animation:sacSpin 6s linear infinite;"></div>
+            <span class="material-icons" style="font-size:3rem; color:#f472b6; animation:pulseMic 1.5s ease-in-out infinite;">psychology</span>
+        </div>
+        <h3 style="font-size:1.6rem; font-weight:800; margin-bottom:12px;" id="ai-process-title">Organizing with AI...</h3>
+        <p style="color:rgba(255,255,255,0.7);" id="ai-process-desc">Gemini is translating and populating the fields for you.</p>
+    </div>
 
     <!-- Prayer Modal -->
     <div id="prayer-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.6); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); z-index:9999; justify-content:center; align-items:center; padding:24px; opacity:0; transition:opacity 0.4s ease;">
@@ -213,9 +361,364 @@
     <script src="js/footer.js?v=1.1"></script>
     
     <script>
+        // In-memory set of prayer IDs that have been clicked (prayed) in this session
+        const prayedInSession = new Set();
+
         document.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('devotion');
+            
+            // Load and render prayer wall requests
+            await loadPrayerRequests();
+
+            // Set up character counter for message textarea
+            const messageInput = document.getElementById('form-message');
+            const charCounter = document.getElementById('form-char-counter');
+            if (messageInput && charCounter) {
+                messageInput.addEventListener('input', () => {
+                    const count = messageInput.value.length;
+                    charCounter.innerText = `${count}/300`;
+                });
+            }
+
+            // Register typing transliteration (English-to-Tamil) if phonetic Tamil typing is available
+            if (typeof TransliterationService !== 'undefined') {
+                const nameInput = document.getElementById('form-name');
+                if (nameInput) TransliterationService.register(nameInput);
+                if (messageInput) TransliterationService.register(messageInput);
+            }
+
+            // Mount Microphone Buttons using VoiceInput service
+            if (typeof VoiceInput !== 'undefined' && VoiceInput.isSupported()) {
+                const nameMount = document.getElementById('voice-name-mount');
+                const emailMount = document.getElementById('voice-email-mount');
+                const messageMount = document.getElementById('voice-message-mount');
+
+                if (nameMount) nameMount.innerHTML = VoiceInput.renderButtons('form-name');
+                if (emailMount) emailMount.innerHTML = VoiceInput.renderButtons('form-email');
+                if (messageMount) messageMount.innerHTML = VoiceInput.renderButtons('form-message');
+                
+                // Redo style adjustments for absolute buttons
+                if (messageMount) {
+                    messageMount.style.top = '10px';
+                    messageMount.style.right = '10px';
+                }
+            }
+
+            // Listen for global language changes
+            window.addEventListener('sacLanguageChanged', async () => {
+                await loadPrayerRequests();
+            });
         });
+
+        // ----------------------------------------------------
+        // PRAYER WALL CORE LOGIC
+        // ----------------------------------------------------
+
+        // Format relative timestamp (e.g. "2 hours ago" or "2 மணி நேரத்திற்கு முன்")
+        function formatRelativeTime(dateString, lang) {
+            const isTa = lang === 'ta';
+            const now = new Date();
+            const date = new Date(dateString);
+            const diffMs = now - date;
+            const diffMins = Math.max(1, Math.floor(diffMs / 60000));
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+
+            if (diffMins < 60) {
+                return isTa ? `${diffMins} நிமிடங்களுக்கு முன்` : `${diffMins}m ago`;
+            } else if (diffHours < 24) {
+                return isTa ? `${diffHours} மணி நேரத்திற்கு முன்` : `${diffHours}h ago`;
+            } else if (diffDays < 7) {
+                return isTa ? `${diffDays} நாட்களுக்கு முன்` : `${diffDays}d ago`;
+            } else {
+                return date.toLocaleDateString(isTa ? 'ta-IN' : 'en-IN', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+            }
+        }
+
+        // Fetch and load prayer requests into the grid
+        async function loadPrayerRequests() {
+            const grid = document.getElementById('prayer-wall-cards-grid');
+            if (!grid) return;
+
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            
+            try {
+                const allPrayers = await SAC_DATABASE.get("prayer_requests");
+                
+                // Filter: show only active requests (isActive !== false)
+                const activePrayers = allPrayers.filter(p => p.isActive !== false);
+
+                if (!activePrayers || activePrayers.length === 0) {
+                    grid.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; border: 1px dashed var(--border-glass); border-radius: 20px; color: var(--text-muted); background: rgba(0,0,0,0.01);">
+                            <span class="material-icons" style="font-size: 3rem; display: block; margin-bottom: 12px; opacity: 0.6;">favorite_border</span>
+                            <span style="font-weight:700;">${isTa ? "சுவரில் இதுவரை வேண்டுதல்கள் எதுவும் இல்லை. முதலாவதாகப் பகிருங்கள்!" : "No prayer requests on the wall yet. Be the first to share!"}</span>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Sort: latest submissions first
+                activePrayers.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                grid.innerHTML = activePrayers.map(p => {
+                    const id = p.id;
+                    const prayCount = p.prayCount || 0;
+                    
+                    // Category translation & icon selection
+                    const category = p.category || 'special';
+                    const catKey = `wall.cat.${category}`;
+                    const categoryText = SAC_COMMON.staticTranslations[isTa ? 'ta' : 'en'][catKey] || category;
+                    
+                    // Name translation (supports Anonymous toggle)
+                    const isAnon = p.isAnonymous === true || !p.name;
+                    const displayName = isAnon 
+                        ? (isTa ? 'அநாமதேயர்' : 'Anonymous') 
+                        : p.name;
+                    
+                    // Time format
+                    const relativeTime = formatRelativeTime(p.date, isTa);
+                    
+                    // Session/Local clicked check
+                    const hasPrayed = prayedInSession.has(id) || sessionStorage.getItem(`sac_prayed_${id}`) === 'true';
+                    const activeClass = hasPrayed ? ' prayed-active' : '';
+                    
+                    // Button labels
+                    const prayBtnLabel = isTa ? 'செபிக்கவும்' : 'Pray';
+                    
+                    // Count formatting
+                    let countLabel = '';
+                    if (prayCount === 0) {
+                        countLabel = isTa ? 'துணை நிற்கிறோம்' : 'Standing in prayer';
+                    } else if (prayCount === 1) {
+                        countLabel = isTa ? '1 நபர் செபித்தார்' : '1 person prayed';
+                    } else {
+                        countLabel = isTa ? `${prayCount} பேர் செபித்தனர்` : `${prayCount} people prayed`;
+                    }
+
+                    return `
+                        <article class="prayer-req-card cat-${category}${activeClass}" id="prayer-card-${id}">
+                            <div class="prayer-card-header">
+                                <span class="prayer-card-name">
+                                    <span class="material-icons" style="font-size: 1.15rem; color: ${isAnon ? 'var(--text-muted)' : 'var(--primary)'}">${isAnon ? 'account_circle' : 'person'}</span>
+                                    ${displayName}
+                                </span>
+                                <span class="wall-cat-pill">${categoryText}</span>
+                            </div>
+                            
+                            <p class="prayer-card-msg">"${p.message}"</p>
+                            
+                            <div class="prayer-card-footer">
+                                <span class="prayer-card-time">
+                                    <span class="material-icons">schedule</span>
+                                    ${relativeTime}
+                                </span>
+                                
+                                <button class="pray-btn${activeClass}" onclick="handlePrayClick(event, '${id}')" aria-label="${prayBtnLabel}">
+                                    <span class="material-icons">${hasPrayed ? 'volunteer_activism' : 'favorite'}</span>
+                                    <span class="pray-badge">${countLabel}</span>
+                                </button>
+                            </div>
+                        </article>
+                    `;
+                }).join('');
+
+            } catch (err) {
+                console.error("Failed to load prayer requests:", err);
+                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#ef4444; padding:20px;">⚠️ Error loading prayer wall requests.</div>`;
+            }
+        }
+
+        // Submitting Intention
+        async function handlePrayerSubmit(e) {
+            e.preventDefault();
+            
+            const isAnon = document.getElementById('form-anonymous').checked;
+            const nameVal = document.getElementById('form-name').value;
+            const emailVal = document.getElementById('form-email').value;
+            const catVal = document.getElementById('form-category').value;
+            const msgVal = document.getElementById('form-message').value;
+
+            if (!msgVal || msgVal.trim().length < 5) {
+                const isTa = SAC_COMMON.currentLang === 'ta';
+                alert(isTa ? "செப விண்ணப்பம் குறைந்தது 5 எழுத்துக்கள் கொண்டிருக்க வேண்டும்!" : "Prayer request must be at least 5 characters!");
+                return;
+            }
+
+            const newPrayer = {
+                name: isAnon ? "" : nameVal.trim(),
+                email: emailVal.trim(),
+                message: msgVal.trim(),
+                category: catVal,
+                isAnonymous: isAnon,
+                prayCount: 1, // Start with 1 pray
+                status: 'pending',
+                date: new Date().toISOString(),
+                isActive: true
+            };
+
+            const submitBtn = document.getElementById('form-submit-btn');
+            if (submitBtn) submitBtn.disabled = true;
+
+            try {
+                // Save using dynamic database utility (syncs to LocalStorage/Firestore)
+                await SAC_DATABASE.save("prayer_requests", newPrayer);
+                
+                // Reset form & close modal
+                document.getElementById('prayer-submit-form').reset();
+                document.getElementById('form-char-counter').innerText = '0/300';
+                toggleAnonymousState(); // reset visibility
+                
+                closePrayerWallModal();
+                
+                // Show encouraging success popup
+                openPrayerSuccessModal();
+                
+                // Reload wall cards grid
+                await loadPrayerRequests();
+
+            } catch (err) {
+                console.error("Prayer submission failed:", err);
+                alert("Failed to submit prayer. Please try again.");
+            } finally {
+                if (submitBtn) submitBtn.disabled = false;
+            }
+        }
+
+        // Increment pray counts with particles
+        async function handlePrayClick(e, prayerId) {
+            e.stopPropagation();
+            
+            // Check if already clicked
+            if (prayedInSession.has(prayerId) || sessionStorage.getItem(`sac_prayed_${prayerId}`) === 'true') return;
+            
+            const btn = e.currentTarget;
+            btn.classList.add('prayed-active');
+            
+            // Prevent duplicate clicks
+            prayedInSession.add(prayerId);
+            try {
+                sessionStorage.setItem(`sac_prayed_${prayerId}`, 'true');
+            } catch(e){}
+
+            // Spawn floating hearts/hands particles
+            const rect = btn.getBoundingClientRect();
+            const clickX = rect.left + rect.width / 2;
+            const clickY = rect.top + window.scrollY;
+            
+            // Spawn 3 particles staggered
+            spawnAmenParticle(clickX, clickY);
+            setTimeout(() => spawnAmenParticle(clickX - 15, clickY - 10), 150);
+            setTimeout(() => spawnAmenParticle(clickX + 15, clickY - 10), 300);
+
+            try {
+                // Fetch existing requests and increment
+                const prayers = await SAC_DATABASE.get("prayer_requests");
+                const prayer = prayers.find(x => x.id === prayerId);
+                if (prayer) {
+                    prayer.prayCount = (prayer.prayCount || 0) + 1;
+                    await SAC_DATABASE.save("prayer_requests", prayer);
+                    
+                    // Update button content without complete grid rebuild for speed
+                    const isTa = SAC_COMMON.currentLang === 'ta';
+                    const icon = btn.querySelector('.material-icons');
+                    if (icon) icon.innerText = 'volunteer_activism';
+                    
+                    const badge = btn.querySelector('.pray-badge');
+                    if (badge) {
+                        badge.innerText = isTa ? `${prayer.prayCount} பேர் செபித்தனர்` : `${prayer.prayCount} people prayed`;
+                    }
+                    
+                    // Optional toast confirmation
+                    if (typeof SAC_Toast !== 'undefined') {
+                        SAC_Toast.info(isTa ? 'செபம் செய்யப்பட்டது' : 'Prayed!', isTa ? 'உங்களது செபம் இணைக்கப்பட்டது' : 'Your prayer has been added.');
+                    }
+                }
+            } catch (err) {
+                console.error("Amen save failed:", err);
+            }
+        }
+
+        // Spawn a floating particle rising upwards
+        function spawnAmenParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'amen-particle';
+            
+            // Randomly pick pray emoji or heart emoji
+            const emojis = ['🙏', '❤️', '✨', '🕯️'];
+            particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            
+            // Randomize slight horizontal drifts
+            const driftX = (Math.random() - 0.5) * 40;
+            particle.style.setProperty('--drift-x', `${driftX}px`);
+            
+            document.body.appendChild(particle);
+            
+            // Clean up
+            setTimeout(() => {
+                particle.remove();
+            }, 1200);
+        }
+
+        // Modal Controls
+        function openPrayerWallModal() {
+            const overlay = document.getElementById('prayer-submit-modal-overlay');
+            if (overlay) {
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden'; // disable scroll
+            }
+        }
+
+        // Reset and clear name input if anonymous is checked
+        function toggleAnonymousState() {
+            const checkbox = document.getElementById('form-anonymous');
+            const nameInput = document.getElementById('form-name');
+            const nameGroup = document.getElementById('form-group-name');
+            
+            if (checkbox && nameInput) {
+                const isAnon = checkbox.checked;
+                nameInput.disabled = isAnon;
+                nameInput.required = !isAnon;
+                
+                if (isAnon) {
+                    nameInput.value = '';
+                    if (nameGroup) nameGroup.style.opacity = '0.5';
+                } else {
+                    if (nameGroup) nameGroup.style.opacity = '1';
+                }
+            }
+        }
+
+        function closePrayerWallModal() {
+            const overlay = document.getElementById('prayer-submit-modal-overlay');
+            if (overlay) {
+                overlay.classList.remove('open');
+                document.body.style.overflow = ''; // restore scroll
+            }
+        }
+
+        function openPrayerSuccessModal() {
+            const overlay = document.getElementById('prayer-success-modal-overlay');
+            if (overlay) {
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closePrayerSuccessModal() {
+            const overlay = document.getElementById('prayer-success-modal-overlay');
+            if (overlay) {
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
 
         // Language Toggle Logic
         function toggleLanguage(lang) {

@@ -87,25 +87,27 @@ body.a11y-high-contrast .btn-admin {
   left: 24px;
   width: 56px;
   height: 56px;
-  background-color: var(--primary);
+  background-color: var(--primary, #6d28d9);
   color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25), 0 0 0 3px rgba(255,255,255,0.3);
   cursor: pointer;
   z-index: 10000;
   transition: transform 0.2s ease, background-color 0.2s ease;
   border: none;
   outline: none;
+  font-family: 'Material Icons', sans-serif;
 }
 #a11y-fab:hover, #a11y-fab:focus {
   transform: scale(1.1);
-  background-color: var(--accent-gold);
+  background-color: var(--accent-gold, #b45309);
 }
 #a11y-fab .material-icons {
   font-size: 28px;
+  color: #fff;
 }
 
 #a11y-panel {
@@ -113,27 +115,30 @@ body.a11y-high-contrast .btn-admin {
   bottom: 90px;
   left: 24px;
   width: 320px;
-  background: var(--bg-card);
+  background: var(--bg-card, rgba(255,255,255,0.95));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-glass);
+  border: 1px solid var(--border-glass, rgba(0,0,0,0.08));
   border-radius: 16px;
-  box-shadow: var(--shadow-premium);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
   z-index: 10000;
   padding: 20px;
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 16px;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  font-family: var(--font-primary);
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  font-family: var(--font-primary, 'Inter', sans-serif);
 }
 
 #a11y-panel.open {
-  display: flex;
   opacity: 1;
-  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
 .a11y-header {

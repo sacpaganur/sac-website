@@ -328,3 +328,414 @@
     .prayer-card-content h4 { font-size: 1rem; }
     .prayer-card-content p { font-size: 0.8rem; }
 }
+
+/* ================================================================
+   INTERACTIVE PRAYER WALL STYLES
+   ================================================================ */
+
+.prayer-wall-section {
+    position: relative;
+    padding: clamp(40px, 8vw, 80px) 20px;
+    border-top: 1px solid var(--border-glass);
+    margin-top: 40px;
+    background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.03) 0%, transparent 60%);
+}
+
+.prayer-wall-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Share Intention FAB Button */
+.share-prayer-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 50px;
+    background: var(--gradient-brand);
+    color: #fff !important;
+    font-weight: 800;
+    font-size: 0.9rem;
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    border: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.share-prayer-fab:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 14px 30px rgba(139, 92, 246, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.share-prayer-fab .material-icons {
+    font-size: 1.25rem;
+    transition: transform 0.4s ease;
+}
+
+.share-prayer-fab:hover .material-icons {
+    transform: rotate(90deg);
+}
+
+/* Interactive Grid Layout */
+.prayer-wall-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+}
+
+/* Glassmorphic Prayer Request Card */
+.prayer-req-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-premium);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prayer-req-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(139, 92, 246, 0.2);
+}
+
+/* Top border color stripes based on category */
+.prayer-req-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: var(--accent-gold);
+}
+
+.prayer-req-card.cat-health::after { background: #ec4899; } /* Pink */
+.prayer-req-card.cat-family::after { background: #10b981; } /* Green */
+.prayer-req-card.cat-thanks::after { background: #f59e0b; } /* Gold */
+.prayer-req-card.cat-rest::after { background: #3b82f6; } /* Blue */
+.prayer-req-card.cat-special::after { background: #8b5cf6; } /* Purple */
+
+/* Card Header */
+.prayer-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.prayer-card-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Category Pills with custom pastels */
+.wall-cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.cat-health .wall-cat-pill { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+.cat-family .wall-cat-pill { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.cat-thanks .wall-cat-pill { background: rgba(245, 158, 11, 0.1); color: #d97706; }
+.cat-rest .wall-cat-pill { background: rgba(59, 130, 246, 0.1); color: #2563eb; }
+.cat-special .wall-cat-pill { background: rgba(139, 92, 246, 0.1); color: #7c3aed; }
+
+/* Card Content */
+.prayer-card-msg {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    word-break: break-word;
+}
+
+/* Card Footer */
+.prayer-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,0.04);
+    padding-top: 16px;
+    margin-top: auto;
+    position: relative;
+}
+
+.prayer-card-time {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.prayer-card-time .material-icons {
+    font-size: 0.9rem;
+}
+
+/* Tactile Pray Button */
+.pray-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--border-glass);
+    background: hsla(265, 40%, 98%, 0.8);
+    color: var(--primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.pray-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px var(--primary-glow);
+    transform: translateY(-2px);
+}
+
+.pray-btn:active {
+    transform: translateY(0);
+}
+
+.pray-btn.prayed-active {
+    background: var(--gradient-brand-soft);
+    color: var(--primary);
+    border-color: var(--border-glow);
+    cursor: default;
+    pointer-events: none;
+    box-shadow: none;
+    transform: none;
+}
+
+.pray-btn .material-icons {
+    font-size: 1.05rem;
+    transition: transform 0.3s ease;
+}
+
+.pray-btn:hover .material-icons {
+    transform: scale(1.2);
+}
+
+/* Success Counters Badge */
+.pray-badge {
+    background: rgba(139, 92, 246, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.pray-btn:hover .pray-badge {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+}
+
+.pray-btn.prayed-active .pray-badge {
+    background: var(--primary);
+    color: white;
+}
+
+/* Transliteration badge fixes in inputs */
+.translit-badge {
+    margin-left: auto;
+    font-family: var(--font-primary);
+}
+
+.translit-badge span {
+    font-family: var(--font-tamil), var(--font-primary) !important;
+}
+
+/* Premium Modals Overlays */
+.prayer-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.prayer-modal-overlay.open {
+    display: flex;
+    opacity: 1;
+}
+
+.prayer-modal-inner {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 28px;
+    width: 100%;
+    max-width: 540px;
+    padding: clamp(24px, 5vw, 40px);
+    position: relative;
+    box-shadow: 0 30px 60px rgba(139, 92, 246, 0.15), inset 0 0 0 1px rgba(255,255,255,0.6);
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prayer-modal-overlay.open .prayer-modal-inner {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Float Amen Hand Particles Animation */
+.amen-particle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 1.25rem;
+    color: var(--accent-gold);
+    z-index: 50;
+    animation: floatAmen 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes floatAmen {
+    0% {
+        transform: translateY(0) scale(0.6);
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.2);
+    }
+    100% {
+        transform: translateY(-80px) scale(0.8) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+/* Category select custom styling */
+.cat-select-wrapper {
+    position: relative;
+}
+
+.cat-select-wrapper::after {
+    content: 'expand_more';
+    font-family: 'Material Icons';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-secondary);
+}
+
+/* Modern inputs standard */
+.form-input-premium {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--border-glass);
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-size: 0.92rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-input-premium:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-glow);
+    background: #fff;
+}
+
+/* Encouraging scripture display box */
+.scripture-quote-box {
+    background: var(--gradient-brand-soft);
+    padding: 16px 20px;
+    border-radius: 14px;
+    font-style: italic;
+    color: var(--primary);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    text-align: center;
+    border: 1px solid rgba(139,92,246,0.1);
+    margin-bottom: 24px;
+}
+
+/* Success window check animation */
+.checkmark-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.15);
+}
+
+.checkmark-circle .material-icons {
+    font-size: 2.8rem;
+    animation: scaleCheck 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes scaleCheck {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+/* Mobile Adjustments for FAB and modal */
+@media (max-width: 576px) {
+    .share-prayer-fab {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 18px;
+        font-size: 0.8rem;
+    }
+    
+    .prayer-wall-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .prayer-req-card {
+        padding: 20px;
+    }
+    
+    .prayer-modal-inner {
+        padding: 24px;
+        border-radius: 20px;
+    }
+}
+
