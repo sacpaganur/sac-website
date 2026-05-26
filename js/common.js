@@ -668,6 +668,48 @@ const SAC_COMMON = {
       console.error("Error initializing SAC_COMMON:", err);
       this.revealPage();
     }
+
+    // Inject Web App Manifest dynamically for PWA
+    if (!document.querySelector('link[rel="manifest"]')) {
+      const manifestLink = document.createElement('link');
+      manifestLink.rel = 'manifest';
+      manifestLink.href = 'manifest.json';
+      document.head.appendChild(manifestLink);
+    }
+    
+    // Inject Theme Color meta tag dynamically for PWA
+    if (!document.querySelector('meta[name="theme-color"]')) {
+      const themeMeta = document.createElement('meta');
+      themeMeta.name = 'theme-color';
+      themeMeta.content = '#8b5cf6';
+      document.head.appendChild(themeMeta);
+    }
+
+    // Register PWA Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.warn('Service Worker registration failed:', err);
+        });
+      });
+    }
+
+    // Load Firebase Messaging if not already present
+    if (this.pageName !== 'admin') {
+      const fcmScript = document.createElement('script');
+      fcmScript.src = 'https://www.gstatic.com/firebasejs/10.10.0/firebase-messaging-compat.js';
+      fcmScript.onload = () => {
+        const customMessagingScript = document.createElement('script');
+        customMessagingScript.src = 'js/messaging.js';
+        document.body.appendChild(customMessagingScript);
+      };
+      document.body.appendChild(fcmScript);
+    } else {
+      // In Admin, just load messaging script as FCM compat is already in head or body
+      const customMessagingScript = document.createElement('script');
+      customMessagingScript.src = 'js/messaging.js';
+      document.body.appendChild(customMessagingScript);
+    }
   },
 
   // Smoothly reveals the page by fading in the body and removing the flicker-free styling tag

@@ -1,0 +1,268 @@
+/* St. Antony's Church - Enhanced Accessibility (A11y) Mode */
+
+/* 1. Text Size Adjustments */
+html.a11y-text-large {
+  font-size: 19.2px !important; /* +20% base size */
+}
+html.a11y-text-xlarge {
+  font-size: 22.4px !important; /* +40% base size */
+}
+
+/* 2. Dyslexia-Friendly Font */
+body.a11y-dyslexic * {
+  font-family: 'Comic Sans MS', 'OpenDyslexic', 'Arial', sans-serif !important;
+  letter-spacing: 0.1em !important;
+  word-spacing: 0.2em !important;
+  line-height: 1.8 !important;
+}
+
+/* 3. Highlight Links */
+body.a11y-highlight-links a,
+body.a11y-highlight-links button {
+  text-decoration: underline !important;
+  text-decoration-thickness: 3px !important;
+  text-underline-offset: 4px !important;
+  text-decoration-color: #facc15 !important; /* Bright yellow */
+  background-color: rgba(250, 204, 21, 0.15) !important;
+  color: #1e1b4b !important; /* Dark indigo for contrast */
+}
+
+/* 4. Pause Animations */
+body.a11y-pause-animations * {
+  animation: none !important;
+  transition: none !important;
+}
+
+body.a11y-pause-animations .particle-container,
+body.a11y-pause-animations .glow-orb,
+body.a11y-pause-animations .hero-orb,
+body.a11y-pause-animations .hero-light-beams--glass {
+  display: none !important; /* Hide motion elements completely */
+}
+
+/* 5. High Contrast Mode */
+body.a11y-high-contrast {
+  --bg-light: #000000 !important;
+  --bg-card: #111111 !important;
+  --bg-glass: #000000 !important;
+  --text-primary: #ffffff !important;
+  --text-secondary: #fef08a !important; /* Yellow text for secondary */
+  --text-muted: #d1d5db !important;
+  --primary: #facc15 !important; /* Switch primary to yellow for buttons */
+  --primary-glow: transparent !important;
+  --accent-gold: #ffffff !important;
+  --border-glass: #333333 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+body.a11y-high-contrast * {
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+body.a11y-high-contrast .navbar,
+body.a11y-high-contrast .dropdown-menu {
+  background: #000000 !important;
+  border-bottom: 2px solid #facc15 !important;
+}
+
+body.a11y-high-contrast .footer-wrapper {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border-top: 2px solid #facc15 !important;
+}
+
+body.a11y-high-contrast .btn-portal,
+body.a11y-high-contrast .btn-admin {
+  background: #facc15 !important;
+  color: #000000 !important;
+  border: 2px solid #facc15 !important;
+}
+
+/* A11y Floating Widget UI */
+#a11y-fab {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 56px;
+  height: 56px;
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 10000;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  border: none;
+  outline: none;
+}
+#a11y-fab:hover, #a11y-fab:focus {
+  transform: scale(1.1);
+  background-color: var(--accent-gold);
+}
+#a11y-fab .material-icons {
+  font-size: 28px;
+}
+
+#a11y-panel {
+  position: fixed;
+  bottom: 90px;
+  left: 24px;
+  width: 320px;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  box-shadow: var(--shadow-premium);
+  z-index: 10000;
+  padding: 20px;
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  font-family: var(--font-primary);
+}
+
+#a11y-panel.open {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.a11y-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-glass);
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+.a11y-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.a11y-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+}
+.a11y-close:hover {
+  background: rgba(0,0,0,0.05);
+  color: var(--text-primary);
+}
+
+.a11y-option {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.a11y-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.a11y-btn-group {
+  display: flex;
+  background: rgba(0,0,0,0.04);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-glass);
+}
+
+.a11y-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.a11y-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.a11y-btn:not(:last-child) {
+  border-right: 1px solid var(--border-glass);
+}
+
+.a11y-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.a11y-toggle-row:hover .a11y-label {
+  color: var(--primary);
+}
+
+/* Switch UI */
+.a11y-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 12px;
+  transition: background 0.3s;
+}
+.a11y-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+.a11y-toggle-row.active .a11y-switch {
+  background: var(--primary);
+}
+.a11y-toggle-row.active .a11y-switch::after {
+  transform: translateX(20px);
+}
+
+.a11y-reset {
+  margin-top: 8px;
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-align: center;
+}

@@ -1,0 +1,21 @@
+{
+  "name": "St. Antony's Church, Vadakku Paganur",
+  "short_name": "St. Antony's",
+  "description": "Official App for St. Antony's Church Vadakku Paganur",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8b5cf6",
+  "icons": [
+    {
+      "src": "/images/church_logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/images/church_logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

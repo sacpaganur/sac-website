@@ -237,6 +237,9 @@
                 <button class="admin-tab" onclick="switchAdminTab('prayers', this)">
                     <span class="material-icons">favorite</span><span id="tab-lbl-prayers">செப வேண்டுதல்கள்</span>
                 </button>
+                <button class="admin-tab" onclick="switchAdminTab('notifications', this)">
+                    <span class="material-icons">notifications_active</span><span id="tab-lbl-notifications">அறிவிப்புகள் (Push)</span>
+                </button>
                 <button class="admin-tab" onclick="switchAdminTab('database', this)">
                     <span class="material-icons">cloud_sync</span><span id="tab-lbl-db">தரவுத்தளம் (Firebase)</span>
                 </button>
@@ -877,7 +880,40 @@
                 </div>
             </div>
 
-            <!-- ======================= TAB 7: DATABASE CONFIG ======================= -->
+            <!-- ======================= TAB 8: PUSH NOTIFICATIONS ======================= -->
+            <div id="panel-notifications" class="admin-panel">
+                <div class="admin-card" style="max-width:600px; margin: 0 auto; text-align: center;">
+                    <div style="font-size: 3rem; color: var(--primary); margin-bottom: 16px;">
+                        <span class="material-icons" style="font-size:inherit;">campaign</span>
+                    </div>
+                    <h3 style="margin-bottom: 12px; color: var(--text-primary);">Push Notifications / நேரடி அறிவிப்புகள்</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">
+                        Send instant notifications directly to the mobile phones of parishioners who have installed the church app.
+                    </p>
+                    
+                    <div style="background: #f1f5f9; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+                        <span style="font-size: 2.5rem; font-weight: 800; color: #334155;" id="admin-subscriber-count">0</span>
+                        <div style="font-size: 0.9rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">
+                            Active Subscribers
+                        </div>
+                    </div>
+
+                    <div style="background: #eef2ff; border: 1px solid #c7d2fe; padding: 16px; border-radius: 12px; text-align: left; margin-bottom: 24px;">
+                        <h4 style="color: #4338ca; margin: 0 0 8px 0; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                            <span class="material-icons" style="font-size: 18px;">security</span> Secure Sending
+                        </h4>
+                        <p style="margin: 0; font-size: 0.85rem; color: #3730a3; line-height: 1.5;">
+                            For security reasons, Push Notifications are sent securely via the official Firebase Console. Click the button below to log in and compose your message in the "Messaging" tab.
+                        </p>
+                    </div>
+
+                    <a href="https://console.firebase.google.com/" target="_blank" class="btn-submit btn-admin-action" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center; gap: 8px; width: 100%;">
+                        <span class="material-icons">open_in_new</span> Open Firebase Console
+                    </a>
+                </div>
+            </div>
+
+            <!-- ======================= TAB 9: DATABASE ======================= -->
             <div id="panel-database" class="admin-panel">
                 <div class="admin-split-layout">
                     <div class="admin-card">
@@ -1045,8 +1081,18 @@
             await populateGalleryList();
             await populatePrayersList();
             await populateDatabaseConfig();
+            await populateSubscriberCount();
 
             updateDBConnectionStatusBadge();
+        }
+
+        async function populateSubscriberCount() {
+            try {
+                const subscribers = await SAC_DATABASE.get('subscribers');
+                document.getElementById('admin-subscriber-count').innerText = subscribers ? subscribers.length : 0;
+            } catch (err) {
+                console.warn('Failed to fetch subscriber count', err);
+            }
         }
 
         function showCustomConfirm(msgEn, msgTa, onConfirm) {
