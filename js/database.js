@@ -231,6 +231,33 @@ const SAC_DATABASE = {
         titleTa: "வரலாற்று சிறப்புமிக்க பழைய ஆலய பீடம்",
         titleEn: "Glorious Old Church Altar",
         isActive: true
+      },
+      {
+        id: "gallery_new_1",
+        src: "images/opening_ceremony_1.jpg",
+        catTa: "திறப்பு விழா | Opening Ceremony",
+        catEn: "Opening Ceremony",
+        titleTa: "புதிய ஆலய திறப்பு விழா பவனி மற்றும் ஆராதனை",
+        titleEn: "New Church Opening Ceremony Procession and Worship",
+        isActive: true
+      },
+      {
+        id: "gallery_new_2",
+        src: "images/opening_ceremony_2.jpg",
+        catTa: "திறப்பு விழா | Opening Ceremony",
+        catEn: "Opening Ceremony",
+        titleTa: "பேராயர் தலைமையில் புதிய ஆலய அர்ச்சிப்பு மற்றும் வரவேற்பு",
+        titleEn: "Blessing of the New Church by the Bishop and Welcome Ceremony",
+        isActive: true
+      },
+      {
+        id: "gallery_new_3",
+        src: "images/opening_ceremony_3.jpg",
+        catTa: "திறப்பு விழா | Opening Ceremony",
+        catEn: "Opening Ceremony",
+        titleTa: "விழாக்கோலத்தில் புதிய ஆலயம்",
+        titleEn: "New Church Illuminated with Grand Lighting during the Ceremony",
+        isActive: true
       }
     ]
   },
@@ -287,12 +314,25 @@ const SAC_DATABASE = {
     } else if (key === 'sac_gallery') {
       // Migrate existing gallery to include the old_church_altar.png if missing
       let parsed = JSON.parse(existing);
+      let modified = false;
       if (!parsed.some(item => item.id === 'gallery_5')) {
         let newItem = defaultValue.find(i => i.id === 'gallery_5');
         if (newItem) {
           parsed.push(newItem);
-          localStorage.setItem(key, JSON.stringify(parsed));
+          modified = true;
         }
+      }
+      
+      // Fix missing English translation for Opening Ceremony
+      parsed.forEach(item => {
+        if (item.catTa === "திறப்பு விழா") {
+          item.catTa = "திறப்பு விழா | Opening Ceremony";
+          modified = true;
+        }
+      });
+
+      if (modified) {
+        localStorage.setItem(key, JSON.stringify(parsed));
       }
     }
   },
@@ -402,7 +442,15 @@ const SAC_DATABASE = {
   },
 
   setCollection(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      if (e.name === 'QuotaExceededError') {
+        alert("Local storage limit reached! You have saved too many high-resolution photos. Please delete some old ones first.");
+      }
+      console.error("Storage error:", e);
+      throw e;
+    }
   },
 
   // Universal CRUD helper

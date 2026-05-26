@@ -209,6 +209,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .logo-icon .dynamic-logo-img {
@@ -7291,7 +7292,8 @@ body:lang(ta) .footer-back-top span:last-child {
 
   html[lang="ta"] .brand-title {
     font-size: 0.95rem;
-    white-space: nowrap;
+    white-space: normal;
+    line-height: 1.2;
   }
 
   .brand-sub {

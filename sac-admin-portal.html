@@ -171,7 +171,7 @@
                     <h3 style="color:var(--primary); font-size:1.5rem; margin-bottom:8px;">நிர்வாகி உள்நுழைவு</h3>
                     <p style="color:var(--text-secondary); font-size:0.88rem;">தொடர கடவுச்சொல்லை உள்ளிடவும் / Enter Admin Password</p>
                 </div>
-                <form novalidate onsubmit="handleAdminLogin(event)">
+                <form novalidate novalidate novalidate onsubmit="handleAdminLogin(event)">
                     <div class="form-group" style="margin-bottom:20px;">
                         <label class="form-label" style="font-weight:600;">கடவுச்சொல் / Password</label>
                         <div class="password-wrapper">
@@ -249,7 +249,7 @@
                         <span class="material-icons">display_settings</span>
                         <span id="card-lbl-settings">ஆலய விபரங்கள் & முகப்புப் பக்க மாற்றங்கள்</span>
                     </div>
-                    <form novalidate id="form-admin-settings" onsubmit="saveGeneralSettings(event)">
+                    <form novalidate novalidate novalidate id="form-admin-settings" onsubmit="saveGeneralSettings(event)">
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
                             <div class="form-group">
                                 <label class="form-label">Church Name (English)</label>
@@ -408,6 +408,108 @@
                             </div>
                         </div>
 
+                                                <div class="logo-admin-section" style="margin-bottom:30px; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.05);">
+                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                                <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg, var(--primary), #9333ea); display:flex; align-items:center; justify-content:center; color:white; box-shadow: 0 4px 12px rgba(107, 70, 193, 0.3);">
+                                    <span class="material-icons">branding_watermark</span>
+                                </div>
+                                <h3 style="color:var(--primary); margin:0; font-size:1.25rem; font-weight:700;">Site Logo / இணையதள சின்னம்</h3>
+                            </div>
+                            <p style="font-size:13px; color:#555; margin-bottom:20px; line-height:1.5; padding-bottom:15px; border-bottom: 1px solid #f0f0f0;" id="logo-desc-lbl">
+                                Enhance your website's branding. Upload a custom logo to display beautifully across the website header and footer. If no logo is selected, the platform seamlessly falls back to the default sanctuary icon.
+                            </p>
+                            
+                            <div class="form-group" style="margin-bottom:24px;">
+                                <label class="form-label" style="font-weight:600; color:#333; margin-bottom:10px; display:block;">Select Upload Method</label>
+                                <div class="logo-toggle-container" style="background:#f4f4f5; padding:6px; border-radius:12px; display:inline-flex; gap:6px; box-shadow:inset 0 2px 4px rgba(0,0,0,0.02);">
+                                    <input type="radio" id="logo-file-radio" name="logo-source-type" value="file" class="logo-toggle-input" checked onchange="toggleLogoSource()">
+                                    <label for="logo-file-radio" class="toggle-btn-ui" id="logo-method-file-lbl">
+                                        <span class="material-icons" style="font-size:18px; margin-right:6px;">upload_file</span>
+                                        Device File
+                                    </label>
+                                    
+                                    <input type="radio" id="logo-url-radio" name="logo-source-type" value="url" class="logo-toggle-input" onchange="toggleLogoSource()">
+                                    <label for="logo-url-radio" class="toggle-btn-ui" id="logo-method-url-lbl">
+                                        <span class="material-icons" style="font-size:18px; margin-right:6px;">link</span>
+                                        Web URL
+                                    </label>
+                                </div>
+                                <style>
+                                    .logo-toggle-input { display: none; }
+                                    .toggle-btn-ui {
+                                        padding: 10px 24px;
+                                        border-radius: 10px;
+                                        cursor: pointer;
+                                        font-weight: 600;
+                                        font-size: 14px;
+                                        color: #666;
+                                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        background: transparent;
+                                    }
+                                    .logo-toggle-input:checked + .toggle-btn-ui {
+                                        background: var(--primary) !important;
+                                        color: white !important;
+                                        box-shadow: 0 4px 12px rgba(107, 70, 193, 0.3);
+                                        transform: translateY(-1px);
+                                    }
+                                    .toggle-btn-ui:hover:not(.logo-toggle-input:checked + .toggle-btn-ui) {
+                                        background: rgba(0,0,0,0.03);
+                                        color: var(--primary);
+                                    }
+                                </style>
+                            </div>
+
+                            <div id="logo-file-section" style="background:#fafafa; border-radius:12px; padding:20px; border:1px solid #eee;">
+                                <div style="display:flex; justify-content:space-between; margin-bottom:12px; align-items:flex-end;">
+                                    <label class="form-label" style="font-weight:600; color:#333; margin:0;">Upload Image</label>
+                                    <span id="logo-support-lbl" style="font-size:12px; color:#888; background:#fff; padding:4px 10px; border-radius:20px; border:1px solid #ddd;">Supports PNG, JPG, JPEG (Max: 5MB)</span>
+                                </div>
+                                
+                                <div style="display:flex; gap:20px; align-items:stretch; flex-wrap:wrap;">
+                                    <div style="flex-grow: 1; min-width: 250px;">
+                                        <div class="file-upload-wrapper" style="height:100%; min-height: 140px; position:relative; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff;" onmouseover="this.style.borderColor='var(--primary)'; this.style.backgroundColor='#f3e8ff';" onmouseout="this.style.borderColor='#cbd5e1'; this.style.backgroundColor='#fff';">
+                                            <input type="file" id="logo-file-picker" accept="image/png, image/jpeg, image/jpg" style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; cursor:pointer; z-index:1;" onchange="handleLogoFileSelect(event)">
+                                            <div style="width:50px; height:50px; border-radius:50%; background:#f3e8ff; display:flex; align-items:center; justify-content:center; margin-bottom:12px; color:var(--primary);">
+                                                <span class="material-icons" style="font-size: 28px;">cloud_upload</span>
+                                            </div>
+                                            <p id="logo-drop-text" style="margin:0; font-size: 14px; color: #475569; font-weight:500;">Click to browse or drag and drop image</p>
+                                        </div>
+                                    </div>
+                                    <div style="width: 130px; display:flex; flex-direction:column; align-items:center; gap:8px;">
+                                        <span id="logo-live-preview-lbl" style="font-size:13px; font-weight:600; color:#475569;">Live Preview</span>
+                                        <div style="position:relative; width:100px; height:100px; border-radius:16px; border:2px solid #e2e8f0; display:flex; align-items:center; justify-content:center; background:#ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition:all 0.3s ease;">
+                                            <span id="logo-default-emoji" style="font-size:40px; opacity:0.7;">⛪</span>
+                                            <img id="logo-preview-img" src="" style="display:none; max-width:85%; max-height:85%; border-radius:8px; object-fit:contain;">
+                                            
+                                            <!-- Hover floating action button -->
+                                            <button type="button" id="logo-remove-btn" onclick="clearLogoImagePreview()" style="display:none; position:absolute; top:-10px; right:-10px; background: #ef4444; color: white; padding:0; width:28px; height:28px; border-radius: 50%; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4); z-index:2; border: 2px solid white; cursor: pointer; align-items:center; justify-content:center; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);" title="Remove Custom Logo" onmouseover="this.style.transform='scale(1.15) rotate(90deg)';" onmouseout="this.style.transform='scale(1) rotate(0deg)';">
+                                                <span class="material-icons" style="font-size:16px; margin:0; line-height:1;">close</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="logo-url-section" style="display:none; background:#fafafa; border-radius:12px; padding:20px; border:1px solid #eee;">
+                                <div class="form-group" style="margin:0;">
+                                    <label class="form-label" style="font-weight:600; color:#333;">Image URL</label>
+                                    <div style="display:flex; gap:10px; align-items:center;">
+                                        <input type="url" id="set-logoUrl" class="form-control" style="flex-grow:1; border-color:#ddd;" placeholder="https://example.com/logo.png" oninput="updateLogoPreview()">
+                                        <div style="width: 50px; height: 50px; border-radius: 8px; border:1px solid #ddd; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                            <img id="logo-url-preview-img" src="" style="display:none; max-width:80%; max-height:80%; object-fit:contain;">
+                                            <span id="logo-url-default-emoji" style="font-size:24px; opacity:0.5;">🖼️</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
                         <button type="submit" class="btn-submit btn-admin-action" id="btn-save-settings">
                             <span class="material-icons">save</span> சேமிக்க / Save Settings
                         </button>
@@ -424,7 +526,7 @@
                             <span class="material-icons">add_circle</span>
                             <span id="mass-form-title">வழிபாடு சேர் / திருத்து</span>
                         </div>
-                        <form novalidate id="form-crud-mass" onsubmit="saveMassSchedule(event)">
+                        <form novalidate novalidate novalidate id="form-crud-mass" onsubmit="saveMassSchedule(event)">
                             <input type="hidden" id="mass-id">
                             
                             <div class="form-group">
@@ -489,7 +591,7 @@
                             <span class="material-icons">announcement</span>
                             <span id="notice-form-title">அறிவிப்பு சேர் / திருத்து</span>
                         </div>
-                        <form novalidate id="form-crud-notice" onsubmit="saveNotice(event)">
+                        <form novalidate novalidate novalidate id="form-crud-notice" onsubmit="saveNotice(event)">
                             <input type="hidden" id="notice-id">
                             
                             <div class="form-group">
@@ -554,7 +656,7 @@
                             <span class="material-icons">more_time</span>
                             <span id="timeline-form-title">வரலாற்று மைல்கல் சேர் / திருத்து</span>
                         </div>
-                        <form novalidate id="form-crud-timeline" onsubmit="saveTimelineEvent(event)">
+                        <form novalidate novalidate novalidate id="form-crud-timeline" onsubmit="saveTimelineEvent(event)">
                             <input type="hidden" id="time-id">
                             
                             <div class="form-group">
@@ -626,7 +728,7 @@
                             <span class="material-icons">add_photo_alternate</span>
                             <span id="gallery-form-title">புகைப்படம் சேர் / திருத்து</span>
                         </div>
-                        <form novalidate id="form-crud-gallery" onsubmit="saveGalleryImage(event)">
+                        <form novalidate novalidate novalidate id="form-crud-gallery" onsubmit="saveGalleryImage(event)">
                             <input type="hidden" id="gallery-id">
                             
                             <!-- Image Selection Options -->
@@ -650,7 +752,7 @@
                                 <div style="border: 2px dashed var(--border-glass); border-radius: 12px; padding: 20px; text-align: center; background: rgba(255,255,255,0.4); transition: var(--transition); cursor: pointer;" onclick="document.getElementById('gallery-file-picker').click()">
                                     <span class="material-icons" style="font-size: 2.8rem; color: var(--primary); margin-bottom: 8px;">cloud_upload</span>
                                     <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;" id="file-upload-status">சுடு கிளிக் செய்து கோப்பைத் தேர்ந்தெடுக்கவும் / Click to upload image</p>
-                                    <span style="font-size: 0.75rem; color: var(--text-muted);">Max 2MB (PNG, JPG, WEBP)</span>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">Max 5MB (PNG, JPG, WEBP)</span>
                                 </div>
                                 <input type="file" id="gallery-file-picker" accept="image/*" style="display:none;" onchange="handleGalleryFileChange(event)">
                             </div>
@@ -722,7 +824,7 @@
                             <span class="material-icons">add_box</span>
                             <span id="form-title-past-official">முன்னாள் பொறுப்பாளர் சேர் / திருத்து</span>
                         </div>
-                        <form novalidate id="form-past-official" onsubmit="savePastOfficial(event)">
+                        <form novalidate novalidate novalidate id="form-past-official" onsubmit="savePastOfficial(event)">
                             <input type="hidden" id="po-id">
                             <div class="form-group">
                                 <label class="form-label">பதவி / Role</label>
@@ -787,7 +889,7 @@
                             இணையதளத்தை கோப்பு திருத்தாமல், லைவ் டேட்டாபேஸில் இணைக்க உங்கள் Firebase Firestore விபரங்களை பதிவிடவும். இயக்கப்பட்டவுடன், இந்த வலைத்தளம் நேரடியாக உங்கள் Firebase இல் தகவல்களை சேமிக்கும்.
                         </p>
                         
-                        <form novalidate id="form-db-config" onsubmit="saveDatabaseConfig(event)">
+                        <form novalidate novalidate novalidate id="form-db-config" onsubmit="saveDatabaseConfig(event)">
                             <div class="form-group" style="display:flex; align-items:center; gap:10px;">
                                 <input type="checkbox" id="db-enabled" style="width:20px; height:20px;">
                                 <label for="db-enabled" style="font-weight:800; cursor:pointer;">Enable Live Firestore Database Sync</label>
@@ -1026,6 +1128,20 @@
         }
 
         // Display beautiful visual saving notification
+        function showGlobalErrorAlert(msgTa, msgEn) {
+            const isTa = window.SAC_COMMON ? SAC_COMMON.currentLang === 'ta' : false;
+            const alertBox = document.getElementById('admin-global-alert');
+            if (alertBox) {
+                alertBox.className = 'form-alert error';
+                alertBox.style.display = 'flex';
+                alertBox.innerHTML = '<strong>❌</strong> <span>' + (isTa ? msgTa : msgEn) + '</span>';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(() => { alertBox.style.display = 'none'; }, 5000);
+            } else {
+                alert(isTa ? msgTa : msgEn);
+            }
+        }
+
         function showGlobalSuccessAlert(msgTa, msgEn) {
             const isTa = SAC_COMMON.currentLang === 'ta';
             const alertBox = document.getElementById('admin-global-alert');
@@ -1092,9 +1208,243 @@
             return isValid;
         }
 
+        
+        // ======================= GLOBAL FORM VALIDATION =======================
+        function validateAdminForm(form) {
+            let isValid = true;
+            const isTa = window.SAC_COMMON ? SAC_COMMON.currentLang === 'ta' : false;
+            
+            form.querySelectorAll('.sac-validation-error').forEach(el => el.remove());
+            
+            const requiredInputs = form.querySelectorAll('[required]');
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'sac-validation-error';
+                    errorMsg.innerText = isTa ? 'இப்புலம் கட்டாயம் நிரப்பப்பட வேண்டும்.' : 'This field is required.';
+                    errorMsg.style.display = 'block';
+                    
+                    let targetContainer = input.parentNode;
+                    if (targetContainer.classList.contains('password-wrapper')) {
+                        targetContainer = targetContainer.parentNode;
+                    }
+                    
+                    targetContainer.style.position = 'relative';
+                    targetContainer.style.paddingBottom = '24px';
+                    targetContainer.appendChild(errorMsg);
+                    
+                    input.style.borderColor = '#e11d48';
+                    
+                    input.addEventListener('input', function onInput() {
+                        input.style.borderColor = '';
+                        targetContainer.style.paddingBottom = '';
+                        if (errorMsg.parentNode) errorMsg.remove();
+                        input.removeEventListener('input', onInput);
+                    });
+                }
+            });
+            return isValid;
+        }
+
         // ======================= TAB 1: SETTINGS FUNCTIONS =======================
+        let selectedLogoBase64 = "";
+
+        // ======================= LOGO UPLOAD FUNCTIONS =======================
+        
+
+        function toggleLogoSource() {
+            const isFile = document.querySelector('input[name="logo-source-type"][value="file"]').checked;
+            document.getElementById('logo-file-section').style.display = isFile ? 'block' : 'none';
+            document.getElementById('logo-url-section').style.display = isFile ? 'none' : 'block';
+            updateLogoPreview();
+        }
+
+        function handleLogoFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) {
+                resetLogoUI();
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                showGlobalErrorAlert("File too large!", "Please select an image under 5MB.");
+                e.target.value = '';
+                return;
+            }
+
+            const isTa = SAC_COMMON && SAC_COMMON.currentLang === 'ta';
+            const dropText = document.getElementById('logo-drop-text');
+            if(dropText) {
+                dropText.innerHTML = isTa ? `தற்போதைய கோப்பு: <b>${file.name}</b><br><span style="font-size:12px;color:#888;">மாற்ற கிளிக் செய்யவும்</span>` : `Current file: <b>${file.name}</b><br><span style="font-size:12px;color:#888;">Click or drop to change</span>`;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                selectedLogoBase64 = event.target.result;
+                updateLogoPreview();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateLogoPreview() {
+            const isFile = document.querySelector('input[name="logo-source-type"][value="file"]')?.checked;
+            const previewImg = document.getElementById('logo-preview-img');
+            const defaultEmoji = document.getElementById('logo-default-emoji');
+            const removeBtn = document.getElementById('logo-remove-btn');
+            const dropText = document.getElementById('logo-drop-text');
+            const isTa = window.SAC_COMMON && SAC_COMMON.currentLang === 'ta';
+            
+            const urlPreviewImg = document.getElementById('logo-url-preview-img');
+            const urlDefaultEmoji = document.getElementById('logo-url-default-emoji');
+            
+            let src = '';
+            if (isFile) {
+                src = selectedLogoBase64;
+            } else {
+                const urlEl = document.getElementById('set-logoUrl');
+                if(urlEl) src = urlEl.value.trim();
+            }
+
+            if (src) {
+                if(previewImg) { previewImg.src = src; previewImg.style.display = 'block'; }
+                if(defaultEmoji) defaultEmoji.style.display = 'none';
+                if(removeBtn) removeBtn.style.display = 'flex';
+                
+                if(dropText && !dropText.innerHTML.includes('<b>')) {
+                    dropText.innerHTML = isTa ? `தனிப்பயன் சின்னம் செயலில் உள்ளது<br><span style="font-size:12px;color:#888;">மாற்ற கிளிக் செய்யவும்</span>` : `Custom logo is active<br><span style="font-size:12px;color:#888;">Click or drop to change</span>`;
+                }
+            } else {
+                if(previewImg) { previewImg.style.display = 'none'; previewImg.src = ""; }
+                if(defaultEmoji) defaultEmoji.style.display = 'block';
+                if(removeBtn) removeBtn.style.display = 'none';
+                
+                if(dropText) dropText.innerText = isTa ? "படம் தேர்ந்தெடுக்கவும் / Click to browse image" : "Click to browse or drag and drop image";
+            }
+            
+            if (urlPreviewImg && urlDefaultEmoji) {
+                const urlVal = document.getElementById('set-logoUrl').value.trim();
+                if (urlVal) {
+                    urlPreviewImg.src = urlVal;
+                    urlPreviewImg.style.display = 'block';
+                    urlDefaultEmoji.style.display = 'none';
+                } else {
+                    urlPreviewImg.src = '';
+                    urlPreviewImg.style.display = 'none';
+                    urlDefaultEmoji.style.display = 'block';
+                }
+            }
+        }
+
+        function resetLogoUI() {
+            selectedLogoBase64 = "";
+            const urlInput = document.getElementById('set-logoUrl');
+            if(urlInput) urlInput.value = '';
+            
+            const fileInput = document.getElementById('logo-file-picker');
+            if(fileInput) fileInput.value = '';
+            
+            const dropText = document.getElementById('logo-drop-text');
+            if(dropText) dropText.innerText = (window.SAC_COMMON && SAC_COMMON.currentLang === 'ta') ? "படம் தேர்ந்தெடுக்கவும் / Click to browse image" : "Click to browse or drag and drop image";
+            
+            updateLogoPreview();
+        }
+
+        function clearLogoImagePreview() {
+            const isTa = window.SAC_COMMON && SAC_COMMON.currentLang === 'ta';
+            showCustomConfirm(
+                "Are you sure you want to remove the custom logo? This will revert to the default church icon.",
+                "நிச்சயமாக அழிக்க வேண்டுமா? உங்கள் சொந்த சின்னத்தை நீக்க விரும்புகிறீர்களா? இது இயல்புநிலை தேவாலய சின்னத்திற்கு மாறும்.",
+                function() { resetLogoUI(); }
+            );
+        }
+
+        
+        function toggleLogoSource() {
+            const isFile = document.querySelector('input[name="logo-source-type"][value="file"]').checked;
+            document.getElementById('logo-file-section').style.display = isFile ? 'block' : 'none';
+            document.getElementById('logo-url-section').style.display = isFile ? 'none' : 'block';
+            updateLogoPreview();
+        }
+
+        function handleLogoFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) {
+                resetLogoUI();
+                return;
+            }
+            
+            if (file.size > 2 * 1024 * 1024) {
+                showGlobalErrorAlert("File too large!", "Please select an image under 2MB.");
+                e.target.value = '';
+                return;
+            }
+
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            document.getElementById('logo-drop-text').innerText = isTa ? "படம் தேர்ந்தெடுக்கப்பட்டது" : "Image Selected";
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                selectedLogoBase64 = event.target.result;
+                updateLogoPreview();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateLogoPreview() {
+            const isFile = document.querySelector('input[name="logo-source-type"][value="file"]').checked;
+            const previewImg = document.getElementById('logo-preview-img');
+            const defaultEmoji = document.getElementById('logo-default-emoji');
+            const removeBtn = document.getElementById('logo-remove-btn');
+            
+            let src = '';
+            if (isFile) {
+                src = selectedLogoBase64;
+            } else {
+                src = document.getElementById('set-logoUrl').value.trim();
+            }
+
+            if (src) {
+                previewImg.src = src;
+                previewImg.style.display = 'block';
+                if(defaultEmoji) defaultEmoji.style.display = 'none';
+                if(removeBtn) {
+                    removeBtn.style.display = 'flex';
+                }
+            } else {
+                previewImg.style.display = 'none';
+                previewImg.src = "";
+                if(defaultEmoji) defaultEmoji.style.display = 'block';
+                if(removeBtn) removeBtn.style.display = 'none';
+            }
+        }
+
+        function resetLogoUI() {
+            selectedLogoBase64 = "";
+            const urlInput = document.getElementById('set-logoUrl');
+            if(urlInput) urlInput.value = '';
+            
+            const fileInput = document.getElementById('logo-file-picker');
+            if(fileInput) fileInput.value = '';
+            
+            const dropText = document.getElementById('logo-drop-text');
+            if(dropText) dropText.innerText = (window.SAC_COMMON && SAC_COMMON.currentLang === 'ta') ? "படம் தேர்ந்தெடுக்கவும் / Click to browse image" : "Click to browse image";
+            
+            updateLogoPreview();
+        }
+
+        function clearLogoImagePreview() {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            showCustomConfirm(
+                "Are you sure you want to remove the custom logo? This will revert to the default church icon.",
+                "நிச்சயமாக அழிக்க வேண்டுமா? உங்கள் சொந்த சின்னத்தை நீக்க விரும்புகிறீர்களா? இது இயல்புநிலை தேவாலய சின்னத்திற்கு மாறும்.",
+                function() { resetLogoUI(); }
+            );
+        }
+
         async function populateGeneralSettings() {
             const settings = await SAC_DATABASE.get("settings");
+            
             
             document.getElementById('set-churchNameEn').value = settings.churchNameEn;
             document.getElementById('set-churchNameTa').value = settings.churchNameTa;
@@ -1112,28 +1462,75 @@
             document.getElementById('set-heroLeadEn').value = settings.heroLeadEn || '';
             document.getElementById('set-heroLeadTa').value = settings.heroLeadTa || '';
             
-            document.getElementById('set-priestNameEn').value = settings.priestNameEn || '';
-            document.getElementById('set-priestNameTa').value = settings.priestNameTa || '';
-            document.getElementById('set-priestPhone').value = settings.priestPhone || '';
-            document.getElementById('set-priestEmail').value = settings.priestEmail || '';
+            document.getElementById('set-priestNameEn').value = settings.priestNameEn || "Rev. Fr. A. Savarimuthu";
+            document.getElementById('set-priestNameTa').value = settings.priestNameTa || "அருட்தந்தை ஏ. சவரிமுத்து";
+            document.getElementById('set-priestPhone').value = settings.priestPhone || "+91 94860 11111";
+            document.getElementById('set-priestEmail').value = settings.priestEmail || "parishpriest@stacpaganur.in";
 
-            document.getElementById('set-treasurerNameEn').value = settings.treasurerNameEn || '';
-            document.getElementById('set-treasurerNameTa').value = settings.treasurerNameTa || '';
-            document.getElementById('set-treasurerPhone').value = settings.treasurerPhone || '';
-            document.getElementById('set-treasurerEmail').value = settings.treasurerEmail || '';
+            document.getElementById('set-treasurerNameEn').value = settings.treasurerNameEn || "Mr. S. Joseph";
+            document.getElementById('set-treasurerNameTa').value = settings.treasurerNameTa || "திரு. எஸ். ஜோசப்";
+            document.getElementById('set-treasurerPhone').value = settings.treasurerPhone || "+91 94860 22222";
+            document.getElementById('set-treasurerEmail').value = settings.treasurerEmail || "treasurer@stacpaganur.in";
             
-            document.getElementById('set-patronNameEn').value = settings.patronNameEn || '';
-            document.getElementById('set-patronNameTa').value = settings.patronNameTa || '';
-            document.getElementById('set-patronPhone').value = settings.patronPhone || '';
-            document.getElementById('set-patronEmail').value = settings.patronEmail || '';
-            
+            document.getElementById('set-patronNameEn').value = settings.patronNameEn || "Mr. P. Antonysamy";
+            document.getElementById('set-patronNameTa').value = settings.patronNameTa || "திரு. பி. அந்தோணிசாமி";
+            document.getElementById('set-patronPhone').value = settings.patronPhone || "+91 94860 33333";
+            document.getElementById('set-patronEmail').value = settings.patronEmail || "patron@stacpaganur.in";
+
             document.getElementById('set-aiApiKey').value = settings.aiApiKey || '';
+            
+            if (settings.logoUrl) {
+                if (settings.logoUrl.startsWith('data:image')) {
+                    document.querySelector('input[name="logo-source-type"][value="file"]').checked = true;
+                    selectedLogoBase64 = settings.logoUrl;
+                } else {
+                    document.querySelector('input[name="logo-source-type"][value="url"]').checked = true;
+                    document.getElementById('set-logoUrl').value = settings.logoUrl;
+                }
+                toggleLogoSource();
+            } else {
+                resetLogoUI();
+            }
+
+            
+            const activeLogo = settings.logoUrl || settings.siteLogo || '';
+            
+            if (activeLogo) {
+                if (activeLogo.startsWith('data:image')) {
+                    document.querySelector('input[name="logo-source-type"][value="file"]').checked = true;
+                    selectedLogoBase64 = activeLogo;
+                } else {
+                    document.querySelector('input[name="logo-source-type"][value="url"]').checked = true;
+                    document.getElementById('set-logoUrl').value = activeLogo;
+                }
+                toggleLogoSource();
+            } else {
+                resetLogoUI();
+            }
         }
 
         async function saveGeneralSettings(e) {
             e.preventDefault();
             if (!validateAdminForm(e.target)) return;
+            let currentSettings = {};
+            try {
+                currentSettings = await SAC_DATABASE.get("settings") || {};
+            } catch (err) {
+                console.warn("Failed to fetch existing settings before save", err);
+            }
+            
+            let logoUrlValue = '';
+            const logoSrcType = document.querySelector('input[name="logo-source-type"]:checked');
+            if (logoSrcType) {
+                if (logoSrcType.value === 'file') {
+                    logoUrlValue = selectedLogoBase64;
+                } else {
+                    logoUrlValue = document.getElementById('set-logoUrl').value.trim();
+                }
+            }
+
             const data = {
+                ...currentSettings,
                 churchNameEn: document.getElementById('set-churchNameEn').value,
                 churchNameTa: document.getElementById('set-churchNameTa').value,
                 locationEn: document.getElementById('set-locationEn').value,
@@ -1160,14 +1557,23 @@
                 patronNameTa: document.getElementById('set-patronNameTa').value,
                 patronPhone: document.getElementById('set-patronPhone').value,
                 patronEmail: document.getElementById('set-patronEmail').value,
-                aiApiKey: document.getElementById('set-aiApiKey').value
+                aiApiKey: document.getElementById('set-aiApiKey').value,
+                logoUrl: logoUrlValue
             };
+            
+            for (let key in data) {
+                if (data[key] === "undefined" || data[key] === "null") {
+                    data[key] = "";
+                }
+            }
 
             await SAC_DATABASE.save("settings", data);
             showGlobalSuccessAlert("பொது அமைப்புகள் வெற்றிகரமாக சேமிக்கப்பட்டன!", "General settings successfully updated!");
             
-            // Re-render current page navbar/footer settings
-            await SAC_COMMON.translatePage();
+            if (window.SAC_COMMON) {
+                window.SAC_COMMON.settings = data;
+                await window.SAC_COMMON.translatePage();
+            }
         }
 
         // ======================= TAB 2: MASS SCHEDULES FUNCTIONS =======================
@@ -1228,7 +1634,6 @@
         async function saveMassSchedule(e) {
             e.preventDefault();
             if (!validateAdminForm(e.target)) return;
-            
             const id = document.getElementById('mass-id').value;
             const data = {
                 dayEn: document.getElementById('mass-dayEn').value,
@@ -1321,7 +1726,6 @@
         async function saveNotice(e) {
             e.preventDefault();
             if (!validateAdminForm(e.target)) return;
-            
             const id = document.getElementById('notice-id').value;
             const data = {
                 date: document.getElementById('notice-date').value,
@@ -1416,7 +1820,6 @@
         async function saveTimelineEvent(e) {
             e.preventDefault();
             if (!validateAdminForm(e.target)) return;
-            
             const id = document.getElementById('time-id').value;
             const data = {
                 year: document.getElementById('time-year').value,
@@ -1550,16 +1953,36 @@
             const file = e.target.files[0];
             if (!file) return;
 
-            if (file.size > 2 * 1024 * 1024) {
-                alert("File size exceeds 2MB limit! / கோப்பு அளவு 2MB ஐ விட அதிகமாக உள்ளது!");
-                return;
-            }
-
             const reader = new FileReader();
             reader.onload = function(evt) {
-                selectedGalleryBase64 = evt.target.result;
-                document.getElementById('file-upload-status').innerText = `Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-                updateGalleryPreview();
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const max_size = 1000;
+
+                    if (width > height) {
+                        if (width > max_size) {
+                            height *= max_size / width;
+                            width = max_size;
+                        }
+                    } else {
+                        if (height > max_size) {
+                            width *= max_size / height;
+                            height = max_size;
+                        }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    selectedGalleryBase64 = canvas.toDataURL('image/jpeg', 0.6); // heavily compress
+                    
+                    document.getElementById('file-upload-status').innerText = `Selected: ${file.name} (Compressed for Storage)`;
+                    updateGalleryPreview();
+                };
+                img.src = evt.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -1668,7 +2091,6 @@
         async function saveGalleryImage(e) {
             e.preventDefault();
             if (!validateAdminForm(e.target)) return;
-            
             const id = document.getElementById('gallery-id').value;
             const isFileMode = document.querySelector('input[name="img-source-type"]:checked').value === 'file';
             const finalSrc = isFileMode ? selectedGalleryBase64 : document.getElementById('gallery-src').value.trim();
@@ -1820,7 +2242,6 @@
         async function saveDatabaseConfig(e) {
             e.preventDefault();
             if (!validateAdminForm(e.target)) return;
-            
             const data = {
                 enabled: document.getElementById('db-enabled').checked,
                 apiKey: document.getElementById('db-apiKey').value.trim(),
@@ -1847,6 +2268,7 @@
             document.getElementById('tab-lbl-masses').innerText = isTa ? "வழிபாடுகள் (CRUD)" : "Schedules (CRUD)";
             document.getElementById('tab-lbl-notices').innerText = isTa ? "அறிவிப்புகள் (CRUD)" : "Announcements (CRUD)";
             document.getElementById('tab-lbl-timeline').innerText = isTa ? "வரலாறு (CRUD)" : "History (CRUD)";
+            document.getElementById('tab-lbl-past-officials').innerText = isTa ? "முன்னாள் பொறுப்பாளர்கள்" : "Past Officials";
             document.getElementById('tab-lbl-past-officials').innerText = isTa ? "முன்னாள் பொறுப்பாளர்கள்" : "Past Officials";
             document.getElementById('tab-lbl-gallery').innerText = isTa ? "புகைப்படங்கள் (CRUD)" : "Gallery (CRUD)";
             document.getElementById('tab-lbl-prayers').innerText = isTa ? "செப வேண்டுதல்கள்" : "Prayers";

@@ -871,7 +871,7 @@ const SAC_COMMON = {
     document.querySelectorAll('.brand-sub, .footer-location').forEach(el => el.innerText = location);
     document.querySelectorAll('.footer-address-label').forEach(el => el.innerText = address);
 
-    const siteLogoUrl = settings.siteLogo || '';
+    const siteLogoUrl = settings.logoUrl || settings.siteLogo || '';
     document.querySelectorAll('.logo-icon, .footer-church-logo').forEach(el => {
       if (siteLogoUrl) {
         el.innerHTML = `<img src="${siteLogoUrl}" alt="Church Logo" class="dynamic-logo-img">`;
