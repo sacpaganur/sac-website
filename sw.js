@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v5';
+const CACHE_NAME = 'sac-pwa-cache-v6';
 const ASSETS_TO_CACHE = [
   './',
   './bible',
@@ -9,6 +9,7 @@ const ASSETS_TO_CACHE = [
   './liturgy',
   './notices',
   './schedule',
+  './sac-admin-portal',
   './css/style.css',
   './css/bible-page.css',
   './css/calendar.css',
