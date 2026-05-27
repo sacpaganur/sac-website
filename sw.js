@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v11';
+const CACHE_NAME = 'sac-pwa-cache-v12';
 const ASSETS_TO_CACHE = [
   './',
   './bible',
@@ -97,38 +97,47 @@ self.addEventListener('fetch', (event) => {
     cleanUrl = requestUrl.origin + cleanPath + requestUrl.search;
   }
 
-  // --- Strategy 1: Network-First for Page Navigations (HTML pages) ---
-  // This avoids any potential redirect conflicts or ERR_FAILED blocks from cleanUrls when online,
-  // while ensuring robust offline fallback loading.
-  if (event.request.mode === 'navigate') {
+  // Identify core files (pages, scripts, stylesheets) that need to be served fresh online
+  const isDocOrScriptOrStyle = 
+    event.request.mode === 'navigate' ||
+    event.request.url.endsWith('.js') ||
+    event.request.url.endsWith('.css') ||
+    event.request.url.includes('/js/') ||
+    event.request.url.includes('/css/');
+
+  // --- Strategy 1: Network-First for HTML, Javascript, and CSS ---
+  // Online: queries the live server to return the latest deployed changes instantly.
+  // Offline: falls back to the local cached version.
+  if (isDocOrScriptOrStyle) {
     event.respondWith(
       fetch(event.request)
         .then((networkResponse) => {
-          // If successful and not redirected, cache the response under the clean URL
           if (networkResponse && networkResponse.status === 200 && !networkResponse.redirected) {
             const responseToCache = networkResponse.clone();
             caches.open(CACHE_NAME).then((cache) => {
               cache.put(cleanUrl, responseToCache).catch(err => {
-                console.warn('[Service Worker] Navigation cache put failed:', err);
+                console.warn('[Service Worker] Cache put failed:', err);
               });
             });
           }
           return networkResponse;
         })
         .catch((error) => {
-          console.warn('[Service Worker] Navigation fetch failed. Attempting offline cache fallback...', error);
-          // Network failed (offline), try to serve the clean URL from cache
+          console.warn('[Service Worker] Fetch failed, returning cached fallback:', error);
           return caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
             if (cachedResponse) return cachedResponse;
-            // Ultimate fallback to cached clean home page
-            return caches.match('./', { ignoreSearch: true });
+            if (event.request.mode === 'navigate') {
+              // Ultimate navigation fallback to home page
+              return caches.match('./', { ignoreSearch: true });
+            }
           });
         })
     );
     return;
   }
 
-  // --- Strategy 2: Stale-While-Revalidate for Static Assets (CSS, JS, Images, etc.) ---
+  // --- Strategy 2: Stale-While-Revalidate for large, static media (Images, Fonts, etc.) ---
+  // Instant load from cache first, then update cache in background.
   event.respondWith(
     caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
       const fetchPromise = fetch(event.request)
@@ -142,7 +151,7 @@ self.addEventListener('fetch', (event) => {
             const responseToCache = networkResponse.clone();
             caches.open(CACHE_NAME).then((cache) => {
               cache.put(cleanUrl, responseToCache).catch(err => {
-                console.warn('[Service Worker] Asset cache put failed:', err);
+                console.warn('[Service Worker] Media cache put failed:', err);
               });
             });
           }

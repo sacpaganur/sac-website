@@ -780,7 +780,7 @@ const SAC_COMMON = {
     // Register PWA Service Worker with auto-refresh update handler
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
+        navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
           .then((registration) => {
             // Check for service worker updates immediately on page load
             registration.update();
