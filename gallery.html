@@ -273,6 +273,7 @@
                     activeCategory = btn.getAttribute('data-category');
                     renderFilterTabs();
                     renderGrid();
+                    translateGalleryLabels();
                 });
             });
         }
@@ -349,8 +350,19 @@
             const trendingTitle = document.getElementById('gallery-trending-title');
             if (trendingTitle) trendingTitle.innerText = isTa ? 'பிரபலமான புகைப்படங்கள்' : 'Featured Highlights';
 
-            const allTitle = document.getElementById('gallery-all-title');
-            if (allTitle) allTitle.innerText = isTa ? 'அனைத்து புகைப்படங்கள்' : 'All Photos';
+            const sectionTitle = document.getElementById('gallery-all-title');
+            if (sectionTitle) {
+                if (activeCategory === 'all') {
+                    sectionTitle.innerText = isTa ? 'அனைத்து புகைப்படங்கள்' : 'All Photos';
+                } else {
+                    const firstMatch = galleryData.find(g => (g.catEn || '').trim() === activeCategory);
+                    if (firstMatch) {
+                        sectionTitle.innerText = isTa ? firstMatch.catTa : firstMatch.catEn;
+                    } else {
+                        sectionTitle.innerText = activeCategory;
+                    }
+                }
+            }
 
             const copyrightLabel = document.getElementById('footer-church-name-copyright');
             if (copyrightLabel) {
