@@ -440,7 +440,15 @@ const SAC_DATABASE = {
 
     if (this.isFirebaseActive && this.db) {
       try {
-        const snapshot = await this.db.collection(collectionName).get();
+        // Enforce a strict 3-second timeout on Firebase requests.
+        // If the network is spotty or blocked by an adblocker, we must not freeze the app forever.
+        const fetchPromise = this.db.collection(collectionName).get();
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error("Firebase request timed out (3s)")), 3000)
+        );
+        
+        const snapshot = await Promise.race([fetchPromise, timeoutPromise]);
+        
         if (!snapshot.empty) {
           const results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           if (isArrayType) {
@@ -452,7 +460,7 @@ const SAC_DATABASE = {
             
             // If the Firestore was corrupted with "undefined" strings, auto-update it with healed values
             if (JSON.stringify(genDoc) !== JSON.stringify(healed)) {
-              await this.db.collection(collectionName).doc("general").set(healed);
+              await this.db.collection(collectionName).doc("general").set(healed).catch(e => console.warn("Auto-heal failed", e));
             }
             return healed;
           }
@@ -465,18 +473,18 @@ const SAC_DATABASE = {
             for (const item of dataToSeed) {
               const { id, ...dataWithoutId } = item;
               if (id) {
-                 await this.db.collection(collectionName).doc(id).set(dataWithoutId);
+                 await this.db.collection(collectionName).doc(id).set(dataWithoutId).catch(e => console.warn("Seed failed", e));
               }
             }
           } else if (Object.keys(dataToSeed).length > 0) {
             const healed = sanitizeObj(dataToSeed, collectionName);
-            await this.db.collection(collectionName).doc("general").set(healed);
+            await this.db.collection(collectionName).doc("general").set(healed).catch(e => console.warn("Seed failed", e));
             return healed;
           }
           return dataToSeed;
         }
       } catch (err) {
-        console.warn(`Firestore read failed for ${collectionName}, falling back to LocalStorage:`, err);
+        console.warn(`Firestore read failed or timed out for ${collectionName}, falling back to LocalStorage:`, err.message);
         return isArrayType ? (localData || []) : sanitizeObj(localData, collectionName);
       }
     }
