@@ -163,9 +163,14 @@ const SAC_MESSAGING = {
   }
 };
 
-window.addEventListener('DOMContentLoaded', () => {
-  // Initialize messaging after database is ready
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      SAC_MESSAGING.init();
+    }, 2000);
+  });
+} else {
   setTimeout(() => {
     SAC_MESSAGING.init();
-  }, 2000);
-});
+  }, 1000);
+}
