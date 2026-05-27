@@ -777,12 +777,42 @@ const SAC_COMMON = {
       document.head.appendChild(themeMeta);
     }
 
-    // Register PWA Service Worker
+    // Register PWA Service Worker with auto-refresh update handler
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').catch(err => {
-          console.warn('Service Worker registration failed:', err);
-        });
+        navigator.serviceWorker.register('sw.js')
+          .then((registration) => {
+            // Check for service worker updates immediately on page load
+            registration.update();
+            
+            // Listen for new service worker installation
+            registration.onupdatefound = () => {
+              const installingWorker = registration.installing;
+              if (installingWorker) {
+                installingWorker.onstatechange = () => {
+                  if (installingWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                      console.log('[PWA] New update installed. Auto-activating...');
+                      // The new service worker will activate and trigger 'controllerchange'
+                    }
+                  }
+                };
+              }
+            };
+          })
+          .catch(err => {
+            console.warn('Service Worker registration failed:', err);
+          });
+      });
+
+      // Reload the page once when a new service worker takes control
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          refreshing = true;
+          console.log('[PWA] New controller active. Reloading page...');
+          window.location.reload();
+        }
       });
     }
 

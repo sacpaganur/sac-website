@@ -6,6 +6,22 @@ window.SAC_AI_UI = {
   voiceModeActive: false,
 
   inject() {
+    // If voice recognition is not supported on this device/browser (e.g. some mobile browsers or non-secure contexts),
+    // hide all microphone and voice conversation overlay controls gracefully.
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      if (!document.getElementById('sac-ai-no-voice-override')) {
+        const style = document.createElement('style');
+        style.id = 'sac-ai-no-voice-override';
+        style.textContent = `
+          #sac-ai-mic-btn, .sac-ai-voice-btn, #sac-ai-voice-overlay {
+            display: none !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+
     // Shared HTML for voice overlay
     const voiceOverlayHTML = `
       <div class="sac-ai-voice-overlay" id="sac-ai-voice-overlay">

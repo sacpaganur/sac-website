@@ -182,13 +182,15 @@ const SAC_DATABASE = {
       }
     ],
     firebase_config: {
-      enabled: false,
-      apiKey: "",
-      authDomain: "",
-      projectId: "",
-      storageBucket: "",
-      messagingSenderId: "",
-      appId: ""
+      // NOTE: Hardcode your live Firebase project credentials here to ensure that all public, 
+      // mobile, and incognito users automatically connect to the same live database by default!
+      enabled: true,
+      apiKey: "PASTE_YOUR_FIREBASE_API_KEY_HERE",
+      authDomain: "stacpaganur.firebaseapp.com",
+      projectId: "stacpaganur",
+      storageBucket: "stacpaganur.appspot.com",
+      messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID_HERE",
+      appId: "PASTE_YOUR_APP_ID_HERE"
     },
     gallery: [
       {
