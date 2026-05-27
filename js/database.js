@@ -283,6 +283,29 @@ const SAC_DATABASE = {
 
     this.setupFirebaseConnection();
 
+    // Dynamically sync Firebase configuration and VAPID key from Firestore if active
+    if (this.isFirebaseActive) {
+      this.get("firebase_config").then((config) => {
+        if (config && config.apiKey && config.projectId) {
+          const localKey = "sac_firebase_config";
+          const currentLocal = this.getCollection(localKey) || {};
+          
+          // Only update and re-connect if the Firestore config is different
+          if (JSON.stringify(currentLocal) !== JSON.stringify(config)) {
+            this.setCollection(localKey, config);
+            this.setupFirebaseConnection();
+            console.log("Firebase credentials dynamically synced and updated from Firestore!");
+            // Re-trigger messaging registration with new credentials
+            if (window.SAC_MESSAGING && window.SAC_MESSAGING.init) {
+              window.SAC_MESSAGING.init();
+            }
+          }
+        }
+      }).catch(err => {
+        console.warn("Could not sync Firebase config on startup:", err);
+      });
+    }
+
     // Async force migration for new gallery items (works for both Local and Firebase)
     setTimeout(async () => {
       try {
@@ -507,10 +530,8 @@ const SAC_DATABASE = {
     // Sync to Firestore if active
     if (this.isFirebaseActive && this.db) {
       try {
-        if (collectionName === "settings") {
+        if (collectionName === "settings" || collectionName === "firebase_config") {
           await this.db.collection(collectionName).doc("general").set(data, { merge: true });
-        } else if (collectionName === "firebase_config") {
-          // don't store secrets in public firestore for security
         } else {
           const { id, ...dataWithoutId } = data;
           await this.db.collection(collectionName).doc(id).set(dataWithoutId);
