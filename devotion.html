@@ -1,36 +1,85 @@
 <!DOCTYPE html>
 <html lang="ta">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="நவநாள் மற்றும் செபங்கள் - புனித அந்தோணியார் ஆலயம் | 13-week Novena to St. Antony, virtual candle lighting, and traditional prayers.">
+    <meta name="description"
+        content="நவநாள் மற்றும் செபங்கள் - புனித அந்தோணியார் ஆலயம் | 13-week Novena to St. Antony, virtual candle lighting, and traditional prayers.">
     <title>நவநாள் மற்றும் செபங்கள் | Digital Novena & Prayers</title>
     <meta name="view-transition" content="same-origin" />
-    
+
     <!-- Google Fonts & Icon Sets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css?v=1.1">
     <link rel="stylesheet" href="css/devotion-page.css?v=1.1">
     <script src="js/navbar.js?v=1.7"></script>
+
+    <!-- Performance Preconnects -->
+    <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Comprehensive Technical SEO & Social Tags -->
+    <link rel="canonical" href="https://stacpaganur.web.app/devotion.html" />
+    <meta property="og:title" content="நவநாள் மற்றும் செபங்கள் | Digital Novena & Prayers" />
+    <meta property="og:description" content="புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர். St. Antony's Church Vadakku Paganur - Official Catholic Devotion, Mass Timings, and Digital Novena." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://stacpaganur.web.app/devotion.html" />
+    <meta property="og:image" content="https://stacpaganur.web.app/images/church_logo.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="நவநாள் மற்றும் செபங்கள் | Digital Novena & Prayers" />
+    <meta name="twitter:description" content="புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர். St. Antony's Church Vadakku Paganur - Official Catholic Devotion, Mass Timings, and Digital Novena." />
+    <meta name="twitter:image" content="https://stacpaganur.web.app/images/church_logo.jpg" />
 </head>
+
 <body class="devotion-theme">
     <!-- Global Page Loader -->
-    <style id="sac-loader-scroll">body { overflow: hidden !important; }</style>
-    <div id="sac-global-loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
-      <div style="position:relative; width:70px; height:70px;">
-        <div style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;"></div>
-        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">⛪</div>
-      </div>
-      <div style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">LOADING</div>
-      <style>
-        @keyframes sacSpin { to { transform: rotate(360deg); } }
-        @keyframes sacPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-      </style>
+    <style id="sac-loader-scroll">
+        body {
+            overflow: hidden !important;
+        }
+    </style>
+    <div id="sac-global-loader"
+        style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
+        <div style="position:relative; width:70px; height:70px;">
+            <div
+                style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;">
+            </div>
+            <div
+                style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">
+                ⛪</div>
+        </div>
+        <div
+            style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">
+            LOADING</div>
+        <style>
+            @keyframes sacSpin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes sacPulse {
+
+                0%,
+                100% {
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0.4;
+                }
+            }
+        </style>
     </div>
 
 
@@ -39,20 +88,26 @@
 
     <!-- Main Content wrapper -->
     <main class="main-wrapper devotion-page">
-        
+
         <!-- Hero Section (Upgraded to Notices Style) -->
         <section class="notices-hero-header" id="devotion-hero">
             <div class="notices-hero-inner">
                 <div class="notices-liturgical-badge">
-                    <span class="material-icons" aria-hidden="true" style="font-size: 16px;">local_fire_department</span>
+                    <span class="material-icons" aria-hidden="true"
+                        style="font-size: 16px;">local_fire_department</span>
                     <span data-i18n="devotion.heroKicker">நம்பிக்கையின் ஒளி (Light of Faith)</span>
                 </div>
                 <h2 class="notices-hero-title" data-i18n="devotion.heroTitle">மெழுகுவர்த்தி ஏற்றி செபிப்போம்</h2>
                 <p class="notices-hero-subtitle" style="margin-bottom: 24px;">Light a Candle, Say a Prayer</p>
-                
-                <div class="notices-hero-counter" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 24px; text-align: center; margin-top: 10px;">
-                    <span class="quote-text" data-i18n="devotion.quoteText" style="font-style: italic; font-weight: 600; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 8px;">"செபம் இருளுக்கு ஒளியூட்டும் விளக்கு."</span>
-                    <span class="quote-author" data-i18n="devotion.quoteAuthor" style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">- புனித அந்தோணியார்</span>
+
+                <div class="notices-hero-counter"
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 24px; text-align: center; margin-top: 10px;">
+                    <span class="quote-text" data-i18n="devotion.quoteText"
+                        style="font-style: italic; font-weight: 600; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 8px;">"செபம்
+                        இருளுக்கு ஒளியூட்டும் விளக்கு."</span>
+                    <span class="quote-author" data-i18n="devotion.quoteAuthor"
+                        style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">-
+                        புனித அந்தோணியார்</span>
                 </div>
             </div>
         </section>
@@ -62,7 +117,7 @@
             <div class="devotion-section-header">
                 <h3 class="section-heading">புனித அந்தோணியார் 13 வார நவநாள் செபம்</h3>
                 <p class="section-desc">13-Week Tuesday Novena Prayers</p>
-                
+
                 <div class="language-toggle">
                     <span class="lang-label ta active" onclick="toggleLanguage('ta')">தமிழ்</span>
                     <span class="lang-label en" onclick="toggleLanguage('en')">English</span>
@@ -73,32 +128,45 @@
                 <div class="prayer-block lang-ta active">
                     <h4 class="prayer-title">தொடக்கச் செபம்</h4>
                     <p class="prayer-text">
-                        அதிசயவரங்களுக்கெல்லாம் உறைவிடமான அற்புத புனித அந்தோணியாரே! உமது தூய வாழ்வாலும், ஆழ்ந்த விசுவாசத்தாலும் இறைவனுக்கு உகந்தவராகத் திகழ்ந்தீரே. இன்று உமது திருச்சந்நிதானத்தில் எங்கள் குறைகளைச் சமர்ப்பித்து நிற்கிறோம். நீர் இயேசு பாலகனை உம் கைகளில் ஏந்தி மகிழ்ந்ததைப் போல, எங்கள் வேண்டுதல்களையும் இறைவனிடம் எடுத்துரைத்து, எங்களுக்கு நல்வழி காட்டுமாறு உம்மை மன்றாடுகிறோம். ஆமென்.
+                        அதிசயவரங்களுக்கெல்லாம் உறைவிடமான அற்புத புனித அந்தோணியாரே! உமது தூய வாழ்வாலும், ஆழ்ந்த
+                        விசுவாசத்தாலும் இறைவனுக்கு உகந்தவராகத் திகழ்ந்தீரே. இன்று உமது திருச்சந்நிதானத்தில் எங்கள்
+                        குறைகளைச் சமர்ப்பித்து நிற்கிறோம். நீர் இயேசு பாலகனை உம் கைகளில் ஏந்தி மகிழ்ந்ததைப் போல, எங்கள்
+                        வேண்டுதல்களையும் இறைவனிடம் எடுத்துரைத்து, எங்களுக்கு நல்வழி காட்டுமாறு உம்மை மன்றாடுகிறோம்.
+                        ஆமென்.
                     </p>
-                    
+
                     <h4 class="prayer-title" style="margin-top: 32px;">நவநாள் மன்றாட்டு</h4>
                     <p class="prayer-text">
-                        இரக்கத்தின் ஊற்றான இறைவா, உமது ஊழியர் புனித அந்தோணியார் வழியாக நீர் செய்யும் அளப்பரிய நன்மைகளுக்காக உமக்கு நன்றி கூறுகிறோம். எங்கள் குடும்பங்களையும், எங்கள் உழைப்பையும் ஆசீர்வதியும். நோயில் வாடுவோருக்கு ஆறுதலாகவும், துன்பப்படுவோருக்குத் துணையாகவும் இரும். தொலைந்துபோன நன்மைகளை மீட்டுத் தரும் புனிதரே, நாங்கள் இழந்த சமாதானத்தையும், அன்பையும் மீண்டும் பெற்றுத் தர உம்மை மன்றாடுகிறோம்.
+                        இரக்கத்தின் ஊற்றான இறைவா, உமது ஊழியர் புனித அந்தோணியார் வழியாக நீர் செய்யும் அளப்பரிய
+                        நன்மைகளுக்காக உமக்கு நன்றி கூறுகிறோம். எங்கள் குடும்பங்களையும், எங்கள் உழைப்பையும் ஆசீர்வதியும்.
+                        நோயில் வாடுவோருக்கு ஆறுதலாகவும், துன்பப்படுவோருக்குத் துணையாகவும் இரும். தொலைந்துபோன நன்மைகளை
+                        மீட்டுத் தரும் புனிதரே, நாங்கள் இழந்த சமாதானத்தையும், அன்பையும் மீண்டும் பெற்றுத் தர உம்மை
+                        மன்றாடுகிறோம்.
                     </p>
                     <p class="prayer-instruction">(இங்கு உங்கள் தனிப்பட்ட வேண்டுதல்களை மௌனமாகச் சொல்லவும்)</p>
                     <p class="prayer-text">
                         எங்கள் ஆண்டவராகிய கிறிஸ்து வழியாக உம்மை மன்றாடுகிறோம். ஆமென்.
                     </p>
                 </div>
-                
+
                 <div class="prayer-block lang-en">
                     <h4 class="prayer-title">Opening Prayer</h4>
                     <p class="prayer-text">
-                        O wonderful St. Antony, glorious on account of the fame of your miracles, and through the condescension of Jesus in coming in the form of a little child to rest in your arms, obtain for me of His bounty the grace which I ardently desire from the depths of my heart. 
+                        O wonderful St. Antony, glorious on account of the fame of your miracles, and through the
+                        condescension of Jesus in coming in the form of a little child to rest in your arms, obtain for
+                        me of His bounty the grace which I ardently desire from the depths of my heart.
                     </p>
-                    
+
                     <h4 class="prayer-title" style="margin-top: 32px;">Novena Petition</h4>
                     <p class="prayer-text">
-                        You who were so compassionate toward miserable sinners, regard not the unworthiness of those who pray to you, but the glory of God that it may once again be magnified by the granting of the particular request which I now ask for with persevering earnestness.
+                        You who were so compassionate toward miserable sinners, regard not the unworthiness of those who
+                        pray to you, but the glory of God that it may once again be magnified by the granting of the
+                        particular request which I now ask for with persevering earnestness.
                     </p>
                     <p class="prayer-instruction">(Silently mention your personal intentions here)</p>
                     <p class="prayer-text">
-                        May my request be granted if it is according to the holy will of God and for the salvation of my soul. Amen.
+                        May my request be granted if it is according to the holy will of God and for the salvation of my
+                        soul. Amen.
                     </p>
                 </div>
             </div>
@@ -110,7 +178,7 @@
                 <h3 class="section-heading">பக்தியறச் செபங்கள்</h3>
                 <p class="section-desc">Traditional Litanies & Prayers</p>
             </div>
-            
+
             <div class="prayers-grid">
                 <a href="#" class="prayer-card" onclick="showPrayerModal('litany'); return false;">
                     <div class="prayer-card-icon"><span class="material-icons">menu_book</span></div>
@@ -119,7 +187,7 @@
                         <p>Litany of St. Antony</p>
                     </div>
                 </a>
-                
+
                 <a href="#" class="prayer-card" onclick="showPrayerModal('lost'); return false;">
                     <div class="prayer-card-icon"><span class="material-icons">auto_awesome</span></div>
                     <div class="prayer-card-content">
@@ -127,7 +195,7 @@
                         <p>Prayer to find lost items</p>
                     </div>
                 </a>
-                
+
                 <a href="#" class="prayer-card" onclick="showPrayerModal('unfailing'); return false;">
                     <div class="prayer-card-icon"><span class="material-icons">favorite</span></div>
                     <div class="prayer-card-content">
@@ -135,7 +203,7 @@
                         <p>Unfailing Prayer to St. Antony</p>
                     </div>
                 </a>
-                
+
                 <a href="#" class="prayer-card" onclick="showPrayerModal('health'); return false;">
                     <div class="prayer-card-icon"><span class="material-icons">flare</span></div>
                     <div class="prayer-card-content">
@@ -143,7 +211,7 @@
                         <p>Prayer to Our Lady of Good Health</p>
                     </div>
                 </a>
-                
+
                 <a href="#" class="prayer-card" onclick="showPrayerModal('morning'); return false;">
                     <div class="prayer-card-icon"><span class="material-icons">wb_sunny</span></div>
                     <div class="prayer-card-content">
@@ -151,7 +219,7 @@
                         <p>Morning Prayer</p>
                     </div>
                 </a>
-                
+
                 <a href="#" class="prayer-card" onclick="showPrayerModal('evening'); return false;">
                     <div class="prayer-card-icon"><span class="material-icons">nights_stay</span></div>
                     <div class="prayer-card-content">
@@ -167,11 +235,18 @@
             <div class="prayer-wall-container">
                 <div class="devotion-section-header" style="text-align: center;">
                     <h3 class="section-heading" data-i18n="wall.title">செப விண்ணப்பங்கள்</h3>
-                    <p class="section-desc" data-i18n="wall.subtitle">உங்களது செப தேவைகளை சமர்ப்பிக்கவும் மற்றும் பிறருக்காக இணைந்து செபிக்கவும்.</p>
+                    <p class="section-desc" data-i18n="wall.subtitle">உங்களது செப தேவைகளை சமர்ப்பிக்கவும் மற்றும்
+                        பிறருக்காக இணைந்து செபிக்கவும்.</p>
+                    <button class="share-prayer-btn" id="share-prayer-btn" onclick="openPrayerWallModal()"
+                        style="margin-top: 20px; display: inline-flex;">
+                        <span class="material-icons">add</span>
+                        <span data-i18n="wall.submitBtn">செப தேவையை சமர்ப்பிக்க</span>
+                    </button>
                 </div>
-                
+
                 <div class="prayer-wall-grid" id="prayer-wall-cards-grid">
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-weight: 600;" id="prayer-wall-loading">
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-weight: 600;"
+                        id="prayer-wall-loading">
                         ⏳ Loading prayer wall...
                     </div>
                 </div>
@@ -183,94 +258,133 @@
     <!-- Global Footer -->
     <div id="global-footer"></div>
 
-    <!-- Floating Share Intention FAB Button -->
-    <button class="share-prayer-fab" id="share-prayer-fab-btn" onclick="openPrayerWallModal()">
-        <span class="material-icons">add</span>
-        <span data-i18n="wall.submitBtn">செப தேவையை சமர்ப்பிக்க</span>
-    </button>
 
     <!-- Submit Intention Modal -->
     <div class="prayer-modal-overlay" id="prayer-submit-modal-overlay">
-        <div class="prayer-modal-inner" style="max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; padding: 0;">
-            <!-- Floating Close Button -->
-            <button onclick="closePrayerWallModal()" style="position:absolute; top:20px; right:20px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer; z-index:10; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                <span class="material-icons">close</span>
-            </button>
+        <div class="prayer-modal-inner"
+            style="max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; padding: 0;">
+            <form id="prayer-submit-form" onsubmit="handlePrayerSubmit(event)"
+                style="display: flex; flex-direction: column; height: 100%; overflow: hidden; margin: 0;">
+                <!-- Modal Header -->
+                <div style="padding: 16px 20px 16px 30px; border-bottom: 1px solid var(--border-glass); background: linear-gradient(to bottom, rgba(139,92,246,0.02), transparent); flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;">
+                    <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--primary); margin: 0; display: flex; align-items: center; gap: 8px;"
+                        data-i18n="wall.modalTitle">செப விண்ணப்பம் சமர்ப்பித்தல்</h3>
+                    
+                    <button type="button" onclick="closePrayerWallModal()"
+                        style="background:var(--bg-card); border:1px solid var(--border-glass); border-radius:50%; width:36px; height:36px; flex-shrink: 0; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer; z-index:10; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.2s ease;">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
 
-            <!-- Modal Header -->
-            <div style="padding: 30px 30px 20px; border-bottom: 1px solid var(--border-glass); background: linear-gradient(to bottom, rgba(139,92,246,0.02), transparent);">
-                <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--primary); margin: 0; display: flex; align-items: center; gap: 8px;" data-i18n="wall.modalTitle">செப விண்ணப்பம் சமர்ப்பித்தல்</h3>
-            </div>
-
-            <!-- Scrollable Content -->
-            <div style="padding: 30px; overflow-y: auto; flex-grow: 1;">
-                <form id="prayer-submit-form" onsubmit="handlePrayerSubmit(event)" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Scrollable Content -->
+                <div
+                    style="padding: 15px 20px; overflow-y: auto; flex-grow: 1; display: flex; flex-direction: column; gap: 8px; overscroll-behavior: contain;">
                     <!-- AI Assistant Button -->
-                    <button type="button" class="pray-btn" onclick="PrayerAIService.startAssistant()" style="width: 100%; justify-content: center; padding: 12px; background: var(--gradient-brand-soft); border-color: var(--border-glow); margin-bottom: 8px;">
+                    <button type="button" class="pray-btn" onclick="PrayerAIService.startAssistant()"
+                        style="width: 100%; justify-content: center; padding: 12px; background: var(--gradient-brand-soft); border-color: var(--border-glow); margin-bottom: 4px;">
                         <span class="material-icons" style="color:var(--primary);">psychology</span>
-                        <span style="font-weight:800; color:var(--primary);" data-i18n="wall.btnAiFill">🎤 AI உதவியாளர் மூலம் நிரப்பவும்</span>
+                        <span style="font-weight:800; color:var(--primary);" data-i18n="wall.btnAiFill">🎤 AI உதவியாளர்
+                            மூலம் நிரப்பவும்</span>
                     </button>
 
                     <!-- Anonymous Toggle -->
-                    <div style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.02); padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border-glass);">
-                        <input type="checkbox" id="form-anonymous" onchange="toggleAnonymousState()" style="width: 18px; height: 18px; cursor: pointer;">
-                        <label for="form-anonymous" style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); cursor: pointer;" data-i18n="wall.formAnon">பெயர் குறிப்பிடாமல் அநாமதேயமாக சமர்ப்பிக்கவும்</label>
+                    <div
+                        style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.02); padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border-glass);">
+                        <input type="checkbox" id="form-anonymous" onchange="toggleAnonymousState()"
+                            style="width: 18px; height: 18px; cursor: pointer;">
+                        <label for="form-anonymous"
+                            style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); cursor: pointer;"
+                            data-i18n="wall.formAnon">பெயர் குறிப்பிடாமல் அநாமதேயமாக சமர்ப்பிக்கவும்</label>
                     </div>
 
                     <!-- Name Input -->
-                    <div class="form-group" id="form-group-name">
-                        <label class="form-label" for="form-name" style="font-weight: 700; margin-bottom: 6px; display: block;" data-i18n="wall.formName">பெயர் (விரும்பினால்)</label>
+                    <div class="form-group" id="form-group-name" style="margin-bottom: 0;">
+                        <label class="form-label" for="form-name"
+                            style="font-weight: 700; margin-bottom: 6px; display: block;"
+                            data-i18n="wall.formName">பெயர் (விரும்பினால்)</label>
                         <div style="position: relative; display: flex; align-items: center; width: 100%;">
-                            <input type="text" id="form-name" class="form-input-premium" placeholder="e.g. Maria" style="padding-right: 80px; width: 100%;">
-                            <div id="voice-name-mount" style="position: absolute; right: 8px;"></div>
+                            <input type="text" id="form-name" class="form-input-premium" placeholder="e.g. Maria"
+                                style="padding-right: 80px; width: 100%;">
+                            <div id="voice-name-mount"></div>
                         </div>
                     </div>
 
                     <!-- Email Input -->
-                    <div class="form-group">
-                        <label class="form-label" for="form-email" style="font-weight: 700; margin-bottom: 6px; display: block;" data-i18n="wall.formEmail">மின்னஞ்சல் (விரும்பினால் - வெளியில் தெரியாது)</label>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label" for="form-email"
+                            style="font-weight: 700; margin-bottom: 6px; display: block;"
+                            data-i18n="wall.formEmail">மின்னஞ்சல் (விரும்பினால் - வெளியில் தெரியாது)</label>
                         <div style="position: relative; display: flex; align-items: center; width: 100%;">
-                            <input type="email" id="form-email" class="form-input-premium" placeholder="e.g. maria@example.com" style="padding-right: 80px; width: 100%;">
-                            <div id="voice-email-mount" style="position: absolute; right: 8px;"></div>
+                            <input type="email" id="form-email" class="form-input-premium"
+                                placeholder="e.g. maria@example.com" style="padding-right: 80px; width: 100%;">
+                            <div id="voice-email-mount"></div>
                         </div>
                     </div>
 
                     <!-- Category Selector -->
-                    <div class="form-group">
-                        <label class="form-label" for="form-category" style="font-weight: 700; margin-bottom: 6px; display: block;" data-i18n="wall.formCategory">விண்ணப்ப வகை</label>
-                        <div class="cat-select-wrapper">
-                            <select id="form-category" class="form-input-premium" style="appearance: none; -webkit-appearance: none; cursor: pointer; width: 100%;" required>
-                                <option value="health" data-i18n="wall.cat.health">❤️ உடல்நலம்</option>
-                                <option value="family" data-i18n="wall.cat.family">🏠 குடும்பம்</option>
-                                <option value="thanks" data-i18n="wall.cat.thanks">🙏 நன்றியறிதல்</option>
-                                <option value="rest" data-i18n="wall.cat.rest">👼 ஆன்ம இளைப்பாற்றி</option>
-                                <option value="special" data-i18n="wall.cat.special" selected>🕯️ சிறப்புத் தேவை</option>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label" style="font-weight: 700; margin-bottom: 6px; display: block;"
+                            data-i18n="wall.formCategory">விண்ணப்ப வகை</label>
+                        <div class="custom-select-container" id="category-custom-select">
+                            <div class="custom-select-trigger form-input-premium" onclick="toggleCustomSelect(event)">
+                                <span id="custom-select-display" data-i18n="wall.cat.special">🕯️ சிறப்புத் தேவை</span>
+                                <span class="material-icons">expand_more</span>
+                            </div>
+                            <div class="custom-select-options">
+                                <div class="custom-select-option" data-value="health" onclick="selectCustomOption(this)"
+                                    data-i18n="wall.cat.health">❤️ உடல்நலம்</div>
+                                <div class="custom-select-option" data-value="family" onclick="selectCustomOption(this)"
+                                    data-i18n="wall.cat.family">🏠 குடும்பம்</div>
+                                <div class="custom-select-option" data-value="thanks" onclick="selectCustomOption(this)"
+                                    data-i18n="wall.cat.thanks">🙏 நன்றியறிதல்</div>
+                                <div class="custom-select-option" data-value="rest" onclick="selectCustomOption(this)"
+                                    data-i18n="wall.cat.rest">👼 ஆன்ம இளைப்பாற்றி</div>
+                                <div class="custom-select-option selected" data-value="special"
+                                    onclick="selectCustomOption(this)" data-i18n="wall.cat.special">🕯️ சிறப்புத் தேவை
+                                </div>
+                            </div>
+                            <select id="form-category" style="display: none;" required>
+                                <option value="health">health</option>
+                                <option value="family">family</option>
+                                <option value="thanks">thanks</option>
+                                <option value="rest">rest</option>
+                                <option value="special" selected>special</option>
                             </select>
                         </div>
                     </div>
 
                     <!-- Message TextArea -->
-                    <div class="form-group">
-                        <label class="form-label" for="form-message" style="font-weight: 700; margin-bottom: 6px; display: block;" data-i18n="wall.formMessage">செப விண்ணப்ப விபரம் (அதிகபட்சம் 300 எழுத்துக்கள்)</label>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label" for="form-message"
+                            style="font-weight: 700; margin-bottom: 6px; display: block;"
+                            data-i18n="wall.formMessage">செப விண்ணப்ப விபரம் (அதிகபட்சம் 300 எழுத்துக்கள்)</label>
                         <div style="position: relative; display: flex; align-items: center; width: 100%;">
-                            <textarea id="form-message" class="form-input-premium" rows="4" style="resize: none; padding-right: 80px; width: 100%;" required maxlength="300" placeholder="உங்களது செபத் தேவையை விளக்கி எழுதவும்..."></textarea>
-                            <div id="voice-message-mount" style="position: absolute; right: 8px; top: 8px;"></div>
+                            <textarea id="form-message" class="form-input-premium" rows="4"
+                                style="resize: none; padding-right: 80px; width: 100%;" required maxlength="300"
+                                placeholder="உங்களது செபத் தேவையை விளக்கி எழுதவும்..."></textarea>
+                            <div id="voice-message-mount"></div>
                         </div>
-                        <div style="display: flex; justify-content: flex-end; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                        <div
+                            style="display: flex; justify-content: flex-end; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
                             <span id="form-char-counter">0/300</span>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Actions -->
-                    <div style="display: flex; gap: 12px; margin-top: 10px; border-top: 1px solid var(--border-glass); padding-top: 20px;">
-                        <button type="submit" class="share-prayer-fab" style="position: static; flex-grow: 1; justify-content: center; padding: 14px;" id="form-submit-btn">
-                            <span class="material-icons">send</span>
-                            <span data-i18n="wall.btnSubmit">சமர்ப்பிக்கவும்</span>
-                        </button>
-                        <button type="button" class="pray-btn" onclick="closePrayerWallModal()" style="border-radius: 50px; padding: 0 24px; font-weight: 800; font-size: 0.9rem;" data-i18n="wall.btnCancel">ரத்து</button>
-                    </div>
-                </form>
-            </div>
+                <!-- Actions (Sticky Footer) -->
+                <div
+                    style="display: flex; gap: 8px; padding: 16px 24px; border-top: 1px solid var(--border-glass); background: var(--bg-card); flex-shrink: 0; z-index: 10;">
+                    <button type="submit" class="share-prayer-btn"
+                        style="flex-grow: 1; justify-content: center; padding: 10px 16px; font-weight: 600;"
+                        id="form-submit-btn">
+                        <span class="material-icons">send</span>
+                        <span data-i18n="wall.btnSubmit">சமர்ப்பிக்கவும்</span>
+                    </button>
+                    <button type="button" class="pray-btn" onclick="closePrayerWallModal()"
+                        style="border-radius: 50px; padding: 0 20px; font-weight: 800; font-size: 0.9rem;"
+                        data-i18n="wall.btnCancel">ரத்து</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -280,93 +394,132 @@
             <div class="checkmark-circle">
                 <span class="material-icons">done</span>
             </div>
-            
-            <h3 style="font-size: 1.5rem; font-weight: 800; color: #10b981; margin-bottom: 8px;" data-i18n="wall.successTitle">சமர்ப்பிக்கப்பட்டது!</h3>
-            
-            <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin-bottom: 24px;" data-i18n="wall.successMsg">உங்களது செப விண்ணப்பம் செபச் சுவரில் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது. புனித அந்தோணியார் உங்களுக்காக பரிந்து பேசுவார்!</p>
-            
+
+            <h3 style="font-size: 1.5rem; font-weight: 800; color: #10b981; margin-bottom: 8px;"
+                data-i18n="wall.successTitle">சமர்ப்பிக்கப்பட்டது!</h3>
+
+            <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin-bottom: 24px;"
+                data-i18n="wall.successMsg">உங்களது செப விண்ணப்பம் செபச் சுவரில் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது. புனித
+                அந்தோணியார் உங்களுக்காக பரிந்து பேசுவார்!</p>
+
             <div class="scripture-quote-box" data-i18n="wall.successScripture">
                 "கேளுங்கள், உங்களுக்குத் தரப்படும்; தேடுங்கள், நீங்கள் கண்டடைவீர்கள்." - மத்தேயு 7:7
             </div>
-            
-            <button class="share-prayer-fab" onclick="closePrayerSuccessModal()" style="position: static; width: 100%; justify-content: center;" data-i18n="wall.successClose">
+
+            <button class="share-prayer-btn" onclick="closePrayerSuccessModal()"
+                style="width: 100%; justify-content: center;" data-i18n="wall.successClose">
                 சரி
             </button>
         </div>
     </div>
 
     <!-- AI Assistant Overlays -->
-    <div id="ai-assistant-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.85); backdrop-filter:blur(16px); z-index:11000; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; padding:30px;">
-        <div style="width:120px; height:120px; border-radius:50%; background:rgba(139,92,246,0.15); display:flex; align-items:center; justify-content:center; margin-bottom:30px; border:2px solid rgba(139,92,246,0.3); animation:pulseMic 2s infinite;">
+    <div id="ai-assistant-overlay"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.85); backdrop-filter:blur(16px); z-index:11000; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; padding:30px;">
+        <div
+            style="width:120px; height:120px; border-radius:50%; background:rgba(139,92,246,0.15); display:flex; align-items:center; justify-content:center; margin-bottom:30px; border:2px solid rgba(139,92,246,0.3); animation:pulseMic 2s infinite;">
             <span class="material-icons" style="font-size:3.5rem; color:#a78bfa;">mic</span>
         </div>
-        <h3 style="font-size:1.8rem; font-weight:800; margin-bottom:12px; background:linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Listening to your prayer...</h3>
-        <p style="color:rgba(255,255,255,0.7); max-width:400px; line-height:1.6; margin-bottom:30px;" id="ai-mic-instruction">Speak your name, email, and prayer request naturally. St. Antony's AI organized form for you.</p>
-        <div id="ai-live-text" style="font-size:1.15rem; color:#fff; font-weight:600; font-style:italic; max-width:600px; padding:16px 24px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:16px;">"Listening..."</div>
-        <button class="pray-btn" onclick="VoiceInput.stop()" style="margin-top:40px; border-radius:30px; padding:10px 24px; color:white; background:#ef4444; border-color:#ef4444; font-weight:800;">Cancel</button>
+        <h3
+            style="font-size:1.8rem; font-weight:800; margin-bottom:12px; background:linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent;"
+            data-i18n="wall.ai.listenTitle">
+            Listening to your prayer...</h3>
+        <p style="color:rgba(255,255,255,0.7); max-width:400px; line-height:1.6; margin-bottom:30px;"
+            id="ai-mic-instruction" data-i18n="wall.ai.listenDesc">Speak your name, email, and prayer request naturally. St. Antony's AI organized form
+            for you.</p>
+        <div id="ai-live-text"
+            style="font-size:1.15rem; color:#fff; font-weight:600; font-style:italic; max-width:600px; padding:16px 24px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:16px;"
+            data-i18n="wall.ai.listening">
+            "Listening..."</div>
+        <button class="pray-btn" onclick="VoiceInput.stop()"
+            style="margin-top:40px; border-radius:30px; padding:10px 24px; color:white; background:#ef4444; border-color:#ef4444; font-weight:800;"
+            data-i18n="wall.btnCancel">Cancel</button>
     </div>
 
-    <div id="ai-processing-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.85); backdrop-filter:blur(16px); z-index:11000; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; padding:30px;">
-        <div style="width:100px; height:100px; position:relative; margin-bottom:30px; display:flex; align-items:center; justify-content:center;">
-            <div style="position:absolute; width:100%; height:100%; border:4px dashed #a78bfa; border-radius:50%; animation:sacSpin 6s linear infinite;"></div>
-            <span class="material-icons" style="font-size:3rem; color:#f472b6; animation:pulseMic 1.5s ease-in-out infinite;">psychology</span>
+    <div id="ai-processing-overlay"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.85); backdrop-filter:blur(16px); z-index:11000; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; padding:30px;">
+        <div
+            style="width:100px; height:100px; position:relative; margin-bottom:30px; display:flex; align-items:center; justify-content:center;">
+            <div
+                style="position:absolute; width:100%; height:100%; border:4px dashed #a78bfa; border-radius:50%; animation:sacSpin 6s linear infinite;">
+            </div>
+            <span class="material-icons"
+                style="font-size:3rem; color:#f472b6; animation:pulseMic 1.5s ease-in-out infinite;">psychology</span>
         </div>
-        <h3 style="font-size:1.6rem; font-weight:800; margin-bottom:12px;" id="ai-process-title">Organizing with AI...</h3>
-        <p style="color:rgba(255,255,255,0.7);" id="ai-process-desc">Gemini is translating and populating the fields for you.</p>
+        <h3 style="font-size:1.6rem; font-weight:800; margin-bottom:12px;" id="ai-process-title" data-i18n="wall.ai.processTitle">Organizing with AI...
+        </h3>
+        <p style="color:rgba(255,255,255,0.7);" id="ai-process-desc" data-i18n="wall.ai.processDesc">Gemini is translating and populating the fields for
+            you.</p>
     </div>
 
     <!-- Prayer Modal -->
-    <div id="prayer-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.6); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); z-index:9999; justify-content:center; align-items:center; padding:24px; opacity:0; transition:opacity 0.4s ease;">
+    <div id="prayer-modal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.6); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); z-index:9999; justify-content:center; align-items:center; padding:24px; opacity:0; transition:opacity 0.4s ease;">
         <!-- Premium Glassmorphic Inner Card -->
-        <div id="prayer-modal-inner" style="background:var(--bg-card); border:1px solid var(--border-glass); border-radius:24px; padding:0; max-width:640px; width:100%; max-height:85vh; display:flex; flex-direction:column; position:relative; box-shadow:0 30px 60px rgba(139, 92, 246, 0.15), inset 0 0 0 1px rgba(255,255,255,0.5); transform:scale(0.95); opacity:0; transition:all 0.5s cubic-bezier(0.16, 1, 0.3, 1); overflow:hidden;">
-            
+        <div id="prayer-modal-inner"
+            style="background:var(--bg-card); border:1px solid var(--border-glass); border-radius:24px; padding:0; max-width:640px; width:100%; max-height:85vh; display:flex; flex-direction:column; position:relative; box-shadow:0 30px 60px rgba(139, 92, 246, 0.15), inset 0 0 0 1px rgba(255,255,255,0.5); transform:scale(0.95); opacity:0; transition:all 0.5s cubic-bezier(0.16, 1, 0.3, 1); overflow:hidden;">
+
             <!-- Glowing Background Orbs -->
-            <div style="position:absolute; top:-100px; right:-100px; width:250px; height:250px; background:radial-gradient(circle, var(--accent-gold-glow) 0%, transparent 70%); z-index:0; pointer-events:none; opacity:0.8;"></div>
-            <div style="position:absolute; bottom:-100px; left:-100px; width:250px; height:250px; background:radial-gradient(circle, var(--primary-glow) 0%, transparent 70%); z-index:0; pointer-events:none; opacity:0.8;"></div>
+            <div
+                style="position:absolute; top:-100px; right:-100px; width:250px; height:250px; background:radial-gradient(circle, var(--accent-gold-glow) 0%, transparent 70%); z-index:0; pointer-events:none; opacity:0.8;">
+            </div>
+            <div
+                style="position:absolute; bottom:-100px; left:-100px; width:250px; height:250px; background:radial-gradient(circle, var(--primary-glow) 0%, transparent 70%); z-index:0; pointer-events:none; opacity:0.8;">
+            </div>
 
             <!-- Floating Close Button -->
-            <button onclick="closePrayerModal()" style="position:absolute; top:20px; right:20px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer; box-shadow:var(--shadow-soft); z-index:10; transition:all 0.3s;" onmouseover="this.style.transform='rotate(90deg)'; this.style.background='var(--primary)'; this.style.color='#fff';" onmouseout="this.style.transform='none'; this.style.background='var(--bg-card)'; this.style.color='var(--text-secondary)';">
+            <button onclick="closePrayerModal()"
+                style="position:absolute; top:20px; right:20px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer; box-shadow:var(--shadow-soft); z-index:10; transition:all 0.3s;"
+                onmouseover="this.style.transform='rotate(90deg)'; this.style.background='var(--primary)'; this.style.color='#fff';"
+                onmouseout="this.style.transform='none'; this.style.background='var(--bg-card)'; this.style.color='var(--text-secondary)';">
                 <span class="material-icons">close</span>
             </button>
-            
+
             <!-- Elegant Header -->
-            <div style="padding:40px 40px 24px; text-align:center; position:relative; z-index:1; border-bottom:1px solid var(--border-glass); background:linear-gradient(to bottom, rgba(139, 92, 246, 0.05) 0%, transparent 100%);">
-                <div style="margin:0 auto 20px; width:64px; height:64px; background:var(--primary-glow); border-radius:50%; display:flex; justify-content:center; align-items:center; color:var(--primary); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.1);">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#cross-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <div
+                style="padding:40px 40px 24px; text-align:center; position:relative; z-index:1; border-bottom:1px solid var(--border-glass); background:linear-gradient(to bottom, rgba(139, 92, 246, 0.05) 0%, transparent 100%);">
+                <div
+                    style="margin:0 auto 20px; width:64px; height:64px; background:var(--primary-glow); border-radius:50%; display:flex; justify-content:center; align-items:center; color:var(--primary); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.1);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#cross-grad)"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <defs>
                             <linearGradient id="cross-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" stop-color="#7e22ce" />
                                 <stop offset="100%" stop-color="#d97706" />
                             </linearGradient>
                         </defs>
-                        <path d="M12 2v20M8 7h8"/>
+                        <path d="M12 2v20M8 7h8" />
                     </svg>
                 </div>
-                <h3 id="modal-prayer-title" style="font-size:1.5rem; font-weight:800; line-height:1.4; margin:0; background:var(--gradient-brand); -webkit-background-clip:text; -webkit-text-fill-color:transparent; padding-bottom: 4px;"></h3>
+                <h3 id="modal-prayer-title"
+                    style="font-size:1.5rem; font-weight:800; line-height:1.4; margin:0; background:var(--gradient-brand); -webkit-background-clip:text; -webkit-text-fill-color:transparent; padding-bottom: 4px;">
+                </h3>
             </div>
 
             <!-- Scrollable Content -->
             <div style="padding:32px 40px 40px; overflow-y:auto; overflow-x:hidden; position:relative; z-index:1;">
-                <div id="modal-prayer-content" style="color:var(--text-secondary); line-height:1.8; font-size:1rem; white-space:pre-wrap; text-align:left; font-weight:500;"></div>
+                <div id="modal-prayer-content"
+                    style="color:var(--text-secondary); line-height:1.8; font-size:1rem; white-space:pre-wrap; text-align:left; font-weight:500;">
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Script imports -->
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
-    <script src="js/database.js?v=1.7"></script>
-    <script src="js/services.js?v=1.1"></script>
-    <script src="js/common.js?v=1.7"></script>
-    <script src="js/footer.js?v=1.1"></script>
-    
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js" defer></script>
+    <script src="js/database.js?v=1.7" defer></script>
+    <script src="js/services.js?v=1.1" defer></script>
+    <script src="js/common.js?v=1.7" defer></script>
+    <script src="js/footer.js?v=1.1" defer></script>
+
     <script>
         // In-memory set of prayer IDs that have been clicked (prayed) in this session
         const prayedInSession = new Set();
 
         document.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('devotion');
-            
+
             // Load and render prayer wall requests
             await loadPrayerRequests();
 
@@ -396,7 +549,7 @@
                 if (nameMount) nameMount.innerHTML = VoiceInput.renderButtons('form-name');
                 if (emailMount) emailMount.innerHTML = VoiceInput.renderButtons('form-email');
                 if (messageMount) messageMount.innerHTML = VoiceInput.renderButtons('form-message');
-                
+
                 // Redo style adjustments for absolute buttons
                 if (messageMount) {
                     messageMount.style.top = '10px';
@@ -407,7 +560,71 @@
             // Listen for global language changes
             window.addEventListener('sacLanguageChanged', async () => {
                 await loadPrayerRequests();
+
+                // Update custom select display text based on current selected option
+                setTimeout(() => {
+                    const selectedOpt = document.querySelector('.custom-select-option.selected');
+                    const display = document.getElementById('custom-select-display');
+                    if (selectedOpt && display) {
+                        display.innerHTML = selectedOpt.innerHTML;
+                        display.setAttribute('data-i18n', selectedOpt.getAttribute('data-i18n'));
+                    }
+                }, 50);
             });
+        });
+
+        // ----------------------------------------------------
+        // CUSTOM SELECT UI LOGIC
+        // ----------------------------------------------------
+        function toggleCustomSelect(e) {
+            e.stopPropagation();
+            const options = document.querySelector('.custom-select-options');
+            const trigger = document.querySelector('.custom-select-trigger');
+            if (options) options.classList.toggle('open');
+            if (trigger) trigger.classList.toggle('open');
+        }
+
+        function selectCustomOption(element) {
+            const value = element.getAttribute('data-value');
+            const text = element.innerHTML;
+            const i18nKey = element.getAttribute('data-i18n');
+
+            // Update hidden select
+            const hiddenSelect = document.getElementById('form-category');
+            if (hiddenSelect) {
+                hiddenSelect.value = value;
+                hiddenSelect.dispatchEvent(new Event('change'));
+            }
+
+            // Update display text
+            const display = document.getElementById('custom-select-display');
+            if (display) {
+                display.innerHTML = text;
+                display.setAttribute('data-i18n', i18nKey);
+            }
+
+            // Update selected class
+            document.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+
+            // Close dropdown
+            const options = document.querySelector('.custom-select-options');
+            const trigger = document.querySelector('.custom-select-trigger');
+            if (options) options.classList.remove('open');
+            if (trigger) trigger.classList.remove('open');
+        }
+
+        // Close custom select on outside click
+        document.addEventListener('click', (e) => {
+            const customSelect = document.getElementById('category-custom-select');
+            if (customSelect && !customSelect.contains(e.target)) {
+                const options = document.querySelector('.custom-select-options');
+                const trigger = document.querySelector('.custom-select-trigger');
+                if (options && options.classList.contains('open')) {
+                    options.classList.remove('open');
+                    if (trigger) trigger.classList.remove('open');
+                }
+            }
         });
 
         // ----------------------------------------------------
@@ -445,10 +662,10 @@
             if (!grid) return;
 
             const isTa = SAC_COMMON.currentLang === 'ta';
-            
+
             try {
                 const allPrayers = await SAC_DATABASE.get("prayer_requests");
-                
+
                 // Filter: show only active requests (isActive !== false)
                 const activePrayers = allPrayers.filter(p => p.isActive !== false);
 
@@ -468,28 +685,28 @@
                 grid.innerHTML = activePrayers.map(p => {
                     const id = p.id;
                     const prayCount = p.prayCount || 0;
-                    
+
                     // Category translation & icon selection
                     const category = p.category || 'special';
                     const catKey = `wall.cat.${category}`;
                     const categoryText = SAC_COMMON.staticTranslations[isTa ? 'ta' : 'en'][catKey] || category;
-                    
+
                     // Name translation (supports Anonymous toggle)
                     const isAnon = p.isAnonymous === true || !p.name;
-                    const displayName = isAnon 
-                        ? (isTa ? 'அநாமதேயர்' : 'Anonymous') 
+                    const displayName = isAnon
+                        ? (isTa ? 'அநாமதேயர்' : 'Anonymous')
                         : p.name;
-                    
+
                     // Time format
                     const relativeTime = formatRelativeTime(p.date, isTa);
-                    
+
                     // Session/Local clicked check
                     const hasPrayed = prayedInSession.has(id) || sessionStorage.getItem(`sac_prayed_${id}`) === 'true';
                     const activeClass = hasPrayed ? ' prayed-active' : '';
-                    
+
                     // Button labels
                     const prayBtnLabel = isTa ? 'செபிக்கவும்' : 'Pray';
-                    
+
                     // Count formatting
                     let countLabel = '';
                     if (prayCount === 0) {
@@ -503,21 +720,22 @@
                     return `
                         <article class="prayer-req-card cat-${category}${activeClass}" id="prayer-card-${id}">
                             <div class="prayer-card-header">
-                                <span class="prayer-card-name">
-                                    <span class="material-icons" style="font-size: 1.15rem; color: ${isAnon ? 'var(--text-muted)' : 'var(--primary)'}">${isAnon ? 'account_circle' : 'person'}</span>
-                                    ${displayName}
-                                </span>
+                                <div style="display: flex; justify-content: space-between; width: 100%; align-items: flex-start;">
+                                    <span class="prayer-card-name">
+                                        <span class="material-icons" style="font-size: 1.15rem; color: ${isAnon ? 'var(--text-muted)' : 'var(--primary)'}">${isAnon ? 'account_circle' : 'person'}</span>
+                                        ${displayName}
+                                    </span>
+                                    <span class="prayer-card-time" style="margin-left: 10px;">
+                                        <span class="material-icons">schedule</span>
+                                        ${relativeTime}
+                                    </span>
+                                </div>
                                 <span class="wall-cat-pill">${categoryText}</span>
                             </div>
                             
-                            <p class="prayer-card-msg">"${p.message}"</p>
+                            <p class="prayer-card-msg">${p.message}</p>
                             
-                            <div class="prayer-card-footer">
-                                <span class="prayer-card-time">
-                                    <span class="material-icons">schedule</span>
-                                    ${relativeTime}
-                                </span>
-                                
+                            <div class="prayer-card-footer" style="justify-content: flex-end;">
                                 <button class="pray-btn${activeClass}" onclick="handlePrayClick(event, '${id}')" aria-label="${prayBtnLabel}">
                                     <span class="material-icons">${hasPrayed ? 'volunteer_activism' : 'favorite'}</span>
                                     <span class="pray-badge">${countLabel}</span>
@@ -536,7 +754,7 @@
         // Submitting Intention
         async function handlePrayerSubmit(e) {
             e.preventDefault();
-            
+
             const isAnon = document.getElementById('form-anonymous').checked;
             const nameVal = document.getElementById('form-name').value;
             const emailVal = document.getElementById('form-email').value;
@@ -567,17 +785,17 @@
             try {
                 // Save using dynamic database utility (syncs to LocalStorage/Firestore)
                 await SAC_DATABASE.save("prayer_requests", newPrayer);
-                
+
                 // Reset form & close modal
                 document.getElementById('prayer-submit-form').reset();
                 document.getElementById('form-char-counter').innerText = '0/300';
                 toggleAnonymousState(); // reset visibility
-                
+
                 closePrayerWallModal();
-                
+
                 // Show encouraging success popup
                 openPrayerSuccessModal();
-                
+
                 // Reload wall cards grid
                 await loadPrayerRequests();
 
@@ -592,24 +810,24 @@
         // Increment pray counts with particles
         async function handlePrayClick(e, prayerId) {
             e.stopPropagation();
-            
+
             // Check if already clicked
             if (prayedInSession.has(prayerId) || sessionStorage.getItem(`sac_prayed_${prayerId}`) === 'true') return;
-            
+
             const btn = e.currentTarget;
             btn.classList.add('prayed-active');
-            
+
             // Prevent duplicate clicks
             prayedInSession.add(prayerId);
             try {
                 sessionStorage.setItem(`sac_prayed_${prayerId}`, 'true');
-            } catch(e){}
+            } catch (e) { }
 
             // Spawn floating hearts/hands particles
             const rect = btn.getBoundingClientRect();
             const clickX = rect.left + rect.width / 2;
             const clickY = rect.top + window.scrollY;
-            
+
             // Spawn 3 particles staggered
             spawnAmenParticle(clickX, clickY);
             setTimeout(() => spawnAmenParticle(clickX - 15, clickY - 10), 150);
@@ -622,17 +840,17 @@
                 if (prayer) {
                     prayer.prayCount = (prayer.prayCount || 0) + 1;
                     await SAC_DATABASE.save("prayer_requests", prayer);
-                    
+
                     // Update button content without complete grid rebuild for speed
                     const isTa = SAC_COMMON.currentLang === 'ta';
                     const icon = btn.querySelector('.material-icons');
                     if (icon) icon.innerText = 'volunteer_activism';
-                    
+
                     const badge = btn.querySelector('.pray-badge');
                     if (badge) {
                         badge.innerText = isTa ? `${prayer.prayCount} பேர் செபித்தனர்` : `${prayer.prayCount} people prayed`;
                     }
-                    
+
                     // Optional toast confirmation
                     if (typeof SAC_Toast !== 'undefined') {
                         SAC_Toast.info(isTa ? 'செபம் செய்யப்பட்டது' : 'Prayed!', isTa ? 'உங்களது செபம் இணைக்கப்பட்டது' : 'Your prayer has been added.');
@@ -647,20 +865,20 @@
         function spawnAmenParticle(x, y) {
             const particle = document.createElement('div');
             particle.className = 'amen-particle';
-            
+
             // Randomly pick pray emoji or heart emoji
             const emojis = ['🙏', '❤️', '✨', '🕯️'];
             particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            
+
             particle.style.left = `${x}px`;
             particle.style.top = `${y}px`;
-            
+
             // Randomize slight horizontal drifts
             const driftX = (Math.random() - 0.5) * 40;
             particle.style.setProperty('--drift-x', `${driftX}px`);
-            
+
             document.body.appendChild(particle);
-            
+
             // Clean up
             setTimeout(() => {
                 particle.remove();
@@ -672,7 +890,7 @@
             const overlay = document.getElementById('prayer-submit-modal-overlay');
             if (overlay) {
                 overlay.classList.add('open');
-                document.body.style.overflow = 'hidden'; // disable scroll
+                document.body.classList.add('modal-open');
             }
         }
 
@@ -681,12 +899,12 @@
             const checkbox = document.getElementById('form-anonymous');
             const nameInput = document.getElementById('form-name');
             const nameGroup = document.getElementById('form-group-name');
-            
+
             if (checkbox && nameInput) {
                 const isAnon = checkbox.checked;
                 nameInput.disabled = isAnon;
                 nameInput.required = !isAnon;
-                
+
                 if (isAnon) {
                     nameInput.value = '';
                     if (nameGroup) nameGroup.style.opacity = '0.5';
@@ -700,7 +918,7 @@
             const overlay = document.getElementById('prayer-submit-modal-overlay');
             if (overlay) {
                 overlay.classList.remove('open');
-                document.body.style.overflow = ''; // restore scroll
+                document.body.classList.remove('modal-open');
             }
         }
 
@@ -724,7 +942,7 @@
         function toggleLanguage(lang) {
             document.querySelectorAll('.lang-label').forEach(el => el.classList.remove('active'));
             document.querySelector('.lang-label.' + lang).classList.add('active');
-            
+
             document.querySelectorAll('.prayer-block').forEach(el => el.classList.remove('active'));
             document.querySelector('.prayer-block.lang-' + lang).classList.add('active');
         }
@@ -760,13 +978,13 @@
         function showPrayerModal(prayerKey) {
             const prayer = traditionalPrayers[prayerKey];
             if (!prayer) return;
-            
+
             document.getElementById('modal-prayer-title').innerText = prayer.title;
             document.getElementById('modal-prayer-content').innerText = prayer.content;
-            
+
             const modal = document.getElementById('prayer-modal');
             const modalInner = document.getElementById('prayer-modal-inner');
-            
+
             // Show and animate in
             modal.style.display = 'flex';
             // Small delay to allow display:flex to apply before transition
@@ -780,12 +998,12 @@
         function closePrayerModal() {
             const modal = document.getElementById('prayer-modal');
             const modalInner = document.getElementById('prayer-modal-inner');
-            
+
             // Animate out
             modal.style.opacity = '0';
             modalInner.style.transform = 'scale(0.95)';
             modalInner.style.opacity = '0';
-            
+
             // Hide after transition
             setTimeout(() => {
                 modal.style.display = 'none';
@@ -793,5 +1011,5 @@
         }
     </script>
 </body>
-</html>
 
+</html>

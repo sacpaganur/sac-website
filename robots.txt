@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /sac-admin-portal.html
+Disallow: /js/database.js
+
+Sitemap: https://stacpaganur.web.app/sitemap.xml

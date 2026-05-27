@@ -197,7 +197,7 @@ const SAC_DATABASE = {
       {
         id: "gallery_1",
         src: "images/gallery_altar.png",
-        catTa: "பலிபீடம் | Sanctuary",
+        catTa: "பலிபீடம்",
         catEn: "Sanctuary Altar",
         titleTa: "அழகிய நற்கருணை பலிபீடம்",
         titleEn: "Holy Eucharistic Sanctuary Altar",
@@ -206,7 +206,7 @@ const SAC_DATABASE = {
       {
         id: "gallery_2",
         src: "images/gallery_fest.png",
-        catTa: "திருவிழா | Festival",
+        catTa: "ஆண்டு திருவிழா",
         catEn: "Annual Festival",
         titleTa: "ஆண்டு திருவிழா மின்விளக்கு அலங்காரம்",
         titleEn: "Grand Annual Feast Light Decoration",
@@ -215,7 +215,7 @@ const SAC_DATABASE = {
       {
         id: "gallery_3",
         src: "images/gallery_choir.png",
-        catTa: "பங்கு பாடகர் குழு | Choir",
+        catTa: "பங்கு பாடகர் குழு",
         catEn: "Parish Liturgical Choir",
         titleTa: "மெழுகுவர்த்தி வழிபாட்டு திருப்பலி பாடல்",
         titleEn: "Solemn Candlelight Liturgical Choir Service",
@@ -224,7 +224,7 @@ const SAC_DATABASE = {
       {
         id: "gallery_4",
         src: "images/gallery_statue.png",
-        catTa: "பாதுகாவலர் | Patron",
+        catTa: "பாதுகாவலர்",
         catEn: "Patron Saint Devotion",
         titleTa: "அற்புத புனித அந்தோணியார் திருவுருவச் சிலை",
         titleEn: "Miraculous Statue of St. Antony of Padua",
@@ -233,7 +233,7 @@ const SAC_DATABASE = {
       {
         id: "gallery_5",
         src: "images/old_church_altar.png",
-        catTa: "பழைய ஆலயம் | Historical",
+        catTa: "பழைய ஆலயம்",
         catEn: "Historical Sanctuary",
         titleTa: "வரலாற்று சிறப்புமிக்க பழைய ஆலய பீடம்",
         titleEn: "Glorious Old Church Altar",
@@ -242,7 +242,7 @@ const SAC_DATABASE = {
       {
         id: "gallery_new_1",
         src: "images/opening_ceremony_1.jpg",
-        catTa: "திறப்பு விழா | Opening Ceremony",
+        catTa: "திறப்பு விழா",
         catEn: "Opening Ceremony",
         titleTa: "புதிய ஆலய திறப்பு விழா பவனி மற்றும் ஆராதனை",
         titleEn: "New Church Opening Ceremony Procession and Worship",
@@ -251,7 +251,7 @@ const SAC_DATABASE = {
       {
         id: "gallery_new_2",
         src: "images/opening_ceremony_2.jpg",
-        catTa: "திறப்பு விழா | Opening Ceremony",
+        catTa: "திறப்பு விழா",
         catEn: "Opening Ceremony",
         titleTa: "பேராயர் தலைமையில் புதிய ஆலய அர்ச்சிப்பு மற்றும் வரவேற்பு",
         titleEn: "Blessing of the New Church by the Bishop and Welcome Ceremony",
@@ -260,7 +260,7 @@ const SAC_DATABASE = {
       {
         id: "gallery_new_3",
         src: "images/opening_ceremony_3.jpg",
-        catTa: "திறப்பு விழா | Opening Ceremony",
+        catTa: "திறப்பு விழா",
         catEn: "Opening Ceremony",
         titleTa: "விழாக்கோலத்தில் புதிய ஆலயம்",
         titleEn: "New Church Illuminated with Grand Lighting during the Ceremony",
@@ -370,10 +370,10 @@ const SAC_DATABASE = {
         }
       }
       
-      // Fix missing English translation for Opening Ceremony
+      // Migration: Clean up old mixed language catTa (e.g. "பலிபீடம் | Sanctuary" -> "பலிபீடம்")
       parsed.forEach(item => {
-        if (item.catTa === "திறப்பு விழா") {
-          item.catTa = "திறப்பு விழா | Opening Ceremony";
+        if (item.catTa && item.catTa.includes(' | ')) {
+          item.catTa = item.catTa.split(' | ')[0].trim();
           modified = true;
         }
       });

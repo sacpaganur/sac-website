@@ -834,8 +834,30 @@ body:lang(ta) .hero-cinema__scripture blockquote {
     width: 100%;
   }
 
+  .hero-cinema__btn--outline {
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #ffffff !important;
+  }
+
   .hero-cinema__scroll {
     bottom: 64px;
+  }
+
+  .hero-cinema__lead {
+    color: #ffffff;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9), 0 4px 30px rgba(0, 0, 0, 0.6);
+    font-weight: 500;
+  }
+
+  .hero-cinema__scripture blockquote {
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
   }
 }
 

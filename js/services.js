@@ -585,7 +585,7 @@ Return ONLY the JSON object, nothing else.`;
       return;
     }
 
-    liveText.textContent = 'Listening...';
+    liveText.textContent = (SAC_COMMON.staticTranslations[SAC_COMMON.currentLang] && SAC_COMMON.staticTranslations[SAC_COMMON.currentLang]['wall.ai.listening']) || '"Listening..."';
     overlay.style.display = 'flex';
     
     VoiceInput.startAIAssistant(async (text) => {

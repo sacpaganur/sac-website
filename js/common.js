@@ -85,6 +85,7 @@
 // --- A11Y (ACCESSIBILITY) AUTO-INJECTION ---
 (function () {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  return; // Temporarily disabled globally as per request
 
   // Hide the Accessibility Options FAB button ONLY on the home page (index.html or root /)
   const path = window.location.pathname;
@@ -388,7 +389,12 @@ const SAC_COMMON = {
       "wall.prayedCountNone": "துணை நிற்கிறோம்",
       "wall.btnAiFill": "🎤 AI உதவியாளர் மூலம் நிரப்பவும்",
       "wall.anonymous": "அநாமதேயர்",
-      "wall.timeAgo": "மணிநேரத்திற்கு முன்"
+      "wall.timeAgo": "மணிநேரத்திற்கு முன்",
+      "wall.ai.listenTitle": "உங்களது செபங்களை கேட்கிறது...",
+      "wall.ai.listenDesc": "உங்களது பெயர், மின்னஞ்சல் மற்றும் செப விண்ணப்பத்தை இயல்பாக பேசவும். புனித அந்தோணியார் AI உங்களுக்காக படிவத்தை நிரப்பும்.",
+      "wall.ai.listening": "\"கேட்கிறது...\"",
+      "wall.ai.processTitle": "AI மூலம் ஒருங்கிணைக்கப்படுகிறது...",
+      "wall.ai.processDesc": "Gemini உங்களுக்காக தகவல்களை மொழிபெயர்த்து நிரப்புகிறது."
     },
     "en": {
       "nav.home": "Home",
@@ -653,7 +659,12 @@ const SAC_COMMON = {
       "wall.prayedCountNone": "Standing in prayer",
       "wall.btnAiFill": "🎤 Ask AI to Fill Form",
       "wall.anonymous": "Anonymous",
-      "wall.timeAgo": "ago"
+      "wall.timeAgo": "ago",
+      "wall.ai.listenTitle": "Listening to your prayer...",
+      "wall.ai.listenDesc": "Speak your name, email, and prayer request naturally. St. Antony's AI organized form for you.",
+      "wall.ai.listening": "\"Listening...\"",
+      "wall.ai.processTitle": "Organizing with AI...",
+      "wall.ai.processDesc": "Gemini is translating and populating the fields for you."
     },
   },
 

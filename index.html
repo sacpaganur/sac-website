@@ -18,6 +18,43 @@
     <link rel="stylesheet" href="css/hero-home.css?v=1.6">
     <link rel="stylesheet" href="css/modal.css?v=1.6">
     <script src="js/navbar.js?v=1.7"></script>
+
+    <!-- Performance Preconnects -->
+    <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Comprehensive Technical SEO & Social Tags -->
+    <link rel="canonical" href="https://stacpaganur.web.app/" />
+    <meta property="og:title" content="முகப்பு | புனித அந்தோணியார் ஆலயம் – வடக்கு பாகனூர்" />
+    <meta property="og:description" content="புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர். St. Antony's Church Vadakku Paganur - Official Catholic Devotion, Mass Timings, and Digital Novena." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://stacpaganur.web.app/" />
+    <meta property="og:image" content="https://stacpaganur.web.app/images/church_logo.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="முகப்பு | புனித அந்தோணியார் ஆலயம் – வடக்கு பாகனூர்" />
+    <meta name="twitter:description" content="புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர். St. Antony's Church Vadakku Paganur - Official Catholic Devotion, Mass Timings, and Digital Novena." />
+    <meta name="twitter:image" content="https://stacpaganur.web.app/images/church_logo.jpg" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PlaceOfWorship",
+      "name": "St. Antony's Church, Vadakku Paganur",
+      "alternateName": "புனித அந்தோணியார் ஆலயம்",
+      "image": "https://stacpaganur.web.app/images/church_logo.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Vadakku Paganur",
+        "addressRegion": "Tamil Nadu",
+        "addressCountry": "IN"
+      },
+      "url": "https://stacpaganur.web.app",
+      "telephone": "",
+      "religion": "Catholic"
+    }
+    </script>
 </head>
 <body>
     <!-- Global Page Loader -->
@@ -105,10 +142,7 @@
         </div>
     </div>
 
-    <a href="#parish-welcome" class="hero-cinema__scroll" aria-label="Scroll to content">
-        <span class="hero-cinema__scroll-line" aria-hidden="true"></span>
-        <span data-i18n="hero.scrollCue">கீழே செல்லுங்கள்</span>
-    </a>
+
 </section>
         <!-- Spiritual Welcome & Patron Saint Details -->
         <section class="section-container patron-vision-section" id="parish-welcome">
@@ -125,7 +159,7 @@
             <div class="patron-vision-grid">
                 <!-- Left: Image -->
                 <div class="patron-vision-image-wrapper">
-                    <img src="images/saint_antony_hd.png" alt="Saint Antony" class="patron-vision-img">
+                    <img loading="lazy" src="images/saint_antony_hd.png" alt="Saint Antony" class="patron-vision-img">
                     <div class="patron-vision-pill">
                         <div class="pill-avatars">
                             <span class="avatar" aria-hidden="true">🙏</span>
@@ -289,14 +323,14 @@
     </div>
 
     <!-- Firebase compatibility libraries (Admin configured Firestore connection support) -->
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js" defer></script>
 
     <!-- Project JS dependencies -->
-    <script src="js/database.js?v=1.7"></script>
-    <script src="js/footer.js?v=1.1"></script>
-    <script src="js/common.js?v=1.7"></script>
-    <script src="js/hero-home.js?v=1.1"></script>
+    <script src="js/database.js?v=1.7" defer></script>
+    <script src="js/footer.js?v=1.1" defer></script>
+    <script src="js/common.js?v=1.7" defer></script>
+    <script src="js/hero-home.js?v=1.1" defer></script>
     <!-- Specific page home countdown & scheduling logic -->
     <script>
         // Init shared scripts

@@ -7316,3 +7316,9 @@ body:lang(ta) .footer-back-top span:last-child {
   display: none;
   font-weight: 500;
 }
+
+/* Global Performance Enhancements */
+.section-container {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+}
