@@ -34,8 +34,9 @@
     });
   };
 
-  // Ultimate fallback: forcefully hide after 3000ms no matter what
-  setTimeout(window.hideSACLoader, 3000);
+  // Ultimate fallback: forcefully hide after 1500ms no matter what
+  // Keep this short so pages never appear blank for more than 1.5 seconds.
+  setTimeout(window.hideSACLoader, 1500);
 
 
 
@@ -805,14 +806,12 @@ const SAC_COMMON = {
           });
       });
 
-      // Reload the page once when a new service worker takes control
-      let refreshing = false;
+      // NOTE: We intentionally do NOT auto-reload on 'controllerchange'.
+      // Auto-reloading caused a blank-screen loop: new SW activates → reload →
+      // SW fires controllerchange again → reload again, especially on mobile.
+      // Pages will naturally use the new SW on their next user-initiated navigation.
       navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!refreshing) {
-          refreshing = true;
-          console.log('[PWA] New controller active. Reloading page...');
-          window.location.reload();
-        }
+        console.log('[PWA] New service worker is now in control. Fresh assets will be used on next navigation.');
       });
     }
 
@@ -864,12 +863,19 @@ const SAC_COMMON = {
     }
   },
 
-  // Smoothly reveals the page by fading in the body and removing the flicker-free styling tag
+  // Smoothly reveals the page by fading in the body, removing the flicker-free style,
+  // AND hiding the global loader overlay — both visibility systems in one call.
   revealPage() {
     if (this._failsafeTimer) {
       clearTimeout(this._failsafeTimer);
       this._failsafeTimer = null;
     }
+
+    // Always dismiss the global loader overlay first
+    if (typeof window.hideSACLoader === 'function') {
+      window.hideSACLoader();
+    }
+
     const futcStyle = document.getElementById('sac-futc-style');
     if (futcStyle) {
       try {

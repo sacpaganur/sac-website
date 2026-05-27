@@ -1072,13 +1072,23 @@
     <!-- Admin dashboard operations script -->
     <script>
         window.addEventListener('DOMContentLoaded', async () => {
-            await SAC_COMMON.init('admin');
-            
-            // Check session login state
-            if (sessionStorage.getItem('sac_admin_logged_in') === 'true') {
-                await showAdminDashboard();
-            } else {
-                showAdminLogin();
+            try {
+                await SAC_COMMON.init('admin');
+                
+                // Check session login state
+                if (sessionStorage.getItem('sac_admin_logged_in') === 'true') {
+                    await showAdminDashboard();
+                } else {
+                    showAdminLogin();
+                }
+            } catch (err) {
+                console.error('[Admin] Initialization error:', err);
+                showAdminLogin(); // Fallback to showing login on any crash
+            } finally {
+                // ALWAYS hide the global loader, no matter what happens
+                if (typeof window.hideSACLoader === 'function') {
+                    window.hideSACLoader();
+                }
             }
 
             window.addEventListener('sacLanguageChanged', async () => {
