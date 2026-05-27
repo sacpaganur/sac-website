@@ -36,17 +36,25 @@ const SAC_MESSAGING = {
   },
 
   async requestPermission() {
+    const isTa = SAC_COMMON.currentLang === 'ta';
+    if (!('Notification' in window)) {
+      const errMsg = isTa
+        ? "உங்கள் உலாவி புஷ் அறிவிப்புகளை ஆதரிக்கவில்லை. தயவுசெய்து இந்த செயலியை முகப்புத் திரையில் நிறுவி (Add to Home Screen) அங்கிருந்து திறக்கவும்."
+        : "Your browser does not support push notifications. If you are on iOS, please install the app to your Home Screen first.";
+      this.showErrorToast(errMsg);
+      return;
+    }
+
     try {
       const permission = await Notification.requestPermission();
-      const isTa = SAC_COMMON.currentLang === 'ta';
       if (permission === 'granted') {
         console.log("Notification permission granted.");
         await this.subscribeToken();
       } else {
         console.log("Notification permission denied.");
         const errMsg = isTa
-          ? "அறிவிப்புகள் முடக்கப்பட்டன. அறிவிப்புகளைப் பெற உலாவி அமைப்புகளில் அனுமதியை வழங்கவும்."
-          : "Notification permissions denied. Please enable permission in your browser settings to subscribe.";
+          ? "அறிவிப்பு அனுமதி மறுக்கப்பட்டது! அதை இயக்க, முகவரிப் பட்டியில் உள்ள பூட்டு (Lock 🔒) ஐகானைக் கிளிக் செய்து, அறிவிப்புகளை 'Allow' என மாற்றவும்."
+          : "Notification permission blocked! To enable, click the Lock 🔒 icon next to the website address in your URL bar and change Notifications to 'Allow'.";
         this.showErrorToast(errMsg);
       }
     } catch (error) {
@@ -112,6 +120,10 @@ const SAC_MESSAGING = {
   },
 
   checkPermissionStatus() {
+    if (!('Notification' in window)) {
+      console.warn("This browser does not support push notifications.");
+      return;
+    }
     if (Notification.permission === 'default') {
       // Show custom prompt
       this.showPrompt();
