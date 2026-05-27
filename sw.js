@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v4';
+const CACHE_NAME = 'sac-pwa-cache-v5';
 const ASSETS_TO_CACHE = [
   './',
   './bible',
@@ -68,22 +68,51 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   if (!event.request.url.startsWith('http')) return;
 
-  // Clean the URL to handle Firebase Hosting cleanUrls (remove .html)
   const requestUrl = new URL(event.request.url);
-  let cleanUrl = event.request.url;
   
+  // Define clean URL by stripping .html extensions
+  let cleanUrl = event.request.url;
   if (requestUrl.pathname.endsWith('.html')) {
     const cleanPath = requestUrl.pathname.slice(0, -5);
     cleanUrl = requestUrl.origin + cleanPath + requestUrl.search;
   }
 
-  // Stale-while-revalidate strategy with query-ignored cache matching
+  // --- Strategy 1: Network-First for Page Navigations (HTML pages) ---
+  // This avoids any potential redirect conflicts or ERR_FAILED blocks from cleanUrls when online,
+  // while ensuring robust offline fallback loading.
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          // If successful and not redirected, cache the response under the clean URL
+          if (networkResponse && networkResponse.status === 200 && !networkResponse.redirected) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(cleanUrl, responseToCache).catch(err => {
+                console.warn('[Service Worker] Navigation cache put failed:', err);
+              });
+            });
+          }
+          return networkResponse;
+        })
+        .catch((error) => {
+          console.warn('[Service Worker] Navigation fetch failed. Attempting offline cache fallback...', error);
+          // Network failed (offline), try to serve the clean URL from cache
+          return caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
+            if (cachedResponse) return cachedResponse;
+            // Ultimate fallback to cached clean home page
+            return caches.match('./', { ignoreSearch: true });
+          });
+        })
+    );
+    return;
+  }
+
+  // --- Strategy 2: Stale-While-Revalidate for Static Assets (CSS, JS, Images, etc.) ---
   event.respondWith(
     caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
-      // Create a fetch request to get the latest version from network
       const fetchPromise = fetch(event.request)
         .then((networkResponse) => {
-          // Cache successful, non-redirected responses from our origin or CORS resources
           if (
             networkResponse &&
             networkResponse.status === 200 &&
@@ -92,27 +121,15 @@ self.addEventListener('fetch', (event) => {
           ) {
             const responseToCache = networkResponse.clone();
             caches.open(CACHE_NAME).then((cache) => {
-              // Store it in the cache under the clean URL to ensure consistent lookups
               cache.put(cleanUrl, responseToCache).catch(err => {
-                console.warn('[Service Worker] Cache put failed:', err);
+                console.warn('[Service Worker] Asset cache put failed:', err);
               });
             });
           }
           return networkResponse;
         })
-        .catch((error) => {
-          // If the network request fails and it's a page navigation request,
-          // return the cached home page (./) as a fallback.
-          if (event.request.mode === 'navigate') {
-            console.warn('[Service Worker] Network failed for navigation. Serving index fallback.', error);
-            return caches.match('./', { ignoreSearch: true });
-          }
-          
-          // Return the cached response (even if undefined) for other resources
-          return cachedResponse;
-        });
+        .catch(() => cachedResponse);
 
-      // Return the cached response immediately if we have it, otherwise wait for the network
       return cachedResponse || fetchPromise;
     })
   );
