@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v3';
+const CACHE_NAME = 'sac-pwa-cache-v4';
 const ASSETS_TO_CACHE = [
   './',
   './bible',
@@ -83,16 +83,19 @@ self.addEventListener('fetch', (event) => {
       // Create a fetch request to get the latest version from network
       const fetchPromise = fetch(event.request)
         .then((networkResponse) => {
-          // Cache successful responses from our origin or CORS resources
+          // Cache successful, non-redirected responses from our origin or CORS resources
           if (
             networkResponse &&
             networkResponse.status === 200 &&
-            (networkResponse.type === 'basic' || networkResponse.type === 'cors')
+            (networkResponse.type === 'basic' || networkResponse.type === 'cors') &&
+            !networkResponse.redirected
           ) {
             const responseToCache = networkResponse.clone();
             caches.open(CACHE_NAME).then((cache) => {
               // Store it in the cache under the clean URL to ensure consistent lookups
-              cache.put(cleanUrl, responseToCache);
+              cache.put(cleanUrl, responseToCache).catch(err => {
+                console.warn('[Service Worker] Cache put failed:', err);
+              });
             });
           }
           return networkResponse;

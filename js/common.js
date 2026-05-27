@@ -77,8 +77,9 @@
 (function () {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
-  // Don't inject accessibility options on the admin portal page
-  if (window.location.pathname.includes('sac-admin-portal') || window.location.pathname.includes('admin')) {
+  // Hide the Accessibility Options FAB button ONLY on the home page (index.html or root /)
+  const path = window.location.pathname;
+  if (path === '/' || path === '/index.html' || path.endsWith('/index.html') || path === '') {
     return;
   }
 
