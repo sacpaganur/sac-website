@@ -77,6 +77,11 @@
 (function () {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
+  // Don't inject accessibility options on the admin portal page
+  if (window.location.pathname.includes('sac-admin-portal') || window.location.pathname.includes('admin')) {
+    return;
+  }
+
   // Inject A11y stylesheet
   const a11yCSS = document.createElement('link');
   a11yCSS.rel = 'stylesheet';
