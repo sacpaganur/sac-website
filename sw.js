@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v6';
+const CACHE_NAME = 'sac-pwa-cache-v7';
 const ASSETS_TO_CACHE = [
   './',
   './bible',
@@ -35,6 +35,7 @@ const ASSETS_TO_CACHE = [
   './js/hero-home.js',
   './js/liturgical_data.js',
   './js/services.js',
+  './js/messaging.js',
   './images/church_logo.jpg'
 ];
 
