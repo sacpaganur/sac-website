@@ -185,12 +185,12 @@ const SAC_DATABASE = {
       // NOTE: Hardcode your live Firebase project credentials here to ensure that all public, 
       // mobile, and incognito users automatically connect to the same live database by default!
       enabled: true,
-      apiKey: "PASTE_YOUR_FIREBASE_API_KEY_HERE",
+      apiKey: "AIzaSyD2PpMl6jeHehj6GlNS5B1Uni6pos7UkJc",
       authDomain: "stacpaganur.firebaseapp.com",
       projectId: "stacpaganur",
-      storageBucket: "stacpaganur.appspot.com",
-      messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID_HERE",
-      appId: "PASTE_YOUR_APP_ID_HERE"
+      storageBucket: "stacpaganur.firebasestorage.app",
+      messagingSenderId: "495839870905",
+      appId: "1:495839870905:web:f9f8ab0446292689a50068"
     },
     gallery: [
       {
@@ -304,6 +304,23 @@ const SAC_DATABASE = {
     let existing = localStorage.getItem(key);
     if (!existing) {
       localStorage.setItem(key, JSON.stringify(defaultValue));
+    } else if (key === 'sac_firebase_config') {
+      let parsed = JSON.parse(existing);
+      let modified = false;
+      // If config is missing, has dummy placeholders, or has outdated storageBucket, let's force update
+      if (!parsed || 
+          !parsed.apiKey || 
+          parsed.apiKey.includes("PASTE_YOUR") || 
+          parsed.apiKey === "PASTE_YOUR_FIREBASE_API_KEY_HERE" ||
+          parsed.storageBucket === "stacpaganur.appspot.com" ||
+          !parsed.appId || 
+          parsed.appId.includes("PASTE_YOUR")) {
+        parsed = { ...defaultValue };
+        modified = true;
+      }
+      if (modified) {
+        localStorage.setItem(key, JSON.stringify(parsed));
+      }
     } else if (key === 'sac_announcements') {
       // Migrate existing announcements to ensure they have an eventDate
       let parsed = JSON.parse(existing);
