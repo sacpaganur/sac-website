@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v10';
+const CACHE_NAME = 'sac-pwa-cache-v11';
 const ASSETS_TO_CACHE = [
   './',
   './bible',
@@ -42,8 +42,26 @@ const ASSETS_TO_CACHE = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Caching all static assets...');
-      return cache.addAll(ASSETS_TO_CACHE);
+      console.log('[Service Worker] Caching all static assets while bypassing browser disk cache...');
+      // Fetch each asset with cache: 'reload' to ensure we download the fresh deployed versions
+      // from the live server instead of reusing stale browser HTTP disk cache entries!
+      const cachePromises = ASSETS_TO_CACHE.map((url) => {
+        const request = new Request(url, { cache: 'reload' });
+        return fetch(request)
+          .then((response) => {
+            if (response.ok) {
+              return cache.put(url, response);
+            }
+            throw new Error(`Failed to fetch ${url} (Status: ${response.status})`);
+          })
+          .catch((err) => {
+            console.warn(`[Service Worker] Pre-caching reload fetch failed for ${url}, falling back to basic caching:`, err);
+            return cache.add(url).catch(fallbackErr => {
+              console.error(`[Service Worker] Critical pre-caching failure for ${url}:`, fallbackErr);
+            });
+          });
+      });
+      return Promise.all(cachePromises);
     })
   );
   self.skipWaiting();
