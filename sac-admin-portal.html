@@ -961,6 +961,11 @@
                                 <input type="text" id="db-appId" class="form-control" placeholder="1:1234:web:abcd">
                             </div>
 
+                            <div class="form-group">
+                                <label class="form-label">Web Push VAPID Key (Web Push Certificates)</label>
+                                <input type="text" id="db-vapidKey" class="form-control" placeholder="BPAx...">
+                            </div>
+
                             <button type="submit" class="btn-submit btn-admin-action" style="margin-top:10px;">
                                 <span class="material-icons">cloud_done</span> சேமி & இணை / Save & Sync
                             </button>
@@ -2283,6 +2288,7 @@
             document.getElementById('db-storageBucket').value = config.storageBucket || '';
             document.getElementById('db-messagingSenderId').value = config.messagingSenderId || '';
             document.getElementById('db-appId').value = config.appId || '';
+            document.getElementById('db-vapidKey').value = config.vapidKey || '';
         }
 
         async function saveDatabaseConfig(e) {
@@ -2295,7 +2301,8 @@
                 projectId: document.getElementById('db-projectId').value.trim(),
                 storageBucket: document.getElementById('db-storageBucket').value.trim(),
                 messagingSenderId: document.getElementById('db-messagingSenderId').value.trim(),
-                appId: document.getElementById('db-appId').value.trim()
+                appId: document.getElementById('db-appId').value.trim(),
+                vapidKey: document.getElementById('db-vapidKey').value.trim()
             };
 
             await SAC_DATABASE.save("firebase_config", data);

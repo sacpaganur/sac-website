@@ -52,11 +52,16 @@ const SAC_MESSAGING = {
   async subscribeToken() {
     if (!this.messaging) return;
     try {
+      const config = SAC_DATABASE.getCollection("sac_firebase_config");
+      const tokenOptions = {};
+      if (config && config.vapidKey && config.vapidKey !== "YOUR_PUBLIC_VAPID_KEY_HERE" && config.vapidKey.trim() !== "") {
+        tokenOptions.vapidKey = config.vapidKey.trim();
+      } else {
+        console.warn("Web Push VAPID Key is not configured yet. Please generate Web Push Certificates in the Firebase Console and configure the VAPID Key in the Admin Portal for Push Notifications to function properly.");
+      }
+
       // Get FCM token
-      const currentToken = await this.messaging.getToken({
-        vapidKey: "YOUR_PUBLIC_VAPID_KEY_HERE" // Ideally, this should come from config, but works without it in some setups. 
-                                              // We'll let Firebase handle it if not provided.
-      });
+      const currentToken = await this.messaging.getToken(tokenOptions);
 
       if (currentToken) {
         console.log("FCM Token obtained.");

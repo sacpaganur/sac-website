@@ -190,7 +190,8 @@ const SAC_DATABASE = {
       projectId: "stacpaganur",
       storageBucket: "stacpaganur.firebasestorage.app",
       messagingSenderId: "495839870905",
-      appId: "1:495839870905:web:f9f8ab0446292689a50068"
+      appId: "1:495839870905:web:f9f8ab0446292689a50068",
+      vapidKey: "YOUR_PUBLIC_VAPID_KEY_HERE"
     },
     gallery: [
       {
