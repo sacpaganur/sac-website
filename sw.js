@@ -1,15 +1,14 @@
-const CACHE_NAME = 'sac-pwa-cache-v2';
+const CACHE_NAME = 'sac-pwa-cache-v3';
 const ASSETS_TO_CACHE = [
   './',
-  './index.html',
-  './bible.html',
-  './calendar.html',
-  './contact.html',
-  './devotion.html',
-  './gallery.html',
-  './liturgy.html',
-  './notices.html',
-  './schedule.html',
+  './bible',
+  './calendar',
+  './contact',
+  './devotion',
+  './gallery',
+  './liturgy',
+  './notices',
+  './schedule',
   './css/style.css',
   './css/bible-page.css',
   './css/calendar.css',
@@ -69,9 +68,18 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   if (!event.request.url.startsWith('http')) return;
 
+  // Clean the URL to handle Firebase Hosting cleanUrls (remove .html)
+  const requestUrl = new URL(event.request.url);
+  let cleanUrl = event.request.url;
+  
+  if (requestUrl.pathname.endsWith('.html')) {
+    const cleanPath = requestUrl.pathname.slice(0, -5);
+    cleanUrl = requestUrl.origin + cleanPath + requestUrl.search;
+  }
+
   // Stale-while-revalidate strategy with query-ignored cache matching
   event.respondWith(
-    caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
+    caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
       // Create a fetch request to get the latest version from network
       const fetchPromise = fetch(event.request)
         .then((networkResponse) => {
@@ -83,17 +91,18 @@ self.addEventListener('fetch', (event) => {
           ) {
             const responseToCache = networkResponse.clone();
             caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseToCache);
+              // Store it in the cache under the clean URL to ensure consistent lookups
+              cache.put(cleanUrl, responseToCache);
             });
           }
           return networkResponse;
         })
         .catch((error) => {
           // If the network request fails and it's a page navigation request,
-          // return the cached home page (index.html) as a fallback.
+          // return the cached home page (./) as a fallback.
           if (event.request.mode === 'navigate') {
-            console.warn('[Service Worker] Network failed for navigation. Serving index.html fallback.', error);
-            return caches.match('./index.html', { ignoreSearch: true });
+            console.warn('[Service Worker] Network failed for navigation. Serving index fallback.', error);
+            return caches.match('./', { ignoreSearch: true });
           }
           
           // Return the cached response (even if undefined) for other resources
