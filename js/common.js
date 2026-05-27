@@ -32,6 +32,14 @@
         }, 800);
       }
     });
+
+    // CRITICAL FIX: Also remove the body opacity=0 style so the page becomes visible!
+    // If Firebase hangs, this 1.5s fallback guarantees the UI reveals anyway.
+    const futcStyle = document.getElementById('sac-futc-style');
+    if (futcStyle) {
+      document.body.style.opacity = '1';
+      futcStyle.remove();
+    }
   };
 
   // Ultimate fallback: forcefully hide after 1500ms no matter what
