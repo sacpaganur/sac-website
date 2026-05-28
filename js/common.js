@@ -16,30 +16,39 @@
     </div>
   `;
 
-  // Inject if body exists, else wait for DOMContentLoaded
+  const loaderStartTime = Date.now();
+  let isLoaderHidden = false;
+
   // Expose hideLoader globally so revealPage can call it
   window.hideSACLoader = () => {
-    document.body.style.overflow = ''; // Restore scrolling
-    const loaders = document.querySelectorAll('#sac-global-loader');
-    loaders.forEach(loader => {
-      if (loader.style.opacity !== '0') {
-        loader.style.opacity = '0';
-        loader.style.visibility = 'hidden';
-        setTimeout(() => {
-          loader.remove();
-          const scrollLock = document.getElementById('sac-loader-scroll');
-          if (scrollLock) scrollLock.remove();
-        }, 800);
-      }
-    });
+    if (isLoaderHidden) return;
+    
+    const elapsed = Date.now() - loaderStartTime;
+    const remaining = Math.max(0, 800 - elapsed);
+    
+    setTimeout(() => {
+      isLoaderHidden = true;
+      document.body.style.overflow = ''; // Restore scrolling
+      const loaders = document.querySelectorAll('#sac-global-loader');
+      loaders.forEach(loader => {
+        if (loader.style.opacity !== '0') {
+          loader.style.opacity = '0';
+          loader.style.visibility = 'hidden';
+          setTimeout(() => {
+            loader.remove();
+            const scrollLock = document.getElementById('sac-loader-scroll');
+            if (scrollLock) scrollLock.remove();
+          }, 800);
+        }
+      });
 
-    // CRITICAL FIX: Also remove the body opacity=0 style so the page becomes visible!
-    // If Firebase hangs, this 1.5s fallback guarantees the UI reveals anyway.
-    const futcStyle = document.getElementById('sac-futc-style');
-    if (futcStyle) {
-      document.body.style.opacity = '1';
-      futcStyle.remove();
-    }
+      // CRITICAL FIX: Also remove the body opacity=0 style so the page becomes visible!
+      const futcStyle = document.getElementById('sac-futc-style');
+      if (futcStyle) {
+        document.body.style.opacity = '1';
+        futcStyle.remove();
+      }
+    }, remaining);
   };
 
   // Ultimate fallback: forcefully hide after 1500ms no matter what
