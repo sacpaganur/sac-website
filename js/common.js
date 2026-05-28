@@ -51,9 +51,9 @@
     }, remaining);
   };
 
-  // Ultimate fallback: forcefully hide after 1500ms no matter what
-  // Keep this short so pages never appear blank for more than 1.5 seconds.
-  setTimeout(window.hideSACLoader, 1500);
+  // Ultimate fallback: forcefully hide after 8000ms no matter what
+  // This matches the Firebase timeout, ensuring we wait for all fetches
+  setTimeout(window.hideSACLoader, 8000);
 
 
 
