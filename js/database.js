@@ -401,6 +401,12 @@ const SAC_DATABASE = {
             app = window.firebase.app();
           }
           this.db = window.firebase.firestore();
+          
+          // Enable offline caching and instant load
+          this.db.enablePersistence({synchronizeTabs:true}).catch(err => {
+              console.warn("Firestore persistence could not be enabled:", err);
+          });
+
           this.isFirebaseActive = true;
           console.log("Firebase Firestore successfully connected via custom Admin configuration!");
         }
@@ -440,11 +446,11 @@ const SAC_DATABASE = {
 
     if (this.isFirebaseActive && this.db) {
       try {
-        // Enforce a strict 3-second timeout on Firebase requests.
+        // Enforce an 8-second timeout on initial Firebase requests.
         // If the network is spotty or blocked by an adblocker, we must not freeze the app forever.
         const fetchPromise = this.db.collection(collectionName).get();
         const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error("Firebase request timed out (3s)")), 3000)
+          setTimeout(() => reject(new Error("Firebase request timed out (8s)")), 8000)
         );
         
         const snapshot = await Promise.race([fetchPromise, timeoutPromise]);

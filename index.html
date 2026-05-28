@@ -367,8 +367,12 @@
             today.setHours(0,0,0,0);
             
             const upcomingEvents = announcements.filter(a => {
-                const expDate = new Date(a.expiryDate);
-                return expDate >= today && a.isActive !== false;
+                if (a.isActive === false) return false;
+                if (a.expiryDate) {
+                    const expDate = new Date(a.expiryDate);
+                    if (!isNaN(expDate) && expDate < today) return false;
+                }
+                return true;
             }).sort((a, b) => new Date(a.eventDate || a.date) - new Date(b.eventDate || b.date));
 
             if (upcomingEvents.length > 0) {
