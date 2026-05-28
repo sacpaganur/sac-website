@@ -382,6 +382,16 @@
             if (el) el.innerText = String(count);
         }
 
+        // Helper to format "06:00 AM" into stacked HTML
+        function formatTimeStacked(timeStr) {
+            if (!timeStr) return '';
+            const match12 = timeStr.trim().match(/^(\d{1,2}:\d{2})\s*(AM|PM)$/i);
+            if (match12) {
+                return `<div style="display:flex; flex-direction:column; line-height:1.1;"><span style="font-size:1.05rem; font-weight:800; color:var(--primary);">${match12[1]}</span><span style="font-size:0.8rem; font-weight:800; color:var(--primary); opacity:0.8;">${match12[2].toUpperCase()}</span></div>`;
+            }
+            return `<span style="font-size:1rem; font-weight:800; color:var(--primary);">${timeStr}</span>`;
+        }
+
         // Load mass schedules dynamically from DB
         async function loadMassSchedules() {
             const container = document.getElementById('mass-schedules-grid');
@@ -435,13 +445,13 @@
                             </div>
                             <h4 class="sched-card-title">${title}</h4>
                         </div>
-                        <div class="sched-card-footer">
-                            <div class="sched-time-display">
-                                <span class="time-icon">🕐</span>
-                                ${time}
+                            <div class="sched-card-footer">
+                                <div class="sched-time-display">
+                                    <span class="material-icons time-icon" style="font-size:18px; color:var(--primary); opacity:0.6;">schedule</span>
+                                    ${formatTimeStacked(time)}
+                                </div>
+                                <div class="cal-mount" id="cal-mass-${idx}"></div>
                             </div>
-                            <div class="cal-mount" id="cal-mass-${idx}"></div>
-                        </div>
                     </article>
                 `;
             }).join('');
