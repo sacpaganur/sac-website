@@ -458,6 +458,13 @@ const SAC_DATABASE = {
         if (!snapshot.empty) {
           const results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           if (isArrayType) {
+            if (collectionName === "gallery") {
+              results.forEach(item => {
+                if (item.catTa && item.catTa.includes(' | ')) {
+                  item.catTa = item.catTa.split(' | ')[0].trim();
+                }
+              });
+            }
             try { localStorage.setItem("sac_" + collectionName, JSON.stringify(results)); } catch(e){}
             return results;
           } else {
@@ -492,11 +499,23 @@ const SAC_DATABASE = {
         }
       } catch (err) {
         console.warn(`Firestore read failed or timed out for ${collectionName}, falling back to LocalStorage:`, err.message);
-        return isArrayType ? (localData || []) : sanitizeObj(localData, collectionName);
+        let fallbackArr = isArrayType ? (localData || []) : [];
+        if (collectionName === "gallery" && isArrayType) {
+          fallbackArr.forEach(item => {
+            if (item.catTa && item.catTa.includes(' | ')) item.catTa = item.catTa.split(' | ')[0].trim();
+          });
+        }
+        return isArrayType ? fallbackArr : sanitizeObj(localData, collectionName);
       }
     }
 
-    return isArrayType ? (localData || []) : sanitizeObj(localData, collectionName);
+    let offlineArr = isArrayType ? (localData || []) : [];
+    if (collectionName === "gallery" && isArrayType) {
+      offlineArr.forEach(item => {
+        if (item.catTa && item.catTa.includes(' | ')) item.catTa = item.catTa.split(' | ')[0].trim();
+      });
+    }
+    return isArrayType ? offlineArr : sanitizeObj(localData, collectionName);
   },
 
   getCollection(key) {

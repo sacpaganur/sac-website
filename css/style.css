@@ -76,7 +76,8 @@ html {
   visibility: hidden;
 }
 
-html, body {
+html,
+body {
   font-family: var(--font-primary);
   background-color: var(--bg-light);
   color: var(--text-primary);
@@ -3027,7 +3028,7 @@ textarea.form-control {
    ================================================================ */
 .footer {
   position: relative;
-  margin-top: clamp(64px, 10vw, 96px);
+  margin-top: clamp(64px, 10vw, 0px);
   padding: 0;
   overflow: hidden;
   background: var(--gradient-brand-bg);
@@ -7317,6 +7318,6 @@ body:lang(ta) .footer-back-top span:last-child {
 
 /* Global Performance Enhancements */
 .section-container {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 800px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
 }
