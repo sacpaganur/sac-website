@@ -524,16 +524,7 @@ const PrayerAIService = {
     }
     
     if (!apiKey) {
-      apiKey = window.prompt("AI API Key is missing.\n\nPlease paste your Gemini API Key here to continue:");
-      if (!apiKey) {
-        SAC_Toast.error("API Key Missing", "Please configure the AI API Key in the Admin portal settings.");
-        throw new Error('API Key missing.');
-      }
-      
-      // Save it locally in the browser so it persists across refreshes
-      // without needing Admin database write permissions
-      localStorage.setItem('sac_local_api_key', apiKey);
-      SAC_Toast.success("API Key Saved", "Your API key has been saved locally for this browser!");
+      throw new Error('API Key is missing. Please configure it in the Admin Portal.');
     }
     
     const isTa = window.SAC_COMMON ? window.SAC_COMMON.currentLang === 'ta' : true;

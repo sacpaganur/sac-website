@@ -663,9 +663,7 @@
 
             const isTa = SAC_COMMON.currentLang === 'ta';
 
-            try {
-                const allPrayers = await SAC_DATABASE.get("prayer_requests");
-
+            const renderGrid = (allPrayers) => {
                 // Filter: show only active requests (isActive !== false)
                 const activePrayers = allPrayers.filter(p => p.isActive !== false);
 
@@ -744,10 +742,26 @@
                         </article>
                     `;
                 }).join('');
+            };
 
+            // 1. Instant optimistic render from LocalStorage cache
+            try {
+                const localStr = localStorage.getItem("sac_prayer_requests");
+                if (localStr) {
+                    const localData = JSON.parse(localStr);
+                    if (localData && localData.length > 0) renderGrid(localData);
+                }
+            } catch(e) { console.warn(e); }
+
+            // 2. Background fetch from Firebase
+            try {
+                const allPrayers = await SAC_DATABASE.get("prayer_requests");
+                renderGrid(allPrayers);
             } catch (err) {
                 console.error("Failed to load prayer requests:", err);
-                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#ef4444; padding:20px;">⚠️ Error loading prayer wall requests.</div>`;
+                if (grid.innerHTML.includes('Loading prayer wall')) {
+                    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#ef4444; padding:20px;">⚠️ Error loading prayer wall requests.</div>`;
+                }
             }
         }
 

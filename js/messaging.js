@@ -62,7 +62,7 @@ const SAC_MESSAGING = {
     }
   },
 
-  async subscribeToken() {
+  async subscribeToken(isSilent = false) {
     if (!this.messaging) return;
     try {
       const config = SAC_DATABASE.getCollection("sac_firebase_config");
@@ -75,7 +75,7 @@ const SAC_MESSAGING = {
         const warningMsg = isTa 
           ? "புஷ் அறிவிப்புகள் இன்னும் முழுமையாக கட்டமைக்கப்படவில்லை. தயவுசெய்து நிர்வாகி பலகையில் VAPID விசையை உள்ளிடவும்."
           : "Notification VAPID Key is not configured yet. Please generate Web Push Certificates in the Firebase Console and configure the VAPID Key in the Admin Portal.";
-        this.showErrorToast(warningMsg);
+        if (!isSilent) this.showErrorToast(warningMsg);
         return;
       }
 
@@ -85,13 +85,15 @@ const SAC_MESSAGING = {
       if (currentToken) {
         console.log("FCM Token obtained.");
         await this.saveTokenToDB(currentToken);
-        this.hidePrompt();
-        this.showConfirmationToast();
+        if (!isSilent) {
+          this.hidePrompt();
+          this.showConfirmationToast();
+        }
       } else {
         const errorMsg = isTa
           ? "பதிவு டோக்கன் கிடைக்கவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்."
           : "No registration token available. Please try again.";
-        this.showErrorToast(errorMsg);
+        if (!isSilent) this.showErrorToast(errorMsg);
       }
     } catch (err) {
       console.error("An error occurred while retrieving token. ", err);
@@ -99,7 +101,7 @@ const SAC_MESSAGING = {
       const errorMsg = isTa
         ? "டோக்கனைப் பெறுவதில் பிழை ஏற்பட்டது. தயவுசெய்து உங்கள் ஃபயர்பேஸ் அமைப்புகளைச் சரிபார்க்கவும்."
         : "Failed to retrieve subscription token. Please verify your Firebase/VAPID configurations in the Admin Portal.";
-      this.showErrorToast(errorMsg);
+      if (!isSilent) this.showErrorToast(errorMsg);
     }
   },
 
@@ -128,7 +130,7 @@ const SAC_MESSAGING = {
       // Show custom prompt
       this.showPrompt();
     } else if (Notification.permission === 'granted') {
-      this.subscribeToken();
+      this.subscribeToken(true);
     }
   },
 
