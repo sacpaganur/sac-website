@@ -458,6 +458,7 @@ const SAC_DATABASE = {
         if (!snapshot.empty) {
           const results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           if (isArrayType) {
+            try { localStorage.setItem("sac_" + collectionName, JSON.stringify(results)); } catch(e){}
             return results;
           } else {
             // It's a single object (like settings)
@@ -468,6 +469,7 @@ const SAC_DATABASE = {
             if (JSON.stringify(genDoc) !== JSON.stringify(healed)) {
               await this.db.collection(collectionName).doc("general").set(healed).catch(e => console.warn("Auto-heal failed", e));
             }
+            try { localStorage.setItem("sac_" + collectionName, JSON.stringify(healed)); } catch(e){}
             return healed;
           }
         } else {

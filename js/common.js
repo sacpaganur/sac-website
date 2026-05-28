@@ -679,6 +679,11 @@ const SAC_COMMON = {
 
   // Initialize shared scripts across pages
   async init(pageName) {
+    if (window.location.hostname === '127.0.0.1') {
+      window.location.hostname = 'localhost';
+      return;
+    }
+
     this.pageName = pageName;
 
     // Normalize language value strictly to 'ta' or 'en'
