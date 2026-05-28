@@ -350,6 +350,9 @@
                 // Set daily verse
                 updateDailyVerse();
                 
+                // Hide loader only AFTER all data is fetched
+                SAC_COMMON.revealPage();
+                
                 // Translate when language changes
                 window.addEventListener('sacLanguageChanged', async () => {
                     await loadHomeMassList();

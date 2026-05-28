@@ -557,6 +557,9 @@
                 }
             }
 
+            // Hide loader only AFTER all data is fetched
+            SAC_COMMON.revealPage();
+
             // Listen for global language changes
             window.addEventListener('sacLanguageChanged', async () => {
                 await loadPrayerRequests();

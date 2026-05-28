@@ -773,18 +773,10 @@ const SAC_COMMON = {
         }
       });
 
-      // Set up automatic failsafe to reveal the page after 2000ms in case the page script has an error
-
-      // Instant reveal for performance
-      if (this.pageName === 'home') {
+      // Set up automatic failsafe to reveal the page after 4000ms in case the page script has an error or is too slow
+      this._failsafeTimer = setTimeout(() => {
         this.revealPage();
-      } else {
-        // Allow other pages to reveal themselves immediately or use a very short 500ms fallback
-        this._failsafeTimer = setTimeout(() => {
-          this.revealPage();
-        }, 500);
-      }
-
+      }, 4000);
 
     } catch (err) {
       console.error("Error initializing SAC_COMMON:", err);
