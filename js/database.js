@@ -471,23 +471,22 @@ const SAC_DATABASE = {
             return healed;
           }
         } else {
-          // If Firestore collection is empty, seed it with LocalStorage data so it's not blank
-          const fallbackData = localData || this.defaultData[collectionName];
-          const dataToSeed = fallbackData || (isArrayType ? [] : {});
-          
           if (isArrayType) {
-            for (const item of dataToSeed) {
-              const { id, ...dataWithoutId } = item;
-              if (id) {
-                 await this.db.collection(collectionName).doc(id).set(dataWithoutId).catch(e => console.warn("Seed failed", e));
-              }
+            // Respect the empty state if the user has deleted all items.
+            // Do NOT auto-respawn default dummy data for array collections.
+            return [];
+          } else {
+            // For single object collections (settings, firebase_config) that are strictly required, seed them if missing.
+            const fallbackData = localData || this.defaultData[collectionName];
+            const dataToSeed = fallbackData || {};
+            
+            if (Object.keys(dataToSeed).length > 0) {
+              const healed = sanitizeObj(dataToSeed, collectionName);
+              await this.db.collection(collectionName).doc("general").set(healed).catch(e => console.warn("Seed failed", e));
+              return healed;
             }
-          } else if (Object.keys(dataToSeed).length > 0) {
-            const healed = sanitizeObj(dataToSeed, collectionName);
-            await this.db.collection(collectionName).doc("general").set(healed).catch(e => console.warn("Seed failed", e));
-            return healed;
+            return dataToSeed;
           }
-          return dataToSeed;
         }
       } catch (err) {
         console.warn(`Firestore read failed or timed out for ${collectionName}, falling back to LocalStorage:`, err.message);
