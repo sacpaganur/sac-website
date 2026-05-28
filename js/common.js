@@ -714,7 +714,23 @@ const SAC_COMMON = {
     }
 
     try {
-      // Pre-cache settings to make all dynamic translations synchronous and instant
+      // 1. INJECT UI SHELL IMMEDIATELY (Navbar & Footer) BEFORE ANY NETWORK DELAYS
+      if (window.SAC_NAVBAR) {
+        SAC_NAVBAR.inject();
+      }
+      if (window.SAC_FOOTER) {
+        SAC_FOOTER.inject();
+        SAC_FOOTER.bindBackToTop();
+      }
+      if (!document.getElementById('page-top')) {
+        const pageTop = document.createElement('div');
+        pageTop.id = 'page-top';
+        pageTop.setAttribute('aria-hidden', 'true');
+        document.body.prepend(pageTop);
+      }
+      this._setupNavbarListeners();
+
+      // 2. Pre-cache settings to make all dynamic translations synchronous and instant
       try {
         this.settings = await SAC_DATABASE.get("settings");
       } catch (e) {
@@ -738,26 +754,6 @@ const SAC_COMMON = {
       // Inject background particles container
       this._injectParticlesContainer();
       this._generateParticles();
-
-      // Inject unified navbar
-      if (window.SAC_NAVBAR) {
-        SAC_NAVBAR.inject();
-      }
-
-      // Attach core event listeners
-      this._setupNavbarListeners();
-
-      // Enhanced shared footer
-      if (window.SAC_FOOTER) {
-        SAC_FOOTER.inject();
-        SAC_FOOTER.bindBackToTop();
-      }
-      if (!document.getElementById('page-top')) {
-        const pageTop = document.createElement('div');
-        pageTop.id = 'page-top';
-        pageTop.setAttribute('aria-hidden', 'true');
-        document.body.prepend(pageTop);
-      }
 
       // Translate page content
       await this.translatePage();
