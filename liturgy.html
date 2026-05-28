@@ -153,15 +153,19 @@
             
             if (!todayLiturgy) {
                 try {
-                    // Show loading state for AI generation
-                    container.innerHTML = `
-                        <div class="legacy-empty-state" style="display:flex; flex-direction:column; gap:16px;">
-                            <div class="bible-spinner" style="border-top-color: var(--primary);"></div>
-                            <span data-i18n="liturgy.loadingMsg">Fetching today's liturgy via AI...</span>
-                        </div>
-                    `;
-                    
                     if (!window.SAC_AI || !SAC_AI.isInitialized) await SAC_AI.init();
+                    
+                    if (window.SAC_AI && window.SAC_AI.apiKey) {
+                        // Show loading state for AI generation ONLY if we have an API key
+                        container.innerHTML = `
+                            <div class="legacy-empty-state" style="display:flex; flex-direction:column; gap:16px;">
+                                <div class="bible-spinner" style="border-top-color: var(--primary);"></div>
+                                <span data-i18n="liturgy.loadingMsg">Fetching today's liturgy via AI...</span>
+                            </div>
+                        `;
+                    } else {
+                        throw new Error("No AI API Key configured.");
+                    }
                     
                     const prompt = `Provide the Catholic Daily Liturgy readings for today (${localTodayStr}). Format the response strictly as a JSON object with no markdown formatting. Do not include \`\`\`json.
 Required keys:
@@ -195,12 +199,18 @@ Required keys:
                 }
             }
             
-            // Format Date
-            const dateObj = new Date(todayLiturgy.date);
-            dateDisplay.innerText = dateObj.toLocaleDateString(isTa ? 'ta-IN' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            // Format Date safely
+            try {
+                const dateObj = new Date(todayLiturgy.date || today);
+                if (!isNaN(dateObj)) {
+                    dateDisplay.innerText = dateObj.toLocaleDateString(isTa ? 'ta-IN' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                }
+            } catch (e) {
+                console.warn("Date formatting error", e);
+            }
             
             // Feast / Season
-            feastDisplay.innerText = isTa ? todayLiturgy.seasonTa : todayLiturgy.seasonEn;
+            feastDisplay.innerText = isTa ? (todayLiturgy.seasonTa || "") : (todayLiturgy.seasonEn || "");
 
             // Saint of the Day
             if (todayLiturgy.saintEn) {
@@ -258,9 +268,9 @@ Required keys:
                             <span class="reading-badge"><span class="material-icons">${icon}</span> ${typeLabel}</span>
                             <span class="reading-reference">${displayRef}</span>
                         </div>
-                        <h3 class="reading-title">${isTa ? titleTa : titleEn}</h3>
+                        <h3 class="reading-title">${isTa ? (titleTa || "") : (titleEn || "")}</h3>
                         <div class="reading-body">
-                            ${(isTa ? textTa : textEn).split('\n').map(p => `<p>${p}</p>`).join('')}
+                            ${((isTa ? textTa : textEn) || "").split('\n').map(p => `<p>${p}</p>`).join('')}
                         </div>
                     </article>
                 `;
@@ -279,7 +289,7 @@ Required keys:
                         <h4>${reflectionLabel}</h4>
                     </div>
                     <div class="reflection-body">
-                        ${(isTa ? todayLiturgy.reflectionTa : todayLiturgy.reflectionEn).split('\n').map(p => `<p>${p}</p>`).join('')}
+                        ${((isTa ? todayLiturgy.reflectionTa : todayLiturgy.reflectionEn) || "").split('\n').map(p => `<p>${p}</p>`).join('')}
                     </div>
                 </div>
             `;
