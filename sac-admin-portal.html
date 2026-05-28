@@ -1136,16 +1136,17 @@
             document.getElementById('admin-login-container').style.display = 'none';
             document.getElementById('admin-dashboard-panel').style.display = 'block';
 
-            // Populate all data fields after successful login
-            await populateGeneralSettings();
-            await populateMassSchedulesList();
-            await populateNoticesList();
-            await populateTimelineList();
-            await populatePastOfficialsList();
-            await populateGalleryList();
-            await populatePrayersList();
-            await populateDatabaseConfig();
-            await populateSubscriberCount();
+            // Populate all data fields after successful login.
+            // Wrapping each in try/catch so a failure in one tab doesn't break the entire admin portal initialization.
+            try { await populateGeneralSettings(); } catch(e) { console.error('Error in populateGeneralSettings:', e); }
+            try { await populateMassSchedulesList(); } catch(e) { console.error('Error in populateMassSchedulesList:', e); }
+            try { await populateNoticesList(); } catch(e) { console.error('Error in populateNoticesList:', e); }
+            try { await populateTimelineList(); } catch(e) { console.error('Error in populateTimelineList:', e); }
+            try { await populatePastOfficialsList(); } catch(e) { console.error('Error in populatePastOfficialsList:', e); }
+            try { await populateGalleryList(); } catch(e) { console.error('Error in populateGalleryList:', e); }
+            try { await populatePrayersList(); } catch(e) { console.error('Error in populatePrayersList:', e); }
+            try { await populateDatabaseConfig(); } catch(e) { console.error('Error in populateDatabaseConfig:', e); }
+            try { await populateSubscriberCount(); } catch(e) { console.error('Error in populateSubscriberCount:', e); }
 
             updateDBConnectionStatusBadge();
         }
