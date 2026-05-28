@@ -709,7 +709,7 @@ const SAC_COMMON = {
     if (!futcStyle) {
       futcStyle = document.createElement('style');
       futcStyle.id = 'sac-futc-style';
-      futcStyle.innerHTML = 'body { opacity: 0 !important; }';
+      futcStyle.innerHTML = 'body > *:not(#sac-global-loader):not(script):not(style) { opacity: 0 !important; pointer-events: none !important; }';
       document.head.appendChild(futcStyle);
     }
 
@@ -773,10 +773,10 @@ const SAC_COMMON = {
         }
       });
 
-      // Set up automatic failsafe to reveal the page after 4000ms in case the page script has an error or is too slow
+      // Set up automatic failsafe to reveal the page after 8000ms in case the page script has an error or is too slow
       this._failsafeTimer = setTimeout(() => {
         this.revealPage();
-      }, 4000);
+      }, 8000);
 
     } catch (err) {
       console.error("Error initializing SAC_COMMON:", err);
