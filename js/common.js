@@ -844,45 +844,51 @@ const SAC_COMMON = {
     }
 
     // Automatically ensure Firebase App and Firestore compat libraries are loaded
-    const ensureFirebaseLoaded = (callback) => {
-      if (window.firebase) {
-        callback();
-        return;
-      }
+    const ensureFirebaseLoaded = () => {
+      return new Promise((resolve) => {
+        if (window.firebase) {
+          resolve();
+          return;
+        }
 
-      // Load firebase-app-compat.js first
-      const appScript = document.createElement('script');
-      appScript.src = 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js';
-      appScript.onload = () => {
-        // Load firebase-firestore-compat.js next
-        const firestoreScript = document.createElement('script');
-        firestoreScript.src = 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js';
-        firestoreScript.onload = () => {
-          // Re-trigger DB connection check since firebase is now loaded
-          if (window.SAC_DATABASE) {
-            window.SAC_DATABASE.setupFirebaseConnection();
-          } else if (typeof SAC_DATABASE !== 'undefined') {
-            SAC_DATABASE.setupFirebaseConnection();
-          }
-          callback();
+        // Load firebase-app-compat.js first
+        const appScript = document.createElement('script');
+        appScript.src = 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js';
+        appScript.onload = () => {
+          // Load firebase-firestore-compat.js next
+          const firestoreScript = document.createElement('script');
+          firestoreScript.src = 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js';
+          firestoreScript.onload = () => {
+            // Re-trigger DB connection check since firebase is now loaded
+            if (window.SAC_DATABASE) {
+              window.SAC_DATABASE.setupFirebaseConnection();
+            } else if (typeof SAC_DATABASE !== 'undefined') {
+              SAC_DATABASE.setupFirebaseConnection();
+            }
+            resolve();
+          };
+          firestoreScript.onerror = () => resolve();
+          document.body.appendChild(firestoreScript);
         };
-        document.body.appendChild(firestoreScript);
-      };
-      document.body.appendChild(appScript);
+        appScript.onerror = () => resolve();
+        document.body.appendChild(appScript);
+      });
     };
+
+    try {
+      await ensureFirebaseLoaded();
+    } catch(e) { console.warn("Firebase load failed", e); }
 
     // Load Firebase Messaging if not already present
     if (this.pageName !== 'admin') {
-      ensureFirebaseLoaded(() => {
-        const fcmScript = document.createElement('script');
-        fcmScript.src = 'https://www.gstatic.com/firebasejs/10.10.0/firebase-messaging-compat.js';
-        fcmScript.onload = () => {
-          const customMessagingScript = document.createElement('script');
-          customMessagingScript.src = 'js/messaging.js';
-          document.body.appendChild(customMessagingScript);
-        };
-        document.body.appendChild(fcmScript);
-      });
+      const fcmScript = document.createElement('script');
+      fcmScript.src = 'https://www.gstatic.com/firebasejs/10.10.0/firebase-messaging-compat.js';
+      fcmScript.onload = () => {
+        const customMessagingScript = document.createElement('script');
+        customMessagingScript.src = 'js/messaging.js';
+        document.body.appendChild(customMessagingScript);
+      };
+      document.body.appendChild(fcmScript);
     } else {
       // In Admin, just load messaging script as FCM compat is already in head or body
       const customMessagingScript = document.createElement('script');
