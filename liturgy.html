@@ -112,10 +112,9 @@
         document.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('liturgy');
             
-            // Prevent the global loader from disappearing prematurely during long AI fetches
+            // Global loader will naturally disappear, revealing the skeletons
             if (SAC_COMMON._failsafeTimer) {
                 clearTimeout(SAC_COMMON._failsafeTimer);
-                SAC_COMMON._failsafeTimer = setTimeout(() => SAC_COMMON.revealPage(), 30000); // 30 seconds
             }
 
             await loadDailyLiturgy();
@@ -163,11 +162,26 @@
                     if (!window.SAC_AI || !SAC_AI.isInitialized) await SAC_AI.init();
                     
                     if (window.SAC_AI && window.SAC_AI.apiKey) {
-                        // Show loading state for AI generation ONLY if we have an API key
+                        // Show App-like Skeleton Loading UI
                         container.innerHTML = `
-                            <div class="legacy-empty-state" style="display:flex; flex-direction:column; gap:16px;">
-                                <div class="bible-spinner" style="border-top-color: var(--primary);"></div>
-                                <span data-i18n="liturgy.loadingMsg">Fetching today's liturgy via AI...</span>
+                            <div class="skeleton-liturgy-block">
+                                <div class="skeleton skeleton-title"></div>
+                                <div class="skeleton skeleton-text"></div>
+                                <div class="skeleton skeleton-text"></div>
+                                <div class="skeleton skeleton-text medium"></div>
+                            </div>
+                            <div class="skeleton-liturgy-block">
+                                <div class="skeleton skeleton-title short"></div>
+                                <div class="skeleton skeleton-text"></div>
+                                <div class="skeleton skeleton-text"></div>
+                                <div class="skeleton skeleton-text short"></div>
+                            </div>
+                            <div class="skeleton-liturgy-block">
+                                <div class="skeleton skeleton-title"></div>
+                                <div class="skeleton skeleton-text"></div>
+                                <div class="skeleton skeleton-text"></div>
+                                <div class="skeleton skeleton-text"></div>
+                                <div class="skeleton skeleton-text medium"></div>
                             </div>
                         `;
                     } else {

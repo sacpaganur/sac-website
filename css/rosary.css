@@ -1,0 +1,240 @@
+/* ========================================================
+   VIRTUAL ROSARY - LIGHT PREMIUM THEME
+   ======================================================== */
+
+body.rosary-light-theme {
+  background-color: #f8fafc; /* Light slate background */
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+.rosary-main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 100px 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Background angelic glow */
+.rosary-main-container::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at center, rgba(139, 92, 246, 0.05) 0%, rgba(248, 250, 252, 1) 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Header */
+.rosary-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.rosary-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #4c1d95; /* Deep purple text */
+  letter-spacing: 1px;
+}
+
+.rosary-mystery-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #b45309; /* Amber-900 */
+  background: rgba(251, 191, 36, 0.2); /* Amber tint */
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rosary-progress {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Tap Zone */
+.rosary-tap-zone {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  min-height: 400px;
+  position: relative;
+  border-radius: 30px;
+  background: #ffffff;
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 40px 24px;
+  transition: transform 0.1s ease, box-shadow 0.3s ease;
+}
+
+.rosary-tap-zone:active {
+  transform: scale(0.98);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Visual Rosary Bead */
+.rosary-visual-ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rosary-visual-ring::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px dashed rgba(139, 92, 246, 0.2);
+  animation: slowSpin 30s linear infinite;
+}
+
+@keyframes slowSpin {
+  100% { transform: rotate(360deg); }
+}
+
+.rosary-glowing-bead {
+  width: 32px;
+  height: 32px;
+  background: #fbbf24;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.8);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Bead types based on JS state */
+.rosary-glowing-bead.type-cross {
+  border-radius: 4px;
+  height: 48px;
+  width: 32px;
+  clip-path: polygon(20% 0%, 80% 0%, 80% 20%, 100% 20%, 100% 40%, 80% 40%, 80% 100%, 20% 100%, 20% 40%, 0% 40%, 0% 20%, 20% 20%);
+}
+.rosary-glowing-bead.type-large {
+  width: 40px;
+  height: 40px;
+  background: #8b5cf6;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.8);
+}
+.rosary-glowing-bead.type-small {
+  width: 24px;
+  height: 24px;
+  background: #f472b6;
+  box-shadow: 0 0 15px rgba(244, 114, 182, 0.3);
+}
+
+/* Prayer Text */
+.rosary-text-container {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.prayer-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #8b5cf6;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.prayer-content {
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
+  line-height: 1.6;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 24px;
+  font-family: 'Lora', serif;
+  transition: opacity 0.3s ease;
+}
+
+body:lang(ta) .prayer-content {
+  font-family: 'Noto Sans Tamil', sans-serif;
+  line-height: 1.8;
+}
+
+.prayer-instruction {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-style: italic;
+  animation: pulseOpacity 2s infinite ease-in-out;
+}
+
+@keyframes pulseOpacity {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
+/* Controls */
+.rosary-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.rosary-btn {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.rosary-btn:hover {
+  background: #f8fafc;
+  transform: scale(1.05);
+  color: #4c1d95;
+}
+
+.rosary-btn.primary {
+  width: 64px;
+  height: 64px;
+  background: #ede9fe;
+  border-color: #c4b5fd;
+  color: #6d28d9;
+}
+
+.rosary-btn.primary:hover {
+  background: #ddd6fe;
+  color: #5b21b6;
+}
+
+/* State animation class for JS to trigger */
+.fade-transition {
+  opacity: 0 !important;
+}
