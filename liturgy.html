@@ -111,6 +111,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('liturgy');
+            
+            // Prevent the global loader from disappearing prematurely during long AI fetches
+            if (SAC_COMMON._failsafeTimer) {
+                clearTimeout(SAC_COMMON._failsafeTimer);
+                SAC_COMMON._failsafeTimer = setTimeout(() => SAC_COMMON.revealPage(), 30000); // 30 seconds
+            }
+
             await loadDailyLiturgy();
 
             window.addEventListener('sacLanguageChanged', async () => {
