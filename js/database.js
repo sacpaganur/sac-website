@@ -32,9 +32,9 @@ const SAC_DATABASE = {
         category: "Feast",
         titleEn: "St. Antony's Annual Feast 2026",
         titleTa: "புனித அந்தோணியார் ஆண்டு பெருவிழா 2026",
-        contentEn: "The annual grand festival of St. Antony will commence with the flag hoisting ceremony on June 4th, 2026, and conclude with the grand car procession on June 13th, 2026. All are welcome to receive blessings.",
-        contentTa: "புனித அந்தோணியாரின் ஆண்டு பெருவிழா வருகிற ஜூன் 4, 2026 அன்று கொடியேற்றத்துடன் தொடங்கி, ஜூன் 13, 2026 அன்று ஆடம்பர தேர்ப்பவனியுடன் நிறைவடைகிறது. இறைமக்கள் அனைவரும் பங்கேற்று அருள்பெற அன்போடு அழைக்கிறோம்.",
-        eventDate: "2026-06-04",
+        contentEn: "The annual feast of St. Anthony will conclude on June 13, 2026, with a special Holy Mass and a grand car procession in the evening. We lovingly invite all the faithful to participate and receive the blessings of St. Anthony.",
+        contentTa: "புனித அந்தோணியாரின் ஆண்டு பெருவிழா வருகிற ஜூன் 13, 2026 அன்று மாலை ஆடம்பர தேர்ப்பவனியுடன் சிறப்பு திருப்பலியுடன் நிறைவடைகிறது. இறைமக்கள் அனைவரும் பங்கேற்று அந்தோணியாரின் அருள்பெற அன்போடு அழைக்கிறோம்.",
+        eventDate: "2026-06-13",
         expiryDate: "2026-06-15",
         isActive: true
       },
@@ -48,7 +48,7 @@ const SAC_DATABASE = {
         contentTa: "குழந்தைகளுக்கான ஞாயிறு மறைக்கல்வி வகுப்புகள் வருகிற ஜூன் 7, 2026 முதல் காலை திருப்பலிக்குப் பின் துவங்க உள்ளன. பெற்றோர்கள் தங்கள் பிள்ளைகளை சேர்க்குமாறு கேட்டுக் கொள்ளப்படுகிறார்கள்.",
         eventDate: "2026-06-07",
         expiryDate: "2026-06-10",
-        isActive: true
+        isActive: false
       }
     ],
     legacy_timeline: [
@@ -289,7 +289,7 @@ const SAC_DATABASE = {
         if (config && config.apiKey && config.projectId) {
           const localKey = "sac_firebase_config";
           const currentLocal = this.getCollection(localKey) || {};
-          
+
           // Only update and re-connect if the Firestore config is different
           if (JSON.stringify(currentLocal) !== JSON.stringify(config)) {
             this.setCollection(localKey, config);
@@ -332,13 +332,13 @@ const SAC_DATABASE = {
       let parsed = JSON.parse(existing);
       let modified = false;
       // If config is missing, has dummy placeholders, or has outdated storageBucket, let's force update
-      if (!parsed || 
-          !parsed.apiKey || 
-          parsed.apiKey.includes("PASTE_YOUR") || 
-          parsed.apiKey === "PASTE_YOUR_FIREBASE_API_KEY_HERE" ||
-          parsed.storageBucket === "stacpaganur.appspot.com" ||
-          !parsed.appId || 
-          parsed.appId.includes("PASTE_YOUR")) {
+      if (!parsed ||
+        !parsed.apiKey ||
+        parsed.apiKey.includes("PASTE_YOUR") ||
+        parsed.apiKey === "PASTE_YOUR_FIREBASE_API_KEY_HERE" ||
+        parsed.storageBucket === "stacpaganur.appspot.com" ||
+        !parsed.appId ||
+        parsed.appId.includes("PASTE_YOUR")) {
         parsed = { ...defaultValue };
         modified = true;
       }
@@ -369,7 +369,7 @@ const SAC_DATABASE = {
           modified = true;
         }
       }
-      
+
       // Migration: Clean up old mixed language catTa (e.g. "பலிபீடம் | Sanctuary" -> "பலிபீடம்")
       parsed.forEach(item => {
         if (item.catTa && item.catTa.includes(' | ')) {
@@ -401,10 +401,10 @@ const SAC_DATABASE = {
             app = window.firebase.app();
           }
           this.db = window.firebase.firestore();
-          
+
           // Enable offline caching and instant load
-          this.db.enablePersistence({synchronizeTabs:true}).catch(err => {
-              console.warn("Firestore persistence could not be enabled:", err);
+          this.db.enablePersistence({ synchronizeTabs: true }).catch(err => {
+            console.warn("Firestore persistence could not be enabled:", err);
           });
 
           this.isFirebaseActive = true;
@@ -424,13 +424,18 @@ const SAC_DATABASE = {
 
   // Data fetching helper (Loads from Firestore if active, else falls back to LocalStorage)
   async get(collectionName) {
+    // Auto-heal: If firebase loaded slightly late from the CDN, connect now before fetching!
+    if (!this.isFirebaseActive && typeof window !== 'undefined' && window.firebase) {
+      this.setupFirebaseConnection();
+    }
+
     const localKey = "sac_" + collectionName;
     const localData = this.getCollection(localKey);
-    
+
     // Explicitly define which collections are single objects. Everything else is an array collection.
     const objectCollections = ["settings", "firebase_config"];
     const isArrayType = !objectCollections.includes(collectionName);
-    
+
     // Auto-heal helper to repair any literal "undefined" string values corrupted in Firestore
     const sanitizeObj = (obj, colName) => {
       const defaults = this.defaultData[colName] || {};
@@ -449,12 +454,12 @@ const SAC_DATABASE = {
         // Enforce an 8-second timeout on initial Firebase requests.
         // If the network is spotty or blocked by an adblocker, we must not freeze the app forever.
         const fetchPromise = this.db.collection(collectionName).get();
-        const timeoutPromise = new Promise((_, reject) => 
+        const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error("Firebase request timed out (8s)")), 8000)
         );
-        
+
         const snapshot = await Promise.race([fetchPromise, timeoutPromise]);
-        
+
         if (!snapshot.empty) {
           const results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           if (isArrayType) {
@@ -465,18 +470,18 @@ const SAC_DATABASE = {
                 }
               });
             }
-            try { localStorage.setItem("sac_" + collectionName, JSON.stringify(results)); } catch(e){}
+            try { localStorage.setItem("sac_" + collectionName, JSON.stringify(results)); } catch (e) { }
             return results;
           } else {
             // It's a single object (like settings)
             const genDoc = results.find(r => r.id === "general") || results[0];
             const healed = sanitizeObj(genDoc, collectionName);
-            
+
             // If the Firestore was corrupted with "undefined" strings, auto-update it with healed values
             if (JSON.stringify(genDoc) !== JSON.stringify(healed)) {
               await this.db.collection(collectionName).doc("general").set(healed).catch(e => console.warn("Auto-heal failed", e));
             }
-            try { localStorage.setItem("sac_" + collectionName, JSON.stringify(healed)); } catch(e){}
+            try { localStorage.setItem("sac_" + collectionName, JSON.stringify(healed)); } catch (e) { }
             return healed;
           }
         } else {
@@ -488,7 +493,7 @@ const SAC_DATABASE = {
             // For single object collections (settings, firebase_config) that are strictly required, seed them if missing.
             const fallbackData = localData || this.defaultData[collectionName];
             const dataToSeed = fallbackData || {};
-            
+
             if (Object.keys(dataToSeed).length > 0) {
               const healed = sanitizeObj(dataToSeed, collectionName);
               await this.db.collection(collectionName).doc("general").set(healed).catch(e => console.warn("Seed failed", e));
@@ -536,8 +541,13 @@ const SAC_DATABASE = {
 
   // Universal CRUD helper
   async save(collectionName, data) {
+    // Auto-heal: If firebase loaded slightly late from the CDN, connect now before saving!
+    if (!this.isFirebaseActive && typeof window !== 'undefined' && window.firebase) {
+      this.setupFirebaseConnection();
+    }
+
     const localKey = "sac_" + collectionName;
-    
+
     // Save to LocalStorage first (for instant local response and fallback)
     if (collectionName === "settings" || collectionName === "firebase_config") {
       const existing = this.getCollection(localKey) || {};
@@ -585,8 +595,13 @@ const SAC_DATABASE = {
 
   // Delete helper
   async delete(collectionName, id) {
+    // Auto-heal: If firebase loaded slightly late from the CDN, connect now before deleting!
+    if (!this.isFirebaseActive && typeof window !== 'undefined' && window.firebase) {
+      this.setupFirebaseConnection();
+    }
+
     const localKey = "sac_" + collectionName;
-    
+
     // Delete from LocalStorage
     const items = this.getCollection(localKey) || [];
     const filtered = items.filter(item => item.id !== id);

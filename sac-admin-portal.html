@@ -1323,6 +1323,11 @@
         }
 
         function updateDBConnectionStatusBadge() {
+            // Auto-heal: Force connection retry if script loaded late
+            if (!SAC_DATABASE.isFirebaseActive && typeof window !== 'undefined' && window.firebase) {
+                SAC_DATABASE.setupFirebaseConnection();
+            }
+
             const badge = document.getElementById('db-status-badge');
             if (!badge) return;
 
