@@ -11,6 +11,7 @@ window.SAC_NAVBAR = {
     { href: 'liturgy.html', id: 'nav-lnk-liturgy', i18n: 'nav.liturgy', label: 'இறைவார்த்தை', icon: 'menu_book' },
     { href: 'calendar.html', id: 'nav-lnk-calendar', i18n: 'nav.calendar', label: 'நாட்காட்டி', icon: 'event' },
     { href: 'devotion.html', id: 'nav-lnk-devotion', i18n: 'nav.devotion', label: 'பக்தி', icon: 'volunteer_activism' },
+    { href: 'rosary.html', id: 'nav-lnk-rosary', i18n: 'nav.rosary', label: 'செபமாலை', icon: 'all_inclusive' },
     { href: 'bible.html', id: 'nav-lnk-bible', i18n: 'nav.bible', label: 'விவிலியம் AI', icon: 'auto_awesome' },
     { href: 'gallery.html', id: 'nav-lnk-gallery', i18n: 'nav.gallery', label: 'புகைப்படங்கள்', icon: 'photo_library' },
     { href: 'contact.html', id: 'nav-lnk-contact', i18n: 'nav.contact', label: 'தொடர்பு', icon: 'support_agent' }

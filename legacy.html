@@ -266,6 +266,7 @@
         
         <section class="legacy-timeline-section" id="timeline-container-section">
             <div class="ultimate-timeline-wrapper" style="position: relative; margin: 0 auto; max-width: 1100px;">
+                <div class="timeline-progress-line" id="timeline-progress-line"></div>
                 <div id="dynamic-timeline-feed">
                 <!-- Dynamic timeline events will be generated here -->
                 <div class="legacy-empty-state">
@@ -401,6 +402,7 @@
             await loadTimelineEvents();
             await loadPastOfficials();
             initPannellumViewer();
+            initScrollReveal();
 
             // Reveal the finished page frame
             SAC_COMMON.revealPage();
@@ -510,8 +512,11 @@
 
             const yearLabel = isTa ? "ஆண்டு" : "Year";
 
-            container.innerHTML = events.map((e, index) => `
-                <div class="ultimate-timeline-item">
+            container.innerHTML = events.map((e, index) => {
+                const isEven = index % 2 === 0;
+                const revealClass = isEven ? 'reveal-left' : 'reveal-right';
+                return `
+                <div class="ultimate-timeline-item scroll-reveal ${revealClass}">
                    <div class="ultimate-timeline-sidebar">
                       <div class="sticky-anchor">
                           <div class="anchor-year">${escapeLegacyHTML(e.year)}</div>
@@ -526,7 +531,52 @@
                       </article>
                    </div>
                 </div>
-            `).join('');
+            `}).join('');
+            
+            // Re-initialize intersection observer for new dynamically loaded cards
+            setTimeout(initScrollReveal, 100);
+        }
+
+        function initScrollReveal() {
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            const progressLine = document.getElementById('timeline-progress-line');
+            const timelineWrapper = document.querySelector('.ultimate-timeline-wrapper');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                    } else {
+                        // Optional: remove class when scrolling up to reveal again on scroll down
+                        const rect = entry.target.getBoundingClientRect();
+                        if (rect.top > window.innerHeight) {
+                            entry.target.classList.remove('reveal-active');
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            revealElements.forEach((el) => observer.observe(el));
+
+            // Animate progress line on scroll
+            if (timelineWrapper && progressLine) {
+                window.addEventListener('scroll', () => {
+                    const rect = timelineWrapper.getBoundingClientRect();
+                    // Calculate how much of the timeline is scrolled past the middle of the viewport
+                    const viewportMid = window.innerHeight / 2;
+                    let progress = 0;
+                    
+                    if (rect.top < viewportMid) {
+                        progress = ((viewportMid - rect.top) / rect.height) * 100;
+                    }
+                    
+                    progress = Math.max(0, Math.min(100, progress));
+                    progressLine.style.height = progress + '%';
+                });
+            }
         }
 
         function updateTimelineCount(count) {

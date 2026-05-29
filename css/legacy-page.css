@@ -484,20 +484,27 @@ body:lang(ta) .legacy-photo-caption strong {
 .ultimate-timeline-item {
   display: flex;
   position: relative;
+}
+
+/* Scroll Reveal Base */
+.scroll-reveal {
   opacity: 0;
-  transform: translateY(30px);
-  animation: legacyTimelineIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ultimate-timeline-item:nth-child(1) { animation-delay: 0.1s; }
-.ultimate-timeline-item:nth-child(2) { animation-delay: 0.2s; }
-.ultimate-timeline-item:nth-child(3) { animation-delay: 0.3s; }
-.ultimate-timeline-item:nth-child(4) { animation-delay: 0.4s; }
-.ultimate-timeline-item:nth-child(n+5) { animation-delay: 0.5s; }
-
-@keyframes legacyTimelineIn {
-  to { opacity: 1; transform: translateY(0); }
+.reveal-left {
+  transform: translateX(-50px);
 }
+
+.reveal-right {
+  transform: translateX(50px);
+}
+
+.reveal-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 
 /* The central divider line */
 .ultimate-timeline-wrapper::before {
@@ -507,8 +514,19 @@ body:lang(ta) .legacy-photo-caption strong {
   bottom: 80px;
   left: 30%;
   width: 2px;
+  background: var(--border-glass);
+}
+
+/* The glowing progress line */
+.timeline-progress-line {
+  position: absolute;
+  top: 40px;
+  left: 30%;
+  width: 2px;
   background: var(--gradient-brand-180);
-  opacity: 0.2;
+  box-shadow: 0 0 10px var(--primary);
+  height: 0%;
+  z-index: 1;
 }
 
 .ultimate-timeline-sidebar {

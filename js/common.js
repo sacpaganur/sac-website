@@ -149,6 +149,7 @@ const SAC_COMMON = {
       "nav.gallery": "புகைப்படங்கள்",
       "nav.portal": "உறுப்பினர் பகுதி",
       "nav.admin": "நிர்வாகி",
+      "nav.rosary": "செபமாலை",
       "nav.more": "மேலும் ▾",
       "footer.tagline": "அமைதியும் அன்பும் அருளும் பெருகும் புண்ணியத்தலம்",
       "footer.quickLinks": "விரைவு இணைப்புகள்",
@@ -403,7 +404,10 @@ const SAC_COMMON = {
       "wall.ai.listenDesc": "உங்களது பெயர், மின்னஞ்சல் மற்றும் செப விண்ணப்பத்தை இயல்பாக பேசவும். புனித அந்தோணியார் AI உங்களுக்காக படிவத்தை நிரப்பும்.",
       "wall.ai.listening": "\"கேட்கிறது...\"",
       "wall.ai.processTitle": "AI மூலம் ஒருங்கிணைக்கப்படுகிறது...",
-      "wall.ai.processDesc": "Gemini உங்களுக்காக தகவல்களை மொழிபெயர்த்து நிரப்புகிறது."
+      "wall.ai.processDesc": "Gemini உங்களுக்காக தகவல்களை மொழிபெயர்த்து நிரப்புகிறது.",
+      "rosary.title": "மெய்நிகர் செபமாலை",
+      "rosary.beads": "மணிகள்",
+      "rosary.instruction": "தொடங்க எங்கும் தட்டவும்"
     },
     "en": {
       "nav.home": "Home",
@@ -418,6 +422,7 @@ const SAC_COMMON = {
       "nav.gallery": "Gallery",
       "nav.portal": "Member Portal",
       "nav.admin": "Admin",
+      "nav.rosary": "Virtual Rosary",
       "nav.more": "More ▾",
       "footer.tagline": "A Sanctuary of Peace, Grace, and Divine Blessings",
       "footer.quickLinks": "Quick Links",
@@ -453,8 +458,8 @@ const SAC_COMMON = {
       "home.sacConfTitle": "Sacrament of Reconciliation",
       "home.sacConfDesc": "Experience God's healing mercy through Confession, available every Saturday evening and before daily Masses.",
       "home.sacPrayTitle": "Personal Prayer Intentions",
-      "home.sacPrayDesc": "Submit your special prayer requests online or place them in the physical prayer box to join in our community prayers.",
-      "sched.devotionTag": "Parish Devotions",
+      "home.sacPrayDesc": "Submit your prayer requests online or in the church drop-box to join our community prayers.",
+      "sched.devotionTag": "Special Devotions",
       "sched.devotionTitle": "Monthly Devotions & Special Services",
       "sched.novenaBadge": "Tuesday Novena",
       "sched.novenaTitle": "Novena of St. Antony of Padua",
@@ -673,7 +678,10 @@ const SAC_COMMON = {
       "wall.ai.listenDesc": "Speak your name, email, and prayer request naturally. St. Antony's AI organized form for you.",
       "wall.ai.listening": "\"Listening...\"",
       "wall.ai.processTitle": "Organizing with AI...",
-      "wall.ai.processDesc": "Gemini is translating and populating the fields for you."
+      "wall.ai.processDesc": "Gemini is extracting and filling out the details for you.",
+      "rosary.title": "Virtual Rosary",
+      "rosary.beads": "Beads",
+      "rosary.instruction": "Tap anywhere to begin"
     },
   },
 
@@ -757,6 +765,9 @@ const SAC_COMMON = {
 
       // Translate page content
       await this.translatePage();
+
+      // Dispatch initial language event so dynamic components (like rosary.js) sync to the correctly loaded language
+      window.dispatchEvent(new CustomEvent('sacLanguageChanged', { detail: { lang: this.currentLang } }));
 
       // Set active nav styling
       this._highlightActiveNav();
@@ -1041,13 +1052,6 @@ const SAC_COMMON = {
 
   // Toggle Language between English and Tamil instantly without flickering or refresh feel
   async toggleLanguage() {
-    // Premium glassmorphic continuity: dim opacity slightly before translating
-    document.body.style.transition = 'opacity 0.2s ease-in-out';
-    document.body.style.opacity = '0.3';
-
-    // Allow the browser to paint the dim effect
-    await new Promise(r => setTimeout(r, 100));
-
     this.currentLang = this.currentLang === 'ta' ? 'en' : 'ta';
     try {
       localStorage.setItem('sac_public_lang', this.currentLang);
@@ -1062,17 +1066,10 @@ const SAC_COMMON = {
     });
 
     await this.translatePage();
+    this.closeMobileMenu(); // Fix: Close the drawer overlay after switching language on mobile
 
     // Trigger custom translation events on specific pages if they need it (like Home countdown or Admin lists)
     window.dispatchEvent(new CustomEvent('sacLanguageChanged', { detail: { lang: this.currentLang } }));
-
-    // Fade back to full opacity instantly
-    setTimeout(() => {
-      document.body.style.opacity = '1';
-      setTimeout(() => {
-        document.body.style.transition = '';
-      }, 250);
-    }, 50);
   },
 
   // Translate all DOM elements on current page
