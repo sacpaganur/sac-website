@@ -1111,7 +1111,7 @@
 
             window.addEventListener('sacLanguageChanged', async () => {
                 updateDBConnectionStatusBadge();
-                translateAdminLabels();
+                await translateAdminLabels();
             });
         });
 
@@ -1159,13 +1159,18 @@
             const countEl = document.getElementById('admin-subscriber-count');
             const listEl = document.getElementById('subscriber-list-container');
             const vapidEl = document.getElementById('notif-vapid-badge');
+            const isTa = SAC_COMMON.currentLang === 'ta';
 
             try {
                 // Check VAPID key status
                 const config = await SAC_DATABASE.get('firebase_config');
                 const hasVapid = config && config.vapidKey && config.vapidKey !== 'YOUR_PUBLIC_VAPID_KEY_HERE' && config.vapidKey.trim() !== '';
                 if (vapidEl) vapidEl.textContent = hasVapid ? '✅' : '❌';
-                vapidEl.title = hasVapid ? 'VAPID Key configured' : 'VAPID Key missing — go to Database tab to configure';
+                if (vapidEl) {
+                    vapidEl.title = hasVapid 
+                        ? (isTa ? 'VAPID சாவி சரியாக உள்ளது' : 'VAPID Key configured')
+                        : (isTa ? 'VAPID சாவி இல்லை — அமைப்புகள் பக்கத்திற்குச் செல்லவும்' : 'VAPID Key missing — go to Database tab to configure');
+                }
 
                 // Fetch subscribers directly from Firestore 'sac_subscribers' collection
                 let subscribers = [];
@@ -1178,16 +1183,18 @@
 
                 if (listEl) {
                     if (subscribers.length === 0) {
+                        const noSubTitle = isTa ? "சந்தாதாரர்கள் யாரும் இல்லை" : "No Subscribers Yet";
+                        const noSubMsg = isTa ? "அறிவிப்புகளை அனுமதிக்கும் பயனர்கள் இங்கு காட்டப்படுவார்கள்." : "Users who enable notifications will appear here.";
                         listEl.innerHTML = `
                             <div style="text-align:center; padding:40px; color:var(--text-secondary);">
                                 <span class="material-icons" style="font-size:40px; opacity:0.4;">people_outline</span>
-                                <p style="margin:12px 0 4px 0; font-weight:600;">No Subscribers Yet</p>
-                                <p style="margin:0; font-size:0.83rem;">Users who enable notifications will appear here.</p>
+                                <p style="margin:12px 0 4px 0; font-weight:600;">${noSubTitle}</p>
+                                <p style="margin:0; font-size:0.83rem;">${noSubMsg}</p>
                             </div>`;
                     } else {
                         const rows = subscribers.map((s, i) => {
-                            const ts = s.subscribedAt ? new Date(s.subscribedAt.seconds * 1000).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'}) : '—';
-                            const ua = s.userAgent ? s.userAgent.substring(0, 60) + '...' : 'Unknown device';
+                            const ts = s.subscribedAt ? new Date(s.subscribedAt.seconds * 1000).toLocaleDateString(isTa ? 'ta-IN' : 'en-IN', {day:'2-digit', month:'short', year:'numeric'}) : '—';
+                            const ua = s.userAgent ? s.userAgent.substring(0, 60) + '...' : (isTa ? 'தெரியாத சாதனம்' : 'Unknown device');
                             const shortToken = s.token ? s.token.substring(0, 20) + '...' : s.id.substring(0, 20) + '...';
                             return `<tr>
                                 <td style="padding:10px 12px; color:var(--text-secondary); font-size:0.8rem;">${i + 1}</td>
@@ -1196,14 +1203,19 @@
                                 <td style="padding:10px 12px; font-size:0.78rem; color:var(--text-secondary);">${ts}</td>
                             </tr>`;
                         }).join('');
+                        
+                        const thToken = isTa ? "அடையாளக் குறியீடு (Token)" : "Token";
+                        const thDevice = isTa ? "சாதனம் (Device)" : "Device";
+                        const thSubscribed = isTa ? "இணைந்த தேதி (Subscribed)" : "Subscribed";
+                        
                         listEl.innerHTML = `
                             <table style="width:100%; border-collapse:collapse;">
                                 <thead>
                                     <tr style="background:var(--bg-surface); border-bottom:2px solid var(--border-glass);">
                                         <th style="padding:10px 12px; text-align:left; font-size:0.78rem; color:var(--text-secondary); font-weight:700;">#</th>
-                                        <th style="padding:10px 12px; text-align:left; font-size:0.78rem; color:var(--text-secondary); font-weight:700;">Token</th>
-                                        <th style="padding:10px 12px; text-align:left; font-size:0.78rem; color:var(--text-secondary); font-weight:700;">Device</th>
-                                        <th style="padding:10px 12px; text-align:left; font-size:0.78rem; color:var(--text-secondary); font-weight:700;">Subscribed</th>
+                                        <th style="padding:10px 12px; text-align:left; font-size:0.78rem; color:var(--text-secondary); font-weight:700;">${thToken}</th>
+                                        <th style="padding:10px 12px; text-align:left; font-size:0.78rem; color:var(--text-secondary); font-weight:700;">${thDevice}</th>
+                                        <th style="padding:10px 12px; text-align:left; font-size:0.78rem; color:var(--text-secondary); font-weight:700;">${thSubscribed}</th>
                                     </tr>
                                 </thead>
                                 <tbody>${rows}</tbody>
@@ -1213,7 +1225,10 @@
             } catch (err) {
                 console.warn('Failed to fetch subscriber count/list:', err);
                 if (countEl) countEl.textContent = '—';
-                if (listEl) listEl.innerHTML = '<div style="text-align:center; padding:24px; color:#ef4444;">⚠️ Could not load subscribers. Check Firebase connection in Database tab.</div>';
+                const errMsg = isTa 
+                    ? "⚠️ சந்தாதாரர்களை ஏற்ற முடியவில்லை. தரவுத்தள இணைப்பு அமைப்புகளை சரிபார்க்கவும்."
+                    : "⚠️ Could not load subscribers. Check Firebase connection in Database tab.";
+                if (listEl) listEl.innerHTML = `<div style="text-align:center; padding:24px; color:#ef4444;">${errMsg}</div>`;
             }
         }
 
@@ -1310,14 +1325,16 @@
             }
         }
 
-        function showGlobalSuccessAlert(msgTa, msgEn) {
+        function showGlobalSuccessAlert(msgTa, msgEn, preventScroll = false) {
             const isTa = SAC_COMMON.currentLang === 'ta';
             const alertBox = document.getElementById('admin-global-alert');
             if (alertBox) {
                 alertBox.className = 'form-alert success';
                 alertBox.style.display = 'flex';
                 alertBox.innerHTML = `<strong>✔️</strong> <span>${isTa ? msgTa : msgEn}</span>`;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (!preventScroll) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
                 setTimeout(() => { alertBox.style.display = 'none'; }, 5000);
             }
         }
@@ -1802,6 +1819,9 @@
 
             const submitBtnLabel = document.getElementById('mass-btn-submit-label');
             if (submitBtnLabel) submitBtnLabel.innerText = "மாற்றங்களைச் சேமி (Update)";
+
+            const formPanel = document.getElementById('panel-masses');
+            if (formPanel) formPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         async function saveMassSchedule(e) {
@@ -1894,6 +1914,9 @@
 
             const btnLabel = document.getElementById('notice-btn-submit-label');
             if (btnLabel) btnLabel.innerText = "மாற்றங்களைச் சேமி (Update)";
+
+            const formPanel = document.getElementById('panel-notices');
+            if (formPanel) formPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         async function saveNotice(e) {
@@ -1988,6 +2011,9 @@
 
             const btnLabel = document.getElementById('time-btn-submit-label');
             if (btnLabel) btnLabel.innerText = "மாற்றங்களைச் சேமி (Update)";
+
+            const formPanel = document.getElementById('panel-timeline');
+            if (formPanel) formPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         async function saveTimelineEvent(e) {
@@ -2357,6 +2383,9 @@
 
             const submitBtnLabel = document.getElementById('po-btn-submit-label');
             if (submitBtnLabel) submitBtnLabel.innerText = "மாற்றங்களைச் சேமி (Update)";
+
+            const formPanel = document.getElementById('panel-past_officials');
+            if (formPanel) formPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         async function savePastOfficial(e) {
@@ -2433,47 +2462,65 @@
             updateDBConnectionStatusBadge();
         }
 
-        function translateAdminLabels() {
+        async function translateAdminLabels() {
             const isTa = SAC_COMMON.currentLang === 'ta';
             
-            document.getElementById('admin-main-title').innerText = isTa ? "இணையதள நிர்வாகப் பலகை" : "Website Admin Dashboard";
-            document.getElementById('admin-main-subtitle').innerText = isTa ? "இணையதளத்தின் அனைத்துப் பக்கங்களிலும் உள்ள தகவல்களை குறியீடு எழுதாமல் மாற்றியமைக்கலாம்." : "Manage schedules, announcements, history, sacraments, and connection settings instantly.";
+            let admin_main_title_el = document.getElementById('admin-main-title'); if(admin_main_title_el) admin_main_title_el.innerText = isTa ? "இணையதள நிர்வாகப் பலகை" : "Website Admin Dashboard";
+            let admin_main_subtitle_el = document.getElementById('admin-main-subtitle'); if(admin_main_subtitle_el) admin_main_subtitle_el.innerText = isTa ? "இணையதளத்தின் அனைத்துப் பக்கங்களிலும் உள்ள தகவல்களை குறியீடு எழுதாமல் மாற்றியமைக்கலாம்." : "Manage schedules, announcements, history, sacraments, and connection settings instantly.";
             
-            document.getElementById('tab-lbl-settings').innerText = isTa ? "பொது அமைப்புகள்" : "General Settings";
-            document.getElementById('tab-lbl-masses').innerText = isTa ? "வழிபாடுகள் (CRUD)" : "Schedules (CRUD)";
-            document.getElementById('tab-lbl-notices').innerText = isTa ? "அறிவிப்புகள் (CRUD)" : "Announcements (CRUD)";
-            document.getElementById('tab-lbl-timeline').innerText = isTa ? "வரலாறு (CRUD)" : "History (CRUD)";
-            document.getElementById('tab-lbl-past-officials').innerText = isTa ? "முன்னாள் பொறுப்பாளர்கள்" : "Past Officials";
-            document.getElementById('tab-lbl-past-officials').innerText = isTa ? "முன்னாள் பொறுப்பாளர்கள்" : "Past Officials";
-            document.getElementById('tab-lbl-gallery').innerText = isTa ? "புகைப்படங்கள் (CRUD)" : "Gallery (CRUD)";
-            document.getElementById('tab-lbl-prayers').innerText = isTa ? "செப வேண்டுதல்கள்" : "Prayers";
-            document.getElementById('tab-lbl-db').innerText = isTa ? "தரவுத்தளம் (Firebase)" : "Database Sync";
+            let tab_lbl_settings_el = document.getElementById('tab-lbl-settings'); if(tab_lbl_settings_el) tab_lbl_settings_el.innerText = isTa ? "பொது அமைப்புகள்" : "General Settings";
+            let tab_lbl_masses_el = document.getElementById('tab-lbl-masses'); if(tab_lbl_masses_el) tab_lbl_masses_el.innerText = isTa ? "வழிபாடுகள் (CRUD)" : "Schedules (CRUD)";
+            let tab_lbl_notices_el = document.getElementById('tab-lbl-notices'); if(tab_lbl_notices_el) tab_lbl_notices_el.innerText = isTa ? "அறிவிப்புகள் (CRUD)" : "Announcements (CRUD)";
+            let tab_lbl_timeline_el = document.getElementById('tab-lbl-timeline'); if(tab_lbl_timeline_el) tab_lbl_timeline_el.innerText = isTa ? "வரலாறு (CRUD)" : "History (CRUD)";
+            let tab_lbl_past_officials_el = document.getElementById('tab-lbl-past-officials'); if(tab_lbl_past_officials_el) tab_lbl_past_officials_el.innerText = isTa ? "முன்னாள் பொறுப்பாளர்கள்" : "Past Officials";
+            let tab_lbl_gallery_el = document.getElementById('tab-lbl-gallery'); if(tab_lbl_gallery_el) tab_lbl_gallery_el.innerText = isTa ? "புகைப்படங்கள் (CRUD)" : "Gallery (CRUD)";
+            
+            let tbtn = document.getElementById('tab-lbl-catholic-prayers'); if(tbtn) tbtn.innerText = isTa ? "கத்தோலிக்க செபங்கள்" : "Catholic Prayers";
+            let clist = document.getElementById('cp-list-title'); if(clist) clist.innerText = isTa ? "கத்தோலிக்க செபங்கள் பட்டியல்" : "Current Catholic Prayers";
+            let cform = document.getElementById('cp-form-title'); if(cform) cform.innerText = isTa ? "செபத்தை சேர் / திருத்து" : "Add / Edit Prayer";
+            let cbtn = document.getElementById('cp-btn-submit-label'); if(cbtn) cbtn.innerText = isTa ? "செபம் சேர்" : "Save Prayer";
+            let btrans = document.getElementById('lbl-bulk-translate'); if(btrans) btrans.innerText = isTa ? "ஆங்கிலத்தில் மொழிபெயர்க்கவும்" : "Translate All to English";
+            let bsync = document.getElementById('lbl-bulk-sync'); if(bsync) bsync.innerText = isTa ? "Firebase உடன் ஒத்திசைக்கவும்" : "Sync to Firebase";
 
-            document.getElementById('card-lbl-settings').innerText = isTa ? "ஆலய விபரங்கள் & முகப்புப் பக்க மாற்றங்கள்" : "Parish Details & Hero Landing Adjustments";
-            document.getElementById('mass-form-title').innerText = isTa ? "வழிபாடு சேர் / திருத்து" : "Add / Edit Schedule";
-            document.getElementById('mass-list-title').innerText = isTa ? "தற்போதைய திருப்பலிகள்" : "Active Mass Schedules";
-            document.getElementById('mass-btn-submit-label').innerText = isTa ? "வழிபாடு சேர்" : "Save Schedule";
+            let tab_lbl_prayers_el = document.getElementById('tab-lbl-prayers'); if(tab_lbl_prayers_el) tab_lbl_prayers_el.innerText = isTa ? "செப வேண்டுதல்கள்" : "Prayers";
+            let tab_lbl_db_el = document.getElementById('tab-lbl-db'); if(tab_lbl_db_el) tab_lbl_db_el.innerText = isTa ? "தரவுத்தளம் (Firebase)" : "Database Sync";
 
-            document.getElementById('notice-form-title').innerText = isTa ? "அறிவிப்பு சேர் / திருத்து" : "Add / Edit Announcement";
-            document.getElementById('notice-list-title').innerText = isTa ? "வெளியிடப்பட்ட அறிவிப்புகள்" : "Published Announcements";
-            document.getElementById('notice-btn-submit-label').innerText = isTa ? "அறிவிப்பை வெளியிடு" : "Publish Announcement";
+            let card_lbl_settings_el = document.getElementById('card-lbl-settings'); if(card_lbl_settings_el) card_lbl_settings_el.innerText = isTa ? "ஆலய விபரங்கள் & முகப்புப் பக்க மாற்றங்கள்" : "Parish Details & Hero Landing Adjustments";
+            let mass_form_title_el = document.getElementById('mass-form-title'); if(mass_form_title_el) mass_form_title_el.innerText = isTa ? "வழிபாடு சேர் / திருத்து" : "Add / Edit Schedule";
+            let mass_list_title_el = document.getElementById('mass-list-title'); if(mass_list_title_el) mass_list_title_el.innerText = isTa ? "தற்போதைய திருப்பலிகள்" : "Active Mass Schedules";
+            let mass_btn_submit_label_el = document.getElementById('mass-btn-submit-label'); if(mass_btn_submit_label_el) mass_btn_submit_label_el.innerText = isTa ? "வழிபாடு சேர்" : "Save Schedule";
 
-            document.getElementById('timeline-form-title').innerText = isTa ? "வரலாற்று மைல்கல் சேர் / திருத்து" : "Add / Edit Milestone";
-            document.getElementById('timeline-list-title').innerText = isTa ? "வரலாற்று மைல்கற்கள்" : "Parish Historical Milestones";
-            document.getElementById('time-btn-submit-label').innerText = isTa ? "மைல்கல் சேர்" : "Save Milestone";
+            let notice_form_title_el = document.getElementById('notice-form-title'); if(notice_form_title_el) notice_form_title_el.innerText = isTa ? "அறிவிப்பு சேர் / திருத்து" : "Add / Edit Announcement";
+            let notice_list_title_el = document.getElementById('notice-list-title'); if(notice_list_title_el) notice_list_title_el.innerText = isTa ? "வெளியிடப்பட்ட அறிவிப்புகள்" : "Published Announcements";
+            let notice_btn_submit_label_el = document.getElementById('notice-btn-submit-label'); if(notice_btn_submit_label_el) notice_btn_submit_label_el.innerText = isTa ? "அறிவிப்பை வெளியிடு" : "Publish Announcement";
 
-            document.getElementById('gallery-form-title').innerText = isTa ? "புகைப்படம் சேர் / திருத்து" : "Add / Edit Gallery Photo";
-            document.getElementById('gallery-list-title').innerText = isTa ? "தற்போதைய புகைப்படங்கள்" : "Active Photo Gallery";
-            document.getElementById('gallery-btn-submit-label').innerText = isTa ? "புகைப்படம் சேர்" : "Save Photo";
+            let timeline_form_title_el = document.getElementById('timeline-form-title'); if(timeline_form_title_el) timeline_form_title_el.innerText = isTa ? "வரலாற்று மைல்கல் சேர் / திருத்து" : "Add / Edit Milestone";
+            let timeline_list_title_el = document.getElementById('timeline-list-title'); if(timeline_list_title_el) timeline_list_title_el.innerText = isTa ? "வரலாற்று மைல்கற்கள்" : "Parish Historical Milestones";
+            let time_btn_submit_label_el = document.getElementById('time-btn-submit-label'); if(time_btn_submit_label_el) time_btn_submit_label_el.innerText = isTa ? "மைல்கல் சேர்" : "Save Milestone";
 
-            document.getElementById('prayer-title-card-lbl').innerText = isTa ? "மக்களின் செப வேண்டுதல்கள்" : "User Submitted Prayer Requests";
-            document.getElementById('db-config-title').innerText = isTa ? "லைவ் டேطاءபேஸ் இணைப்பு (Firebase)" : "Live Firebase Configuration Settings";
-            document.getElementById('domain-hosting-title').innerText = isTa ? "டொமைன் மற்றும் ஹோஸ்டிங் வழிகாட்டி" : "Domain & Hosting Deployment Guide";
+            let gallery_form_title_el = document.getElementById('gallery-form-title'); if(gallery_form_title_el) gallery_form_title_el.innerText = isTa ? "புகைப்படம் சேர் / திருத்து" : "Add / Edit Gallery Photo";
+            let gallery_list_title_el = document.getElementById('gallery-list-title'); if(gallery_list_title_el) gallery_list_title_el.innerText = isTa ? "தற்போதைய புகைப்படங்கள்" : "Active Photo Gallery";
+            let gallery_btn_submit_label_el = document.getElementById('gallery-btn-submit-label'); if(gallery_btn_submit_label_el) gallery_btn_submit_label_el.innerText = isTa ? "புகைப்படம் சேர்" : "Save Photo";
+
+            let prayer_title_card_lbl_el = document.getElementById('prayer-title-card-lbl'); if(prayer_title_card_lbl_el) prayer_title_card_lbl_el.innerText = isTa ? "மக்களின் செப வேண்டுதல்கள்" : "User Submitted Prayer Requests";
+            let db_config_title_el = document.getElementById('db-config-title'); if(db_config_title_el) db_config_title_el.innerText = isTa ? "லைவ் டேطاءபேஸ் இணைப்பு (Firebase)" : "Live Firebase Configuration Settings";
+            let domain_hosting_title_el = document.getElementById('domain-hosting-title'); if(domain_hosting_title_el) domain_hosting_title_el.innerText = isTa ? "டொமைன் மற்றும் ஹோஸ்டிங் வழிகாட்டி" : "Domain & Hosting Deployment Guide";
 
             const copyrightLabel = document.getElementById('footer-church-name-copyright');
             if (copyrightLabel) {
                 copyrightLabel.innerText = isTa ? "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்" : "St. Antony's Church, Vadakku Paganur";
             }
+
+            // Re-populate all dynamic data lists instantly to show translated content!
+            try { await populateGeneralSettings(); } catch(e){}
+            try { await populateMassSchedulesList(); } catch(e){}
+            try { await populateNoticesList(); } catch(e){}
+            try { await populateTimelineList(); } catch(e){}
+            try { await populatePastOfficialsList(); } catch(e){}
+            try { await populateGalleryList(); } catch(e){}
+            try { if (typeof populateCatholicPrayersList === 'function') await populateCatholicPrayersList(); } catch(e){}
+            try { await populatePrayersList(); } catch(e){}
+            try { await refreshSubscriberList(); } catch(e){}
         }
     </script>
     <!-- Custom Confirm Modal -->

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ta">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="கத்தோலிக்க செபங்கள் - புனித அந்தோணியார் ஆலயம் | Catholic Prayer Treasury of St. Antony's Church, Vadakku Paganur.">
+    <title>கத்தோலிக்க செபங்கள் | புனித அந்தோணியார் ஆலயம்</title>
+    <meta name="view-transition" content="same-origin" />
+
+    <!-- Google Fonts & Icon Sets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Custom Light Stylesheet -->
+    <link rel="stylesheet" href="css/style.css?v=1780319176039">
+    <script src="js/navbar.js?v=1780319176039"></script>
+
+    <!-- Performance Preconnects -->
+    <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+</head>
+
+<body>
+    <!-- Global Page Loader -->
+    <style id="sac-loader-scroll">
+        body { overflow: hidden !important; }
+    </style>
+    <div id="sac-global-loader"
+        style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
+        <div style="position:relative; width:70px; height:70px;">
+            <div
+                style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;">
+            </div>
+            <div
+                style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">
+                ⛪</div>
+        </div>
+        <div
+            style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">
+            LOADING</div>
+        <style>
+            @keyframes sacSpin { to { transform: rotate(360deg); } }
+            @keyframes sacPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        </style>
+    </div>
+
+    <!-- Navigation Header -->
+    <div id="global-navbar"></div>
+
+    <!-- Main Content Wrapper -->
+    <main class="main-wrapper">
+        <!-- Hero Header -->
+        <section class="notices-hero-header" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(217, 70, 239, 0.1)); border-bottom: 1px solid var(--border-glass);">
+            <div class="notices-hero-inner">
+                <div class="notices-liturgical-badge">
+                    <span>🙏</span>
+                    <span id="prayers-badge-text">ஆன்மீக பொக்கிஷம்</span>
+                </div>
+                <h2 class="notices-hero-title" id="prayers-title-label">கத்தோலிக்க செபங்கள்</h2>
+                <p class="notices-hero-subtitle" id="prayers-subtitle-label">
+                    அன்றாட வாழ்விலும், இக்கட்டான சூழ்நிலைகளிலும் ஆண்டவரிடம் மன்றாட பயன்படும் செபங்களின் தொகுப்பு.
+                </p>
+                <div class="notices-hero-counter">
+                    <span class="counter-number" id="prayers-count-number">0</span>
+                    <span id="prayers-count-label">செபங்கள்</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Segmented Pill Filter & Search Bar -->
+        <section style="max-width: 1100px; margin: -28px auto 0; padding: 0 24px; position: relative; z-index: 2;">
+            <div class="notices-filter-bar" style="flex-wrap: wrap; gap: 10px;">
+                <div class="filter-tabs" id="prayers-filter-tabs" style="flex-wrap: wrap;">
+                    <button class="filter-tab active" data-category="all" id="filter-tab-all">
+                        <span class="tab-icon">🌟</span>
+                        <span class="tab-label">அனைத்தும்</span>
+                    </button>
+                    <button class="filter-tab" data-category="daily" id="filter-tab-daily">
+                        <span class="tab-icon">☀️</span>
+                        <span class="tab-label">அன்றாட செபங்கள்</span>
+                    </button>
+                    <button class="filter-tab" data-category="healing" id="filter-tab-healing">
+                        <span class="tab-icon">❤️‍🩹</span>
+                        <span class="tab-label">நலமளிக்க</span>
+                    </button>
+                    <button class="filter-tab" data-category="departed" id="filter-tab-departed">
+                        <span class="tab-icon">🕊️</span>
+                        <span class="tab-label">இறந்தவர்களுக்காக</span>
+                    </button>
+                    <button class="filter-tab" data-category="saints" id="filter-tab-saints">
+                        <span class="tab-icon">🛐</span>
+                        <span class="tab-label">புனிதர்கள்</span>
+                    </button>
+                    <button class="filter-tab" data-category="family" id="filter-tab-family">
+                        <span class="tab-icon">👨‍👩‍👧‍👦</span>
+                        <span class="tab-label">குடும்பம்</span>
+                    </button>
+                </div>
+                <div class="notices-search-box" style="flex-grow: 1; min-width: 200px;">
+                    <input type="text" class="notices-search-input" id="prayers-search-input" placeholder="செபங்களை தேடுக...">
+                    <svg class="search-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prayers Grid -->
+        <section style="max-width: 1100px; margin: 40px auto 60px; padding: 0 24px;">
+            <style>
+                .prayers-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    gap: 24px;
+                }
+                .prayer-card {
+                    background: var(--bg-card);
+                    border: 1px solid var(--border-glass);
+                    border-radius: 16px;
+                    padding: 24px;
+                    cursor: pointer;
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+                }
+                .prayer-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+                    border-color: var(--primary);
+                }
+                .prayer-cat-badge {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    font-size: 0.75rem;
+                    font-weight: 700;
+                    padding: 4px 10px;
+                    border-radius: 100px;
+                    width: fit-content;
+                    background: rgba(139, 92, 246, 0.1);
+                    color: var(--primary);
+                }
+                .prayer-title {
+                    font-size: 1.15rem;
+                    font-weight: 800;
+                    color: var(--text-primary);
+                    margin: 0;
+                    line-height: 1.4;
+                }
+                .prayer-preview {
+                    font-size: 0.9rem;
+                    color: var(--text-secondary);
+                    line-height: 1.6;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+                .prayer-read-more {
+                    margin-top: auto;
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    color: var(--primary);
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                }
+
+                /* Modal Styling */
+                .prayer-modal-overlay {
+                    position: fixed;
+                    top: 0; left: 0; right: 0; bottom: 0;
+                    background: rgba(0,0,0,0.5);
+                    backdrop-filter: blur(5px);
+                    -webkit-backdrop-filter: blur(5px);
+                    z-index: 100000;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 20px;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: all 0.3s ease;
+                }
+                .prayer-modal-overlay.active {
+                    opacity: 1;
+                    visibility: visible;
+                }
+                .prayer-modal-content {
+                    background: var(--bg-card);
+                    width: 100%;
+                    max-width: 600px;
+                    max-height: 85vh;
+                    border-radius: 24px;
+                    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+                    display: flex;
+                    flex-direction: column;
+                    transform: scale(0.95);
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    overflow: hidden;
+                }
+                .prayer-modal-overlay.active .prayer-modal-content {
+                    transform: scale(1);
+                }
+                .prayer-modal-header {
+                    padding: 24px 30px;
+                    border-bottom: 1px solid var(--border-glass);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background: rgba(139, 92, 246, 0.05);
+                }
+                .prayer-modal-title {
+                    font-size: 1.4rem;
+                    font-weight: 800;
+                    color: var(--primary);
+                    margin: 0;
+                }
+                .prayer-modal-close {
+                    background: transparent;
+                    border: none;
+                    color: var(--text-secondary);
+                    cursor: pointer;
+                    padding: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    transition: background 0.2s;
+                }
+                .prayer-modal-close:hover {
+                    background: var(--border-glass);
+                    color: var(--text-primary);
+                }
+                .prayer-modal-body {
+                    padding: 30px;
+                    overflow-y: auto;
+                    font-size: 1.05rem;
+                    line-height: 1.8;
+                    color: var(--text-primary);
+                    white-space: pre-wrap;
+                }
+            </style>
+            
+            <div class="prayers-grid" id="prayers-container">
+                <!-- Skeletons -->
+                <div class="prayer-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+                <div class="prayer-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+                <div class="prayer-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Full Prayer Modal -->
+    <div class="prayer-modal-overlay" id="prayer-modal">
+        <div class="prayer-modal-content">
+            <div class="prayer-modal-header">
+                <h3 class="prayer-modal-title" id="modal-prayer-title">Prayer Title</h3>
+                <div style="display:flex; gap:10px;">
+                    <a id="whatsapp-share-btn" href="#" target="_blank" style="background:#25D366; color:#fff; display:flex; align-items:center; gap:6px; padding:6px 12px; border-radius:50px; text-decoration:none; font-weight:600; font-size:0.85rem; transition: transform 0.2s;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                        </svg>
+                        <span id="modal-share-lbl">Share</span>
+                    </a>
+                    <button class="prayer-modal-close" onclick="closePrayerModal()">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+            </div>
+            <div class="prayer-modal-body" id="modal-prayer-body">
+                Prayer content goes here...
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer" id="global-footer"></footer>
+
+    <!-- Firebase compatibility libraries -->
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js" defer></script>
+
+    <!-- Core Script dependencies -->
+    <script src="js/database.js?v=1780319176039" defer></script>
+    <script src="js/footer.js?v=1780319176039" defer></script>
+    <script src="js/common.js?v=1780319176039" defer></script>
+
+    <script>
+        let allPrayers = [];
+        let activeCategory = 'all';
+        let searchQuery = '';
+
+        // Categories dictionary for dynamic badges
+        const catMap = {
+            'daily': { ta: 'அன்றாட செபங்கள்', en: 'Daily', icon: '☀️', color: 'rgba(59, 130, 246, 0.1)', text: 'rgb(37, 99, 235)' },
+            'healing': { ta: 'நலமளிக்க', en: 'Healing', icon: '❤️‍🩹', color: 'rgba(239, 68, 68, 0.1)', text: 'rgb(220, 38, 38)' },
+            'departed': { ta: 'இறந்தவர்களுக்காக', en: 'Departed', icon: '🕊️', color: 'rgba(107, 114, 128, 0.1)', text: 'rgb(75, 85, 99)' },
+            'saints': { ta: 'புனிதர்கள்', en: 'Saints', icon: '🛐', color: 'rgba(245, 158, 11, 0.1)', text: 'rgb(217, 119, 6)' },
+            'family': { ta: 'குடும்பம்', en: 'Family', icon: '👨‍👩‍👧‍👦', color: 'rgba(16, 185, 129, 0.1)', text: 'rgb(5, 150, 105)' },
+            'general': { ta: 'பொதுவானது', en: 'General', icon: '🌟', color: 'rgba(139, 92, 246, 0.1)', text: 'var(--primary)' }
+        };
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            await SAC_COMMON.init('prayers');
+
+            // Interactive filter tabs
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const btn = e.currentTarget;
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    btn.classList.add('active');
+                    activeCategory = btn.getAttribute('data-category');
+                    renderPrayers();
+                });
+            });
+
+            // Live search with debounce
+            const searchInput = document.getElementById('prayers-search-input');
+            let searchTimer = null;
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(searchTimer);
+                    searchTimer = setTimeout(() => {
+                        searchQuery = e.target.value.toLowerCase().trim();
+                        renderPrayers();
+                    }, 150);
+                });
+            }
+
+            // Close modal on outside click
+            document.getElementById('prayer-modal').addEventListener('click', (e) => {
+                if(e.target.id === 'prayer-modal') closePrayerModal();
+            });
+
+            await fetchAndRender();
+            translateLabels();
+
+            SAC_COMMON.revealPage();
+
+            window.addEventListener('sacLanguageChanged', () => {
+                renderPrayers();
+                translateLabels();
+            });
+        });
+
+        async function fetchAndRender() {
+            try {
+                const fetched = await SAC_DATABASE.get("catholic_prayers") || [];
+                allPrayers = fetched;
+                renderPrayers();
+            } catch (err) {
+                console.error("Error fetching prayers:", err);
+            }
+        }
+
+        async function translateTextSingleBrowser(text) {
+            if (!text) return "";
+            var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t";
+            var res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'q=' + encodeURIComponent(text)
+            });
+            if (!res.ok) throw new Error("Translation failed");
+            var json = await res.json();
+            var translated = "";
+            if (json && json[0]) {
+                json[0].forEach(function(t) { if (t[0]) translated += t[0]; });
+            }
+            return translated;
+        }
+
+        function renderPrayers() {
+            const container = document.getElementById('prayers-container');
+            if (!container) return;
+
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const tamilRe = /[\u0B80-\u0BFF]/;
+
+            let filtered = allPrayers.filter(p => p.isActive !== false && p.isActive !== 'false' && p.isDeleted !== true && p.isDeleted !== 'true');
+
+            if (activeCategory !== 'all') {
+                filtered = filtered.filter(p => p.category && p.category === activeCategory);
+            }
+
+            if (searchQuery) {
+                filtered = filtered.filter(p => {
+                    const fields = [p.titleEn, p.titleTa, p.contentEn, p.contentTa].map(f => (f || '').toLowerCase());
+                    return fields.some(f => f.includes(searchQuery));
+                });
+            }
+
+            // Update counter
+            document.getElementById('prayers-count-number').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-secondary);">
+                        <div style="font-size: 3rem; margin-bottom: 16px;">🔍</div>
+                        <p>${isTa ? "செபங்கள் எதுவும் கிடைக்கவில்லை." : "No prayers found."}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map((p, idx) => {
+                const catInfo = catMap[p.category] || catMap['general'];
+                let title, content;
+                if (isTa) {
+                    title = p.titleTa || p.title || p.titleEn || 'Untitled';
+                    content = p.contentTa || p.content || p.contentEn || '';
+                } else {
+                    title = (p.titleEn && !tamilRe.test(p.titleEn)) ? p.titleEn : (p.titleTa || p.title || 'Untitled');
+                    content = (p.contentEn && !tamilRe.test(p.contentEn)) ? p.contentEn : (p.contentTa || p.content || '');
+                }
+                const catLabel = isTa ? catInfo.ta : catInfo.en;
+                const readMoreLbl = isTa ? "தொடர்ந்து வாசிக்க" : "Read Full Prayer";
+
+                // We safely stringify the ID to open the modal and add data-prayer-id for background translations
+                return `
+                    <div class="prayer-card" data-prayer-id="${p.id}" onclick="openPrayerModal('${p.id}')" style="animation: fadeUp 0.4s ease forwards; animation-delay: ${Math.min(idx * 0.05, 0.5)}s; opacity:0; transform:translateY(10px);">
+                        <div class="prayer-cat-badge" style="background: ${catInfo.color}; color: ${catInfo.text};">
+                            ${catInfo.icon} ${catLabel}
+                        </div>
+                        <h3 class="prayer-title">${title}</h3>
+                        <p class="prayer-preview">${content}</p>
+                        <div class="prayer-read-more">
+                            ${readMoreLbl} <span class="material-icons" style="font-size: 1rem;">arrow_forward</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Staggered background dynamic translation for card previews when in English mode and fields have Tamil
+            if (!isTa) {
+                filtered.forEach((p, idx) => {
+                    const needsTitleTrans = !p.titleEn || tamilRe.test(p.titleEn);
+                    const needsContentTrans = !p.contentEn || tamilRe.test(p.contentEn);
+                    
+                    if (needsTitleTrans || needsContentTrans) {
+                        setTimeout(async () => {
+                            try {
+                                if (SAC_COMMON.currentLang === 'ta') return;
+                                
+                                let updated = false;
+                                if (needsTitleTrans) {
+                                    const tText = await translateTextSingleBrowser(p.titleTa || p.title || "");
+                                    if (tText) {
+                                        p.titleEn = tText;
+                                        updated = true;
+                                    }
+                                }
+                                if (needsContentTrans) {
+                                    const cText = await translateTextSingleBrowser(p.contentTa || p.content || "");
+                                    if (cText) {
+                                        p.contentEn = cText;
+                                        updated = true;
+                                    }
+                                }
+                                
+                                if (updated) {
+                                    const card = document.querySelector(`[data-prayer-id="${p.id}"]`);
+                                    if (card) {
+                                        if (p.titleEn) {
+                                            const titleEl = card.querySelector('.prayer-title');
+                                            if (titleEl) titleEl.innerText = p.titleEn;
+                                        }
+                                        if (p.contentEn) {
+                                            const contentEl = card.querySelector('.prayer-preview');
+                                            if (contentEl) contentEl.innerText = p.contentEn;
+                                        }
+                                    }
+                                    // Update cache in localStorage for instant retrieval on next visit
+                                    try { localStorage.setItem("sac_catholic_prayers", JSON.stringify(allPrayers)); } catch(e){}
+                                }
+                            } catch(err) {
+                                console.warn("Background card translation failed for:", p.id, err);
+                            }
+                        }, idx * 250); // 250ms staggered delay per card
+                    }
+                });
+            }
+            
+            // Add keyframes if missing
+            if(!document.getElementById('anim-fadeUp')) {
+                const style = document.createElement('style');
+                style.id = 'anim-fadeUp';
+                style.innerHTML = `@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }`;
+                document.head.appendChild(style);
+            }
+        }
+
+        function openPrayerModal(id) {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const prayer = allPrayers.find(p => p.id === id);
+            if(!prayer) return;
+
+            const tamilRe = /[\u0B80-\u0BFF]/;
+            let title, content;
+            if (isTa) {
+                title = prayer.titleTa || prayer.title || prayer.titleEn || 'Untitled';
+                content = prayer.contentTa || prayer.content || prayer.contentEn || '';
+            } else {
+                title = (prayer.titleEn && !tamilRe.test(prayer.titleEn)) ? prayer.titleEn : (prayer.titleTa || prayer.title || '');
+                content = (prayer.contentEn && !tamilRe.test(prayer.contentEn)) ? prayer.contentEn : (prayer.contentTa || prayer.content || '');
+            }
+
+            document.getElementById('modal-prayer-title').innerText = title;
+            document.getElementById('modal-prayer-body').innerText = content;
+
+            // On-the-fly translation if English selected but content is Tamil
+            if (!isTa && tamilRe.test(content)) {
+                document.getElementById('modal-prayer-body').innerHTML = '<div style="text-align:center; padding:20px;"><span class="material-icons" style="font-size:24px; color:var(--primary); animation:sacSpin 1s linear infinite;">sync</span><div style="margin-top:8px; color:#666; font-size:0.9rem;">Translating to English...</div></div>';
+                fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t', {
+                    method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'q=' + encodeURIComponent(content)
+                }).then(r => r.json()).then(json => {
+                    let t = ''; if (json && json[0]) json[0].forEach(x => { if(x[0]) t += x[0]; });
+                    document.getElementById('modal-prayer-body').innerText = t || content;
+                    if (t) prayer.contentEn = t;
+                }).catch(() => { document.getElementById('modal-prayer-body').innerText = content; });
+            }
+            if (!isTa && tamilRe.test(title)) {
+                fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t', {
+                    method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'q=' + encodeURIComponent(title)
+                }).then(r => r.json()).then(json => {
+                    let t = ''; if (json && json[0]) json[0].forEach(x => { if(x[0]) t += x[0]; });
+                    if (t) { document.getElementById('modal-prayer-title').innerText = t; prayer.titleEn = t; }
+                }).catch(() => {});
+            }
+
+            // Generate WhatsApp share link dynamically
+            const appUrl = window.location.origin + window.location.pathname;
+            const shareText = `*${title}*\n\n${content}\n\n_Shared from St. Antony's Church, Vadakku Paganur_\n${appUrl}`;
+            const encodedShare = encodeURIComponent(shareText);
+            document.getElementById('whatsapp-share-btn').href = `https://wa.me/?text=${encodedShare}`;
+
+            document.getElementById('prayer-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePrayerModal() {
+            document.getElementById('prayer-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function translateLabels() {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+
+            document.getElementById('prayers-badge-text').innerText = isTa ? "ஆன்மீக பொக்கிஷம்" : "Spiritual Treasury";
+            document.getElementById('prayers-title-label').innerText = isTa ? "கத்தோலிக்க செபங்கள்" : "Catholic Prayers";
+            document.getElementById('prayers-subtitle-label').innerText = isTa 
+                ? "அன்றாட வாழ்விலும், இக்கட்டான சூழ்நிலைகளிலும் ஆண்டவரிடம் மன்றாட பயன்படும் செபங்களின் தொகுப்பு." 
+                : "A collection of powerful Catholic prayers for daily life, healing, and special intentions.";
+            document.getElementById('prayers-count-label').innerText = isTa ? "செபங்கள்" : "Prayers";
+            document.getElementById('prayers-search-input').placeholder = isTa ? "செபங்களை தேடுக..." : "Search prayers...";
+            document.getElementById('modal-share-lbl').innerText = isTa ? "பகிர்" : "Share";
+
+            // Tabs
+            const tAll = document.getElementById('filter-tab-all'); if(tAll) tAll.querySelector('.tab-label').innerText = isTa ? "அனைத்தும்" : "All";
+            const tDaily = document.getElementById('filter-tab-daily'); if(tDaily) tDaily.querySelector('.tab-label').innerText = isTa ? "அன்றாட செபங்கள்" : "Daily";
+            const tHealing = document.getElementById('filter-tab-healing'); if(tHealing) tHealing.querySelector('.tab-label').innerText = isTa ? "நலமளிக்க" : "Healing";
+            const tDeparted = document.getElementById('filter-tab-departed'); if(tDeparted) tDeparted.querySelector('.tab-label').innerText = isTa ? "இறந்தவர்களுக்காக" : "Departed";
+            const tSaints = document.getElementById('filter-tab-saints'); if(tSaints) tSaints.querySelector('.tab-label').innerText = isTa ? "புனிதர்கள்" : "Saints";
+            const tFamily = document.getElementById('filter-tab-family'); if(tFamily) tFamily.querySelector('.tab-label').innerText = isTa ? "குடும்பம்" : "Family";
+        }
+    </script>
+</body>
+</html>

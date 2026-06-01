@@ -4253,7 +4253,7 @@ body:lang(ta) .footer-back-top span:last-child {
   justify-content: space-between;
   transition: var(--transition-smooth);
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .crud-item::before {
@@ -7413,7 +7413,7 @@ body:lang(ta) .footer-back-top span:last-child {
   right: 0;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
   padding: 8px 0;
   min-width: 200px;
   opacity: 0;
@@ -7486,8 +7486,13 @@ body:lang(ta) .footer-back-top span:last-child {
 }
 
 @keyframes skeletonShimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .skeleton-text {
@@ -7495,31 +7500,41 @@ body:lang(ta) .footer-back-top span:last-child {
   margin-bottom: 12px;
   width: 100%;
 }
-.skeleton-text.short { width: 40%; }
-.skeleton-text.medium { width: 70%; }
+
+.skeleton-text.short {
+  width: 40%;
+}
+
+.skeleton-text.medium {
+  width: 70%;
+}
+
 .skeleton-title {
   height: 24px;
   width: 50%;
   margin-bottom: 16px;
 }
+
 .skeleton-card {
   padding: 24px;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   border: 1px solid var(--border-glass);
 }
+
 .skeleton-circle {
   width: 48px;
   height: 48px;
   border-radius: 50%;
   margin-bottom: 16px;
 }
+
 .skeleton-liturgy-block {
   padding: 30px;
   background: #fff;
   border-radius: 20px;
   margin-bottom: 24px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
   border: 1px solid var(--border-glass);
 }
