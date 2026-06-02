@@ -756,17 +756,101 @@ const SAC_COMMON = {
       if (this.settings && (this.settings.maintenanceMode === true || this.settings.maintenanceMode === 'true')) {
           if (this.pageName !== 'admin' && !isAdminLogged) {
               document.body.innerHTML = `
-                  <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; background:linear-gradient(135deg, #1e293b, #0f172a); color:white; font-family:'Inter', sans-serif; text-align:center; padding:20px; box-sizing:border-box;">
-                      <span class="material-icons" style="font-size:80px; color:#fbbf24; margin-bottom:20px; animation: spin 4s linear infinite;">settings</span>
-                      <h1 style="font-size:2.5rem; font-weight:800; margin:0 0 10px 0; background:linear-gradient(to right, #fbbf24, #f59e0b); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">ஆலயம் மேம்பாட்டில் உள்ளது</h1>
-                      <h2 style="font-size:1.5rem; font-weight:600; color:#94a3b8; margin:0 0 20px 0;">Site Under Maintenance</h2>
-                      <p style="font-size:1rem; color:#cbd5e1; max-width:500px; line-height:1.6;">
-                          எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.<br><br>
-                          We are currently performing scheduled maintenance to improve our website. Please check back soon.
-                      </p>
+                  <div class="maintenance-wrapper">
+                      <div class="m-glow m-glow-1"></div>
+                      <div class="m-glow m-glow-2"></div>
+                      
+                      <div class="maintenance-card">
+                          <div class="m-icon-wrapper">
+                              <span class="material-icons m-icon">church</span>
+                              <div class="m-icon-ring"></div>
+                          </div>
+                          <h1 class="m-title-ta">ஆலயம் மேம்பாட்டில் உள்ளது</h1>
+                          <h2 class="m-title-en">Site Under Maintenance</h2>
+                          <div class="m-divider"></div>
+                          <p class="m-desc-ta">எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. ஆன்மீக சேவைகளை மென்மேலும் சிறப்பாக்க இந்த பணி நடைபெறுகிறது. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.</p>
+                          <p class="m-desc-en">We are currently performing scheduled maintenance to enhance your experience. Please check back soon.</p>
+                          <div class="m-footer">
+                              புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்
+                          </div>
+                      </div>
+
                       <style>
+                          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+                          @import url('https://fonts.googleapis.com/css2?family=Tiro+Tamil:ital@0;1&display=swap');
+                          
+                          body, html { 
+                              margin: 0; padding: 0; width: 100%; height: 100%; 
+                              background: #09090b; overflow: hidden; font-family: 'Inter', sans-serif;
+                          }
+                          .maintenance-wrapper {
+                              position: relative;
+                              width: 100%; height: 100vh;
+                              display: flex; justify-content: center; align-items: center;
+                              background: radial-gradient(circle at center, #18181b 0%, #09090b 100%);
+                          }
+                          .m-glow {
+                              position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: pulseGlow 8s infinite alternate; z-index: 1;
+                          }
+                          .m-glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(234, 179, 8, 0.15); }
+                          .m-glow-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: rgba(245, 158, 11, 0.1); animation-delay: -4s; }
+                          
+                          .maintenance-card {
+                              position: relative; z-index: 10;
+                              background: rgba(24, 24, 27, 0.6);
+                              backdrop-filter: blur(20px);
+                              -webkit-backdrop-filter: blur(20px);
+                              border: 1px solid rgba(255, 255, 255, 0.08);
+                              border-radius: 24px;
+                              padding: 50px 40px;
+                              max-width: 600px;
+                              width: 90%;
+                              text-align: center;
+                              box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+                              transform: translateY(20px);
+                              animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                          }
+                          
+                          .m-icon-wrapper { position: relative; width: 80px; height: 80px; margin: 0 auto 30px auto; display: flex; justify-content: center; align-items: center; }
+                          .m-icon { font-size: 48px; color: #fbbf24; z-index: 2; animation: floatIcon 4s ease-in-out infinite; }
+                          .m-icon-ring {
+                              position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+                              border: 2px dashed rgba(251, 191, 36, 0.4); border-radius: 50%;
+                              animation: spin 10s linear infinite;
+                          }
+                          
+                          .m-title-ta {
+                              font-family: 'Tiro Tamil', serif;
+                              font-size: 2.2rem; font-weight: 800; margin: 0 0 10px 0;
+                              background: linear-gradient(135deg, #fcd34d, #f59e0b);
+                              -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                          }
+                          .m-title-en {
+                              font-size: 1.2rem; font-weight: 600; color: #a1a1aa; margin: 0 0 24px 0; letter-spacing: 2px; text-transform: uppercase;
+                          }
+                          .m-divider {
+                              width: 60px; height: 3px; background: linear-gradient(90deg, transparent, #fbbf24, transparent); margin: 0 auto 24px auto; opacity: 0.5;
+                          }
+                          .m-desc-ta {
+                              font-size: 1.05rem; line-height: 1.8; color: #e4e4e7; margin: 0 0 16px 0; font-family: 'Tiro Tamil', serif;
+                          }
+                          .m-desc-en {
+                              font-size: 0.95rem; line-height: 1.6; color: #a1a1aa; margin: 0 0 30px 0;
+                          }
+                          .m-footer {
+                              font-size: 0.8rem; color: #71717a; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 0.5px;
+                          }
+                          
+                          @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.3; } 100% { transform: scale(1.2); opacity: 0.6; } }
+                          @keyframes slideUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
                           @keyframes spin { 100% { transform: rotate(360deg); } }
-                          body { margin: 0; padding: 0; overflow: hidden; }
+                          @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); filter: drop-shadow(0 10px 15px rgba(251,191,36,0.3)); } }
+                          
+                          @media (max-width: 640px) {
+                              .m-title-ta { font-size: 1.8rem; }
+                              .m-title-en { font-size: 1rem; }
+                              .maintenance-card { padding: 40px 24px; }
+                          }
                       </style>
                   </div>
               `;
