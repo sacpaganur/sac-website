@@ -962,3 +962,10 @@ window.clearVisitorLogs = async function() {
         console.error("Error clearing logs:", e);
     }
 };
+
+// Listen for global language changes and re-populate the tables dynamically
+window.addEventListener('sacLanguageChanged', async function(e) {
+    if (typeof window.populateDataForTabs === 'function') {
+        await window.populateDataForTabs();
+    }
+});
