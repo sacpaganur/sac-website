@@ -1742,7 +1742,8 @@
                 if (window.firebase && window.firebase.apps.length > 0) {
                     // Use Secure Firebase Auth Session
                     firebase.auth().onAuthStateChanged(async (user) => {
-                        if (user) {
+                        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                        if (user || isLocalhost) {
                             await showAdminDashboard();
                         } else {
                             showAdminLogin();
@@ -1938,7 +1939,9 @@
             const errorBox = document.getElementById('login-error-msg');
             const loginBtn = document.getElementById('admin-login-btn');
             
-            if (!window.firebase || window.firebase.apps.length === 0) {
+            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+            if (!isLocalhost && (!window.firebase || window.firebase.apps.length === 0)) {
                 errorBox.innerText = "⚠️ தரவுத்தளம் இணைக்கப்படவில்லை! (Firebase not connected)";
                 errorBox.style.display = 'flex';
                 return;
@@ -1948,10 +1951,15 @@
                 loginBtn.disabled = true;
                 loginBtn.innerHTML = '<span class="material-icons" style="animation:sacSpin 1s infinite linear;">refresh</span> <span>Logging in...</span>';
                 
-                // Securely sign in using Firebase Authentication
-                await firebase.auth().signInWithEmailAndPassword(email, password);
-                
-                errorBox.style.display = 'none';
+                if (isLocalhost) {
+                    // Bypass Firebase Auth entirely for local development
+                    errorBox.style.display = 'none';
+                    setTimeout(() => showAdminDashboard(), 500);
+                } else {
+                    // Securely sign in using Firebase Authentication
+                    await firebase.auth().signInWithEmailAndPassword(email, password);
+                    errorBox.style.display = 'none';
+                }
                 // Note: The onAuthStateChanged listener will automatically call showAdminDashboard()
             } catch (error) {
                 console.error("Auth Error:", error.message);
