@@ -739,6 +739,9 @@
                 <button class="admin-tab" onclick="switchAdminTab('notifications', this)">
                     <span class="material-icons">notifications_active</span><span id="tab-lbl-notifications">அறிவிப்புகள் (Push)</span>
                 </button>
+                <button class="admin-tab" onclick="switchAdminTab('visitors', this)">
+                    <span class="material-icons">visibility</span><span id="tab-lbl-visitors">பார்வையாளர்கள் (Visitors)</span>
+                </button>
                 <button class="admin-tab" onclick="switchAdminTab('database', this)">
                     <span class="material-icons">cloud_sync</span><span id="tab-lbl-db">தரவுத்தளம் (Firebase)</span>
                 </button>
@@ -1538,6 +1541,46 @@
             </div>
 
             <!-- ======================= TAB 9: DATABASE ======================= -->
+            <!-- ======================= TAB: VISITORS ======================= -->
+            <div id="panel-visitors" class="admin-panel">
+                <div class="admin-split-layout">
+                    <!-- Stats Card -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">bar_chart</span>
+                            <span id="visitor-stats-title">பார்வையாளர் புள்ளிவிவரங்கள் (Analytics)</span>
+                        </div>
+                        <div style="text-align: center; padding: 40px 20px; background: #f8fafc; border-radius: 12px; margin-bottom: 20px;">
+                            <div style="font-size: 1.1rem; color: #64748b; font-weight: 600; margin-bottom: 10px;">Total Unique Visits</div>
+                            <div id="visitor-total-count" style="font-size: 4rem; font-weight: 800; color: var(--primary); line-height: 1; letter-spacing: -2px;">0</div>
+                        </div>
+                        
+                        <div style="display:flex; justify-content:center; gap: 10px;">
+                            <button class="btn-secondary" onclick="loadVisitorAnalytics()" style="padding: 10px 20px;">
+                                <span class="material-icons">refresh</span> Refresh Stats
+                            </button>
+                            <button class="btn-secondary" onclick="clearVisitorLogs()" style="padding: 10px 20px; color: #ef4444; border-color: #fecaca;">
+                                <span class="material-icons">delete_sweep</span> Clear Logs
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Logs List -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">list_alt</span>
+                            <span>சமீபத்திய பார்வையாளர் பதிவுகள் (Recent Logs)</span>
+                        </div>
+                        <div id="visitor-logs-list" style="max-height: 500px; overflow-y: auto; padding-right: 10px; display:flex; flex-direction:column; gap:10px;">
+                            <div style="text-align:center; padding: 30px; color:#94a3b8; font-size:0.9rem;">
+                                Loading visitor logs...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= TAB: DATABASE ======================= -->
             <div id="panel-database" class="admin-panel">
                 <div class="admin-split-layout">
                     <div class="admin-card">

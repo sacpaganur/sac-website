@@ -164,6 +164,7 @@ const SAC_COMMON = {
       "footer.massTimes": "திருப்பலி நேரங்கள்",
       "footer.backTop": "மேலே",
       "footer.copyText": "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+      "footer.visitors": "மொத்த பார்வையாளர்கள்:",
       "home.patronBadge": "நமது பாதுகாவலர் | Our Patron Saint",
       "home.patronTitle": "பதுவை நகர் புனித அந்தோணியார்",
       "home.patronDesc": "நமது ஆலயத்தின் பாதுகாவலரான புனித அந்தோணியார், இறைவனின் பேரன்பையும் வல்லமையையும் மக்கள் மத்தியில் பகிர்ந்து வரும் அற்புதங்கள் நிறைந்த அருளாளர் ஆவார். ஏழைகள் மற்றும் தொலைந்த பொருட்களின் பாதுகாவலரான இவரின் பரிந்துரையால் எண்ணற்ற மக்கள் ஆறுதலும் ஆசீரும் பெற்று வருகிறார்கள்.",
@@ -438,6 +439,7 @@ const SAC_COMMON = {
       "footer.massTimes": "Mass Times",
       "footer.backTop": "Top",
       "footer.copyText": "All rights reserved.",
+      "footer.visitors": "Total Visitors:",
       "home.patronBadge": "Our Patron Saint",
       "home.patronTitle": "Saint Antony of Padua",
       "home.patronDesc": "Saint Antony of Padua, our sanctuary patron, is a miraculous saint who is a patron of the poor and helper in finding lost things. Countless people receive comfort, hope, and graces through his powerful intercession.",
@@ -765,8 +767,33 @@ const SAC_COMMON = {
       this._injectParticlesContainer();
       this._generateParticles();
 
+      // Handle visitor tracking and display
+      if (window.SAC_DATABASE && typeof SAC_DATABASE.getVisitorStats === 'function') {
+        // Skip logging if this is the admin portal or an admin is browsing
+        const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
+        if (this.pageName !== 'admin' && !isAdminLogged && SAC_DATABASE.logVisit) {
+          SAC_DATABASE.logVisit({
+            page: window.location.pathname,
+            userAgent: navigator.userAgent,
+            lang: this.currentLang
+          });
+        }
+        
+        // Fetch and display total visitor count in footer
+        try {
+          const totalVisits = await SAC_DATABASE.getVisitorStats();
+          const visitorEl = document.getElementById('public-visitor-number');
+          if (visitorEl) {
+            visitorEl.innerText = totalVisits.toLocaleString();
+          }
+        } catch (e) {
+          console.warn("Failed to load visitor stats:", e);
+        }
+      }
+
       // Translate page content
       await this.translatePage();
+
 
       // Dispatch initial language event so dynamic components (like rosary.js) sync to the correctly loaded language
       window.dispatchEvent(new CustomEvent('sacLanguageChanged', { detail: { lang: this.currentLang } }));

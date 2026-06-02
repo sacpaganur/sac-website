@@ -39,6 +39,7 @@ window.refreshAllAdminData = async function() {
     try { if (typeof populatePrayersList === 'function') await populatePrayersList(); } catch(e){}
     try { if (typeof populateDatabaseConfig === 'function') await populateDatabaseConfig(); } catch(e){}
     try { if (typeof populateSubscriberCount === 'function') await populateSubscriberCount(); } catch(e){}
+    try { if (typeof loadVisitorAnalytics === 'function') await loadVisitorAnalytics(); } catch(e){}
 };
 
 // Retry badge update every 1s for up to 10s until Firebase connects
@@ -897,4 +898,67 @@ const originalPopulateDataForTabsGallery = window.populateDataForTabs;
 window.populateDataForTabs = async function() {
     if(originalPopulateDataForTabsGallery) await originalPopulateDataForTabsGallery();
     await populateGalleryList();
+    if (typeof loadVisitorAnalytics === 'function') await loadVisitorAnalytics();
+};
+
+// ======================= VISITOR ANALYTICS =======================
+
+window.loadVisitorAnalytics = async function() {
+    try {
+        if (!SAC_DATABASE || !SAC_DATABASE.getVisitorStats) return;
+        
+        // Load total count
+        const total = await SAC_DATABASE.getVisitorStats();
+        const countEl = document.getElementById('visitor-total-count');
+        if (countEl) countEl.innerText = total.toLocaleString();
+
+        // Load logs list
+        const logsContainer = document.getElementById('visitor-logs-list');
+        if (!logsContainer) return;
+        
+        const logs = await SAC_DATABASE.getVisitorLogs();
+        if (!logs || logs.length === 0) {
+            logsContainer.innerHTML = '<div style="text-align:center; padding: 30px; color:#94a3b8; font-size:0.9rem;">பார்வையாளர் பதிவுகள் ஏதுமில்லை. (No logs found)</div>';
+            return;
+        }
+
+        let html = '';
+        logs.forEach(log => {
+            const dateStr = new Date(log.timestamp).toLocaleString();
+            html += `
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-weight: 600; color: #1e293b; margin-bottom: 4px;">Page: ${log.page}</div>
+                        <div style="font-size: 0.8rem; color: #64748b;">${log.userAgent}</div>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #94a3b8; white-space: nowrap; margin-left: 10px;">
+                        ${dateStr}
+                    </div>
+                </div>
+            `;
+        });
+        
+        logsContainer.innerHTML = html;
+
+    } catch (e) {
+        console.error("Error loading visitor analytics:", e);
+    }
+};
+
+window.clearVisitorLogs = async function() {
+    if (!confirm("Are you sure you want to delete ALL visitor logs? This cannot be undone. (Note: Total visitor count will NOT be reset).")) return;
+    
+    try {
+        if (SAC_DATABASE && SAC_DATABASE.clearVisitorLogs) {
+            const success = await SAC_DATABASE.clearVisitorLogs();
+            if (success) {
+                if (typeof showGlobalSuccessAlert !== 'undefined') showGlobalSuccessAlert("பார்வையாளர் பதிவுகள் அழிக்கப்பட்டன (Logs cleared)");
+                await loadVisitorAnalytics();
+            } else {
+                alert("Failed to clear logs.");
+            }
+        }
+    } catch(e) {
+        console.error("Error clearing logs:", e);
+    }
 };
