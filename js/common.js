@@ -802,7 +802,7 @@ const SAC_COMMON = {
                           
                           body, html { 
                               margin: 0; padding: 0; width: 100%; height: 100%; 
-                              background: #030712; overflow: hidden; 
+                              background: #f8fafc; overflow: hidden; 
                           }
                           
                           .m-ultra-wrapper {
@@ -813,36 +813,36 @@ const SAC_COMMON = {
                           
                           .m-bg-layer {
                               position: absolute; inset: 0;
-                              background: radial-gradient(circle at 50% 50%, #171003 0%, #030712 100%);
+                              background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f1f5f9 100%);
                               z-index: 0;
                           }
                           
                           .m-beam {
                               position: absolute; width: 200px; height: 150vh;
-                              background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.05), transparent);
+                              background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.05), transparent);
                               transform: rotate(45deg); filter: blur(30px);
                               animation: sweep 15s infinite linear; z-index: 1;
                           }
                           .m-beam-1 { left: -50%; top: -50%; animation-delay: 0s; }
-                          .m-beam-2 { right: -50%; bottom: -50%; animation-delay: -7.5s; transform: rotate(-45deg); background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.03), transparent); }
+                          .m-beam-2 { right: -50%; bottom: -50%; animation-delay: -7.5s; transform: rotate(-45deg); background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.03), transparent); }
                           
                           .m-ultra-card {
                               position: relative; z-index: 10;
-                              background: rgba(15, 23, 42, 0.4);
+                              background: rgba(255, 255, 255, 0.7);
                               backdrop-filter: blur(40px);
                               -webkit-backdrop-filter: blur(40px);
-                              border: 1px solid rgba(251, 191, 36, 0.15);
+                              border: 1px solid rgba(0, 0, 0, 0.05);
                               border-radius: 30px;
                               padding: 60px 50px;
                               max-width: 700px; width: 90%;
                               text-align: center;
-                              box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(251, 191, 36, 0.05);
+                              box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.1), inset 0 0 40px rgba(255, 255, 255, 0.5);
                               animation: cardFloat 6s ease-in-out infinite, cardEnter 1s cubic-bezier(0.2, 1, 0.3, 1) forwards;
                               overflow: hidden;
                           }
                           
                           .m-particle {
-                              position: absolute; border-radius: 50%; background: #fbbf24;
+                              position: absolute; border-radius: 50%; background: #d97706;
                               filter: blur(2px); animation: floatUp 10s infinite linear; opacity: 0.6;
                           }
                           .p1 { width: 4px; height: 4px; left: 20%; bottom: -10%; animation-duration: 8s; }
@@ -855,48 +855,48 @@ const SAC_COMMON = {
                           }
                           .m-icon-halo {
                               position: absolute; inset: -20px; border-radius: 50%;
-                              background: radial-gradient(circle, rgba(251, 191, 36, 0.3) 0%, transparent 70%);
+                              background: radial-gradient(circle, rgba(217, 119, 6, 0.2) 0%, transparent 70%);
                               animation: pulseHalo 3s infinite alternate;
                           }
                           .m-icon-core {
-                              font-size: 56px; color: #fcd34d; z-index: 2;
-                              text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+                              font-size: 56px; color: #d97706; z-index: 2;
+                              text-shadow: 0 0 20px rgba(217, 119, 6, 0.3);
                           }
                           
                           .m-title-primary {
                               font-family: 'Tiro Tamil', serif;
                               font-size: 2.8rem; font-weight: 800; margin: 0 0 15px 0;
-                              background: linear-gradient(180deg, #fffbeb 0%, #fcd34d 100%);
+                              background: linear-gradient(180deg, #b45309 0%, #d97706 100%);
                               -webkit-background-clip: text; -webkit-text-fill-color: transparent;
                               position: relative;
                           }
                           .m-title-secondary {
                               font-family: 'Inter', sans-serif;
-                              font-size: 1rem; font-weight: 700; color: #94a3b8; margin: 0 0 35px 0;
+                              font-size: 1rem; font-weight: 700; color: #64748b; margin: 0 0 35px 0;
                               letter-spacing: 6px; text-transform: uppercase;
                           }
                           
                           .m-status-bar {
-                              background: rgba(0,0,0,0.3); border-radius: 20px; padding: 12px 20px;
+                              background: rgba(255,255,255,0.5); border-radius: 20px; padding: 12px 20px;
                               display: inline-flex; flex-direction: column; align-items: center; gap: 10px;
-                              margin-bottom: 40px; border: 1px solid rgba(255,255,255,0.05);
+                              margin-bottom: 40px; border: 1px solid rgba(0,0,0,0.05);
                           }
                           .m-status-track {
-                              width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+                              width: 200px; height: 4px; background: rgba(0,0,0,0.05); border-radius: 2px; overflow: hidden;
                           }
                           .m-status-fill {
-                              width: 30%; height: 100%; background: #fbbf24; border-radius: 2px;
-                              box-shadow: 0 0 10px #fbbf24;
+                              width: 30%; height: 100%; background: #d97706; border-radius: 2px;
+                              box-shadow: 0 0 10px rgba(217, 119, 6, 0.5);
                               animation: loadBar 2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
                           }
                           .m-status-text {
-                              font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #fbbf24;
+                              font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #b45309;
                               font-weight: 700; letter-spacing: 2px; animation: blink 1.5s infinite;
                           }
                           
                           .m-desc-ta {
                               font-family: 'Tiro Tamil', serif; font-size: 1.15rem; line-height: 1.8;
-                              color: #cbd5e1; margin: 0 0 20px 0;
+                              color: #334155; margin: 0 0 20px 0;
                           }
                           .m-desc-en {
                               font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.7;
@@ -904,12 +904,12 @@ const SAC_COMMON = {
                           }
                           
                           .m-footer {
-                              font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 800; color: #475569;
+                              font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 800; color: #94a3b8;
                               letter-spacing: 3px; position: relative;
                           }
                           .m-footer-line {
                               position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-                              width: 100px; height: 1px; background: linear-gradient(90deg, transparent, rgba(251,191,36,0.3), transparent);
+                              width: 100px; height: 1px; background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.3), transparent);
                           }
                           
                           @keyframes sweep { 0% { transform: translateX(-100vw) rotate(45deg); } 100% { transform: translateX(100vw) rotate(45deg); } }
