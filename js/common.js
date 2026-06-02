@@ -793,6 +793,7 @@ const SAC_COMMON = {
                           
                           <div class="m-footer">
                               <div class="m-footer-line"></div>
+                              <div style="font-family:'Tiro Tamil', serif; font-size:1.1rem; margin-bottom:5px; color:#475569;">புனித அந்தோணியார் ஆலயம் • வடக்கு பாகனூர்</div>
                               <span>ST. ANTONY'S CHURCH • NORTH PAGANUR</span>
                           </div>
                       </div>
