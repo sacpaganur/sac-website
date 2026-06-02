@@ -6602,6 +6602,75 @@ const SAC_DATABASE = {
     }
 
     return true;
+  },
+
+  // --- VISITOR TRACKING ---
+  async logVisit(data) {
+    if (!this.isFirebaseActive || !this.db) return;
+    try {
+      const id = "visit_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5);
+      const dataWithId = { ...data, id, timestamp: new Date().toISOString() };
+      
+      // 1. Log the individual visit
+      await this.db.collection("visitor_logs").doc(id).set(dataWithId);
+      
+      // 2. Increment the total counter safely
+      await this.db.collection("stats").doc("visitors").set({
+        total_count: firebase.firestore.FieldValue.increment(1),
+        last_updated: new Date().toISOString()
+      }, { merge: true });
+    } catch (e) {
+      console.warn("Failed to log visit:", e);
+    }
+  },
+
+  async getVisitorStats() {
+    // Try local cache first for speed, then fetch from db
+    let count = 0;
+    try {
+      if (this.isFirebaseActive && this.db) {
+        const doc = await this.db.collection("stats").doc("visitors").get();
+        if (doc.exists) {
+          count = doc.data().total_count || 0;
+          this.setCollection("sac_visitor_count", count);
+        }
+      } else {
+        count = this.getCollection("sac_visitor_count") || 0;
+      }
+    } catch(e) {
+      count = this.getCollection("sac_visitor_count") || 0;
+    }
+    return count;
+  },
+
+  async getVisitorLogs() {
+    if (!this.isFirebaseActive || !this.db) return [];
+    try {
+      const snapshot = await this.db.collection("visitor_logs")
+        .orderBy("timestamp", "desc")
+        .limit(200)
+        .get();
+      return snapshot.docs.map(doc => doc.data());
+    } catch(e) {
+      console.error("Failed to fetch visitor logs:", e);
+      return [];
+    }
+  },
+
+  async clearVisitorLogs() {
+    if (!this.isFirebaseActive || !this.db) return false;
+    try {
+      const snapshot = await this.db.collection("visitor_logs").get();
+      const batch = this.db.batch();
+      snapshot.docs.forEach(doc => {
+        batch.delete(doc.ref);
+      });
+      await batch.commit();
+      return true;
+    } catch (e) {
+      console.error("Failed to clear visitor logs:", e);
+      return false;
+    }
   }
 };
 
