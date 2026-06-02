@@ -753,8 +753,9 @@ const SAC_COMMON = {
       // MAINTENANCE MODE INTERCEPTION
       // ==========================================
       const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       if (this.settings && (this.settings.maintenanceMode === true || this.settings.maintenanceMode === 'true')) {
-          if (this.pageName !== 'admin' && !isAdminLogged) {
+          if (this.pageName !== 'admin' && !isAdminLogged && !isLocalhost) {
               document.body.innerHTML = `
                   <div class="n-wrapper">
                       <!-- Two dynamic colored ambient orbs -->
