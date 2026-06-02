@@ -756,171 +756,126 @@ const SAC_COMMON = {
       if (this.settings && (this.settings.maintenanceMode === true || this.settings.maintenanceMode === 'true')) {
           if (this.pageName !== 'admin' && !isAdminLogged) {
               document.body.innerHTML = `
-                  <div class="z-wrapper">
-                      <!-- Animated background patterns -->
-                      <div class="z-bg-pattern"></div>
-                      <div class="z-bg-gradient"></div>
-
-                      <div class="z-container">
-                          <!-- Floating Artistic Emblem -->
-                          <div class="z-emblem-box">
-                              <div class="z-emblem-ring r1"></div>
-                              <div class="z-emblem-ring r2"></div>
-                              <div class="z-icon-glow"></div>
-                              <span class="material-icons z-icon">church</span>
+                  <div class="h-wrapper">
+                      <div class="h-sky">
+                          <div class="h-sun"></div>
+                      </div>
+                      
+                      <div class="h-ground">
+                          <div class="h-emblem">
+                              <span class="material-icons h-icon">church</span>
+                              <div class="h-ripple"></div>
                           </div>
 
-                          <!-- Clean Typographic Content -->
-                          <div class="z-content">
-                              <div class="z-pill">
-                                  <span class="z-dot"></span>
-                                  SYSTEM UPGRADE
-                              </div>
-                              
-                              <h1 class="z-title-ta">இணையதளம் பராமரிப்பில் உள்ளது</h1>
-                              <h2 class="z-title-en">SITE UNDER MAINTENANCE</h2>
-                              
-                              <div class="z-divider"></div>
-                              
-                              <p class="z-desc-ta">எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. ஆன்மீக சேவைகளை மென்மேலும் சிறப்பாக்க இந்த பணி நடைபெறுகிறது.</p>
-                              <p class="z-desc-en">We are currently performing scheduled maintenance to enhance your experience. Please check back soon.</p>
+                          <div class="h-content">
+                              <div class="h-badge">MAINTENANCE MODE</div>
+                              <h1 class="h-title-ta">இணையதளம் பராமரிப்பில் உள்ளது</h1>
+                              <h2 class="h-title-en">SITE UNDER MAINTENANCE</h2>
+                              <div class="h-line"></div>
+                              <p class="h-desc-ta">எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. ஆன்மீக சேவைகளை மென்மேலும் சிறப்பாக்க இந்த பணி நடைபெறுகிறது.</p>
+                              <p class="h-desc-en">We are currently performing scheduled maintenance to enhance your experience. Please check back soon.</p>
                           </div>
 
-                          <div class="z-footer">
-                              <div class="z-f-ta">புனித அந்தோணியார் ஆலயம் • வடக்கு பாகனூர்</div>
-                              <div class="z-f-en">ST. ANTONY'S CHURCH • NORTH PAGANUR</div>
+                          <div class="h-footer">
+                              <div class="h-f-ta">புனித அந்தோணியார் ஆலயம் • வடக்கு பாகனூர்</div>
+                              <div class="h-f-en">ST. ANTONY'S CHURCH • NORTH PAGANUR</div>
                           </div>
                       </div>
 
                       <style>
                           @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;500;700&family=Tiro+Tamil:ital@0;1&display=swap');
 
-                          body, html { 
-                              margin: 0; padding: 0; width: 100%; height: 100%; 
-                              background: #ffffff; overflow: hidden; 
-                          }
+                          body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #ffffff; }
 
-                          .z-wrapper {
+                          .h-wrapper {
                               position: relative; width: 100%; height: 100vh;
-                              display: flex; justify-content: center; align-items: center;
+                              display: flex; flex-direction: column;
                           }
 
-                          .z-bg-gradient {
-                              position: absolute; inset: 0;
-                              background: radial-gradient(circle at 50% 0%, rgba(217,119,6,0.08) 0%, transparent 60%);
-                              z-index: 0;
+                          .h-sky {
+                              position: relative; width: 100%; height: 45vh;
+                              background: linear-gradient(180deg, #fbbf24 0%, #f97316 100%);
+                              overflow: hidden;
+                              display: flex; justify-content: center; align-items: flex-end;
                           }
 
-                          .z-bg-pattern {
-                              position: absolute; inset: 0;
-                              background-image: radial-gradient(rgba(217,119,6,0.1) 1.5px, transparent 1.5px);
-                              background-size: 30px 30px;
-                              opacity: 0.5; z-index: 0;
-                              animation: drift 60s linear infinite;
+                          .h-sun {
+                              width: 300px; height: 300px;
+                              background: radial-gradient(circle, #fffbeb 0%, #fef3c7 40%, rgba(253,230,138,0) 70%);
+                              border-radius: 50%;
+                              transform: translateY(150px);
+                              animation: sunrise 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
                           }
 
-                          .z-container {
-                              position: relative; z-index: 10;
-                              width: 100%; max-width: 800px;
+                          .h-ground {
+                              position: relative; width: 100%; height: 55vh;
+                              background: #ffffff;
                               display: flex; flex-direction: column; align-items: center;
-                              padding: 0 20px;
                           }
 
-                          .z-emblem-box {
-                              position: relative; width: 120px; height: 120px;
+                          .h-emblem {
+                              position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
+                              width: 100px; height: 100px;
+                              background: #ffffff; border-radius: 50%;
                               display: flex; justify-content: center; align-items: center;
-                              margin-bottom: 40px;
-                              animation: float 6s ease-in-out infinite;
+                              box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                              z-index: 10;
+                          }
+                          .h-icon { font-size: 46px; color: #ea580c; z-index: 2; }
+                          .h-ripple {
+                              position: absolute; inset: -10px; border-radius: 50%;
+                              border: 2px solid #ea580c; opacity: 0;
+                              animation: ripple 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
                           }
 
-                          .z-emblem-ring {
-                              position: absolute; inset: 0; border-radius: 50%;
-                              border: 1px solid rgba(217,119,6,0.3);
-                          }
-                          .r1 { animation: spinRight 20s linear infinite; border-top-color: transparent; border-right-color: transparent; }
-                          .r2 { inset: 10px; animation: spinLeft 15s linear infinite; border-bottom-color: transparent; border-left-color: transparent; }
-
-                          .z-icon-glow {
-                              position: absolute; inset: 20px; border-radius: 50%;
-                              background: #d97706; filter: blur(20px); opacity: 0.15;
-                              animation: pulse 3s infinite alternate;
+                          .h-content {
+                              margin-top: 80px; text-align: center; max-width: 600px; padding: 0 20px;
+                              animation: slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0;
+                              animation-delay: 0.5s;
                           }
 
-                          .z-icon {
-                              font-size: 48px; color: #b45309; z-index: 2;
+                          .h-badge {
+                              display: inline-block; background: #fff7ed; color: #ea580c;
+                              padding: 6px 16px; border-radius: 20px; font-family: 'Inter', sans-serif;
+                              font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 20px;
+                              border: 1px solid #ffedd5;
                           }
 
-                          .z-content {
-                              text-align: center;
-                              background: rgba(255,255,255,0.8);
-                              backdrop-filter: blur(10px);
-                              -webkit-backdrop-filter: blur(10px);
-                              padding: 40px; border-radius: 24px;
-                              box-shadow: 0 20px 40px rgba(0,0,0,0.03);
-                              border: 1px solid rgba(0,0,0,0.02);
-                              animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1);
+                          .h-title-ta {
+                              font-family: 'Tiro Tamil', serif; font-size: 2.2rem; font-weight: 800; color: #1e293b; margin: 0 0 10px 0;
+                          }
+                          .h-title-en {
+                              font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700; color: #94a3b8; letter-spacing: 5px; margin: 0 0 25px 0;
                           }
 
-                          .z-pill {
-                              display: inline-flex; align-items: center; gap: 8px;
-                              background: rgba(217,119,6,0.1); padding: 6px 16px; border-radius: 20px;
-                              font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 700;
-                              color: #b45309; letter-spacing: 2px; margin-bottom: 25px;
-                          }
-                          .z-dot {
-                              width: 6px; height: 6px; background: #ef4444; border-radius: 50%;
-                              animation: blink 1.5s infinite;
+                          .h-line {
+                              width: 50px; height: 3px; background: #ea580c; margin: 0 auto 25px auto; border-radius: 2px;
                           }
 
-                          .z-title-ta {
-                              font-family: 'Tiro Tamil', serif; font-size: 2.2rem; font-weight: 800;
-                              color: #1e293b; margin: 0 0 10px 0;
+                          .h-desc-ta {
+                              font-family: 'Tiro Tamil', serif; font-size: 1.05rem; line-height: 1.8; color: #475569; margin: 0 0 15px 0;
                           }
-                          .z-title-en {
-                              font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 800;
-                              color: #94a3b8; letter-spacing: 6px; margin: 0 0 30px 0;
+                          .h-desc-en {
+                              font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.6; color: #64748b; margin: 0 0 30px 0;
                           }
 
-                          .z-divider {
-                              width: 40px; height: 2px; background: #d97706; margin: 0 auto 30px auto; opacity: 0.3;
+                          .h-footer {
+                              position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+                              text-align: center; width: 100%;
                           }
+                          .h-f-ta { font-family: 'Tiro Tamil', serif; font-size: 0.95rem; color: #94a3b8; margin-bottom: 5px; }
+                          .h-f-en { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #cbd5e1; letter-spacing: 2px; font-weight: 600; }
 
-                          .z-desc-ta {
-                              font-family: 'Tiro Tamil', serif; font-size: 1.05rem; line-height: 1.8;
-                              color: #475569; margin: 0 0 15px 0;
-                          }
-                          .z-desc-en {
-                              font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.6;
-                              color: #64748b; margin: 0 0 20px 0;
-                          }
-
-                          .z-footer {
-                              text-align: center; margin-top: 50px;
-                              animation: fadeIn 2s ease forwards; opacity: 0; animation-delay: 0.5s;
-                          }
-                          .z-f-ta {
-                              font-family: 'Tiro Tamil', serif; font-size: 0.95rem; color: #64748b; margin-bottom: 8px;
-                          }
-                          .z-f-en {
-                              font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #cbd5e1; letter-spacing: 3px; font-weight: 600;
-                          }
-
-                          @keyframes spinRight { 100% { transform: rotate(360deg); } }
-                          @keyframes spinLeft { 100% { transform: rotate(-360deg); } }
-                          @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-                          @keyframes pulse { 0% { transform: scale(0.8); opacity: 0.1; } 100% { transform: scale(1.2); opacity: 0.2; } }
-                          @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
-                          @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-                          @keyframes drift { 0% { background-position: 0 0; } 100% { background-position: -60px 60px; } }
-                          @keyframes fadeIn { to { opacity: 1; } }
+                          @keyframes sunrise { 0% { transform: translateY(200px) scale(0.8); opacity: 0; } 100% { transform: translateY(120px) scale(1); opacity: 1; } }
+                          @keyframes ripple { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(1.5); opacity: 0; } }
+                          @keyframes slideUp { 0% { transform: translateY(30px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 
                           @media (max-width: 640px) {
-                              .z-content { padding: 30px 20px; }
-                              .z-emblem-box { width: 90px; height: 90px; margin-bottom: 30px; }
-                              .z-icon { font-size: 36px; }
-                              .z-title-ta { font-size: 1.6rem; }
-                              .z-title-en { font-size: 0.7rem; letter-spacing: 4px; }
-                              .z-footer { margin-top: 30px; }
+                              .h-title-ta { font-size: 1.6rem; }
+                              .h-title-en { font-size: 0.75rem; letter-spacing: 3px; }
+                              .h-content { margin-top: 70px; }
+                              .h-sun { width: 250px; height: 250px; transform: translateY(120px); }
+                              @keyframes sunrise { 100% { transform: translateY(100px) scale(1); opacity: 1; } }
                           }
                       </style>
                   </div>
