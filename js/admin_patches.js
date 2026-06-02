@@ -715,7 +715,7 @@ window.populateGalleryList = async function() {
     if (!container) return;
     try {
         var items = await SAC_DATABASE.get("gallery") || [];
-        var isTa = window.SAC_COMMON ? SAC_COMMON.currentLang === 'ta' : false;
+        var isTa = (typeof SAC_COMMON !== 'undefined') ? SAC_COMMON.currentLang === 'ta' : false;
         
         if (items.length === 0) {
             container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px; color:#888;">புகைப்படங்கள் ஏதுமில்லை / No images found</div>';
@@ -851,7 +851,7 @@ window.deleteGalleryImage = async function(id, title) {
     if (typeof showCustomConfirm === 'function') {
         showCustomConfirm(msgEn, msgTa, performDelete);
     } else {
-        const isTa = (window.SAC_COMMON && SAC_COMMON.currentLang === 'ta');
+        const isTa = ((typeof SAC_COMMON !== 'undefined') && SAC_COMMON.currentLang === 'ta');
         if (confirm(isTa ? msgTa : msgEn)) {
             await performDelete();
         }
