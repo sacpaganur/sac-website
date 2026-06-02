@@ -793,7 +793,7 @@ const SAC_COMMON = {
                           
                           <div class="m-footer">
                               <div class="m-footer-line"></div>
-                              <div style="font-family:'Tiro Tamil', serif; font-size:1.1rem; margin-bottom:5px; color:#475569;">புனித அந்தோணியார் ஆலயம் • வடக்கு பாகனூர்</div>
+                              <div style="font-family:'Tiro Tamil', serif; font-size:0.9rem; margin-bottom:5px; color:#475569;">புனித அந்தோணியார் ஆலயம் • வடக்கு பாகனூர்</div>
                               <span>ST. ANTONY'S CHURCH • NORTH PAGANUR</span>
                           </div>
                       </div>
@@ -834,8 +834,8 @@ const SAC_COMMON = {
                               -webkit-backdrop-filter: blur(40px);
                               border: 1px solid rgba(0, 0, 0, 0.05);
                               border-radius: 30px;
-                              padding: 60px 50px;
-                              max-width: 700px; width: 90%;
+                              padding: 40px 30px;
+                              max-width: 600px; width: 90%;
                               text-align: center;
                               box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.1), inset 0 0 40px rgba(255, 255, 255, 0.5);
                               animation: cardFloat 6s ease-in-out infinite, cardEnter 1s cubic-bezier(0.2, 1, 0.3, 1) forwards;
@@ -851,7 +851,7 @@ const SAC_COMMON = {
                           .p3 { width: 3px; height: 3px; left: 40%; bottom: -5%; animation-duration: 6s; animation-delay: 4s; }
                           
                           .m-icon-container {
-                              position: relative; width: 100px; height: 100px; margin: 0 auto 35px auto;
+                              position: relative; width: 80px; height: 80px; margin: 0 auto 25px auto;
                               display: flex; justify-content: center; align-items: center;
                           }
                           .m-icon-halo {
@@ -860,30 +860,30 @@ const SAC_COMMON = {
                               animation: pulseHalo 3s infinite alternate;
                           }
                           .m-icon-core {
-                              font-size: 56px; color: #d97706; z-index: 2;
+                              font-size: 42px; color: #d97706; z-index: 2;
                               text-shadow: 0 0 20px rgba(217, 119, 6, 0.3);
                           }
                           
                           .m-title-primary {
                               font-family: 'Tiro Tamil', serif;
-                              font-size: 2.8rem; font-weight: 800; margin: 0 0 15px 0;
+                              font-size: 2rem; font-weight: 800; margin: 0 0 10px 0;
                               background: linear-gradient(180deg, #b45309 0%, #d97706 100%);
                               -webkit-background-clip: text; -webkit-text-fill-color: transparent;
                               position: relative;
                           }
                           .m-title-secondary {
                               font-family: 'Inter', sans-serif;
-                              font-size: 1rem; font-weight: 700; color: #64748b; margin: 0 0 35px 0;
-                              letter-spacing: 6px; text-transform: uppercase;
+                              font-size: 0.85rem; font-weight: 700; color: #64748b; margin: 0 0 25px 0;
+                              letter-spacing: 5px; text-transform: uppercase;
                           }
                           
                           .m-status-bar {
-                              background: rgba(255,255,255,0.5); border-radius: 20px; padding: 12px 20px;
-                              display: inline-flex; flex-direction: column; align-items: center; gap: 10px;
-                              margin-bottom: 40px; border: 1px solid rgba(0,0,0,0.05);
+                              background: rgba(255,255,255,0.5); border-radius: 20px; padding: 10px 16px;
+                              display: inline-flex; flex-direction: column; align-items: center; gap: 8px;
+                              margin-bottom: 30px; border: 1px solid rgba(0,0,0,0.05);
                           }
                           .m-status-track {
-                              width: 200px; height: 4px; background: rgba(0,0,0,0.05); border-radius: 2px; overflow: hidden;
+                              width: 180px; height: 4px; background: rgba(0,0,0,0.05); border-radius: 2px; overflow: hidden;
                           }
                           .m-status-fill {
                               width: 30%; height: 100%; background: #d97706; border-radius: 2px;
@@ -891,26 +891,26 @@ const SAC_COMMON = {
                               animation: loadBar 2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
                           }
                           .m-status-text {
-                              font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #b45309;
+                              font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #b45309;
                               font-weight: 700; letter-spacing: 2px; animation: blink 1.5s infinite;
                           }
                           
                           .m-desc-ta {
-                              font-family: 'Tiro Tamil', serif; font-size: 1.15rem; line-height: 1.8;
-                              color: #334155; margin: 0 0 20px 0;
+                              font-family: 'Tiro Tamil', serif; font-size: 1rem; line-height: 1.6;
+                              color: #334155; margin: 0 0 15px 0;
                           }
                           .m-desc-en {
-                              font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.7;
-                              color: #64748b; margin: 0 0 40px 0;
+                              font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5;
+                              color: #64748b; margin: 0 0 30px 0;
                           }
                           
                           .m-footer {
-                              font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 800; color: #94a3b8;
-                              letter-spacing: 3px; position: relative;
+                              font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 800; color: #94a3b8;
+                              letter-spacing: 2px; position: relative;
                           }
                           .m-footer-line {
-                              position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-                              width: 100px; height: 1px; background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.3), transparent);
+                              position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+                              width: 80px; height: 1px; background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.3), transparent);
                           }
                           
                           @keyframes sweep { 0% { transform: translateX(-100vw) rotate(45deg); } 100% { transform: translateX(100vw) rotate(45deg); } }
@@ -922,10 +922,10 @@ const SAC_COMMON = {
                           @keyframes floatUp { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-300px); opacity: 0; } }
                           
                           @media (max-width: 640px) {
-                              .m-ultra-card { padding: 40px 25px; }
-                              .m-title-primary { font-size: 1.8rem; }
-                              .m-title-secondary { font-size: 0.8rem; letter-spacing: 3px; }
-                              .m-status-track { width: 150px; }
+                              .m-ultra-card { padding: 30px 20px; }
+                              .m-title-primary { font-size: 1.6rem; }
+                              .m-title-secondary { font-size: 0.75rem; letter-spacing: 3px; }
+                              .m-status-track { width: 140px; }
                           }
                       </style>
                   </div>
