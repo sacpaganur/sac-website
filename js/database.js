@@ -6374,6 +6374,11 @@ const SAC_DATABASE = {
           }
           this.db = window.firebase.firestore();
 
+          // Force Long Polling to bypass strict firewalls/proxies that block WebSockets/Streaming and cause 404s
+          this.db.settings({
+            experimentalForceLongPolling: true
+          });
+
           // Enable offline caching and instant load
           this.db.enablePersistence({ synchronizeTabs: true }).catch(err => {
             console.warn("Firestore persistence could not be enabled:", err);

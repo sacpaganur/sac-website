@@ -1,4 +1,7 @@
 {
+  "firestore": {
+    "rules": "firestore.rules"
+  },
   "hosting": [
     {
       "site": "stacpaganur",
@@ -9,6 +12,7 @@
         "**/.*",
         "**/node_modules/**",
         "hosting_guide.md",
+        "firestore.rules",
         ".firebase",
         ".git",
         ".github"
@@ -37,6 +41,7 @@
         "**/.*",
         "**/node_modules/**",
         "hosting_guide.md",
+        "firestore.rules",
         ".firebase",
         ".git",
         ".github"
