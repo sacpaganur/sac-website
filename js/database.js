@@ -6661,7 +6661,9 @@ const SAC_DATABASE = {
     let count = 0;
     try {
       if (this.isFirebaseActive && this.db) {
-        const doc = await this.db.collection("stats").doc("visitors").get();
+        const fetchPromise = this.db.collection("stats").doc("visitors").get();
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 8000));
+        const doc = await Promise.race([fetchPromise, timeoutPromise]);
         if (doc.exists) {
           count = doc.data().total_count || 0;
           this.setCollection("sac_visitor_count", count);
@@ -6678,10 +6680,12 @@ const SAC_DATABASE = {
   async getVisitorLogs() {
     if (!this.isFirebaseActive || !this.db) return [];
     try {
-      const snapshot = await this.db.collection("visitor_logs")
+      const fetchPromise = this.db.collection("visitor_logs")
         .orderBy("timestamp", "desc")
         .limit(200)
         .get();
+      const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 8000));
+      const snapshot = await Promise.race([fetchPromise, timeoutPromise]);
       return snapshot.docs.map(doc => doc.data());
     } catch(e) {
       console.error("Failed to fetch visitor logs:", e);
