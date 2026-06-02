@@ -777,7 +777,7 @@ const SAC_COMMON = {
                                   SYSTEM UPGRADE
                               </div>
                               
-                              <h1 class="z-title-ta">ஆலயம் மேம்பாட்டில் உள்ளது</h1>
+                              <h1 class="z-title-ta">இணையதளம் பராமரிப்பில் உள்ளது</h1>
                               <h2 class="z-title-en">SITE UNDER MAINTENANCE</h2>
                               
                               <div class="z-divider"></div>
