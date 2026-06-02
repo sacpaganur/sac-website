@@ -756,100 +756,175 @@ const SAC_COMMON = {
       if (this.settings && (this.settings.maintenanceMode === true || this.settings.maintenanceMode === 'true')) {
           if (this.pageName !== 'admin' && !isAdminLogged) {
               document.body.innerHTML = `
-                  <div class="maintenance-wrapper">
-                      <div class="m-glow m-glow-1"></div>
-                      <div class="m-glow m-glow-2"></div>
+                  <div class="m-ultra-wrapper">
+                      <!-- Animated deep background -->
+                      <div class="m-bg-layer"></div>
+                      <!-- Moving light beams -->
+                      <div class="m-beam m-beam-1"></div>
+                      <div class="m-beam m-beam-2"></div>
                       
-                      <div class="maintenance-card">
-                          <div class="m-icon-wrapper">
-                              <span class="material-icons m-icon">church</span>
-                              <div class="m-icon-ring"></div>
+                      <div class="m-ultra-card">
+                          <!-- Floating particles within card area -->
+                          <div class="m-particle p1"></div>
+                          <div class="m-particle p2"></div>
+                          <div class="m-particle p3"></div>
+                          
+                          <div class="m-header">
+                              <div class="m-icon-container">
+                                  <div class="m-icon-halo"></div>
+                                  <span class="material-icons m-icon-core">church</span>
+                              </div>
                           </div>
-                          <h1 class="m-title-ta">ஆலயம் மேம்பாட்டில் உள்ளது</h1>
-                          <h2 class="m-title-en">Site Under Maintenance</h2>
-                          <div class="m-divider"></div>
-                          <p class="m-desc-ta">எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. ஆன்மீக சேவைகளை மென்மேலும் சிறப்பாக்க இந்த பணி நடைபெறுகிறது. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.</p>
-                          <p class="m-desc-en">We are currently performing scheduled maintenance to enhance your experience. Please check back soon.</p>
+                          
+                          <div class="m-content">
+                              <h1 class="m-title-primary">ஆலயம் மேம்பாட்டில் உள்ளது</h1>
+                              <h2 class="m-title-secondary">System Under Maintenance</h2>
+                              
+                              <div class="m-status-bar">
+                                  <div class="m-status-track">
+                                      <div class="m-status-fill"></div>
+                                  </div>
+                                  <span class="m-status-text">UPGRADING SERVICES...</span>
+                              </div>
+                              
+                              <p class="m-desc-ta">எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. ஆன்மீக சேவைகளை மென்மேலும் சிறப்பாக்க இந்த பணி நடைபெறுகிறது.</p>
+                              <p class="m-desc-en">We are currently performing scheduled maintenance to enhance your experience. Please check back soon.</p>
+                          </div>
+                          
                           <div class="m-footer">
-                              புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்
+                              <div class="m-footer-line"></div>
+                              <span>ST. ANTONY'S CHURCH • NORTH PAGANUR</span>
                           </div>
                       </div>
 
                       <style>
-                          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-                          @import url('https://fonts.googleapis.com/css2?family=Tiro+Tamil:ital@0;1&display=swap');
+                          @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;500;700&family=Tiro+Tamil:ital@0;1&display=swap');
                           
                           body, html { 
                               margin: 0; padding: 0; width: 100%; height: 100%; 
-                              background: #f8fafc; overflow: hidden; font-family: 'Inter', sans-serif;
+                              background: #030712; overflow: hidden; 
                           }
-                          .maintenance-wrapper {
-                              position: relative;
-                              width: 100%; height: 100vh;
+                          
+                          .m-ultra-wrapper {
+                              position: relative; width: 100%; height: 100vh;
                               display: flex; justify-content: center; align-items: center;
-                              background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
+                              perspective: 1000px;
                           }
-                          .m-glow {
-                              position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: pulseGlow 8s infinite alternate; z-index: 1;
-                          }
-                          .m-glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(217, 119, 6, 0.1); }
-                          .m-glow-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: rgba(245, 158, 11, 0.1); animation-delay: -4s; }
                           
-                          .maintenance-card {
+                          .m-bg-layer {
+                              position: absolute; inset: 0;
+                              background: radial-gradient(circle at 50% 50%, #171003 0%, #030712 100%);
+                              z-index: 0;
+                          }
+                          
+                          .m-beam {
+                              position: absolute; width: 200px; height: 150vh;
+                              background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.05), transparent);
+                              transform: rotate(45deg); filter: blur(30px);
+                              animation: sweep 15s infinite linear; z-index: 1;
+                          }
+                          .m-beam-1 { left: -50%; top: -50%; animation-delay: 0s; }
+                          .m-beam-2 { right: -50%; bottom: -50%; animation-delay: -7.5s; transform: rotate(-45deg); background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.03), transparent); }
+                          
+                          .m-ultra-card {
                               position: relative; z-index: 10;
-                              background: rgba(255, 255, 255, 0.8);
-                              backdrop-filter: blur(20px);
-                              -webkit-backdrop-filter: blur(20px);
-                              border: 1px solid rgba(0, 0, 0, 0.05);
-                              border-radius: 24px;
-                              padding: 50px 40px;
-                              max-width: 600px;
-                              width: 90%;
+                              background: rgba(15, 23, 42, 0.4);
+                              backdrop-filter: blur(40px);
+                              -webkit-backdrop-filter: blur(40px);
+                              border: 1px solid rgba(251, 191, 36, 0.15);
+                              border-radius: 30px;
+                              padding: 60px 50px;
+                              max-width: 700px; width: 90%;
                               text-align: center;
-                              box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-                              transform: translateY(20px);
-                              animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                              box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(251, 191, 36, 0.05);
+                              animation: cardFloat 6s ease-in-out infinite, cardEnter 1s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+                              overflow: hidden;
                           }
                           
-                          .m-icon-wrapper { position: relative; width: 80px; height: 80px; margin: 0 auto 30px auto; display: flex; justify-content: center; align-items: center; }
-                          .m-icon { font-size: 48px; color: #d97706; z-index: 2; animation: floatIcon 4s ease-in-out infinite; }
-                          .m-icon-ring {
-                              position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-                              border: 2px dashed rgba(217, 119, 6, 0.3); border-radius: 50%;
-                              animation: spin 10s linear infinite;
+                          .m-particle {
+                              position: absolute; border-radius: 50%; background: #fbbf24;
+                              filter: blur(2px); animation: floatUp 10s infinite linear; opacity: 0.6;
+                          }
+                          .p1 { width: 4px; height: 4px; left: 20%; bottom: -10%; animation-duration: 8s; }
+                          .p2 { width: 6px; height: 6px; left: 70%; bottom: -20%; animation-duration: 12s; animation-delay: 2s; }
+                          .p3 { width: 3px; height: 3px; left: 40%; bottom: -5%; animation-duration: 6s; animation-delay: 4s; }
+                          
+                          .m-icon-container {
+                              position: relative; width: 100px; height: 100px; margin: 0 auto 35px auto;
+                              display: flex; justify-content: center; align-items: center;
+                          }
+                          .m-icon-halo {
+                              position: absolute; inset: -20px; border-radius: 50%;
+                              background: radial-gradient(circle, rgba(251, 191, 36, 0.3) 0%, transparent 70%);
+                              animation: pulseHalo 3s infinite alternate;
+                          }
+                          .m-icon-core {
+                              font-size: 56px; color: #fcd34d; z-index: 2;
+                              text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
                           }
                           
-                          .m-title-ta {
+                          .m-title-primary {
                               font-family: 'Tiro Tamil', serif;
-                              font-size: 2.2rem; font-weight: 800; margin: 0 0 10px 0;
-                              background: linear-gradient(135deg, #b45309, #d97706);
+                              font-size: 2.8rem; font-weight: 800; margin: 0 0 15px 0;
+                              background: linear-gradient(180deg, #fffbeb 0%, #fcd34d 100%);
                               -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                              position: relative;
                           }
-                          .m-title-en {
-                              font-size: 1.2rem; font-weight: 600; color: #64748b; margin: 0 0 24px 0; letter-spacing: 2px; text-transform: uppercase;
+                          .m-title-secondary {
+                              font-family: 'Inter', sans-serif;
+                              font-size: 1rem; font-weight: 700; color: #94a3b8; margin: 0 0 35px 0;
+                              letter-spacing: 6px; text-transform: uppercase;
                           }
-                          .m-divider {
-                              width: 60px; height: 3px; background: linear-gradient(90deg, transparent, #d97706, transparent); margin: 0 auto 24px auto; opacity: 0.5;
+                          
+                          .m-status-bar {
+                              background: rgba(0,0,0,0.3); border-radius: 20px; padding: 12px 20px;
+                              display: inline-flex; flex-direction: column; align-items: center; gap: 10px;
+                              margin-bottom: 40px; border: 1px solid rgba(255,255,255,0.05);
                           }
+                          .m-status-track {
+                              width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+                          }
+                          .m-status-fill {
+                              width: 30%; height: 100%; background: #fbbf24; border-radius: 2px;
+                              box-shadow: 0 0 10px #fbbf24;
+                              animation: loadBar 2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+                          }
+                          .m-status-text {
+                              font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #fbbf24;
+                              font-weight: 700; letter-spacing: 2px; animation: blink 1.5s infinite;
+                          }
+                          
                           .m-desc-ta {
-                              font-size: 1.05rem; line-height: 1.8; color: #334155; margin: 0 0 16px 0; font-family: 'Tiro Tamil', serif;
+                              font-family: 'Tiro Tamil', serif; font-size: 1.15rem; line-height: 1.8;
+                              color: #cbd5e1; margin: 0 0 20px 0;
                           }
                           .m-desc-en {
-                              font-size: 0.95rem; line-height: 1.6; color: #64748b; margin: 0 0 30px 0;
-                          }
-                          .m-footer {
-                              font-size: 0.8rem; color: #94a3b8; padding-top: 20px; border-top: 1px solid rgba(0, 0, 0, 0.05); letter-spacing: 0.5px;
+                              font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.7;
+                              color: #64748b; margin: 0 0 40px 0;
                           }
                           
-                          @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.3; } 100% { transform: scale(1.2); opacity: 0.6; } }
-                          @keyframes slideUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
-                          @keyframes spin { 100% { transform: rotate(360deg); } }
-                          @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); filter: drop-shadow(0 10px 15px rgba(217,119,6,0.2)); } }
+                          .m-footer {
+                              font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 800; color: #475569;
+                              letter-spacing: 3px; position: relative;
+                          }
+                          .m-footer-line {
+                              position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+                              width: 100px; height: 1px; background: linear-gradient(90deg, transparent, rgba(251,191,36,0.3), transparent);
+                          }
+                          
+                          @keyframes sweep { 0% { transform: translateX(-100vw) rotate(45deg); } 100% { transform: translateX(100vw) rotate(45deg); } }
+                          @keyframes cardEnter { 0% { opacity: 0; transform: translateY(60px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+                          @keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+                          @keyframes pulseHalo { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.2); opacity: 1; } }
+                          @keyframes loadBar { 0% { width: 10%; } 100% { width: 90%; } }
+                          @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+                          @keyframes floatUp { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-300px); opacity: 0; } }
                           
                           @media (max-width: 640px) {
-                              .m-title-ta { font-size: 1.8rem; }
-                              .m-title-en { font-size: 1rem; }
-                              .maintenance-card { padding: 40px 24px; }
+                              .m-ultra-card { padding: 40px 25px; }
+                              .m-title-primary { font-size: 1.8rem; }
+                              .m-title-secondary { font-size: 0.8rem; letter-spacing: 3px; }
+                              .m-status-track { width: 150px; }
                           }
                       </style>
                   </div>
