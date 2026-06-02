@@ -742,13 +742,38 @@ const SAC_COMMON = {
       }
       this._setupNavbarListeners();
 
-      // 2. Pre-cache settings to make all dynamic translations synchronous and instant
       try {
         this.settings = await SAC_DATABASE.get("settings");
       } catch (e) {
         console.warn("Failed to load settings in init, using defaults:", e);
         this.settings = SAC_DATABASE.defaultData.settings;
       }
+
+      // ==========================================
+      // MAINTENANCE MODE INTERCEPTION
+      // ==========================================
+      const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
+      if (this.settings && (this.settings.maintenanceMode === true || this.settings.maintenanceMode === 'true')) {
+          if (this.pageName !== 'admin' && !isAdminLogged) {
+              document.body.innerHTML = `
+                  <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; background:linear-gradient(135deg, #1e293b, #0f172a); color:white; font-family:'Inter', sans-serif; text-align:center; padding:20px; box-sizing:border-box;">
+                      <span class="material-icons" style="font-size:80px; color:#fbbf24; margin-bottom:20px; animation: spin 4s linear infinite;">settings</span>
+                      <h1 style="font-size:2.5rem; font-weight:800; margin:0 0 10px 0; background:linear-gradient(to right, #fbbf24, #f59e0b); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">ஆலயம் மேம்பாட்டில் உள்ளது</h1>
+                      <h2 style="font-size:1.5rem; font-weight:600; color:#94a3b8; margin:0 0 20px 0;">Site Under Maintenance</h2>
+                      <p style="font-size:1rem; color:#cbd5e1; max-width:500px; line-height:1.6;">
+                          எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.<br><br>
+                          We are currently performing scheduled maintenance to improve our website. Please check back soon.
+                      </p>
+                      <style>
+                          @keyframes spin { 100% { transform: rotate(360deg); } }
+                          body { margin: 0; padding: 0; overflow: hidden; }
+                      </style>
+                  </div>
+              `;
+              return; // Abort further initialization
+          }
+      }
+      // ==========================================
 
       try {
         const liveContent = await SAC_DATABASE.get("global_content");

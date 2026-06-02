@@ -796,6 +796,21 @@
 
                         <div class="drawer-divider" style="margin:24px 0;"></div>
                         
+                        <div style="margin-bottom:24px; padding: 20px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px;">
+                            <h4 style="color:#d97706; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                                <span class="material-icons">construction</span> பராமரிப்பு நிலை (Maintenance Mode)
+                            </h4>
+                            <p style="font-size:0.85rem; color:#b45309; margin-bottom:16px;">
+                                When enabled, the public website will be hidden and show a "Maintenance Mode" screen. As an admin, you can still view the normal website.
+                            </p>
+                            <div class="form-group" style="display:flex; align-items:center; gap:10px;">
+                                <input type="checkbox" id="set-maintenanceMode" style="width:20px; height:20px;">
+                                <label for="set-maintenanceMode" style="font-weight:700; cursor:pointer; color:#92400e;">Enable Maintenance Mode / பராமரிப்பு நிலையை செயல்படுத்து</label>
+                            </div>
+                        </div>
+
+                        <div class="drawer-divider" style="margin:24px 0;"></div>
+                        
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
                             <div class="form-group">
                                 <label class="form-label">Hero Badge / Tag (English)</label>
@@ -2260,6 +2275,11 @@
         async function populateGeneralSettings() {
             const settings = await SAC_DATABASE.get("settings");
             
+            const maintenanceToggle = document.getElementById('set-maintenanceMode');
+            if (maintenanceToggle) {
+                maintenanceToggle.checked = settings.maintenanceMode === true || settings.maintenanceMode === 'true';
+            }
+
             
             document.getElementById('set-churchNameEn').value = settings.churchNameEn;
             document.getElementById('set-churchNameTa').value = settings.churchNameTa;
@@ -2346,6 +2366,7 @@
 
             const data = {
                 ...currentSettings,
+                maintenanceMode: document.getElementById('set-maintenanceMode') ? document.getElementById('set-maintenanceMode').checked : false,
                 churchNameEn: document.getElementById('set-churchNameEn').value,
                 churchNameTa: document.getElementById('set-churchNameTa').value,
                 locationEn: document.getElementById('set-locationEn').value,
