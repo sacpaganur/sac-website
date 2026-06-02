@@ -84,12 +84,21 @@ window.autoTranslatePrayerToEnglish = async function() {
     
     var translate = async function(text) {
         if(!text) return "";
-        var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t";
-        var res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'q=' + encodeURIComponent(text) });
-        var json = await res.json();
         var translated = "";
-        if (json && json[0]) { json[0].forEach(function(t) { if(t[0]) translated += t[0]; }); }
-        return translated;
+        var chunkSize = 1200;
+        for (var i = 0; i < text.length; i += chunkSize) {
+            var chunk = text.substring(i, i + chunkSize);
+            var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t&q=" + encodeURIComponent(chunk);
+            try {
+                var res = await fetch(url);
+                if (res.ok) {
+                    var json = await res.json();
+                    if (json && json[0]) { json[0].forEach(function(t) { if(t[0]) translated += t[0]; }); }
+                }
+                if (i + chunkSize < text.length) await new Promise(function(r) { setTimeout(r, 600); });
+            } catch(e) { console.error(e); }
+        }
+        return translated || text;
     };
     
     try {
@@ -126,12 +135,8 @@ window.bulkTranslatePrayers = async function(e) {
         }
 
         var translateHTML = async function(htmlPayload) {
-            var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t";
-            var res = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'q=' + encodeURIComponent(htmlPayload)
-            });
+            var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t&q=" + encodeURIComponent(htmlPayload);
+            var res = await fetch(url);
             if (!res.ok) throw new Error("Translation request failed");
             var json = await res.json();
             var translated = "";
@@ -143,7 +148,7 @@ window.bulkTranslatePrayers = async function(e) {
             return translated;
         };
 
-        var batchSize = 15;
+        var batchSize = 3; // Reduced batch size for GET requests
         var completedCount = 0;
 
         for (var i = 0; i < toTranslate.length; i += batchSize) {
@@ -155,9 +160,9 @@ window.bulkTranslatePrayers = async function(e) {
                 var titleText = isTamil(p.titleEn) || !p.titleEn ? (p.titleTa || p.title || "Untitled") : p.titleEn;
                 var contentText = isTamil(p.contentEn) || !p.contentEn ? (p.contentTa || p.content || "") : p.contentEn;
                 
-                // Add unique custom tags
-                html += '<t id="' + p.id + '">' + titleText.trim() + '</t>\n';
-                html += '<c id="' + p.id + '">' + contentText.trim() + '</c>\n';
+                // Add standard tags that Google Translate preserves
+                html += '<div class="trans-title">' + titleText.trim() + '</div>\n';
+                html += '<div class="trans-content">' + contentText.trim() + '</div>\n';
             });
 
             btn.innerHTML = 'Translating chunk ' + (Math.floor(i/batchSize) + 1) + ' of ' + Math.ceil(toTranslate.length/batchSize) + '...';
@@ -169,15 +174,15 @@ window.bulkTranslatePrayers = async function(e) {
                 var parser = new DOMParser();
                 var doc = parser.parseFromString('<div>' + translatedHtml + '</div>', 'text/html');
                 
-                chunk.forEach(function(p) {
-                    var titleEl = doc.querySelector('t[id="' + p.id + '"]');
-                    var contentEl = doc.querySelector('c[id="' + p.id + '"]');
-                    
-                    if (titleEl && titleEl.textContent.trim()) {
-                        p.titleEn = titleEl.textContent.trim();
+                var titleEls = doc.querySelectorAll('.trans-title');
+                var contentEls = doc.querySelectorAll('.trans-content');
+                
+                chunk.forEach(function(p, index) {
+                    if (titleEls[index] && titleEls[index].textContent.trim()) {
+                        p.titleEn = titleEls[index].textContent.trim();
                     }
-                    if (contentEl && contentEl.textContent.trim()) {
-                        p.contentEn = contentEl.textContent.trim();
+                    if (contentEls[index] && contentEls[index].textContent.trim()) {
+                        p.contentEn = contentEls[index].textContent.trim();
                     }
                 });
 
@@ -196,18 +201,19 @@ window.bulkTranslatePrayers = async function(e) {
                     try {
                         var singleTrans = async function(text) {
                             if (!text) return "";
-                            var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t";
-                            var res = await fetch(url, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                                body: 'q=' + encodeURIComponent(text)
-                            });
-                            var json = await res.json();
                             var translated = "";
-                            if (json && json[0]) {
-                                json[0].forEach(function(t) { if (t[0]) translated += t[0]; });
+                            var chunkSize = 1200;
+                            for (var k = 0; k < text.length; k += chunkSize) {
+                                var ch = text.substring(k, k + chunkSize);
+                                var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t&q=" + encodeURIComponent(ch);
+                                try {
+                                    var res = await fetch(url);
+                                    var json = await res.json();
+                                    if (json && json[0]) { json[0].forEach(function(t) { if (t[0]) translated += t[0]; }); }
+                                    if (k + chunkSize < text.length) await new Promise(function(r) { setTimeout(r, 600); });
+                                } catch(e) {}
                             }
-                            return translated;
+                            return translated || text;
                         };
                         if (isTamil(p.titleEn) || !p.titleEn) p.titleEn = await singleTrans(titleText);
                         if (isTamil(p.contentEn) || !p.contentEn) p.contentEn = await singleTrans(contentText);
@@ -459,19 +465,21 @@ window.deleteCatholicPrayer = async function(id, title) {
 
 async function translateTextSingleBrowserAdmin(text) {
     if (!text) return "";
-    var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t";
-    var res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'q=' + encodeURIComponent(text)
-    });
-    if (!res.ok) throw new Error("Translation failed");
-    var json = await res.json();
     var translated = "";
-    if (json && json[0]) {
-        json[0].forEach(function(t) { if (t[0]) translated += t[0]; });
+    var chunkSize = 1200;
+    for (var i = 0; i < text.length; i += chunkSize) {
+        var chunk = text.substring(i, i + chunkSize);
+        var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t&q=" + encodeURIComponent(chunk);
+        try {
+            var res = await fetch(url);
+            if (res.ok) {
+                var json = await res.json();
+                if (json && json[0]) { json[0].forEach(function(t) { if (t[0]) translated += t[0]; }); }
+            }
+            if (i + chunkSize < text.length) await new Promise(function(r) { setTimeout(r, 600); });
+        } catch(e) { console.error(e); }
     }
-    return translated;
+    return translated || text;
 }
 
 window.populateCatholicPrayersList = async function() {
@@ -501,7 +509,7 @@ window.populateCatholicPrayersList = async function() {
             var title = (isTa ? p.titleTa : p.titleEn) || p.titleTa || p.title || 'Untitled';
             var content = (isTa ? p.contentTa : p.contentEn) || p.contentTa || p.content || '';
             var category = p.category || p.source_category || 'General';
-            var shortContent = content.length > 80 ? content.substring(0, 80) + '...' : content;
+            var shortContent = content.length > 120 ? content.substring(0, 120) + '...' : content;
             
             // Clean escaped quotes for inline onclick
             var safeId = p.id.replace(/"/g, '&quot;');
@@ -530,8 +538,8 @@ window.populateCatholicPrayersList = async function() {
                     <div class="crud-info">
                         <div class="crud-title">${title}</div>
                         <div class="crud-sub">
-                            <span class="liturgical-badge ${badgeClass}" style="padding:2px 8px; font-size:0.65rem;">${category}</span>
-                            <span style="display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;">
+                            <span class="liturgical-badge ${badgeClass}">${category.toUpperCase()}</span>
+                            <span style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
                                 📖 ${shortContent}
                             </span>
                         </div>
@@ -621,11 +629,11 @@ window.populateCatholicPrayersList = async function() {
             }
         }
         if (summaryEl) {
-            var totalLbl = isTa ? 'மொத்தம்: ' : 'Total: ';
-            var inactiveLbl = isTa ? 'மறைக்கப்பட்டது: ' : 'Hidden: ';
+            var totalLbl = 'TOTAL: ';
+            var inactiveLbl = 'HIDDEN: ';
             summaryEl.innerHTML = `
-                <span class="liturgical-badge liturgical-ordinary" style="font-size:0.65rem; padding:2px 8px; font-weight:700;">${totalLbl}${prayers.length}</span>
-                <span class="liturgical-badge liturgical-martyrs" style="font-size:0.65rem; padding:2px 8px; font-weight:700;">${inactiveLbl}${prayers.filter(p => p.isActive === false || p.isActive === 'false').length}</span>
+                <span class="cp-badge-total">${totalLbl}${prayers.length}</span>
+                <span class="cp-badge-hidden">${inactiveLbl}${prayers.filter(p => p.isActive === false || p.isActive === 'false').length}</span>
             `;
         }
         

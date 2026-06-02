@@ -366,17 +366,21 @@
 
         async function translateTextSingleBrowser(text) {
             if (!text) return "";
-            var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t";
-            var res = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'q=' + encodeURIComponent(text)
-            });
-            if (!res.ok) throw new Error("Translation failed");
-            var json = await res.json();
             var translated = "";
-            if (json && json[0]) {
-                json[0].forEach(function(t) { if (t[0]) translated += t[0]; });
+            var chunkSize = 1200;
+            for (var i = 0; i < text.length; i += chunkSize) {
+                var chunk = text.substring(i, i + chunkSize);
+                var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t&q=" + encodeURIComponent(chunk);
+                try {
+                    var res = await fetch(url);
+                    if (!res.ok) throw new Error("HTTP error " + res.status);
+                    var json = await res.json();
+                    if (json && json[0]) {
+                        json[0].forEach(function(t) { if (t[0]) translated += t[0]; });
+                    }
+                } catch(e) {
+                    console.warn("Translation chunk failed:", e);
+                }
             }
             return translated;
         }
@@ -522,21 +526,13 @@
             // On-the-fly translation if English selected but content is Tamil
             if (!isTa && tamilRe.test(content)) {
                 document.getElementById('modal-prayer-body').innerHTML = '<div style="text-align:center; padding:20px;"><span class="material-icons" style="font-size:24px; color:var(--primary); animation:sacSpin 1s linear infinite;">sync</span><div style="margin-top:8px; color:#666; font-size:0.9rem;">Translating to English...</div></div>';
-                fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t', {
-                    method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'q=' + encodeURIComponent(content)
-                }).then(r => r.json()).then(json => {
-                    let t = ''; if (json && json[0]) json[0].forEach(x => { if(x[0]) t += x[0]; });
+                translateTextSingleBrowser(content).then(t => {
                     document.getElementById('modal-prayer-body').innerText = t || content;
                     if (t) prayer.contentEn = t;
                 }).catch(() => { document.getElementById('modal-prayer-body').innerText = content; });
             }
             if (!isTa && tamilRe.test(title)) {
-                fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=ta&tl=en&dt=t', {
-                    method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'q=' + encodeURIComponent(title)
-                }).then(r => r.json()).then(json => {
-                    let t = ''; if (json && json[0]) json[0].forEach(x => { if(x[0]) t += x[0]; });
+                translateTextSingleBrowser(title).then(t => {
                     if (t) { document.getElementById('modal-prayer-title').innerText = t; prayer.titleEn = t; }
                 }).catch(() => {});
             }

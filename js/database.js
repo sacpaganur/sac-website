@@ -6521,11 +6521,11 @@ const SAC_DATABASE = {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (e) {
-      if (e.name === 'QuotaExceededError') {
-        alert("Local storage limit reached! You have saved too many high-resolution photos. Please delete some old ones first.");
+      if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED' || (e.message && e.message.includes('quota'))) {
+        console.warn("Local storage limit reached! Cannot cache collection: " + key);
+      } else {
+        console.error("Storage error:", e);
       }
-      console.error("Storage error:", e);
-      throw e;
     }
   },
 

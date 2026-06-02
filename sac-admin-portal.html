@@ -138,6 +138,484 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
         }
+
+        /* ==========================================
+           CATHOLIC PRAYERS PREMIUM TAB STYLING
+           ========================================== */
+
+        /* Custom wider split for this tab — form needs more room */
+        #panel-catholic_prayers .admin-split-layout {
+            grid-template-columns: 1.2fr 1.8fr !important;
+            gap: 24px !important;
+        }
+
+        #panel-catholic_prayers .admin-card {
+            border-top: none !important;
+            position: relative !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04) !important;
+            border-radius: 16px !important;
+            border: 1px solid #e2e8f0 !important;
+            transition: var(--transition-smooth) !important;
+            overflow: hidden !important;
+            padding: 24px !important;
+            min-width: 0 !important;
+        }
+
+        #panel-catholic_prayers .admin-card::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 4px !important;
+            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%) !important;
+            border-top-left-radius: 16px !important;
+            border-top-right-radius: 16px !important;
+            z-index: 10 !important;
+        }
+
+        #panel-catholic_prayers .admin-card-title {
+            color: #1e293b !important;
+            font-weight: 800 !important;
+            font-size: 1.15rem !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            padding-bottom: 16px !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+            margin-bottom: 24px !important;
+        }
+
+        #panel-catholic_prayers .admin-card-title .material-icons {
+            color: #6366f1 !important;
+            font-size: 24px !important;
+            background: #eef2ff !important;
+            padding: 8px !important;
+            border-radius: 10px !important;
+        }
+
+        /* Form Labels */
+        #panel-catholic_prayers .form-label {
+            font-weight: 600 !important;
+            color: #334155 !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 6px !important;
+            display: inline-block !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.6px !important;
+        }
+
+        /* Form Controls */
+        #panel-catholic_prayers .form-control {
+            background: #ffffff !important;
+            border: 1.5px solid #e2e8f0 !important;
+            border-radius: 10px !important;
+            padding: 11px 14px !important;
+            font-size: 0.92rem !important;
+            color: #1e293b !important;
+            transition: all 0.2s ease-in-out !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        #panel-catholic_prayers .form-control:focus {
+            background: #ffffff !important;
+            border-color: #6366f1 !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+            outline: none !important;
+        }
+
+        #panel-catholic_prayers select.form-control {
+            appearance: auto !important;
+            cursor: pointer !important;
+        }
+
+        /* Ensure form fills available width */
+        #form-crud-catholic-prayers {
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        #form-crud-catholic-prayers .form-group {
+            width: 100% !important;
+        }
+
+        /* Submit Button Styling */
+        #panel-catholic_prayers .btn-submit {
+            background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%) !important;
+            border: none !important;
+            color: #fff !important;
+            padding: 12px 24px !important;
+            border-radius: 12px !important;
+            font-size: 0.9rem !important;
+            font-weight: 700 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            cursor: pointer !important;
+            transition: all 0.25s ease !important;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25) !important;
+        }
+
+        #panel-catholic_prayers .btn-submit:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35) !important;
+        }
+
+        /* Auto-Translate Button */
+        #cp-btn-translate {
+            background: #f8fafc !important;
+            border: 1.5px solid #e2e8f0 !important;
+            color: #475569 !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.2s ease !important;
+        }
+
+        #cp-btn-translate:hover {
+            background: #eef2ff !important;
+            border-color: #c7d2fe !important;
+            color: #4f46e5 !important;
+        }
+
+        /* Bulk Action Buttons */
+        #btn-bulk-translate {
+            background: #ffffff !important;
+            border: 1.5px solid #c7d2fe !important;
+            color: #4f46e5 !important;
+            border-radius: 10px !important;
+            font-weight: 600 !important;
+        }
+
+        #btn-bulk-translate:hover {
+            background: #eef2ff !important;
+            color: #4338ca !important;
+            border-color: #a5b4fc !important;
+            transform: translateY(-1px) !important;
+        }
+
+        #panel-catholic_prayers .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%) !important;
+            border: none !important;
+            color: #fff !important;
+            border-radius: 10px !important;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3) !important;
+        }
+
+        #panel-catholic_prayers .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* Summary Badges — TOTAL: indigo, HIDDEN: green */
+        #cp-summary-badges {
+            display: flex !important;
+            gap: 8px !important;
+            margin-top: 4px !important;
+        }
+
+        .cp-badge-total {
+            background: #eef2ff !important;
+            color: #4338ca !important;
+            padding: 3px 10px !important;
+            border-radius: 9999px !important;
+            font-size: 0.68rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.4px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+        }
+
+        .cp-badge-hidden {
+            background: #dcfce7 !important;
+            color: #15803d !important;
+            padding: 3px 10px !important;
+            border-radius: 9999px !important;
+            font-size: 0.68rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.4px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+        }
+
+        /* Custom Scrollbar for list container */
+        #admin-catholic-prayers-list::-webkit-scrollbar {
+            width: 5px !important;
+        }
+
+        #admin-catholic-prayers-list::-webkit-scrollbar-track {
+            background: transparent !important;
+        }
+
+        #admin-catholic-prayers-list::-webkit-scrollbar-thumb {
+            background: #cbd5e1 !important;
+            border-radius: 10px !important;
+        }
+
+        #admin-catholic-prayers-list::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8 !important;
+        }
+
+        /* Premium Card List styling */
+        #admin-catholic-prayers-list .crud-item {
+            background: #ffffff !important;
+            border: 1px solid #e5e7eb !important;
+            border-radius: 14px !important;
+            padding: 16px 18px !important;
+            margin-bottom: 10px !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            transition: all 0.22s ease !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02) !important;
+            gap: 12px !important;
+        }
+
+        #admin-catholic-prayers-list .crud-item:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+            border-color: #c7d2fe !important;
+        }
+
+        /* CRITICAL: prevent crud-info from overflowing and hiding action buttons */
+        #admin-catholic-prayers-list .crud-info {
+            min-width: 0 !important;
+            flex: 1 !important;
+            overflow: hidden !important;
+        }
+
+        #admin-catholic-prayers-list .crud-title {
+            font-size: 1rem !important;
+            font-weight: 700 !important;
+            color: #1e293b !important;
+            margin-bottom: 8px !important;
+            line-height: 1.35 !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+
+        #admin-catholic-prayers-list .crud-sub {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 8px !important;
+            margin-top: 4px !important;
+        }
+
+        #admin-catholic-prayers-list .crud-sub span:not(.liturgical-badge) {
+            font-size: 0.83rem !important;
+            color: #64748b !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 6px !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        /* Category Pill Badge overrides */
+        #admin-catholic-prayers-list .liturgical-badge {
+            padding: 3px 10px !important;
+            border-radius: 9999px !important;
+            font-size: 0.65rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.6px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        #admin-catholic-prayers-list .liturgical-badge.liturgical-ordinary {
+            background: #dcfce7 !important;
+            color: #15803d !important;
+        }
+
+        #admin-catholic-prayers-list .liturgical-badge.liturgical-lent {
+            background: #f3e8ff !important;
+            color: #6b21a8 !important;
+        }
+
+        #admin-catholic-prayers-list .liturgical-badge.liturgical-easter {
+            background: #e0f2fe !important;
+            color: #0369a1 !important;
+        }
+
+        #admin-catholic-prayers-list .liturgical-badge.liturgical-martyrs {
+            background: #fee2e2 !important;
+            color: #b91c1c !important;
+        }
+
+        #admin-catholic-prayers-list .liturgical-badge.liturgical-marian {
+            background: #fef3c7 !important;
+            color: #b45309 !important;
+        }
+
+        /* General / default badge for items */
+        #admin-catholic-prayers-list .cp-badge-general {
+            background: #dbeafe !important;
+            color: #1d4ed8 !important;
+            padding: 3px 10px !important;
+            border-radius: 9999px !important;
+            font-size: 0.65rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.6px !important;
+        }
+
+        /* Circular Action Buttons styling */
+        #admin-catholic-prayers-list .crud-actions {
+            display: flex !important;
+            gap: 8px !important;
+            align-items: center !important;
+            flex-shrink: 0 !important;
+        }
+
+        #admin-catholic-prayers-list .btn-crud-icon {
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border: none !important;
+            cursor: pointer !important;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            padding: 0 !important;
+        }
+
+        /* Eye/View toggle (active) — blue */
+        #admin-catholic-prayers-list .btn-crud-icon.active-toggle {
+            background: #dbeafe !important;
+            color: #2563eb !important;
+        }
+
+        #admin-catholic-prayers-list .btn-crud-icon.active-toggle:hover {
+            background: #bfdbfe !important;
+            color: #1d4ed8 !important;
+            transform: scale(1.1) !important;
+        }
+
+        /* Edit button — purple */
+        #admin-catholic-prayers-list .btn-crud-icon:not(.btn-crud-delete):not(.active-toggle):not(.inactive-toggle) {
+            background: #ede9fe !important;
+            color: #7c3aed !important;
+        }
+
+        #admin-catholic-prayers-list .btn-crud-icon:not(.btn-crud-delete):not(.active-toggle):not(.inactive-toggle):hover {
+            background: #ddd6fe !important;
+            color: #6d28d9 !important;
+            transform: scale(1.1) !important;
+        }
+
+        /* Inactive toggle — muted */
+        #admin-catholic-prayers-list .btn-crud-icon.inactive-toggle {
+            background: #f1f5f9 !important;
+            color: #94a3b8 !important;
+        }
+
+        #admin-catholic-prayers-list .btn-crud-icon.inactive-toggle:hover {
+            background: #e2e8f0 !important;
+            color: #64748b !important;
+            transform: scale(1.1) !important;
+        }
+
+        /* Delete button — red */
+        #admin-catholic-prayers-list .btn-crud-delete {
+            background: #fee2e2 !important;
+            color: #ef4444 !important;
+        }
+
+        #admin-catholic-prayers-list .btn-crud-delete:hover {
+            background: #fecaca !important;
+            color: #dc2626 !important;
+            transform: scale(1.1) !important;
+        }
+
+        #admin-catholic-prayers-list .btn-crud-icon .material-icons {
+            font-size: 17px !important;
+        }
+
+        /* Cancel / Secondary button in form */
+        #panel-catholic_prayers .btn-secondary {
+            border-radius: 10px !important;
+            font-weight: 600 !important;
+            border: 1.5px solid #e2e8f0 !important;
+            transition: all 0.2s ease !important;
+        }
+
+        #panel-catholic_prayers .btn-secondary:hover {
+            background: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+        }
+
+        /* Form group spacing */
+        #panel-catholic_prayers .form-group {
+            margin-bottom: 16px !important;
+        }
+
+        /* Listing header — wrap so buttons don't overflow */
+        #panel-catholic_prayers .admin-card-title[style] {
+            flex-wrap: wrap !important;
+        }
+
+        /* Responsive: stack form columns on narrow widths */
+        @media (max-width: 1400px) {
+            #panel-catholic_prayers .admin-split-layout {
+                grid-template-columns: 1fr 1.5fr !important;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            #panel-catholic_prayers .admin-split-layout {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* --- Admin Login Fixes --- */
+        #admin-login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            padding: 20px;
+        }
+
+        .admin-login-card-fixed {
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            padding: 32px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .admin-login-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .admin-login-icon {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .admin-login-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .admin-login-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+        }
     </style>
     <script src="js/navbar.js?v=1.1"></script>
 
@@ -182,12 +660,12 @@
     <main class="main-wrapper">
         
         <!-- Admin Login Panel -->
-        <div id="admin-login-container" style="display:flex; justify-content:center; align-items:center; min-height:60vh; padding:20px;">
-            <div class="admin-card" style="max-width:420px; width:100%; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-radius: 16px; padding:32px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5);">
-                <div style="text-align:center; margin-bottom:24px;">
-                    <span style="font-size:3.5rem; display:block; margin-bottom:12px;">🔒</span>
-                    <h3 style="color:var(--primary); font-size:1.5rem; margin-bottom:8px;">நிர்வாகி உள்நுழைவு</h3>
-                    <p style="color:var(--text-secondary); font-size:0.88rem;">தொடர கடவுச்சொல்லை உள்ளிடவும் / Enter Admin Password</p>
+        <div id="admin-login-container">
+            <div class="admin-card admin-login-card-fixed">
+                <div class="admin-login-header">
+                    <span class="admin-login-icon">🔒</span>
+                    <h3 class="admin-login-title">நிர்வாகி உள்நுழைவு</h3>
+                    <p class="admin-login-subtitle">தொடர கடவுச்சொல்லை உள்ளிடவும் / Enter Admin Password</p>
                 </div>
                 <form novalidate novalidate novalidate onsubmit="handleAdminLogin(event)">
                     <div class="form-group" style="margin-bottom:20px;">
@@ -251,6 +729,9 @@
                 </button>
                 <button class="admin-tab" onclick="switchAdminTab('gallery', this)">
                     <span class="material-icons">collections</span><span id="tab-lbl-gallery">புகைப்படங்கள் (CRUD)</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('catholic_prayers', this)">
+                    <span class="material-icons">menu_book</span><span id="tab-lbl-catholic-prayers">கத்தோலிக்க செபங்கள்</span>
                 </button>
                 <button class="admin-tab" onclick="switchAdminTab('prayers', this)">
                     <span class="material-icons">favorite</span><span id="tab-lbl-prayers">செப வேண்டுதல்கள்</span>
@@ -727,6 +1208,100 @@
 
 
 
+            <!-- ======================= TAB 8: CATHOLIC PRAYERS (CRUD) ======================= -->
+            <div id="panel-catholic_prayers" class="admin-panel">
+                <div class="admin-split-layout">
+                    <!-- Form side -->
+                    <div class="admin-card">
+                        <div class="admin-card-title">
+                            <span class="material-icons">menu_book</span>
+                            <span id="cp-form-title">செபத்தை சேர் / திருத்து</span>
+                        </div>
+                        <form novalidate id="form-crud-catholic-prayers" onsubmit="saveCatholicPrayer(event)">
+                            <input type="hidden" id="cp-id">
+                            
+                            <div class="form-group">
+                                <label class="form-label">பிரிவு / Category</label>
+                                <select id="cp-category" class="form-control">
+                                    <option value="daily">அன்றாட செபங்கள் / Daily</option>
+                                    <option value="healing">நலமளிக்க / Healing</option>
+                                    <option value="departed">இறந்தவர்களுக்காக / Departed</option>
+                                    <option value="saints">புனிதர்கள் / Saints</option>
+                                    <option value="family">குடும்பம் / Family</option>
+                                    <option value="general">பொதுவானது / General</option>
+                                </select>
+                            </div>
+                            
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label class="form-label">தலைப்பு (தமிழ்)</label>
+                                    <input type="text" id="cp-titleTa" class="form-control" required placeholder="எ.கா. பரலோக மந்திரம்">
+                                </div>
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label class="form-label">Title (English)</label>
+                                    <input type="text" id="cp-titleEn" class="form-control" placeholder="e.g. Our Father">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+                                    <label class="form-label" style="margin:0;">செப உள்ளடக்கம் (தமிழ்) / Content (Tamil)</label>
+                                    <button type="button" class="btn-secondary" id="cp-btn-translate" onclick="autoTranslatePrayerToEnglish()" style="padding:5px 12px; font-size:0.75rem; display:inline-flex; align-items:center; gap:4px; white-space:nowrap; margin-left:auto;">
+                                        <span class="material-icons" style="font-size:15px;">translate</span> Auto-Translate
+                                    </button>
+                                </div>
+                                <textarea id="cp-contentTa" class="form-control" rows="8" required placeholder="விபரம்..."></textarea>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="form-label">Content (English)</label>
+                                <textarea id="cp-contentEn" class="form-control" rows="8" placeholder="Details..."></textarea>
+                            </div>
+                            
+                            <div style="display:flex; gap:10px; margin-top:20px;">
+                                <button type="submit" class="btn-submit btn-admin-action" style="flex-grow:1;">
+                                    <span class="material-icons">save</span> <span id="cp-btn-submit-label">செபம் சேர்</span>
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="resetCatholicPrayerForm()" style="padding:12px 20px;">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Listing side -->
+                    <div class="admin-card">
+                        <div class="admin-card-title" style="display:flex; flex-direction:column; gap:14px; padding-bottom:14px; border-bottom:1px solid #f1f5f9;">
+                            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+                                <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+                                    <span class="material-icons">list_alt</span>
+                                    <div style="display:flex; flex-direction:column; gap:4px;">
+                                        <h2 id="cp-list-title" style="margin:0; font-size:1.1rem; font-weight:700; color:#1e293b;">கத்தோலிக்க செபங்கள் பட்டியல்</h2>
+                                        <div id="cp-summary-badges" style="display:flex; gap:8px;"></div>
+                                    </div>
+                                </div>
+                                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                    <button type="button" class="btn-secondary hover-lift" id="btn-bulk-translate" onclick="bulkTranslatePrayers(event)" style="padding:6px 12px; font-size:0.75rem; white-space:nowrap; display:inline-flex; align-items:center; gap:6px;">
+                                        <span class="material-icons" style="font-size:16px;">translate</span>
+                                        <span id="lbl-bulk-translate">Translate All to English</span>
+                                    </button>
+                                    <button type="button" class="btn-primary hover-lift" onclick="bulkUploadPrayers(event)" style="padding:6px 14px; font-size:0.75rem; white-space:nowrap; display:inline-flex; align-items:center; gap:6px;">
+                                        <span class="material-icons" style="font-size:16px;">cloud_sync</span>
+                                        <span id="lbl-bulk-sync">Sync to Firebase</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="padding-top:16px;">
+                            <div class="admin-list-container" id="admin-catholic-prayers-list" style="max-height:600px; overflow-y:auto; overflow-x:hidden;">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- ======================= TAB 6: PRAYER REQUESTS ======================= -->
             <div id="panel-prayers" class="admin-panel">
                 <div class="admin-card">
@@ -1086,6 +1661,7 @@
     <script src="js/database.js?v=2" defer></script>
     <script src="js/footer.js?v=1.1" defer></script>
     <script src="js/common.js?v=1.1" defer></script>
+    <script src="js/admin_patches.js?v=1.1" defer></script>
 
     <!-- Admin dashboard operations script -->
     <script>
@@ -1144,6 +1720,7 @@
             try { await populateTimelineList(); } catch(e) { console.error('Error in populateTimelineList:', e); }
             try { await populatePastOfficialsList(); } catch(e) { console.error('Error in populatePastOfficialsList:', e); }
             try { await populateGalleryList(); } catch(e) { console.error('Error in populateGalleryList:', e); }
+            try { if (typeof populateCatholicPrayersList === 'function') await populateCatholicPrayersList(); } catch(e) { console.error('Error in populateCatholicPrayersList:', e); }
             try { await populatePrayersList(); } catch(e) { console.error('Error in populatePrayersList:', e); }
             try { await populateDatabaseConfig(); } catch(e) { console.error('Error in populateDatabaseConfig:', e); }
             try { await populateSubscriberCount(); } catch(e) { console.error('Error in populateSubscriberCount:', e); }
@@ -1308,6 +1885,11 @@
             btn.classList.add('active');
             const panel = document.getElementById(`panel-${tabName}`);
             if (panel) panel.classList.add('active');
+
+            // Dynamically refresh Catholic prayers data when activating its tab
+            if (tabName === 'catholic_prayers' && typeof populateCatholicPrayersList === 'function') {
+                populateCatholicPrayersList().catch(e => console.error(e));
+            }
         }
 
         // Display beautiful visual saving notification
