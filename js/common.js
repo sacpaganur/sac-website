@@ -756,176 +756,171 @@ const SAC_COMMON = {
       if (this.settings && (this.settings.maintenanceMode === true || this.settings.maintenanceMode === 'true')) {
           if (this.pageName !== 'admin' && !isAdminLogged) {
               document.body.innerHTML = `
-                  <div class="m-ultra-wrapper">
-                      <!-- Animated deep background -->
-                      <div class="m-bg-layer"></div>
-                      <!-- Moving light beams -->
-                      <div class="m-beam m-beam-1"></div>
-                      <div class="m-beam m-beam-2"></div>
-                      
-                      <div class="m-ultra-card">
-                          <!-- Floating particles within card area -->
-                          <div class="m-particle p1"></div>
-                          <div class="m-particle p2"></div>
-                          <div class="m-particle p3"></div>
-                          
-                          <div class="m-header">
-                              <div class="m-icon-container">
-                                  <div class="m-icon-halo"></div>
-                                  <span class="material-icons m-icon-core">church</span>
-                              </div>
+                  <div class="z-wrapper">
+                      <!-- Animated background patterns -->
+                      <div class="z-bg-pattern"></div>
+                      <div class="z-bg-gradient"></div>
+
+                      <div class="z-container">
+                          <!-- Floating Artistic Emblem -->
+                          <div class="z-emblem-box">
+                              <div class="z-emblem-ring r1"></div>
+                              <div class="z-emblem-ring r2"></div>
+                              <div class="z-icon-glow"></div>
+                              <span class="material-icons z-icon">church</span>
                           </div>
-                          
-                          <div class="m-content">
-                              <h1 class="m-title-primary">ஆலயம் மேம்பாட்டில் உள்ளது</h1>
-                              <h2 class="m-title-secondary">System Under Maintenance</h2>
-                              
-                              <div class="m-status-bar">
-                                  <div class="m-status-track">
-                                      <div class="m-status-fill"></div>
-                                  </div>
-                                  <span class="m-status-text">UPGRADING SERVICES...</span>
+
+                          <!-- Clean Typographic Content -->
+                          <div class="z-content">
+                              <div class="z-pill">
+                                  <span class="z-dot"></span>
+                                  SYSTEM UPGRADE
                               </div>
                               
-                              <p class="m-desc-ta">எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. ஆன்மீக சேவைகளை மென்மேலும் சிறப்பாக்க இந்த பணி நடைபெறுகிறது.</p>
-                              <p class="m-desc-en">We are currently performing scheduled maintenance to enhance your experience. Please check back soon.</p>
+                              <h1 class="z-title-ta">ஆலயம் மேம்பாட்டில் உள்ளது</h1>
+                              <h2 class="z-title-en">SITE UNDER MAINTENANCE</h2>
+                              
+                              <div class="z-divider"></div>
+                              
+                              <p class="z-desc-ta">எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. ஆன்மீக சேவைகளை மென்மேலும் சிறப்பாக்க இந்த பணி நடைபெறுகிறது.</p>
+                              <p class="z-desc-en">We are currently performing scheduled maintenance to enhance your experience. Please check back soon.</p>
                           </div>
-                          
-                          <div class="m-footer">
-                              <div class="m-footer-line"></div>
-                              <div style="font-family:'Tiro Tamil', serif; font-size:0.9rem; margin-bottom:5px; color:#475569;">புனித அந்தோணியார் ஆலயம் • வடக்கு பாகனூர்</div>
-                              <span>ST. ANTONY'S CHURCH • NORTH PAGANUR</span>
+
+                          <div class="z-footer">
+                              <div class="z-f-ta">புனித அந்தோணியார் ஆலயம் • வடக்கு பாகனூர்</div>
+                              <div class="z-f-en">ST. ANTONY'S CHURCH • NORTH PAGANUR</div>
                           </div>
                       </div>
 
                       <style>
                           @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;500;700&family=Tiro+Tamil:ital@0;1&display=swap');
-                          
+
                           body, html { 
                               margin: 0; padding: 0; width: 100%; height: 100%; 
-                              background: #f8fafc; overflow: hidden; 
+                              background: #ffffff; overflow: hidden; 
                           }
-                          
-                          .m-ultra-wrapper {
+
+                          .z-wrapper {
                               position: relative; width: 100%; height: 100vh;
                               display: flex; justify-content: center; align-items: center;
-                              perspective: 1000px;
                           }
-                          
-                          .m-bg-layer {
+
+                          .z-bg-gradient {
                               position: absolute; inset: 0;
-                              background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f1f5f9 100%);
+                              background: radial-gradient(circle at 50% 0%, rgba(217,119,6,0.08) 0%, transparent 60%);
                               z-index: 0;
                           }
-                          
-                          .m-beam {
-                              position: absolute; width: 200px; height: 150vh;
-                              background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.05), transparent);
-                              transform: rotate(45deg); filter: blur(30px);
-                              animation: sweep 15s infinite linear; z-index: 1;
+
+                          .z-bg-pattern {
+                              position: absolute; inset: 0;
+                              background-image: radial-gradient(rgba(217,119,6,0.1) 1.5px, transparent 1.5px);
+                              background-size: 30px 30px;
+                              opacity: 0.5; z-index: 0;
+                              animation: drift 60s linear infinite;
                           }
-                          .m-beam-1 { left: -50%; top: -50%; animation-delay: 0s; }
-                          .m-beam-2 { right: -50%; bottom: -50%; animation-delay: -7.5s; transform: rotate(-45deg); background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.03), transparent); }
-                          
-                          .m-ultra-card {
+
+                          .z-container {
                               position: relative; z-index: 10;
-                              background: rgba(255, 255, 255, 0.7);
-                              backdrop-filter: blur(40px);
-                              -webkit-backdrop-filter: blur(40px);
-                              border: 1px solid rgba(0, 0, 0, 0.05);
-                              border-radius: 30px;
-                              padding: 40px 30px;
-                              max-width: 600px; width: 90%;
-                              text-align: center;
-                              box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.1), inset 0 0 40px rgba(255, 255, 255, 0.5);
-                              animation: cardFloat 6s ease-in-out infinite, cardEnter 1s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-                              overflow: hidden;
+                              width: 100%; max-width: 800px;
+                              display: flex; flex-direction: column; align-items: center;
+                              padding: 0 20px;
                           }
-                          
-                          .m-particle {
-                              position: absolute; border-radius: 50%; background: #d97706;
-                              filter: blur(2px); animation: floatUp 10s infinite linear; opacity: 0.6;
-                          }
-                          .p1 { width: 4px; height: 4px; left: 20%; bottom: -10%; animation-duration: 8s; }
-                          .p2 { width: 6px; height: 6px; left: 70%; bottom: -20%; animation-duration: 12s; animation-delay: 2s; }
-                          .p3 { width: 3px; height: 3px; left: 40%; bottom: -5%; animation-duration: 6s; animation-delay: 4s; }
-                          
-                          .m-icon-container {
-                              position: relative; width: 80px; height: 80px; margin: 0 auto 25px auto;
+
+                          .z-emblem-box {
+                              position: relative; width: 120px; height: 120px;
                               display: flex; justify-content: center; align-items: center;
+                              margin-bottom: 40px;
+                              animation: float 6s ease-in-out infinite;
                           }
-                          .m-icon-halo {
-                              position: absolute; inset: -20px; border-radius: 50%;
-                              background: radial-gradient(circle, rgba(217, 119, 6, 0.2) 0%, transparent 70%);
-                              animation: pulseHalo 3s infinite alternate;
+
+                          .z-emblem-ring {
+                              position: absolute; inset: 0; border-radius: 50%;
+                              border: 1px solid rgba(217,119,6,0.3);
                           }
-                          .m-icon-core {
-                              font-size: 42px; color: #d97706; z-index: 2;
-                              text-shadow: 0 0 20px rgba(217, 119, 6, 0.3);
+                          .r1 { animation: spinRight 20s linear infinite; border-top-color: transparent; border-right-color: transparent; }
+                          .r2 { inset: 10px; animation: spinLeft 15s linear infinite; border-bottom-color: transparent; border-left-color: transparent; }
+
+                          .z-icon-glow {
+                              position: absolute; inset: 20px; border-radius: 50%;
+                              background: #d97706; filter: blur(20px); opacity: 0.15;
+                              animation: pulse 3s infinite alternate;
                           }
-                          
-                          .m-title-primary {
-                              font-family: 'Tiro Tamil', serif;
-                              font-size: 2rem; font-weight: 800; margin: 0 0 10px 0;
-                              background: linear-gradient(180deg, #b45309 0%, #d97706 100%);
-                              -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-                              position: relative;
+
+                          .z-icon {
+                              font-size: 48px; color: #b45309; z-index: 2;
                           }
-                          .m-title-secondary {
-                              font-family: 'Inter', sans-serif;
-                              font-size: 0.85rem; font-weight: 700; color: #64748b; margin: 0 0 25px 0;
-                              letter-spacing: 5px; text-transform: uppercase;
+
+                          .z-content {
+                              text-align: center;
+                              background: rgba(255,255,255,0.8);
+                              backdrop-filter: blur(10px);
+                              -webkit-backdrop-filter: blur(10px);
+                              padding: 40px; border-radius: 24px;
+                              box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+                              border: 1px solid rgba(0,0,0,0.02);
+                              animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1);
                           }
-                          
-                          .m-status-bar {
-                              background: rgba(255,255,255,0.5); border-radius: 20px; padding: 10px 16px;
-                              display: inline-flex; flex-direction: column; align-items: center; gap: 8px;
-                              margin-bottom: 30px; border: 1px solid rgba(0,0,0,0.05);
+
+                          .z-pill {
+                              display: inline-flex; align-items: center; gap: 8px;
+                              background: rgba(217,119,6,0.1); padding: 6px 16px; border-radius: 20px;
+                              font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 700;
+                              color: #b45309; letter-spacing: 2px; margin-bottom: 25px;
                           }
-                          .m-status-track {
-                              width: 180px; height: 4px; background: rgba(0,0,0,0.05); border-radius: 2px; overflow: hidden;
+                          .z-dot {
+                              width: 6px; height: 6px; background: #ef4444; border-radius: 50%;
+                              animation: blink 1.5s infinite;
                           }
-                          .m-status-fill {
-                              width: 30%; height: 100%; background: #d97706; border-radius: 2px;
-                              box-shadow: 0 0 10px rgba(217, 119, 6, 0.5);
-                              animation: loadBar 2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+
+                          .z-title-ta {
+                              font-family: 'Tiro Tamil', serif; font-size: 2.2rem; font-weight: 800;
+                              color: #1e293b; margin: 0 0 10px 0;
                           }
-                          .m-status-text {
-                              font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #b45309;
-                              font-weight: 700; letter-spacing: 2px; animation: blink 1.5s infinite;
+                          .z-title-en {
+                              font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 800;
+                              color: #94a3b8; letter-spacing: 6px; margin: 0 0 30px 0;
                           }
-                          
-                          .m-desc-ta {
-                              font-family: 'Tiro Tamil', serif; font-size: 1rem; line-height: 1.6;
-                              color: #334155; margin: 0 0 15px 0;
+
+                          .z-divider {
+                              width: 40px; height: 2px; background: #d97706; margin: 0 auto 30px auto; opacity: 0.3;
                           }
-                          .m-desc-en {
-                              font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5;
-                              color: #64748b; margin: 0 0 30px 0;
+
+                          .z-desc-ta {
+                              font-family: 'Tiro Tamil', serif; font-size: 1.05rem; line-height: 1.8;
+                              color: #475569; margin: 0 0 15px 0;
                           }
-                          
-                          .m-footer {
-                              font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 800; color: #94a3b8;
-                              letter-spacing: 2px; position: relative;
+                          .z-desc-en {
+                              font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.6;
+                              color: #64748b; margin: 0 0 20px 0;
                           }
-                          .m-footer-line {
-                              position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-                              width: 80px; height: 1px; background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.3), transparent);
+
+                          .z-footer {
+                              text-align: center; margin-top: 50px;
+                              animation: fadeIn 2s ease forwards; opacity: 0; animation-delay: 0.5s;
                           }
-                          
-                          @keyframes sweep { 0% { transform: translateX(-100vw) rotate(45deg); } 100% { transform: translateX(100vw) rotate(45deg); } }
-                          @keyframes cardEnter { 0% { opacity: 0; transform: translateY(60px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-                          @keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-                          @keyframes pulseHalo { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.2); opacity: 1; } }
-                          @keyframes loadBar { 0% { width: 10%; } 100% { width: 90%; } }
-                          @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-                          @keyframes floatUp { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-300px); opacity: 0; } }
-                          
+                          .z-f-ta {
+                              font-family: 'Tiro Tamil', serif; font-size: 0.95rem; color: #64748b; margin-bottom: 8px;
+                          }
+                          .z-f-en {
+                              font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #cbd5e1; letter-spacing: 3px; font-weight: 600;
+                          }
+
+                          @keyframes spinRight { 100% { transform: rotate(360deg); } }
+                          @keyframes spinLeft { 100% { transform: rotate(-360deg); } }
+                          @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+                          @keyframes pulse { 0% { transform: scale(0.8); opacity: 0.1; } 100% { transform: scale(1.2); opacity: 0.2; } }
+                          @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+                          @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+                          @keyframes drift { 0% { background-position: 0 0; } 100% { background-position: -60px 60px; } }
+                          @keyframes fadeIn { to { opacity: 1; } }
+
                           @media (max-width: 640px) {
-                              .m-ultra-card { padding: 30px 20px; }
-                              .m-title-primary { font-size: 1.6rem; }
-                              .m-title-secondary { font-size: 0.75rem; letter-spacing: 3px; }
-                              .m-status-track { width: 140px; }
+                              .z-content { padding: 30px 20px; }
+                              .z-emblem-box { width: 90px; height: 90px; margin-bottom: 30px; }
+                              .z-icon { font-size: 36px; }
+                              .z-title-ta { font-size: 1.6rem; }
+                              .z-title-en { font-size: 0.7rem; letter-spacing: 4px; }
+                              .z-footer { margin-top: 30px; }
                           }
                       </style>
                   </div>
