@@ -756,126 +756,187 @@ const SAC_COMMON = {
       if (this.settings && (this.settings.maintenanceMode === true || this.settings.maintenanceMode === 'true')) {
           if (this.pageName !== 'admin' && !isAdminLogged) {
               document.body.innerHTML = `
-                  <div class="h-wrapper">
-                      <div class="h-sky">
-                          <div class="h-sun"></div>
-                      </div>
-                      
-                      <div class="h-ground">
-                          <div class="h-emblem">
-                              <span class="material-icons h-icon">church</span>
-                              <div class="h-ripple"></div>
+                  <div class="n-wrapper">
+                      <!-- Two dynamic colored ambient orbs -->
+                      <div class="n-ambient-orb orb1"></div>
+                      <div class="n-ambient-orb orb2"></div>
+
+                      <div class="n-stone-board">
+                          <div class="n-stone-bevel"></div>
+                          
+                          <div class="n-embossed-emblem">
+                              <div class="n-emblem-inner">
+                                  <div class="n-icon-bg"></div>
+                                  <span class="material-icons n-icon">church</span>
+                              </div>
                           </div>
 
-                          <div class="h-content">
-                              <div class="h-badge">MAINTENANCE MODE</div>
-                              <h1 class="h-title-ta">இணையதளம் பராமரிப்பில் உள்ளது</h1>
-                              <h2 class="h-title-en">SITE UNDER MAINTENANCE</h2>
-                              <div class="h-line"></div>
-                              <p class="h-desc-ta">எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. ஆன்மீக சேவைகளை மென்மேலும் சிறப்பாக்க இந்த பணி நடைபெறுகிறது.</p>
-                              <p class="h-desc-en">We are currently performing scheduled maintenance to enhance your experience. Please check back soon.</p>
+                          <div class="n-inset-box">
+                              <div class="n-badge">
+                                  <div class="n-led"></div>
+                                  SYSTEM UPGRADE
+                              </div>
+                              <h1 class="n-title-ta">இணையதளம் பராமரிப்பில் உள்ளது</h1>
+                              <h2 class="n-title-en">SITE UNDER MAINTENANCE</h2>
                           </div>
 
-                          <div class="h-footer">
-                              <div class="h-f-ta">புனித அந்தோணியார் ஆலயம் • வடக்கு பாகனூர்</div>
-                              <div class="h-f-en">ST. ANTONY'S CHURCH • NORTH PAGANUR</div>
+                          <p class="n-desc-ta">எங்கள் இணையதளம் தற்போது மேம்படுத்தப்பட்டு வருகிறது. ஆன்மீக சேவைகளை மென்மேலும் சிறப்பாக்க இந்த பணி நடைபெறுகிறது.</p>
+                          <p class="n-desc-en">We are currently performing scheduled maintenance to enhance your experience. Please check back soon.</p>
+
+                          <div class="n-glow-line"></div>
+
+                          <div class="n-footer">
+                              <div class="n-f-ta">புனித அந்தோணியார் ஆலயம் • வடக்கு பாகனூர்</div>
+                              <div class="n-f-en">ST. ANTONY'S CHURCH • NORTH PAGANUR</div>
                           </div>
                       </div>
 
                       <style>
                           @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;500;700&family=Tiro+Tamil:ital@0;1&display=swap');
 
-                          body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #ffffff; }
+                          body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #e0e5ec; }
 
-                          .h-wrapper {
+                          .n-wrapper {
                               position: relative; width: 100%; height: 100vh;
-                              display: flex; flex-direction: column;
-                          }
-
-                          .h-sky {
-                              position: relative; width: 100%; height: 45vh;
-                              background: linear-gradient(180deg, #fbbf24 0%, #f97316 100%);
-                              overflow: hidden;
-                              display: flex; justify-content: center; align-items: flex-end;
-                          }
-
-                          .h-sun {
-                              width: 300px; height: 300px;
-                              background: radial-gradient(circle, #fffbeb 0%, #fef3c7 40%, rgba(253,230,138,0) 70%);
-                              border-radius: 50%;
-                              transform: translateY(150px);
-                              animation: sunrise 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-                          }
-
-                          .h-ground {
-                              position: relative; width: 100%; height: 55vh;
-                              background: #ffffff;
-                              display: flex; flex-direction: column; align-items: center;
-                          }
-
-                          .h-emblem {
-                              position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
-                              width: 100px; height: 100px;
-                              background: #ffffff; border-radius: 50%;
                               display: flex; justify-content: center; align-items: center;
-                              box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-                              z-index: 10;
-                          }
-                          .h-icon { font-size: 46px; color: #ea580c; z-index: 2; }
-                          .h-ripple {
-                              position: absolute; inset: -10px; border-radius: 50%;
-                              border: 2px solid #ea580c; opacity: 0;
-                              animation: ripple 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
                           }
 
-                          .h-content {
-                              margin-top: 80px; text-align: center; max-width: 600px; padding: 0 20px;
-                              animation: slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0;
-                              animation-delay: 0.5s;
+                          /* Ultra-premium colorful ambient backdrop orbs */
+                          .n-ambient-orb {
+                              position: absolute; border-radius: 50%; filter: blur(60px); z-index: 0;
+                              animation: orbit 15s infinite linear;
+                          }
+                          .orb1 {
+                              width: 60vw; height: 60vw; max-width: 600px; max-height: 600px;
+                              background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+                              top: -10%; left: -10%;
+                          }
+                          .orb2 {
+                              width: 50vw; height: 50vw; max-width: 500px; max-height: 500px;
+                              background: radial-gradient(circle, var(--accent-gold-glow) 0%, transparent 70%);
+                              bottom: -10%; right: -10%; animation-direction: reverse; animation-duration: 25s;
                           }
 
-                          .h-badge {
-                              display: inline-block; background: #fff7ed; color: #ea580c;
-                              padding: 6px 16px; border-radius: 20px; font-family: 'Inter', sans-serif;
-                              font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 20px;
-                              border: 1px solid #ffedd5;
+                          .n-stone-board {
+                              position: relative; z-index: 10; width: 90%; max-width: 650px;
+                              background: #e0e5ec;
+                              border-radius: 40px;
+                              padding: 60px 40px 40px 40px;
+                              text-align: center;
+                              box-shadow: 25px 25px 75px #bec3c9, -25px -25px 75px #ffffff;
+                              animation: materialize 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+                          }
+                          
+                          /* Subtle white beveled edge for extra physical realism */
+                          .n-stone-bevel {
+                              position: absolute; inset: 1px; border-radius: 39px;
+                              border: 1px solid rgba(255,255,255,0.7); pointer-events: none;
                           }
 
-                          .h-title-ta {
-                              font-family: 'Tiro Tamil', serif; font-size: 2.2rem; font-weight: 800; color: #1e293b; margin: 0 0 10px 0;
+                          .n-embossed-emblem {
+                              position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+                              width: 120px; height: 120px;
+                              background: #e0e5ec;
+                              border-radius: 50%;
+                              display: flex; justify-content: center; align-items: center;
+                              box-shadow: 12px 12px 24px #bec3c9, -12px -12px 24px #ffffff;
                           }
-                          .h-title-en {
-                              font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700; color: #94a3b8; letter-spacing: 5px; margin: 0 0 25px 0;
+                          
+                          .n-emblem-inner {
+                              position: relative; width: 80px; height: 80px;
+                              border-radius: 50%;
+                              background: #e0e5ec;
+                              display: flex; justify-content: center; align-items: center;
+                              box-shadow: inset 6px 6px 12px #bec3c9, inset -6px -6px 12px #ffffff;
+                              overflow: hidden;
+                          }
+                          
+                          /* Inner glow behind the icon */
+                          .n-icon-bg {
+                              position: absolute; inset: -20px;
+                              background: radial-gradient(circle, var(--primary-glow) 0%, transparent 60%);
+                              animation: pulseGlow 4s infinite alternate;
                           }
 
-                          .h-line {
-                              width: 50px; height: 3px; background: #ea580c; margin: 0 auto 25px auto; border-radius: 2px;
+                          .n-icon { 
+                              font-size: 44px; color: var(--primary); position: relative; z-index: 2;
+                              text-shadow: 2px 2px 5px var(--primary-glow), -2px -2px 5px #ffffff; 
                           }
 
-                          .h-desc-ta {
-                              font-family: 'Tiro Tamil', serif; font-size: 1.05rem; line-height: 1.8; color: #475569; margin: 0 0 15px 0;
-                          }
-                          .h-desc-en {
-                              font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.6; color: #64748b; margin: 0 0 30px 0;
+                          .n-inset-box {
+                              background: #e0e5ec;
+                              border-radius: 24px;
+                              padding: 35px 20px;
+                              margin: 30px 0;
+                              box-shadow: inset 10px 10px 20px #bec3c9, inset -10px -10px 20px #ffffff;
+                              position: relative;
                           }
 
-                          .h-footer {
-                              position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-                              text-align: center; width: 100%;
+                          .n-badge {
+                              display: inline-flex; align-items: center; gap: 10px;
+                              background: rgba(255, 255, 255, 0.3); padding: 8px 18px; border-radius: 30px;
+                              border: 1px solid rgba(255,255,255,0.6);
+                              font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 800;
+                              color: var(--primary); letter-spacing: 3px; margin-bottom: 25px;
+                              box-shadow: 4px 4px 10px rgba(0,0,0,0.03);
                           }
-                          .h-f-ta { font-family: 'Tiro Tamil', serif; font-size: 0.95rem; color: #94a3b8; margin-bottom: 5px; }
-                          .h-f-en { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #cbd5e1; letter-spacing: 2px; font-weight: 600; }
+                          .n-led {
+                              width: 10px; height: 10px; border-radius: 50%; background: var(--accent-gold);
+                              box-shadow: 0 0 15px var(--accent-gold), inset 2px 2px 4px rgba(255,255,255,0.8);
+                              animation: blink 1.5s infinite;
+                          }
 
-                          @keyframes sunrise { 0% { transform: translateY(200px) scale(0.8); opacity: 0; } 100% { transform: translateY(120px) scale(1); opacity: 1; } }
-                          @keyframes ripple { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(1.5); opacity: 0; } }
-                          @keyframes slideUp { 0% { transform: translateY(30px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+                          .n-title-ta {
+                              font-family: 'Tiro Tamil', serif; font-size: 2.2rem; font-weight: 800;
+                              margin: 0 0 10px 0;
+                              background: linear-gradient(135deg, var(--primary) 0%, var(--accent-gold) 50%, var(--primary) 100%);
+                              background-size: 200% auto;
+                              -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                              animation: gradientShift 6s infinite linear;
+                          }
+                          
+                          .n-title-en {
+                              font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 800;
+                              color: var(--text-primary); letter-spacing: 6px; margin: 0;
+                              text-shadow: 1px 1px 0px #ffffff;
+                          }
+
+                          .n-glow-line {
+                              width: 120px; height: 5px; margin: 35px auto; border-radius: 3px;
+                              background: linear-gradient(90deg, var(--primary), var(--accent-gold), var(--primary));
+                              background-size: 200% 200%;
+                              box-shadow: 0 4px 20px var(--primary-glow);
+                              animation: shimmer 3s infinite linear;
+                          }
+
+                          .n-desc-ta {
+                              font-family: 'Tiro Tamil', serif; font-size: 1.05rem; line-height: 1.8;
+                              color: var(--text-secondary); margin: 0 0 15px 0; padding: 0 20px;
+                          }
+                          .n-desc-en {
+                              font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.6;
+                              color: var(--text-muted); margin: 0 0 10px 0; padding: 0 20px;
+                          }
+
+                          .n-footer { margin-top: 25px; position: relative; }
+                          .n-f-ta { font-family: 'Tiro Tamil', serif; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 5px; }
+                          .n-f-en { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 4px; font-weight: 700; }
+
+                          @keyframes materialize { 0% { transform: scale(0.9) translateY(30px); opacity: 0; box-shadow: 0 0 0 transparent, 0 0 0 transparent; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+                          @keyframes blink { 0%, 100% { opacity: 1; box-shadow: 0 0 15px var(--accent-gold); } 50% { opacity: 0.3; box-shadow: 0 0 2px var(--accent-gold); } }
+                          @keyframes pulseGlow { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.2); opacity: 1; } }
+                          @keyframes orbit { 0% { transform: rotate(0deg) translateX(30px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(30px) rotate(-360deg); } }
+                          @keyframes gradientShift { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+                          @keyframes shimmer { 0% { background-position: 0% 50%; } 100% { background-position: -200% 50%; } }
 
                           @media (max-width: 640px) {
-                              .h-title-ta { font-size: 1.6rem; }
-                              .h-title-en { font-size: 0.75rem; letter-spacing: 3px; }
-                              .h-content { margin-top: 70px; }
-                              .h-sun { width: 250px; height: 250px; transform: translateY(120px); }
-                              @keyframes sunrise { 100% { transform: translateY(100px) scale(1); opacity: 1; } }
+                              .n-stone-board { padding: 50px 20px 30px 20px; border-radius: 30px; width: 95%; }
+                              .n-embossed-emblem { width: 100px; height: 100px; top: -50px; }
+                              .n-emblem-inner { width: 70px; height: 70px; }
+                              .n-icon { font-size: 36px; }
+                              .n-title-ta { font-size: 1.6rem; }
+                              .n-title-en { font-size: 0.75rem; letter-spacing: 4px; }
+                              .n-inset-box { padding: 30px 15px; }
                           }
                       </style>
                   </div>

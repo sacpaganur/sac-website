@@ -669,6 +669,10 @@
                 </div>
                 <form novalidate novalidate novalidate onsubmit="handleAdminLogin(event)">
                     <div class="form-group" style="margin-bottom:20px;">
+                        <label class="form-label" style="font-weight:600;">மின்னஞ்சல் / Admin Email</label>
+                        <input type="email" id="admin-email-input" class="form-control" placeholder="admin@stacpaganur.in" required style="text-align:center; font-size:1.1rem; width:100%;">
+                    </div>
+                    <div class="form-group" style="margin-bottom:20px;">
                         <label class="form-label" style="font-weight:600;">கடவுச்சொல் / Password</label>
                         <div class="password-wrapper">
                             <input type="password" id="admin-password-input" class="form-control" placeholder="••••••••" required style="letter-spacing:3px; text-align:center; font-size:1.2rem; width:100%;">
@@ -678,9 +682,9 @@
                         </div>
                     </div>
                     <div id="login-error-msg" class="form-alert error" style="display:none; margin-bottom:16px; font-size:0.85rem; padding:10px;">
-                        ⚠️ தவறான கடவுச்சொல்! / Incorrect Password!
+                        ⚠️ தவறான மின்னஞ்சல் அல்லது கடவுச்சொல்! / Incorrect Email or Password!
                     </div>
-                    <button type="submit" class="btn-submit btn-admin-action" style="width:100%; display:flex; justify-content:center; align-items:center; gap:8px;">
+                    <button id="admin-login-btn" type="submit" class="btn-submit btn-admin-action" style="width:100%; display:flex; justify-content:center; align-items:center; gap:8px;">
                         <span class="material-icons">lock_open</span> <span>உள்நுழை / Login</span>
                     </button>
                 </form>
@@ -1714,6 +1718,7 @@
     <!-- Firebase compatibility libraries (needed ONLY for loading public notices/submitting prayers) -->
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js" defer></script>
 
     <!-- Core Script dependencies -->
     <script src="js/database.js?v=2" defer></script>
@@ -1727,10 +1732,25 @@
             try {
                 await SAC_COMMON.init('admin');
                 
-                // Check session login state
-                if (sessionStorage.getItem('sac_admin_logged_in') === 'true') {
-                    await showAdminDashboard();
+                // Wait briefly for Firebase to initialize fully if configured
+                let retries = 0;
+                while(!window.firebase && retries < 20) {
+                    await new Promise(r => setTimeout(r, 100));
+                    retries++;
+                }
+
+                if (window.firebase && window.firebase.apps.length > 0) {
+                    // Use Secure Firebase Auth Session
+                    firebase.auth().onAuthStateChanged(async (user) => {
+                        if (user) {
+                            await showAdminDashboard();
+                        } else {
+                            showAdminLogin();
+                        }
+                    });
                 } else {
+                    // Fallback if Firebase isn't configured
+                    console.warn("Firebase not active. Admin portal requires Firebase Authentication.");
                     showAdminLogin();
                 }
             } catch (err) {
@@ -1910,26 +1930,49 @@
             showGlobalSuccessAlert("மாற்றம் சேமிக்கப்பட்டது!", "Item visibility toggled!");
         }
 
-        function handleAdminLogin(e) {
+        async function handleAdminLogin(e) {
             e.preventDefault();
             if (!validateAdminForm(e.target)) return;
+            const email = document.getElementById('admin-email-input').value.trim();
             const password = document.getElementById('admin-password-input').value;
+            const errorBox = document.getElementById('login-error-msg');
+            const loginBtn = document.getElementById('admin-login-btn');
             
-            // Secure predefined password for St. Antony's Church
-            if (password === 'StAntony2026') {
-                sessionStorage.setItem('sac_admin_logged_in', 'true');
-                document.getElementById('login-error-msg').style.display = 'none';
-                showAdminDashboard();
-            } else {
-                const errorBox = document.getElementById('login-error-msg');
+            if (!window.firebase || window.firebase.apps.length === 0) {
+                errorBox.innerText = "⚠️ தரவுத்தளம் இணைக்கப்படவில்லை! (Firebase not connected)";
+                errorBox.style.display = 'flex';
+                return;
+            }
+
+            try {
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<span class="material-icons" style="animation:sacSpin 1s infinite linear;">refresh</span> <span>Logging in...</span>';
+                
+                // Securely sign in using Firebase Authentication
+                await firebase.auth().signInWithEmailAndPassword(email, password);
+                
+                errorBox.style.display = 'none';
+                // Note: The onAuthStateChanged listener will automatically call showAdminDashboard()
+            } catch (error) {
+                console.error("Auth Error:", error.message);
+                errorBox.innerText = "⚠️ Error: " + error.message;
                 errorBox.style.display = 'flex';
                 document.getElementById('admin-password-input').value = '';
                 document.getElementById('admin-password-input').focus();
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<span class="material-icons">lock_open</span> <span>உள்நுழை / Login</span>';
             }
         }
 
-        function handleAdminLogout() {
-            sessionStorage.removeItem('sac_admin_logged_in');
+        async function handleAdminLogout() {
+            if (window.firebase && window.firebase.apps.length > 0) {
+                try {
+                    await firebase.auth().signOut();
+                } catch (e) {
+                    console.error("Logout Error:", e);
+                }
+            }
             window.location.reload();
         }
 

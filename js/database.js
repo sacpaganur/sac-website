@@ -6565,11 +6565,29 @@ const SAC_DATABASE = {
     if (this.isFirebaseActive && this.db) {
       if (collectionName === "settings" || collectionName === "firebase_config") {
         this.db.collection(collectionName).doc("general").set(data, { merge: true })
-          .catch(err => console.error(`Firestore save failed for ${collectionName}:`, err));
+          .catch(err => {
+            console.error(`Firestore save failed for ${collectionName}:`, err);
+            if (err.code === 'permission-denied') {
+                if (typeof showGlobalErrorAlert === 'function') {
+                    showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
+                } else {
+                    alert("Security Error: Permission Denied. You must be logged in to save.");
+                }
+            }
+          });
       } else {
         const { id, ...dataWithoutId } = data;
         this.db.collection(collectionName).doc(id).set(dataWithoutId)
-          .catch(err => console.error(`Firestore save failed for ${collectionName}:`, err));
+          .catch(err => {
+            console.error(`Firestore save failed for ${collectionName}:`, err);
+            if (err.code === 'permission-denied') {
+                if (typeof showGlobalErrorAlert === 'function') {
+                    showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
+                } else {
+                    alert("Security Error: Permission Denied. You must be logged in to save.");
+                }
+            }
+          });
       }
     }
 
@@ -6598,7 +6616,16 @@ const SAC_DATABASE = {
     // Sync to Firestore if active (Optimistic UI: non-blocking background task to prevent UI lag!)
     if (this.isFirebaseActive && this.db) {
       this.db.collection(collectionName).doc(id).delete()
-        .catch(err => console.error(`Firestore delete failed for ${collectionName} with id ${id}:`, err));
+        .catch(err => {
+            console.error(`Firestore delete failed for ${collectionName} with id ${id}:`, err);
+            if (err.code === 'permission-denied') {
+                if (typeof showGlobalErrorAlert === 'function') {
+                    showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to delete data.");
+                } else {
+                    alert("Security Error: Permission Denied. You must be logged in to delete.");
+                }
+            }
+        });
     }
 
     return true;
