@@ -781,70 +781,70 @@ const SAC_COMMON = {
                           
                           body, html { 
                               margin: 0; padding: 0; width: 100%; height: 100%; 
-                              background: #09090b; overflow: hidden; font-family: 'Inter', sans-serif;
+                              background: #f8fafc; overflow: hidden; font-family: 'Inter', sans-serif;
                           }
                           .maintenance-wrapper {
                               position: relative;
                               width: 100%; height: 100vh;
                               display: flex; justify-content: center; align-items: center;
-                              background: radial-gradient(circle at center, #18181b 0%, #09090b 100%);
+                              background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
                           }
                           .m-glow {
                               position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: pulseGlow 8s infinite alternate; z-index: 1;
                           }
-                          .m-glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(234, 179, 8, 0.15); }
+                          .m-glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(217, 119, 6, 0.1); }
                           .m-glow-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: rgba(245, 158, 11, 0.1); animation-delay: -4s; }
                           
                           .maintenance-card {
                               position: relative; z-index: 10;
-                              background: rgba(24, 24, 27, 0.6);
+                              background: rgba(255, 255, 255, 0.8);
                               backdrop-filter: blur(20px);
                               -webkit-backdrop-filter: blur(20px);
-                              border: 1px solid rgba(255, 255, 255, 0.08);
+                              border: 1px solid rgba(0, 0, 0, 0.05);
                               border-radius: 24px;
                               padding: 50px 40px;
                               max-width: 600px;
                               width: 90%;
                               text-align: center;
-                              box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+                              box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
                               transform: translateY(20px);
                               animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                           }
                           
                           .m-icon-wrapper { position: relative; width: 80px; height: 80px; margin: 0 auto 30px auto; display: flex; justify-content: center; align-items: center; }
-                          .m-icon { font-size: 48px; color: #fbbf24; z-index: 2; animation: floatIcon 4s ease-in-out infinite; }
+                          .m-icon { font-size: 48px; color: #d97706; z-index: 2; animation: floatIcon 4s ease-in-out infinite; }
                           .m-icon-ring {
                               position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-                              border: 2px dashed rgba(251, 191, 36, 0.4); border-radius: 50%;
+                              border: 2px dashed rgba(217, 119, 6, 0.3); border-radius: 50%;
                               animation: spin 10s linear infinite;
                           }
                           
                           .m-title-ta {
                               font-family: 'Tiro Tamil', serif;
                               font-size: 2.2rem; font-weight: 800; margin: 0 0 10px 0;
-                              background: linear-gradient(135deg, #fcd34d, #f59e0b);
+                              background: linear-gradient(135deg, #b45309, #d97706);
                               -webkit-background-clip: text; -webkit-text-fill-color: transparent;
                           }
                           .m-title-en {
-                              font-size: 1.2rem; font-weight: 600; color: #a1a1aa; margin: 0 0 24px 0; letter-spacing: 2px; text-transform: uppercase;
+                              font-size: 1.2rem; font-weight: 600; color: #64748b; margin: 0 0 24px 0; letter-spacing: 2px; text-transform: uppercase;
                           }
                           .m-divider {
-                              width: 60px; height: 3px; background: linear-gradient(90deg, transparent, #fbbf24, transparent); margin: 0 auto 24px auto; opacity: 0.5;
+                              width: 60px; height: 3px; background: linear-gradient(90deg, transparent, #d97706, transparent); margin: 0 auto 24px auto; opacity: 0.5;
                           }
                           .m-desc-ta {
-                              font-size: 1.05rem; line-height: 1.8; color: #e4e4e7; margin: 0 0 16px 0; font-family: 'Tiro Tamil', serif;
+                              font-size: 1.05rem; line-height: 1.8; color: #334155; margin: 0 0 16px 0; font-family: 'Tiro Tamil', serif;
                           }
                           .m-desc-en {
-                              font-size: 0.95rem; line-height: 1.6; color: #a1a1aa; margin: 0 0 30px 0;
+                              font-size: 0.95rem; line-height: 1.6; color: #64748b; margin: 0 0 30px 0;
                           }
                           .m-footer {
-                              font-size: 0.8rem; color: #71717a; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 0.5px;
+                              font-size: 0.8rem; color: #94a3b8; padding-top: 20px; border-top: 1px solid rgba(0, 0, 0, 0.05); letter-spacing: 0.5px;
                           }
                           
                           @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.3; } 100% { transform: scale(1.2); opacity: 0.6; } }
                           @keyframes slideUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
                           @keyframes spin { 100% { transform: rotate(360deg); } }
-                          @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); filter: drop-shadow(0 10px 15px rgba(251,191,36,0.3)); } }
+                          @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); filter: drop-shadow(0 10px 15px rgba(217,119,6,0.2)); } }
                           
                           @media (max-width: 640px) {
                               .m-title-ta { font-size: 1.8rem; }
