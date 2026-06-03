@@ -610,7 +610,7 @@ const SAC_DATABASE = {
                     if (typeof showGlobalErrorAlert === 'function') {
                         showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
                     } else {
-                        alert("Security Error: Permission Denied. You must be logged in to save.");
+                        showToast("Security Error: Permission Denied. You must be logged in to save.");
                     }
                 } else {
                     console.warn("Localhost bypass: Suppressed permission denied error for save.");
@@ -628,7 +628,7 @@ const SAC_DATABASE = {
                     if (typeof showGlobalErrorAlert === 'function') {
                         showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
                     } else {
-                        alert("Security Error: Permission Denied. You must be logged in to save.");
+                        showToast("Security Error: Permission Denied. You must be logged in to save.");
                     }
                 } else {
                     console.warn("Localhost bypass: Suppressed permission denied error for save.");
@@ -669,7 +669,7 @@ const SAC_DATABASE = {
                 if (typeof showGlobalErrorAlert === 'function') {
                     showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to delete data.");
                 } else {
-                    alert("Security Error: Permission Denied. You must be logged in to delete.");
+                    showToast("Security Error: Permission Denied. You must be logged in to delete.");
                 }
             }
         });

@@ -1,3 +1,29 @@
+// Toast Notification System
+window.showToast = function(message, type = 'success') {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'sac-toast toast-' + type;
+    
+    const icon = type === 'success' ? '?' : '??';
+    toast.innerHTML = <span></span> <span></span>;
+    
+    container.appendChild(toast);
+    
+    // Trigger animation
+    setTimeout(() => toast.classList.add('toast-show'), 10);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('toast-show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+};
 // This file overrides and patches functions in sac-admin-portal.html safely without modifying the monolith directly.
 
 // 1. Override the DB connection status badge — with retry loop to wait for Firebase CDN
@@ -76,7 +102,7 @@ window.refreshAllAdminData = async function() {
 window.autoTranslatePrayerToEnglish = async function() {
     var titleTa = document.getElementById('cp-titleTa').value;
     var contentTa = document.getElementById('cp-contentTa').value;
-    if(!titleTa && !contentTa) { alert("Please enter Tamil content first."); return; }
+    if(!titleTa && !contentTa) { showToast("Please enter Tamil content first."); return; }
     
     var btn = document.getElementById('cp-btn-translate');
     if(!btn) return;
@@ -108,7 +134,7 @@ window.autoTranslatePrayerToEnglish = async function() {
         
         if(contentTa && !document.getElementById('cp-contentEn').value) document.getElementById('cp-contentEn').value = await translate(contentTa);
         else if(contentTa && confirm("Overwrite existing English Content?")) document.getElementById('cp-contentEn').value = await translate(contentTa);
-    } catch(e) { console.error(e); alert("Translation failed."); }
+    } catch(e) { console.error(e); showToast("Translation failed."); }
     
     btn.innerHTML = oldText; btn.disabled = false;
 };
@@ -123,7 +149,7 @@ window.bulkTranslatePrayers = async function(e) {
     try {
         var prayers = await SAC_DATABASE.get("catholic_prayers");
         if(!prayers || prayers.length === 0) {
-            alert("No prayers found to translate.");
+            showToast("No prayers found to translate.");
             btn.innerHTML = originalHtml; btn.disabled = false; return;
         }
 
@@ -131,7 +157,7 @@ window.bulkTranslatePrayers = async function(e) {
         var toTranslate = prayers.filter(p => isTamil(p.titleEn) || isTamil(p.contentEn) || !p.titleEn || !p.contentEn);
         
         if (toTranslate.length === 0) {
-            alert("All prayers are already translated!");
+            showToast("All prayers are already translated!");
             btn.innerHTML = originalHtml; btn.disabled = false; return;
         }
 
@@ -229,11 +255,11 @@ window.bulkTranslatePrayers = async function(e) {
         window.translatedPrayersCache = prayers;
         try { localStorage.setItem("sac_catholic_prayers", JSON.stringify(prayers)); } catch(e) {}
 
-        alert("Bulk translation complete! Translated " + toTranslate.length + " prayers successfully.\n\nNow, click the green 'Sync to Firebase' button on the right to upload all translated English prayers permanently to your Firebase Firestore database!");
+        showToast("Bulk translation complete! Translated " + toTranslate.length + " prayers successfully.\n\nNow, click the green 'Sync to Firebase' button on the right to upload all translated English prayers permanently to your Firebase Firestore database!");
         await window.populateCatholicPrayersList();
     } catch(err) {
         console.error("Bulk translate failed:", err);
-        alert("Error during bulk translation: " + err.message);
+        showToast("Error during bulk translation: " + err.message);
     }
     
     btn.innerHTML = originalHtml; btn.disabled = false;
@@ -247,7 +273,7 @@ window.bulkUploadPrayers = async function(e) {
     btn.innerHTML = 'Syncing...'; btn.disabled = true;
     try {
         var prayers = window.translatedPrayersCache || await SAC_DATABASE.get("catholic_prayers");
-        if(!prayers || prayers.length === 0) { alert("No default prayers found to sync."); btn.innerHTML = originalHtml; btn.disabled = false; return; }
+        if(!prayers || prayers.length === 0) { showToast("No default prayers found to sync."); btn.innerHTML = originalHtml; btn.disabled = false; return; }
         
         var successCount = 0;
         var chunkSize = 250;
@@ -265,11 +291,11 @@ window.bulkUploadPrayers = async function(e) {
         }
         btn.innerHTML = 'Sync Complete!';
         if (typeof showGlobalSuccessAlert !== 'undefined') {
-            showGlobalSuccessAlert("Successfully synced " + successCount + " prayers to Firebase!");
+            showGlobalSuccessshowToast("Successfully synced " + successCount + " prayers to Firebase!");
         } else {
-            alert("Successfully synced " + successCount + " prayers to Firebase!");
+            showToast("Successfully synced " + successCount + " prayers to Firebase!");
         }
-    } catch(err) { console.error("Bulk upload error:", err); alert("Error during sync: " + err.message); btn.innerHTML = originalHtml; btn.disabled = false; }
+    } catch(err) { console.error("Bulk upload error:", err); showToast("Error during sync: " + err.message); btn.innerHTML = originalHtml; btn.disabled = false; }
 };
 
 // 5. Populate Catholic Prayers List — uses the correct field names (titleTa/titleEn, contentTa/contentEn)
@@ -384,9 +410,9 @@ window.saveCatholicPrayer = async function(e) {
         window.translatedPrayersCache = prayers;
         
         if (typeof showGlobalSuccessAlert !== 'undefined') {
-            showGlobalSuccessAlert('Prayer saved successfully!', 'Prayer saved successfully!');
+            showGlobalSuccessshowToast('Prayer saved successfully!', 'Prayer saved successfully!');
         } else {
-            alert('Prayer saved successfully!');
+            showToast('Prayer saved successfully!');
         }
         
         resetCatholicPrayerForm();
@@ -394,9 +420,9 @@ window.saveCatholicPrayer = async function(e) {
     } catch (err) {
         console.error('Error saving prayer:', err);
         if (typeof showGlobalErrorAlert !== 'undefined') {
-            showGlobalErrorAlert('Error saving prayer', 'Error saving prayer');
+            showGlobalErrorshowToast('Error saving prayer', 'Error saving prayer');
         } else {
-            alert('Error saving prayer');
+            showToast('Error saving prayer');
         }
     }
     
@@ -445,11 +471,11 @@ window.deleteCatholicPrayer = async function(id, title) {
             populateCatholicPrayersList();
             
             if (typeof showGlobalSuccessAlert !== 'undefined') {
-                showGlobalSuccessAlert('செபம் நீக்கப்பட்டது', 'Prayer deleted successfully');
+                showGlobalSuccessshowToast('செபம் நீக்கப்பட்டது', 'Prayer deleted successfully');
             }
         } catch (err) {
             console.error('Error deleting prayer:', err);
-            alert('Failed to delete prayer.');
+            showToast('Failed to delete prayer.');
         }
     };
 
@@ -662,11 +688,11 @@ window.toggleCatholicPrayerActive = async function(id) {
         populateCatholicPrayersList();
         
         if (typeof showGlobalSuccessAlert !== 'undefined') {
-            showGlobalSuccessAlert('செபத்தின் பார்வை நிலை மாற்றப்பட்டது!', 'Visibility updated successfully!', true);
+            showGlobalSuccessshowToast('செபத்தின் பார்வை நிலை மாற்றப்பட்டது!', 'Visibility updated successfully!', true);
         }
     } catch (err) {
         console.error('Error toggling visibility:', err);
-        alert('Failed to update visibility.');
+        showToast('Failed to update visibility.');
     }
 };
 
@@ -800,12 +826,12 @@ window.saveGalleryImage = async function(e) {
         }
         
         await SAC_DATABASE.save("gallery", data);
-        showGlobalSuccessAlert("புகைப்படம் சேமிக்கப்பட்டது!", "Image saved successfully!");
+        showGlobalSuccessshowToast("புகைப்படம் சேமிக்கப்பட்டது!", "Image saved successfully!");
         resetGalleryForm();
         populateGalleryList();
     } catch (err) {
         console.error(err);
-        showGlobalErrorAlert("பிழை!", "Error saving image.");
+        showGlobalErrorshowToast("பிழை!", "Error saving image.");
     }
 };
 
@@ -840,11 +866,11 @@ window.deleteGalleryImage = async function(id, title) {
     const performDelete = async () => {
         try {
             await SAC_DATABASE.delete("gallery", id);
-            showGlobalSuccessAlert("படம் நீக்கப்பட்டது!", "Image deleted!");
+            showGlobalSuccessshowToast("படம் நீக்கப்பட்டது!", "Image deleted!");
             populateGalleryList();
         } catch (e) {
             console.error(e);
-            showGlobalErrorAlert("பிழை!", "Error deleting image.");
+            showGlobalErrorshowToast("பிழை!", "Error deleting image.");
         }
     };
 
@@ -867,7 +893,7 @@ window.toggleGalleryActive = async function(id) {
             await SAC_DATABASE.save("gallery", items[idx]);
             populateGalleryList();
             if (typeof showGlobalSuccessAlert !== 'undefined') {
-                showGlobalSuccessAlert("பார்வை நிலை மாற்றப்பட்டது!", "Image visibility toggled!", true);
+                showGlobalSuccessshowToast("பார்வை நிலை மாற்றப்பட்டது!", "Image visibility toggled!", true);
             }
         }
     } catch (e) { console.error(e); }
@@ -952,10 +978,10 @@ window.clearVisitorLogs = async function() {
         if (SAC_DATABASE && SAC_DATABASE.clearVisitorLogs) {
             const success = await SAC_DATABASE.clearVisitorLogs();
             if (success) {
-                if (typeof showGlobalSuccessAlert !== 'undefined') showGlobalSuccessAlert("பார்வையாளர் பதிவுகள் அழிக்கப்பட்டன (Logs cleared)");
+                if (typeof showGlobalSuccessAlert !== 'undefined') showGlobalSuccessshowToast("பார்வையாளர் பதிவுகள் அழிக்கப்பட்டன (Logs cleared)");
                 await loadVisitorAnalytics();
             } else {
-                alert("Failed to clear logs.");
+                showToast("Failed to clear logs.");
             }
         }
     } catch(e) {
@@ -969,3 +995,29 @@ window.addEventListener('sacLanguageChanged', async function(e) {
         await window.populateDataForTabs();
     }
 });
+
+
+// --- DASHBOARD METRICS ---
+async function loadDashboardMetrics() {
+    if (!SAC_DATABASE.db) {
+        setTimeout(loadDashboardMetrics, 500);
+        return;
+    }
+    
+    try {
+        const prayersSnap = await SAC_DATABASE.db.collection('catholic_prayers').get();
+        document.getElementById('dash-prayers').innerText = prayersSnap.size;
+        
+        const noticesSnap = await SAC_DATABASE.db.collection('announcements').get();
+        document.getElementById('dash-notices').innerText = noticesSnap.size;
+        
+        const gallerySnap = await SAC_DATABASE.db.collection('gallery').get();
+        document.getElementById('dash-gallery').innerText = gallerySnap.size;
+        
+        const reqSnap = await SAC_DATABASE.db.collection('prayer_requests').get();
+        document.getElementById('dash-requests').innerText = reqSnap.size;
+    } catch(e) {
+        console.error("Dashboard fetch error:", e);
+    }
+}
+setTimeout(loadDashboardMetrics, 1000);

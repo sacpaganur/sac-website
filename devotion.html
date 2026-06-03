@@ -781,7 +781,7 @@
 
             if (!msgVal || msgVal.trim().length < 5) {
                 const isTa = SAC_COMMON.currentLang === 'ta';
-                alert(isTa ? "செப விண்ணப்பம் குறைந்தது 5 எழுத்துக்கள் கொண்டிருக்க வேண்டும்!" : "Prayer request must be at least 5 characters!");
+                showToast(isTa ? "செப விண்ணப்பம் குறைந்தது 5 எழுத்துக்கள் கொண்டிருக்க வேண்டும்!" : "Prayer request must be at least 5 characters!");
                 return;
             }
 
@@ -819,7 +819,7 @@
 
             } catch (err) {
                 console.error("Prayer submission failed:", err);
-                alert("Failed to submit prayer. Please try again.");
+                showToast("Failed to submit prayer. Please try again.");
             } finally {
                 if (submitBtn) submitBtn.disabled = false;
             }

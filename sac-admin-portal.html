@@ -719,7 +719,8 @@
 
             <!-- Tabbed Navigation -->
             <div class="admin-tabs">
-                <button class="admin-tab active" onclick="switchAdminTab('settings', this)">
+                <button class="admin-tab active" onclick="switchAdminTab('dashboard', this)">📊 Dashboard</button>
+                <button class="admin-tab" onclick="switchAdminTab('settings', this)">
                     <span class="material-icons">settings</span><span id="tab-lbl-settings">பொது அமைப்புகள்</span>
                 </button>
                 <button class="admin-tab" onclick="switchAdminTab('masses', this)">
@@ -2029,7 +2030,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 setTimeout(() => { alertBox.style.display = 'none'; }, 5000);
             } else {
-                alert(isTa ? msgTa : msgEn);
+                showToast(isTa ? msgTa : msgEn);
             }
         }
 
@@ -3009,7 +3010,7 @@
             const finalSrc = isFileMode ? selectedGalleryBase64 : document.getElementById('gallery-src').value.trim();
 
             if (!finalSrc) {
-                alert("Please upload an image or provide a valid image URL! / தயவுசெய்து ஒரு படத்தை பதிவேற்றவும் அல்லது சரியான இணைய முகவரியை வழங்கவும்!");
+                showToast("Please upload an image or provide a valid image URL! / தயவுசெய்து ஒரு படத்தை பதிவேற்றவும் அல்லது சரியான இணைய முகவரியை வழங்கவும்!");
                 return;
             }
 
