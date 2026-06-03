@@ -710,6 +710,9 @@
                     </button>
                 </div>
             </div>
+            </div>
+
+
 
             <!-- Visual Alert Notification -->
             <div id="admin-global-alert" class="form-alert success" style="display:none; margin-bottom:24px;"></div>
@@ -1946,9 +1949,19 @@
             const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
             if (!isLocalhost && (!window.firebase || window.firebase.apps.length === 0)) {
-                errorBox.innerText = "⚠️ தரவுத்தளம் இணைக்கப்படவில்லை! (Firebase not connected)";
-                errorBox.style.display = 'flex';
-                return;
+                if (window.firebase) {
+                    try {
+                        window.firebase.initializeApp(SAC_DATABASE.defaultData.firebase_config);
+                    } catch(e) {
+                        console.error("Force init failed", e);
+                    }
+                }
+                
+                if (!window.firebase || window.firebase.apps.length === 0) {
+                    errorBox.innerText = "⚠️ தரவுத்தளம் இணைக்கப்படவில்லை! (Firebase not connected)";
+                    errorBox.style.display = 'flex';
+                    return;
+                }
             }
 
             try {
