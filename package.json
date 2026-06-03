@@ -20,6 +20,7 @@
   "homepage": "https://github.com/sacpaganur/sac-website#readme",
   "dependencies": {
     "@vitalets/google-translate-api": "^9.2.1",
+    "bing-translate-api": "^4.2.0",
     "express": "^5.2.1",
     "google-translate-api-x": "^10.7.3",
     "jsdom": "^29.1.1",
