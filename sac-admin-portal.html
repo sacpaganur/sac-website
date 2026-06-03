@@ -719,7 +719,7 @@
 
             <!-- Tabbed Navigation -->
             <div class="admin-tabs">
-                <button class="admin-tab active" onclick="switchAdminTab('dashboard', this)">📊 Dashboard</button>
+                <button class="admin-tab active" onclick="switchAdminTab('dashboard', this)"><span class="material-icons">dashboard</span><span id="tab-lbl-dashboard">Dashboard</span></button>
                 <button class="admin-tab" onclick="switchAdminTab('settings', this)">
                     <span class="material-icons">settings</span><span id="tab-lbl-settings">பொது அமைப்புகள்</span>
                 </button>
@@ -758,29 +758,104 @@
             <!-- ======================= TAB 1: SETTINGS ======================= -->
             
             <!-- ======================= TAB 0: DASHBOARD ======================= -->
+            
+            <!-- ======================= TAB 0: DASHBOARD ======================= -->
             <div id="panel-dashboard" class="admin-panel active">
-                <div class="admin-card" style="margin-bottom: 24px;">
-                    <div class="admin-card-title">
-                        <span class="material-icons">dashboard</span>
-                        <span>Overview Dashboard</span>
+                <div class="admin-card" style="margin-bottom: 24px; background: transparent; box-shadow: none;">
+                    <div class="admin-card-title" style="margin-bottom: 20px;">
+                        <span class="material-icons" style="color:var(--primary); font-size:2rem;">dashboard</span>
+                        <span style="font-size:1.5rem; font-weight:700;">Overview Dashboard</span>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px 0;">
-                        <div style="background: linear-gradient(135deg, #8e2de2, #4a00e0); color: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                            <h3 style="margin: 0; font-size: 1rem; opacity: 0.9;">Total Prayers</h3>
-                            <p id="dash-prayers" style="font-size: 2.5rem; font-weight: bold; margin: 10px 0 0 0;">...</p>
+                    
+                    <style>
+                        .dash-metric-card {
+                            background: rgba(255, 255, 255, 0.7);
+                            backdrop-filter: blur(10px);
+                            border: 1px solid rgba(255,255,255,0.4);
+                            padding: 24px; 
+                            border-radius: 16px; 
+                            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                            transition: transform 0.3s ease, box-shadow 0.3s ease;
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+                            position: relative;
+                            overflow: hidden;
+                        }
+                        .dash-metric-card:hover {
+                            transform: translateY(-5px);
+                            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+                        }
+                        .dash-icon-box {
+                            width: 60px; height: 60px;
+                            border-radius: 12px;
+                            display: flex; justify-content: center; align-items: center;
+                            color: white; font-size: 28px;
+                            flex-shrink: 0;
+                        }
+                        .dash-metric-title {
+                            margin: 0; font-size: 0.95rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;
+                        }
+                        .dash-metric-value {
+                            font-size: 2.2rem; font-weight: 800; margin: 4px 0 0 0; color: #1e293b;
+                        }
+                        .dash-bg-circle {
+                            position: absolute; right: -20px; top: -20px;
+                            width: 100px; height: 100px; border-radius: 50%;
+                            opacity: 0.1; z-index: 0;
+                        }
+                    </style>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; padding: 10px 0;">
+                        
+                        <!-- Card 1 -->
+                        <div class="dash-metric-card">
+                            <div class="dash-bg-circle" style="background: linear-gradient(135deg, #8e2de2, #4a00e0);"></div>
+                            <div class="dash-icon-box" style="background: linear-gradient(135deg, #8e2de2, #4a00e0);">
+                                <span class="material-icons">menu_book</span>
+                            </div>
+                            <div style="z-index: 1;">
+                                <h3 class="dash-metric-title">Total Prayers</h3>
+                                <p id="dash-prayers" class="dash-metric-value">...</p>
+                            </div>
                         </div>
-                        <div style="background: linear-gradient(135deg, #FF416C, #FF4B2B); color: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                            <h3 style="margin: 0; font-size: 1rem; opacity: 0.9;">Announcements</h3>
-                            <p id="dash-notices" style="font-size: 2.5rem; font-weight: bold; margin: 10px 0 0 0;">...</p>
+
+                        <!-- Card 2 -->
+                        <div class="dash-metric-card">
+                            <div class="dash-bg-circle" style="background: linear-gradient(135deg, #FF416C, #FF4B2B);"></div>
+                            <div class="dash-icon-box" style="background: linear-gradient(135deg, #FF416C, #FF4B2B);">
+                                <span class="material-icons">campaign</span>
+                            </div>
+                            <div style="z-index: 1;">
+                                <h3 class="dash-metric-title">Announcements</h3>
+                                <p id="dash-notices" class="dash-metric-value">...</p>
+                            </div>
                         </div>
-                        <div style="background: linear-gradient(135deg, #11998e, #38ef7d); color: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                            <h3 style="margin: 0; font-size: 1rem; opacity: 0.9;">Gallery Images</h3>
-                            <p id="dash-gallery" style="font-size: 2.5rem; font-weight: bold; margin: 10px 0 0 0;">...</p>
+
+                        <!-- Card 3 -->
+                        <div class="dash-metric-card">
+                            <div class="dash-bg-circle" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></div>
+                            <div class="dash-icon-box" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+                                <span class="material-icons">collections</span>
+                            </div>
+                            <div style="z-index: 1;">
+                                <h3 class="dash-metric-title">Gallery Images</h3>
+                                <p id="dash-gallery" class="dash-metric-value">...</p>
+                            </div>
                         </div>
-                        <div style="background: linear-gradient(135deg, #f12711, #f5af19); color: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                            <h3 style="margin: 0; font-size: 1rem; opacity: 0.9;">Prayer Requests</h3>
-                            <p id="dash-requests" style="font-size: 2.5rem; font-weight: bold; margin: 10px 0 0 0;">...</p>
+
+                        <!-- Card 4 -->
+                        <div class="dash-metric-card">
+                            <div class="dash-bg-circle" style="background: linear-gradient(135deg, #f12711, #f5af19);"></div>
+                            <div class="dash-icon-box" style="background: linear-gradient(135deg, #f12711, #f5af19);">
+                                <span class="material-icons">favorite</span>
+                            </div>
+                            <div style="z-index: 1;">
+                                <h3 class="dash-metric-title">Prayer Requests</h3>
+                                <p id="dash-requests" class="dash-metric-value">...</p>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -3212,6 +3287,7 @@
             let admin_main_title_el = document.getElementById('admin-main-title'); if(admin_main_title_el) admin_main_title_el.innerText = isTa ? "இணையதள நிர்வாகப் பலகை" : "Website Admin Dashboard";
             let admin_main_subtitle_el = document.getElementById('admin-main-subtitle'); if(admin_main_subtitle_el) admin_main_subtitle_el.innerText = isTa ? "இணையதளத்தின் அனைத்துப் பக்கங்களிலும் உள்ள தகவல்களை குறியீடு எழுதாமல் மாற்றியமைக்கலாம்." : "Manage schedules, announcements, history, sacraments, and connection settings instantly.";
             
+            let tab_lbl_dashboard_el = document.getElementById('tab-lbl-dashboard'); if(tab_lbl_dashboard_el) tab_lbl_dashboard_el.innerText = isTa ? "கட்டுப்பாட்டு அறை" : "Dashboard";
             let tab_lbl_settings_el = document.getElementById('tab-lbl-settings'); if(tab_lbl_settings_el) tab_lbl_settings_el.innerText = isTa ? "பொது அமைப்புகள்" : "General Settings";
             let tab_lbl_masses_el = document.getElementById('tab-lbl-masses'); if(tab_lbl_masses_el) tab_lbl_masses_el.innerText = isTa ? "வழிபாடுகள் (CRUD)" : "Schedules (CRUD)";
             let tab_lbl_notices_el = document.getElementById('tab-lbl-notices'); if(tab_lbl_notices_el) tab_lbl_notices_el.innerText = isTa ? "அறிவிப்புகள் (CRUD)" : "Announcements (CRUD)";

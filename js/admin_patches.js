@@ -1021,3 +1021,22 @@ async function loadDashboardMetrics() {
     }
 }
 setTimeout(loadDashboardMetrics, 1000);
+
+
+async function loadDashboardMetrics() {
+    try {
+        const prayers = await (window.SAC_DATABASE ? window.SAC_DATABASE.get('catholic_prayers') : []);
+        if (prayers) document.getElementById('dash-prayers').innerText = prayers.filter(p => p.isDeleted !== true && p.isDeleted !== 'true').length;
+        
+        const notices = await (window.SAC_DATABASE ? window.SAC_DATABASE.get('announcements') : []);
+        if (notices) document.getElementById('dash-notices').innerText = notices.length;
+        
+        const gallery = await (window.SAC_DATABASE ? window.SAC_DATABASE.get('gallery') : []);
+        if (gallery) document.getElementById('dash-gallery').innerText = gallery.length;
+        
+        const reqs = await (window.SAC_DATABASE ? window.SAC_DATABASE.get('prayer_requests') : []);
+        if (reqs) document.getElementById('dash-requests').innerText = reqs.length;
+    } catch(e) {
+        console.error("Dashboard fetch error:", e);
+    }
+}
