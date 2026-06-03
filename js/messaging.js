@@ -73,10 +73,20 @@ const SAC_MESSAGING = {
         tokenOptions.vapidKey = config.vapidKey.trim();
       } else {
         const warningMsg = isTa 
-          ? "புஷ் அறிவிப்புகள் இன்னும் முழுமையாக கட்டமைக்கப்படவில்லை. தயவுசெய்து நிர்வாகி பலகையில் VAPID விசையை உள்ளிடவும்."
+          ? "அறிவிப்பு VAPID திறவுகோல் இன்னும் கட்டமைக்கப்படவில்லை. Firebase கன்சோலில் Web Push Certificates ஐ உருவாக்கி Admin Portal இல் அமைக்கவும்."
           : "Notification VAPID Key is not configured yet. Please generate Web Push Certificates in the Firebase Console and configure the VAPID Key in the Admin Portal.";
         if (!isSilent) this.showErrorToast(warningMsg);
         return;
+      }
+
+      // Explicitly register the FCM service worker to avoid conflicts with the PWA sw.js
+      if ('serviceWorker' in navigator) {
+        try {
+            const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+            tokenOptions.serviceWorkerRegistration = registration;
+        } catch (swErr) {
+            console.warn("FCM Service Worker registration failed, falling back to default:", swErr);
+        }
       }
 
       // Get FCM token
