@@ -82,7 +82,14 @@ window.showToast = function(message, type = 'success') {
   // This matches the Firebase timeout, ensuring we wait for all fetches
   setTimeout(window.hideSACLoader, 8000);
 
-
+  // Handle Back-Forward Cache (bfcache) navigation on mobile browsers
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      isLoaderHidden = false; // Force reset
+      if (typeof window.hideSACLoader === 'function') window.hideSACLoader();
+      document.body.style.overflow = ''; // Ensure scroll is restored
+    }
+  });
 
   // Intercept navigation links to show loader
   document.addEventListener('click', (e) => {
@@ -95,6 +102,7 @@ window.showToast = function(message, type = 'success') {
     if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && target !== '_blank' && !link.hasAttribute('download')) {
       e.preventDefault();
 
+      isLoaderHidden = false; // Reset so it can be hidden if user returns via Back button
       let loader = document.getElementById('sac-global-loader');
       if (!loader) {
         document.body.insertAdjacentHTML('afterbegin', loaderHTML);
