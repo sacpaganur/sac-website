@@ -728,7 +728,8 @@ body:lang(ta) .timeline-desc {
   .ultimate-timeline-wrapper {
     padding: 20px 0 60px 0;
   }
-  .ultimate-timeline-wrapper::before {
+  .ultimate-timeline-wrapper::before,
+  .timeline-progress-line {
     left: 24px;
   }
   .ultimate-timeline-item {
