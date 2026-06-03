@@ -760,61 +760,61 @@
             <!-- ======================= TAB 0: DASHBOARD ======================= -->
             
             <!-- ======================= TAB 0: DASHBOARD ======================= -->
+            
+            <!-- ======================= TAB 0: DASHBOARD ======================= -->
             <div id="panel-dashboard" class="admin-panel active">
-                <div class="admin-card" style="margin-bottom: 24px; background: transparent; box-shadow: none;">
-                    <div class="admin-card-title" style="margin-bottom: 20px;">
-                        <span class="material-icons" style="color:var(--primary); font-size:2rem;">dashboard</span>
-                        <span style="font-size:1.5rem; font-weight:700;">Overview Dashboard</span>
+                <div class="admin-card" style="margin-bottom: 24px; background: transparent; box-shadow: none; border: none; padding: 0;">
+                    <div class="admin-card-title" style="margin-bottom: 20px; background: white; padding: 16px 24px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);">
+                        <span class="material-icons" style="color:var(--primary); font-size:1.8rem;">dashboard</span>
+                        <span style="font-size:1.2rem; font-weight:700; color:var(--primary);">Overview Dashboard</span>
                     </div>
                     
                     <style>
                         .dash-metric-card {
-                            background: rgba(255, 255, 255, 0.7);
-                            backdrop-filter: blur(10px);
-                            border: 1px solid rgba(255,255,255,0.4);
+                            background: white;
+                            border: 1px solid #e2e8f0;
                             padding: 24px; 
                             border-radius: 16px; 
-                            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-                            transition: transform 0.3s ease, box-shadow 0.3s ease;
+                            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
                             display: flex;
                             align-items: center;
-                            gap: 20px;
+                            justify-content: space-between;
                             position: relative;
                             overflow: hidden;
                         }
-                        .dash-metric-card:hover {
-                            transform: translateY(-5px);
-                            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-                        }
                         .dash-icon-box {
-                            width: 60px; height: 60px;
-                            border-radius: 12px;
+                            width: 56px; height: 56px;
+                            border-radius: 14px;
                             display: flex; justify-content: center; align-items: center;
-                            color: white; font-size: 28px;
-                            flex-shrink: 0;
+                            color: white; font-size: 24px;
+                            z-index: 1;
+                        }
+                        .dash-text-content {
+                            text-align: right;
+                            z-index: 1;
                         }
                         .dash-metric-title {
-                            margin: 0; font-size: 0.95rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;
+                            margin: 0; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;
                         }
                         .dash-metric-value {
-                            font-size: 2.2rem; font-weight: 800; margin: 4px 0 0 0; color: #1e293b;
+                            font-size: 2rem; font-weight: 800; margin: 4px 0 0 0; color: #1e293b;
                         }
                         .dash-bg-circle {
                             position: absolute; right: -20px; top: -20px;
-                            width: 100px; height: 100px; border-radius: 50%;
-                            opacity: 0.1; z-index: 0;
+                            width: 120px; height: 120px; border-radius: 50%;
+                            opacity: 0.15; z-index: 0;
                         }
                     </style>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; padding: 10px 0;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 5px 0;">
                         
                         <!-- Card 1 -->
                         <div class="dash-metric-card">
-                            <div class="dash-bg-circle" style="background: linear-gradient(135deg, #8e2de2, #4a00e0);"></div>
-                            <div class="dash-icon-box" style="background: linear-gradient(135deg, #8e2de2, #4a00e0);">
+                            <div class="dash-bg-circle" style="background: #6D28D9;"></div>
+                            <div class="dash-icon-box" style="background: #6D28D9;">
                                 <span class="material-icons">menu_book</span>
                             </div>
-                            <div style="z-index: 1;">
+                            <div class="dash-text-content">
                                 <h3 class="dash-metric-title">Total Prayers</h3>
                                 <p id="dash-prayers" class="dash-metric-value">...</p>
                             </div>
@@ -822,11 +822,11 @@
 
                         <!-- Card 2 -->
                         <div class="dash-metric-card">
-                            <div class="dash-bg-circle" style="background: linear-gradient(135deg, #FF416C, #FF4B2B);"></div>
-                            <div class="dash-icon-box" style="background: linear-gradient(135deg, #FF416C, #FF4B2B);">
+                            <div class="dash-bg-circle" style="background: #EF4444;"></div>
+                            <div class="dash-icon-box" style="background: #EF4444;">
                                 <span class="material-icons">campaign</span>
                             </div>
-                            <div style="z-index: 1;">
+                            <div class="dash-text-content">
                                 <h3 class="dash-metric-title">Announcements</h3>
                                 <p id="dash-notices" class="dash-metric-value">...</p>
                             </div>
@@ -834,11 +834,11 @@
 
                         <!-- Card 3 -->
                         <div class="dash-metric-card">
-                            <div class="dash-bg-circle" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></div>
-                            <div class="dash-icon-box" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+                            <div class="dash-bg-circle" style="background: #10B981;"></div>
+                            <div class="dash-icon-box" style="background: #10B981;">
                                 <span class="material-icons">collections</span>
                             </div>
-                            <div style="z-index: 1;">
+                            <div class="dash-text-content">
                                 <h3 class="dash-metric-title">Gallery Images</h3>
                                 <p id="dash-gallery" class="dash-metric-value">...</p>
                             </div>
@@ -846,11 +846,11 @@
 
                         <!-- Card 4 -->
                         <div class="dash-metric-card">
-                            <div class="dash-bg-circle" style="background: linear-gradient(135deg, #f12711, #f5af19);"></div>
-                            <div class="dash-icon-box" style="background: linear-gradient(135deg, #f12711, #f5af19);">
+                            <div class="dash-bg-circle" style="background: #F97316;"></div>
+                            <div class="dash-icon-box" style="background: #F97316;">
                                 <span class="material-icons">favorite</span>
                             </div>
-                            <div style="z-index: 1;">
+                            <div class="dash-text-content">
                                 <h3 class="dash-metric-title">Prayer Requests</h3>
                                 <p id="dash-requests" class="dash-metric-value">...</p>
                             </div>
