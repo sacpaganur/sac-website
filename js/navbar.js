@@ -64,7 +64,7 @@ window.SAC_NAVBAR = {
     <header class="navbar" id="main-nav-bar">
         <div class="navbar-container">
             <a href="index.html" class="brand-logo" id="nav-brand-link">
-                <span class="logo-icon" id="nav-brand-icon">⛪</span>
+                <span class="logo-icon" id="nav-brand-icon"><img src="images/church_logo.jpg" alt="St. Antony's Church" class="dynamic-logo-img"></span>
                 <div class="brand-text">
                     <h1 class="brand-title" id="nav-brand-title">புனித அந்தோணியார் ஆலயம்</h1>
                     <span class="brand-sub" id="nav-brand-sub">வடக்கு பாகனூர்</span>

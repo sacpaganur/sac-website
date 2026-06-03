@@ -61,6 +61,7 @@
       "description": "Weekly Sunday Mass at St. Antony's Church, Vadakku Paganur."
     }
     </script>
+    <link rel="icon" type="image/jpeg" href="images/church_logo.jpg">
 </head>
 
 <body>
@@ -443,10 +444,17 @@
                                 <span>${dayIcon}</span>
                                 ${day}
                             </div>
-                            <h4 class="sched-card-title" style="margin-bottom: 12px;">${title}</h4>
+                            <h4 class="sched-card-title" style="margin-bottom: 12px; min-height: 3.8em; display: flex; align-items: flex-start;">${title}</h4>
                             <div class="sched-time-display">
                                 <span class="material-icons time-icon">schedule</span>
                                 ${formatTimeStacked(time)}
+                            </div>
+                            <div class="mass-countdown-container" id="countdown-mass-${idx}" style="margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(139, 92, 246, 0.2); display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                <div style="display:flex; align-items:center; gap: 6px;" id="countdown-label-${idx}">
+                                    <span class="material-icons" style="font-size:16px; color: #8b5cf6; animation: sacPulse 2s infinite;">timer</span>
+                                    <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #64748b;">${isTa ? 'திருப்பலி தொடங்க' : 'Mass Starts In'}</span>
+                                </div>
+                                <div id="countdown-text-${idx}" style="display:flex; gap: 6px; align-items: center;"></div>
                             </div>
                         </div>
                             <div class="sched-card-footer" style="justify-content: flex-end;">
@@ -466,9 +474,112 @@
                     }
                 });
             }
+
+            // Start the countdown timers
+            startMassCountdowns(masses, isTa);
         }
 
         // Full bilingual translation is now handled by SAC_COMMON.translatePage via data-i18n
+        let _massCountdownInterval = null;
+
+        function startMassCountdowns(masses, isTa) {
+            if (_massCountdownInterval) clearInterval(_massCountdownInterval);
+
+            function updateAll() {
+                const now = new Date();
+                masses.forEach((m, idx) => {
+                    const textEl = document.getElementById(`countdown-text-${idx}`);
+                    const containerEl = document.getElementById(`countdown-mass-${idx}`);
+                    if (!textEl || !containerEl) return;
+
+                    const timeStr = m.time || '';
+                    const match = timeStr.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+                    if (!match) {
+                        containerEl.style.display = 'none';
+                        return;
+                    }
+
+                    let hours = parseInt(match[1], 10);
+                    const minutes = parseInt(match[2], 10);
+                    const isPM = match[3].toUpperCase() === 'PM';
+                    
+                    if (isPM && hours < 12) hours += 12;
+                    if (!isPM && hours === 12) hours = 0;
+
+                    const target = new Date(now);
+                    target.setHours(hours, minutes, 0, 0);
+
+                    const category = m.category || 'daily';
+                    let targetDay = -1;
+                    if (category === 'sunday') targetDay = 0;
+                    else if (category === 'tuesday') targetDay = 2;
+
+                    const oneHourMs = 60 * 60 * 1000;
+
+                    if (targetDay !== -1) {
+                        let daysAhead = targetDay - now.getDay();
+                        if (daysAhead < 0) {
+                            daysAhead += 7;
+                        } else if (daysAhead === 0) {
+                            // If today, check if it already passed more than 1 hour ago
+                            if (now.getTime() > target.getTime() + oneHourMs) {
+                                daysAhead += 7;
+                            }
+                        }
+                        target.setDate(target.getDate() + daysAhead);
+                    } else {
+                        // Daily
+                        if (now.getTime() > target.getTime() + oneHourMs) {
+                            target.setDate(target.getDate() + 1);
+                        }
+                    }
+
+                    const diff = target.getTime() - now.getTime();
+
+                    const labelEl = document.getElementById(`countdown-label-${idx}`);
+
+                    if (diff < 0 && diff > -oneHourMs) {
+                        // Mass is currently happening (within 1 hour after start)
+                        textEl.innerHTML = isTa ? "<span style='color:#059669; font-size: 0.95rem; font-weight:800; padding: 10px 16px; background: #ecfdf5; border-radius: 12px; border: 1px solid #a7f3d0;'>திருப்பலி நடைபெறுகிறது</span>" : "<span style='color:#059669; font-size: 0.95rem; font-weight:800; padding: 10px 16px; background: #ecfdf5; border-radius: 12px; border: 1px solid #a7f3d0;'>MASS IN PROGRESS</span>";
+                        labelEl.innerHTML = `<span class="material-icons" style="font-size:18px; color: #059669; animation: sacPulse 1s infinite;">sensors</span><span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #059669;">${isTa ? 'நேரலை' : 'LIVE NOW'}</span>`;
+                        return;
+                    }
+
+                    // Reset styling in case it was previously marked live
+                    labelEl.innerHTML = `<span class="material-icons" style="font-size:16px; color: #8b5cf6; animation: sacPulse 2s infinite;">timer</span><span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #64748b;">${isTa ? 'திருப்பலி தொடங்க' : 'Mass Starts In'}</span>`;
+
+                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    // Formatter for sleek bright block widget style
+                    const fmt = (val, label) => `<div style="display: flex; flex-direction: column; align-items: center; background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); padding: 8px 10px; border-radius: 10px; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.08), inset 0 2px 0 rgba(255,255,255,1); min-width: 42px; border: 1px solid rgba(139,92,246,0.15);"><span style="font-weight:800; font-size:1.2rem; color:#6d28d9; line-height:1; font-variant-numeric: tabular-nums;">${val < 10 ? '0'+val : val}</span><span style="font-size:0.55rem; font-weight:700; text-transform:uppercase; color:#94a3b8; margin-top:4px; letter-spacing: 0.5px;">${label}</span></div>`;
+
+                    let displayStr = "";
+                    if (isTa) {
+                        if (d > 0) displayStr += fmt(d, 'நாள்');
+                        if (d > 0 || h > 0) displayStr += fmt(h, 'மணி');
+                        displayStr += fmt(min, 'நிமி');
+                        displayStr += fmt(s, 'வி');
+                    } else {
+                        if (d > 0) displayStr += fmt(d, 'Days');
+                        if (d > 0 || h > 0) displayStr += fmt(h, 'Hrs');
+                        displayStr += fmt(min, 'Min');
+                        displayStr += fmt(s, 'Sec');
+                    }
+
+                    // Add subtle colon separators between units
+                    displayStr = displayStr.replace(/<\/div><div/g, '</div><span style="font-weight: 700; color: #cbd5e1; margin-top: -12px;">:</span><div');
+
+                    textEl.innerHTML = displayStr;
+                });
+            }
+
+            updateAll();
+            _massCountdownInterval = setInterval(updateAll, 1000);
+        }
+
     </script>
 </body>
 

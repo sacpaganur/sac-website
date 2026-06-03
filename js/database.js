@@ -6573,10 +6573,15 @@ const SAC_DATABASE = {
           .catch(err => {
             console.error(`Firestore save failed for ${collectionName}:`, err);
             if (err.code === 'permission-denied') {
-                if (typeof showGlobalErrorAlert === 'function') {
-                    showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
+                const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                if (!isLocalhost) {
+                    if (typeof showGlobalErrorAlert === 'function') {
+                        showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
+                    } else {
+                        alert("Security Error: Permission Denied. You must be logged in to save.");
+                    }
                 } else {
-                    alert("Security Error: Permission Denied. You must be logged in to save.");
+                    console.warn("Localhost bypass: Suppressed permission denied error for save.");
                 }
             }
           });
@@ -6586,10 +6591,15 @@ const SAC_DATABASE = {
           .catch(err => {
             console.error(`Firestore save failed for ${collectionName}:`, err);
             if (err.code === 'permission-denied') {
-                if (typeof showGlobalErrorAlert === 'function') {
-                    showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
+                const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                if (!isLocalhost) {
+                    if (typeof showGlobalErrorAlert === 'function') {
+                        showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
+                    } else {
+                        alert("Security Error: Permission Denied. You must be logged in to save.");
+                    }
                 } else {
-                    alert("Security Error: Permission Denied. You must be logged in to save.");
+                    console.warn("Localhost bypass: Suppressed permission denied error for save.");
                 }
             }
           });

@@ -768,7 +768,7 @@ const SAC_COMMON = {
                           <div class="n-embossed-emblem">
                               <div class="n-emblem-inner">
                                   <div class="n-icon-bg"></div>
-                                  <span class="material-icons n-icon">church</span>
+                                  <img src="images/church_logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                               </div>
                           </div>
 
@@ -1170,13 +1170,15 @@ const SAC_COMMON = {
       link.rel = 'icon';
       document.getElementsByTagName('head')[0].appendChild(link);
     }
-    const siteLogoUrl = this.settings && this.settings.siteLogo ? this.settings.siteLogo : null;
+    let siteLogoUrl = this.settings && (this.settings.logoUrl || this.settings.siteLogo) ? (this.settings.logoUrl || this.settings.siteLogo) : null;
+    if (siteLogoUrl === 'undefined' || siteLogoUrl === 'null') siteLogoUrl = null;
+    
     if (siteLogoUrl) {
       link.removeAttribute('type');
       link.href = siteLogoUrl;
     } else {
-      link.type = 'image/svg+xml';
-      link.href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛪</text></svg>';
+      link.type = 'image/jpeg';
+      link.href = 'images/church_logo.jpg';
     }
   },
 
@@ -1321,12 +1323,14 @@ const SAC_COMMON = {
     document.querySelectorAll('.brand-sub, .footer-location').forEach(el => el.innerText = location);
     document.querySelectorAll('.footer-address-label').forEach(el => el.innerText = address);
 
-    const siteLogoUrl = settings.logoUrl || settings.siteLogo || '';
+    let siteLogoUrl = settings.logoUrl || settings.siteLogo || '';
+    if (siteLogoUrl === 'undefined' || siteLogoUrl === 'null') siteLogoUrl = '';
+    
     document.querySelectorAll('.logo-icon, .footer-church-logo').forEach(el => {
       if (siteLogoUrl) {
         el.innerHTML = `<img src="${siteLogoUrl}" alt="Church Logo" class="dynamic-logo-img">`;
       } else {
-        el.innerHTML = '⛪';
+        el.innerHTML = `<img src="images/church_logo.jpg" alt="Church Logo" class="dynamic-logo-img">`;
       }
     });
     this._injectFavicon();
