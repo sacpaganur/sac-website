@@ -25,9 +25,9 @@
         }
 
         .inactive-toggle {
-            background: #f1f5f9;
-            color: #64748b;
-            border: 1px solid #cbd5e1;
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-glass);
         }
 
         .active-toggle {
@@ -70,7 +70,7 @@
             animation: fadeIn 0.2s ease;
         }
         .custom-confirm-modal {
-            background: #fff;
+            background: var(--bg-card);
             border-radius: 20px;
             padding: 32px;
             width: 90%;
@@ -121,12 +121,12 @@
             transition: all 0.2s;
         }
         .btn-confirm-cancel {
-            background: #f1f5f9;
-            color: #64748b;
+            background: var(--bg-glass);
+            color: var(--text-secondary);
         }
         .btn-confirm-cancel:hover {
             background: #e2e8f0;
-            color: #334155;
+            color: var(--text-secondary);
         }
         .btn-confirm-delete {
             background: #ef4444;
@@ -154,7 +154,7 @@
             position: relative !important;
             box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04) !important;
             border-radius: 16px !important;
-            border: 1px solid #e2e8f0 !important;
+            border: 1px solid var(--border-glass) !important;
             transition: var(--transition-smooth) !important;
             overflow: hidden !important;
             padding: 24px !important;
@@ -175,7 +175,7 @@
         }
 
         #panel-catholic_prayers .admin-card-title {
-            color: #1e293b !important;
+            color: var(--text-primary) !important;
             font-weight: 800 !important;
             font-size: 1.15rem !important;
             display: flex !important;
@@ -197,7 +197,7 @@
         /* Form Labels */
         #panel-catholic_prayers .form-label {
             font-weight: 600 !important;
-            color: #334155 !important;
+            color: var(--text-secondary) !important;
             font-size: 0.8rem !important;
             margin-bottom: 6px !important;
             display: inline-block !important;
@@ -207,19 +207,19 @@
 
         /* Form Controls */
         #panel-catholic_prayers .form-control {
-            background: #ffffff !important;
-            border: 1.5px solid #e2e8f0 !important;
+            background: var(--bg-card) !important;
+            border: 1.5px solid var(--border-glass) !important;
             border-radius: 10px !important;
             padding: 11px 14px !important;
             font-size: 0.92rem !important;
-            color: #1e293b !important;
+            color: var(--text-primary) !important;
             transition: all 0.2s ease-in-out !important;
             width: 100% !important;
             box-sizing: border-box !important;
         }
 
         #panel-catholic_prayers .form-control:focus {
-            background: #ffffff !important;
+            background: var(--bg-card) !important;
             border-color: #6366f1 !important;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
             outline: none !important;
@@ -265,9 +265,9 @@
 
         /* Auto-Translate Button */
         #cp-btn-translate {
-            background: #f8fafc !important;
-            border: 1.5px solid #e2e8f0 !important;
-            color: #475569 !important;
+            background: var(--bg-glass) !important;
+            border: 1.5px solid var(--border-glass) !important;
+            color: var(--text-secondary) !important;
             border-radius: 8px !important;
             font-weight: 600 !important;
             transition: all 0.2s ease !important;
@@ -281,7 +281,7 @@
 
         /* Bulk Action Buttons */
         #btn-bulk-translate {
-            background: #ffffff !important;
+            background: var(--bg-card) !important;
             border: 1.5px solid #c7d2fe !important;
             color: #4f46e5 !important;
             border-radius: 10px !important;
@@ -360,7 +360,7 @@
 
         /* Premium Card List styling */
         #admin-catholic-prayers-list .crud-item {
-            background: #ffffff !important;
+            background: var(--bg-card) !important;
             border: 1px solid #e5e7eb !important;
             border-radius: 14px !important;
             padding: 16px 18px !important;
@@ -389,7 +389,7 @@
         #admin-catholic-prayers-list .crud-title {
             font-size: 1rem !important;
             font-weight: 700 !important;
-            color: #1e293b !important;
+            color: var(--text-primary) !important;
             margin-bottom: 8px !important;
             line-height: 1.35 !important;
             overflow: hidden !important;
@@ -407,7 +407,7 @@
 
         #admin-catholic-prayers-list .crud-sub span:not(.liturgical-badge) {
             font-size: 0.83rem !important;
-            color: #64748b !important;
+            color: var(--text-secondary) !important;
             display: flex !important;
             align-items: flex-start !important;
             gap: 6px !important;
@@ -513,13 +513,13 @@
 
         /* Inactive toggle — muted */
         #admin-catholic-prayers-list .btn-crud-icon.inactive-toggle {
-            background: #f1f5f9 !important;
+            background: var(--bg-glass) !important;
             color: #94a3b8 !important;
         }
 
         #admin-catholic-prayers-list .btn-crud-icon.inactive-toggle:hover {
             background: #e2e8f0 !important;
-            color: #64748b !important;
+            color: var(--text-secondary) !important;
             transform: scale(1.1) !important;
         }
 
@@ -543,13 +543,13 @@
         #panel-catholic_prayers .btn-secondary {
             border-radius: 10px !important;
             font-weight: 600 !important;
-            border: 1.5px solid #e2e8f0 !important;
+            border: 1.5px solid var(--border-glass) !important;
             transition: all 0.2s ease !important;
         }
 
         #panel-catholic_prayers .btn-secondary:hover {
-            background: #f1f5f9 !important;
-            border-color: #cbd5e1 !important;
+            background: var(--bg-glass) !important;
+            border-color: var(--border-glass) !important;
         }
 
         /* Form group spacing */
@@ -636,6 +636,9 @@
     <meta name="twitter:title" content="நிர்வாகம் | புனித அந்தோணியார் ஆலயம் – வடக்கு பாகனூர்" />
     <meta name="twitter:description" content="புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர். St. Antony's Church Vadakku Paganur - Official Catholic Devotion, Mass Timings, and Digital Novena." />
     <meta name="twitter:image" content="https://stacpaganur.web.app/images/church_logo.jpg" />
+
+    <!-- Exhaustive Dark Mode Overrides -->
+    <link rel="stylesheet" href="css/dark-overrides.css?v=1.0">
 </head>
 <body>
     <!-- Global Page Loader -->
@@ -764,15 +767,15 @@
             <!-- ======================= TAB 0: DASHBOARD ======================= -->
             <div id="panel-dashboard" class="admin-panel active">
                 <div class="admin-card" style="margin-bottom: 24px; background: transparent; box-shadow: none; border: none; padding: 0;">
-                    <div class="admin-card-title" style="margin-bottom: 20px; background: white; padding: 16px 24px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);">
+                    <div class="admin-card-title" style="margin-bottom: 20px; background: var(--bg-card); padding: 16px 24px; border-radius: 12px; border: 1px solid var(--border-glass); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);">
                         <span class="material-icons" style="color:var(--primary); font-size:1.8rem;">dashboard</span>
                         <span style="font-size:1.2rem; font-weight:700; color:var(--primary);">Overview Dashboard</span>
                     </div>
                     
                     <style>
                         .dash-metric-card {
-                            background: white;
-                            border: 1px solid #e2e8f0;
+                            background: var(--bg-card);
+                            border: 1px solid var(--border-glass);
                             padding: 24px; 
                             border-radius: 16px; 
                             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
@@ -794,10 +797,10 @@
                             z-index: 1;
                         }
                         .dash-metric-title {
-                            margin: 0; font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;
+                            margin: 0; font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;
                         }
                         .dash-metric-value {
-                            font-size: 2rem; font-weight: 800; margin: 4px 0 0 0; color: #1e293b;
+                            font-size: 2rem; font-weight: 800; margin: 4px 0 0 0; color: var(--text-primary);
                         }
                         .dash-bg-circle {
                             position: absolute; right: -20px; top: -20px;
@@ -1037,13 +1040,13 @@
                             <span class="material-icons">branding_watermark</span>
                             <span>Site Logo / இணையதள சின்னம்</span>
                         </div>
-                        <p style="font-size:13px; color:#555; margin-bottom:20px; line-height:1.5; padding-bottom:15px; border-bottom: 1px solid #f0f0f0;" id="logo-desc-lbl">
+                        <p style="font-size:13px; color:var(--text-primary); margin-bottom:20px; line-height:1.5; padding-bottom:15px; border-bottom: 1px solid #f0f0f0;" id="logo-desc-lbl">
                             Enhance your website's branding. Upload a custom logo to display beautifully across the website header and footer. If no logo is selected, the platform seamlessly falls back to the default sanctuary icon.
                         </p>
                         
                         <div class="form-group" style="margin-bottom:24px;">
-                            <label class="form-label" style="font-weight:600; color:#333; margin-bottom:10px; display:block;">Select Upload Method</label>
-                            <div class="logo-toggle-container" style="background:#f4f4f5; padding:6px; border-radius:12px; display:inline-flex; gap:6px; box-shadow:inset 0 2px 4px rgba(0,0,0,0.02);">
+                            <label class="form-label" style="font-weight:600; color:var(--text-primary); margin-bottom:10px; display:block;">Select Upload Method</label>
+                            <div class="logo-toggle-container" style="background:var(--bg-card); padding:6px; border-radius:12px; display:inline-flex; gap:6px; box-shadow:inset 0 2px 4px rgba(0,0,0,0.02);">
                                 <input type="radio" id="logo-file-radio" name="logo-source-type" value="file" class="logo-toggle-input" checked onchange="toggleLogoSource()">
                                 <label for="logo-file-radio" class="toggle-btn-ui" id="logo-method-file-lbl">
                                     <span class="material-icons" style="font-size:18px; margin-right:6px;">upload_file</span>
@@ -1064,7 +1067,7 @@
                                     cursor: pointer;
                                     font-weight: 600;
                                     font-size: 14px;
-                                    color: #666;
+                                    color: var(--text-secondary);
                                     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                                     display: flex;
                                     align-items: center;
@@ -1084,25 +1087,25 @@
                             </style>
                         </div>
 
-                        <div id="logo-file-section" style="background:#fafafa; border-radius:12px; padding:20px; border:1px solid #eee;">
+                        <div id="logo-file-section" style="background:#fafafa; border-radius:12px; padding:20px; border:1px solid var(--border-glass);">
                             <div style="display:flex; justify-content:space-between; margin-bottom:12px; align-items:flex-end;">
-                                <label class="form-label" style="font-weight:600; color:#333; margin:0;">Upload Image</label>
-                                <span id="logo-support-lbl" style="font-size:12px; color:#888; background:#fff; padding:4px 10px; border-radius:20px; border:1px solid #ddd;">Supports PNG, JPG, JPEG (Max: 5MB)</span>
+                                <label class="form-label" style="font-weight:600; color:var(--text-primary); margin:0;">Upload Image</label>
+                                <span id="logo-support-lbl" style="font-size:12px; color:#888; background:var(--bg-card); padding:4px 10px; border-radius:20px; border:1px solid var(--border-glass);">Supports PNG, JPG, JPEG (Max: 5MB)</span>
                             </div>
                             
                             <div style="display:flex; gap:20px; align-items:stretch; flex-wrap:wrap;">
                                 <div style="flex-grow: 1; min-width: 250px;">
-                                    <div class="file-upload-wrapper" style="height:100%; min-height: 140px; position:relative; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff;" onmouseover="this.style.borderColor='var(--primary)'; this.style.backgroundColor='#f3e8ff';" onmouseout="this.style.borderColor='#cbd5e1'; this.style.backgroundColor='#fff';">
+                                    <div class="file-upload-wrapper" style="height:100%; min-height: 140px; position:relative; border: 2px dashed var(--border-glass); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card);" onmouseover="this.style.borderColor='var(--primary)'; this.style.backgroundColor='#f3e8ff';" onmouseout="this.style.borderColor='#cbd5e1'; this.style.backgroundColor='#fff';">
                                         <input type="file" id="logo-file-picker" accept="image/png, image/jpeg, image/jpg" style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; cursor:pointer; z-index:1;" onchange="handleLogoFileSelect(event)">
                                         <div style="width:50px; height:50px; border-radius:50%; background:#f3e8ff; display:flex; align-items:center; justify-content:center; margin-bottom:12px; color:var(--primary);">
                                             <span class="material-icons" style="font-size: 28px;">cloud_upload</span>
                                         </div>
-                                        <p id="logo-drop-text" style="margin:0; font-size: 14px; color: #475569; font-weight:500;">Click to browse or drag and drop image</p>
+                                        <p id="logo-drop-text" style="margin:0; font-size: 14px; color: var(--text-secondary); font-weight:500;">Click to browse or drag and drop image</p>
                                     </div>
                                 </div>
                                 <div style="width: 130px; display:flex; flex-direction:column; align-items:center; gap:8px;">
-                                    <span id="logo-live-preview-lbl" style="font-size:13px; font-weight:600; color:#475569;">Live Preview</span>
-                                    <div style="position:relative; width:100px; height:100px; border-radius:16px; border:2px solid #e2e8f0; display:flex; align-items:center; justify-content:center; background:#ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition:all 0.3s ease;">
+                                    <span id="logo-live-preview-lbl" style="font-size:13px; font-weight:600; color:var(--text-secondary);">Live Preview</span>
+                                    <div style="position:relative; width:100px; height:100px; border-radius:16px; border:2px solid var(--border-glass); display:flex; align-items:center; justify-content:center; background:var(--bg-card); box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition:all 0.3s ease;">
                                         <span id="logo-default-emoji" style="font-size:40px; opacity:0.7;">⛪</span>
                                         <img loading="lazy" id="logo-preview-img" src="" style="display:none; max-width:85%; max-height:85%; border-radius:8px; object-fit:contain;">
                                         
@@ -1115,12 +1118,12 @@
                             </div>
                         </div>
                         
-                        <div id="logo-url-section" style="display:none; background:#fafafa; border-radius:12px; padding:20px; border:1px solid #eee;">
+                        <div id="logo-url-section" style="display:none; background:#fafafa; border-radius:12px; padding:20px; border:1px solid var(--border-glass);">
                             <div class="form-group" style="margin:0;">
-                                <label class="form-label" style="font-weight:600; color:#333;">Image URL</label>
+                                <label class="form-label" style="font-weight:600; color:var(--text-primary);">Image URL</label>
                                 <div style="display:flex; gap:10px; align-items:center;">
-                                    <input type="url" id="set-logoUrl" class="form-control" style="flex-grow:1; border-color:#ddd;" placeholder="https://example.com/logo.png" oninput="updateLogoPreview()">
-                                    <div style="width: 50px; height: 50px; border-radius: 8px; border:1px solid #ddd; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                    <input type="url" id="set-logoUrl" class="form-control" style="flex-grow:1; border-color:var(--border-glass);" placeholder="https://example.com/logo.png" oninput="updateLogoPreview()">
+                                    <div style="width: 50px; height: 50px; border-radius: 8px; border:1px solid var(--border-glass); background:var(--bg-card); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
                                         <img loading="lazy" id="logo-url-preview-img" src="" style="display:none; max-width:80%; max-height:80%; object-fit:contain;">
                                         <span id="logo-url-default-emoji" style="font-size:24px; opacity:0.5;">🖼️</span>
                                     </div>
@@ -1212,8 +1215,19 @@
                             <span id="mass-list-title">தற்போதைய திருப்பலிகள்</span>
                         </div>
                         <div class="crud-list" id="admin-masses-list">
-                            <!-- Mass list loaded here -->
-                        </div>
+                            <div class="crud-item" style="border:1px solid var(--border-glass);">
+                                <div class="crud-info" style="width:100%;">
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 60%;"></div>
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 40%; height:14px; margin-bottom:0;"></div>
+                                </div>
+                            </div>
+                            <div class="crud-item" style="border:1px solid var(--border-glass);">
+                                <div class="crud-info" style="width:100%;">
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 50%;"></div>
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 30%; height:14px; margin-bottom:0;"></div>
+                                </div>
+                            </div>
+</div>
                     </div>
                 </div>
             </div>
@@ -1277,8 +1291,19 @@
                             <span id="notice-list-title">வெளியிடப்பட்ட அறிவிப்புகள்</span>
                         </div>
                         <div class="crud-list" id="admin-notices-list">
-                            <!-- Notice list loaded here -->
-                        </div>
+                            <div class="crud-item" style="border:1px solid var(--border-glass);">
+                                <div class="crud-info" style="width:100%;">
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 60%;"></div>
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 40%; height:14px; margin-bottom:0;"></div>
+                                </div>
+                            </div>
+                            <div class="crud-item" style="border:1px solid var(--border-glass);">
+                                <div class="crud-info" style="width:100%;">
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 50%;"></div>
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 30%; height:14px; margin-bottom:0;"></div>
+                                </div>
+                            </div>
+</div>
                     </div>
                 </div>
             </div>
@@ -1334,8 +1359,19 @@
                             <span id="timeline-list-title">வரலாற்று மைல்கற்கள்</span>
                         </div>
                         <div class="crud-list" id="admin-timeline-list">
-                            <!-- Timeline events loaded here -->
-                        </div>
+                            <div class="crud-item" style="border:1px solid var(--border-glass);">
+                                <div class="crud-info" style="width:100%;">
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 60%;"></div>
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 40%; height:14px; margin-bottom:0;"></div>
+                                </div>
+                            </div>
+                            <div class="crud-item" style="border:1px solid var(--border-glass);">
+                                <div class="crud-info" style="width:100%;">
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 50%;"></div>
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 30%; height:14px; margin-bottom:0;"></div>
+                                </div>
+                            </div>
+</div>
                     </div>
                 </div>
             </div>
@@ -1411,7 +1447,7 @@
                                 <div style="display:flex; align-items:center; gap:10px; min-width:0;">
                                     <span class="material-icons">list_alt</span>
                                     <div style="display:flex; flex-direction:column; gap:4px;">
-                                        <h2 id="cp-list-title" style="margin:0; font-size:1.1rem; font-weight:700; color:#1e293b;">கத்தோலிக்க செபங்கள் பட்டியல்</h2>
+                                        <h2 id="cp-list-title" style="margin:0; font-size:1.1rem; font-weight:700; color:var(--text-primary);">கத்தோலிக்க செபங்கள் பட்டியல்</h2>
                                         <div id="cp-summary-badges" style="display:flex; gap:8px;"></div>
                                     </div>
                                 </div>
@@ -1429,8 +1465,19 @@
                         </div>
                         <div class="card-body" style="padding-top:16px;">
                             <div class="admin-list-container" id="admin-catholic-prayers-list" style="max-height:600px; overflow-y:auto; overflow-x: auto;">
-                                <!-- Populated by JS -->
+                            <div class="crud-item" style="border:1px solid var(--border-glass);">
+                                <div class="crud-info" style="width:100%;">
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 60%;"></div>
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 40%; height:14px; margin-bottom:0;"></div>
+                                </div>
                             </div>
+                            <div class="crud-item" style="border:1px solid var(--border-glass);">
+                                <div class="crud-info" style="width:100%;">
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 50%;"></div>
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 30%; height:14px; margin-bottom:0;"></div>
+                                </div>
+                            </div>
+</div>
                         </div>
                     </div>
                 </div>
@@ -1444,8 +1491,19 @@
                         <span id="prayer-title-card-lbl">மக்களின் செப வேண்டுதல்கள்</span>
                     </div>
                     <div class="crud-list" id="admin-prayers-list">
-                        <!-- Prayer requests will load here -->
-                    </div>
+                            <div class="crud-item" style="border:1px solid var(--border-glass);">
+                                <div class="crud-info" style="width:100%;">
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 60%;"></div>
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 40%; height:14px; margin-bottom:0;"></div>
+                                </div>
+                            </div>
+                            <div class="crud-item" style="border:1px solid var(--border-glass);">
+                                <div class="crud-info" style="width:100%;">
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 50%;"></div>
+                                    <div class="sac-skeleton sac-skeleton-text" style="width: 30%; height:14px; margin-bottom:0;"></div>
+                                </div>
+                            </div>
+</div>
                 </div>
             </div>
 
@@ -1539,8 +1597,11 @@
                             <span id="gallery-list-title">தற்போதைய புகைப்படங்கள்</span>
                         </div>
                         <div class="crud-list" id="admin-gallery-list" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; padding: 10px 0;">
-                            <!-- Gallery items loaded here -->
-                        </div>
+                            <div class="sac-skeleton sac-skeleton-card"></div>
+                            <div class="sac-skeleton sac-skeleton-card"></div>
+                            <div class="sac-skeleton sac-skeleton-card"></div>
+                            <div class="sac-skeleton sac-skeleton-card"></div>
+</div>
                     </div>
                 </div>
             </div>
@@ -1681,8 +1742,8 @@
                             <span class="material-icons">bar_chart</span>
                             <span id="visitor-stats-title">பார்வையாளர் புள்ளிவிவரங்கள் (Analytics)</span>
                         </div>
-                        <div style="text-align: center; padding: 40px 20px; background: #f8fafc; border-radius: 12px; margin-bottom: 20px;">
-                            <div style="font-size: 1.1rem; color: #64748b; font-weight: 600; margin-bottom: 10px;">Total Unique Visits</div>
+                        <div style="text-align: center; padding: 40px 20px; background: var(--bg-glass); border-radius: 12px; margin-bottom: 20px;">
+                            <div style="font-size: 1.1rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 10px;">Total Unique Visits</div>
                             <div id="visitor-total-count" style="font-size: 4rem; font-weight: 800; color: var(--primary); line-height: 1; letter-spacing: -2px;">0</div>
                         </div>
                         

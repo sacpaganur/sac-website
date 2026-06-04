@@ -71,7 +71,7 @@
 
 .schedule-quick-chip:hover {
   color: var(--primary);
-  background: #fff;
+  background: var(--bg-card);
   transform: translateY(-2px);
 }
 
@@ -312,7 +312,7 @@ body:lang(ta) .schedule-cta-copy p {
   font-size: 0.9rem;
   font-weight: 800;
   color: var(--primary);
-  background: #fff;
+  background: var(--bg-card);
   text-decoration: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   flex-shrink: 0;

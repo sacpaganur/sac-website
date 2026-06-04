@@ -8,7 +8,7 @@ body {
     display: flex;
     height: calc(100vh - 72px);
     margin-top: 72px;
-    background: #f8fafc;
+    background: var(--bg-glass);
     align-items: stretch;
     overflow: hidden;
     /* Prevent ANY body scrolling */
@@ -19,7 +19,7 @@ body {
     flex: 6;
     display: flex;
     flex-direction: column;
-    background: white;
+    background: var(--bg-card);
     border-right: 1px solid #e2e8f0;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
     z-index: 10;
@@ -108,8 +108,8 @@ body {
     left: 0;
     width: 100%;
     min-width: max-content;
-    background: white;
-    border: 1px solid #e2e8f0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     z-index: 100;
@@ -134,7 +134,7 @@ body {
     color: #94a3b8;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    background: #f8fafc;
+    background: var(--bg-glass);
     border-bottom: 1px solid #e2e8f0;
     border-top: 1px solid #e2e8f0;
 }
@@ -148,13 +148,13 @@ body {
 .sac-select-option {
     padding: 10px 18px;
     font-size: 1rem;
-    color: #334155;
+    color: var(--text-secondary);
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
 
 .sac-select-option:hover {
-    background: #f1f5f9;
+    background: var(--bg-glass);
 }
 
 .sac-select-option.selected {
@@ -198,7 +198,7 @@ body {
 }
 
 .verse-row:hover {
-    background: #f8fafc;
+    background: var(--bg-glass);
 }
 
 .verse-number {
@@ -213,7 +213,7 @@ body {
 .verse-text {
     font-size: 1.15rem;
     line-height: 1.8;
-    color: #1e293b;
+    color: var(--text-primary);
     font-family: 'Noto Sans Tamil', 'Inter', sans-serif;
 }
 
@@ -223,14 +223,14 @@ body {
     align-items: center;
     justify-content: center;
     height: 300px;
-    color: #64748b;
+    color: var(--text-secondary);
     gap: 16px;
 }
 
 .bible-spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid #e2e8f0;
+    border: 3px solid var(--border-glass);
     border-top-color: var(--primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -247,7 +247,7 @@ body {
     flex: 4;
     display: flex;
     flex-direction: column;
-    background: #f8fafc;
+    background: var(--bg-glass);
     height: 100%;
     border-left: 1px solid #e2e8f0;
     box-shadow: -4px 0 15px rgba(0, 0, 0, 0.03);
@@ -297,7 +297,7 @@ body {
 
 .ai-panel-footer {
     padding: 20px 30px;
-    background: white;
+    background: var(--bg-card);
     border-top: 1px solid #e2e8f0;
 }
 

@@ -21,7 +21,7 @@
 }
 
 .event-modal-content {
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 32px;
   width: 100%;
   max-width: 440px;
@@ -66,7 +66,7 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  background: white;
+  background: var(--bg-card);
   border: 1px solid rgba(0,0,0,0.05);
   width: 36px;
   height: 36px;
@@ -99,7 +99,7 @@
 .event-modal-icon {
   width: 72px;
   height: 72px;
-  background: white;
+  background: var(--bg-card);
   border-radius: 50%;
   display: flex;
   align-items: center;

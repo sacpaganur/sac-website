@@ -1,3 +1,75 @@
+/**
+ * SYSTEM-AWARE DARK MODE MANAGER
+ * Executes immediately to prevent theme flickering.
+ */
+window.SAC_THEME = {
+    init() {
+        let savedTheme = null;
+        try {
+            savedTheme = localStorage.getItem('sac_theme');
+        } catch (e) {
+            console.warn("[SAC_THEME] localStorage access blocked:", e);
+        }
+        
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Determine initial theme
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark.matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+
+        // Listen for OS-level theme changes in real-time
+        prefersDark.addEventListener('change', (e) => {
+            let hasSavedTheme = false;
+            try {
+                hasSavedTheme = !!localStorage.getItem('sac_theme');
+            } catch (err) {}
+            
+            if (!hasSavedTheme) {
+                document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                this.updateToggleIcon(e.matches ? 'dark' : 'light');
+            }
+        });
+    },
+
+    toggle() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const newTheme = current === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        
+        try {
+            localStorage.setItem('sac_theme', newTheme);
+        } catch (e) {
+            console.warn("[SAC_THEME] localStorage save blocked:", e);
+        }
+        
+        this.updateToggleIcon(newTheme);
+    },
+
+    updateToggleIcon(theme) {
+        // Find both desktop and mobile toggle icons if they exist
+        const toggles = document.querySelectorAll('.theme-toggle-icon');
+        toggles.forEach(icon => {
+            icon.innerText = theme === 'dark' ? 'light_mode' : 'dark_mode';
+            
+            // Add subtle spin animation on click
+            icon.style.transform = 'rotate(180deg)';
+            setTimeout(() => icon.style.transform = 'none', 300);
+        });
+    }
+};
+
+// Initialize immediately before DOM content loads
+SAC_THEME.init();
+
+// Ensure the icon matches the initial theme after navbar is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    SAC_THEME.updateToggleIcon(document.documentElement.getAttribute('data-theme') || 'light');
+});
+
 // Toast Notification System
 window.showToast = function(message, type = 'success') {
     let container = document.getElementById('toast-container');
@@ -30,17 +102,7 @@ window.showToast = function(message, type = 'success') {
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
   const loaderHTML = `
-    <style id="sac-loader-scroll">body { overflow: hidden !important; }</style>\n    <div id="sac-global-loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-glass, rgba(255,255,255,0.95)); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;">
-      <div style="position:relative; width:70px; height:70px;">
-        <div style="position:absolute; width:100%; height:100%; border:3px solid var(--border-glass, #f3f4f6); border-top-color:var(--primary, #8b5cf6); border-radius:50%; animation:sacSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;"></div>
-        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:1.6rem; opacity:0.8;">⛪</div>
-      </div>
-      <div style="margin-top:20px; font-weight:800; color:var(--primary, #8b5cf6); letter-spacing:2px; font-size: 0.9rem; font-family:'Inter', sans-serif; animation:sacPulse 1.5s ease-in-out infinite;">LOADING</div>
-      <style>
-        @keyframes sacSpin { to { transform: rotate(360deg); } }
-        @keyframes sacPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-      </style>
-    </div>
+    <div id="sac-global-loader" style="position:fixed; top:0; left:0; width:0%; height:4px; background:var(--primary, #4338ca); z-index:999999; box-shadow: 0 0 10px var(--primary, #4338ca); transition: width 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;"></div>
   `;
 
   const loaderStartTime = Date.now();
@@ -93,6 +155,13 @@ window.showToast = function(message, type = 'success') {
 
   // Intercept navigation links to show loader
   document.addEventListener('click', (e) => {
+    // Theme Toggle Delegation
+    const themeBtn = e.target.closest('.theme-toggle-icon');
+    if (themeBtn && window.SAC_THEME) {
+        window.SAC_THEME.toggle();
+        return;
+    }
+
     const link = e.target.closest('a');
     if (!link) return;
     const href = link.getAttribute('href');
@@ -109,16 +178,16 @@ window.showToast = function(message, type = 'success') {
         loader = document.getElementById('sac-global-loader');
       }
 
-      // Start hidden to avoid harsh flash
-      document.body.style.overflow = 'hidden'; // Disable scrolling
+      // Start progress bar animation
       loader.style.transition = 'none';
-      loader.style.opacity = '0';
+      loader.style.opacity = '1';
       loader.style.visibility = 'visible';
+      loader.style.width = '0%';
 
       // Force reflow
       void loader.offsetWidth;
-      loader.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
-      loader.style.opacity = '1';
+      loader.style.transition = 'width 10s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 0.3s ease, visibility 0.3s ease';
+      loader.style.width = '80%'; // Fake load up to 80%
 
       window.location.href = href;
     }
@@ -1452,3 +1521,53 @@ const SAC_COMMON = {
     });
   }
 };
+
+
+/* --- ADVANCED CSS BACKGROUND LAZY LOADING --- */
+document.addEventListener("DOMContentLoaded", () => {
+    const lazyBackgrounds = document.querySelectorAll('.lazy-bg');
+    if ('IntersectionObserver' in window) {
+        const bgObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const lazyBg = entry.target;
+                    const bgUrl = lazyBg.getAttribute('data-bg');
+                    if (bgUrl) {
+                        lazyBg.style.backgroundImage = `url('${bgUrl}')`;
+                        lazyBg.classList.add('bg-loaded');
+                    }
+                    observer.unobserve(lazyBg);
+                }
+            });
+        }, { rootMargin: "200px 0px" }); // Preload slightly before it enters viewport
+
+        lazyBackgrounds.forEach(bg => bgObserver.observe(bg));
+    } else {
+        // Fallback for older browsers
+        lazyBackgrounds.forEach(lazyBg => {
+            const bgUrl = lazyBg.getAttribute('data-bg');
+            if (bgUrl) lazyBg.style.backgroundImage = `url('${bgUrl}')`;
+        });
+    }
+});
+
+/* --- SCROLL REVEAL ANIMATION ENGINE --- */
+document.addEventListener("DOMContentLoaded", () => {
+    const revealElements = document.querySelectorAll('.reveal-base');
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    // Optional: stop observing once revealed so it doesn't animate out and in repeatedly
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: "0px 0px -50px 0px", threshold: 0.1 }); // Trigger slightly before fully in view
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+        // Fallback for older browsers
+        revealElements.forEach(el => el.classList.add('revealed'));
+    }
+});

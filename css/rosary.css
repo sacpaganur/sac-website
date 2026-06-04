@@ -3,8 +3,8 @@
    ======================================================== */
 
 body.rosary-light-theme {
-  background-color: #f8fafc; /* Light slate background */
-  color: #1e293b;
+  background-color: var(--bg-glass); /* Light slate background */
+  color: var(--text-primary);
   overflow-x: hidden;
 }
 
@@ -63,7 +63,7 @@ body.rosary-light-theme {
 
 .rosary-progress {
   font-size: 0.9rem;
-  color: #64748b;
+  color: var(--text-secondary);
   font-weight: 600;
 }
 
@@ -80,7 +80,7 @@ body.rosary-light-theme {
   min-height: 400px;
   position: relative;
   border-radius: 30px;
-  background: #ffffff;
+  background: var(--bg-card);
   border: 1px solid rgba(139, 92, 246, 0.1);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   padding: 40px 24px;
@@ -168,7 +168,7 @@ body.rosary-light-theme {
   font-size: clamp(1.2rem, 4vw, 1.6rem);
   line-height: 1.6;
   font-weight: 500;
-  color: #334155;
+  color: var(--text-secondary);
   margin-bottom: 24px;
   font-family: 'Lora', serif;
   transition: opacity 0.3s ease;
@@ -201,9 +201,9 @@ body:lang(ta) .prayer-content {
 }
 
 .rosary-btn {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  color: #64748b;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -216,7 +216,7 @@ body:lang(ta) .prayer-content {
 }
 
 .rosary-btn:hover {
-  background: #f8fafc;
+  background: var(--bg-glass);
   transform: scale(1.05);
   color: #4c1d95;
 }

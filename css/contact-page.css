@@ -179,7 +179,7 @@ body:lang(ta) .contact-panel-title {
 }
 
 .contact-reach-item:hover {
-  background: #fff;
+  background: var(--bg-card);
   transform: translateX(4px);
 }
 
@@ -299,7 +299,7 @@ body:lang(ta) .contact-panel-title {
   overflow: hidden;
   border: 1px solid var(--border-glass);
   box-shadow: 0 12px 36px hsla(265, 35%, 40%, 0.08);
-  background: #fff;
+  background: var(--bg-card);
 }
 
 .contact-map-head {
@@ -329,7 +329,7 @@ body:lang(ta) .contact-panel-title {
   text-decoration: none;
   padding: 6px 12px;
   border-radius: 100px;
-  background: #fff;
+  background: var(--bg-card);
   border: 1px solid var(--border-glass);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -423,7 +423,7 @@ body:lang(ta) .contact-form-note {
 }
 
 .contact-form-panel .form-control:focus {
-  background: #fff !important;
+  background: var(--bg-card) !important;
   border-color: hsl(265, 60%, 55%) !important;
   box-shadow: 0 0 0 4px hsla(265, 60%, 55%, 0.12) !important;
 }

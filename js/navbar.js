@@ -79,6 +79,7 @@ window.SAC_NAVBAR = {
             <!-- Language and Mobile Menu Buttons -->
             <div class="navbar-actions" id="nav-actions-container">
                 <button class="btn-lang" id="lang-toggle">ENG</button>
+                <button class="btn-theme theme-toggle-icon material-icons" style="background:none; border:none; cursor:pointer; color:var(--text-primary); font-size:1.3rem; display:flex; align-items:center; transition: transform 0.3s ease;">dark_mode</button>
                 <button class="btn-mobile-menu" id="mobile-menu-trigger">
                     <span class="material-icons">menu</span>
                 </button>
@@ -94,7 +95,10 @@ window.SAC_NAVBAR = {
                     <span class="material-icons" style="color:var(--primary); font-size:1.5rem;">menu_open</span>
                     <span style="font-weight:700; color:var(--text-primary); font-size:1.1rem; letter-spacing:0.5px;">MENU</span>
                 </div>
-                <button class="btn-lang drawer-lang-toggle">ENG</button>
+                <div style="display:flex; align-items:center;">
+                    <button class="btn-lang drawer-lang-toggle">ENG</button>
+                    <button class="btn-theme theme-toggle-icon material-icons" style="background:none; border:none; cursor:pointer; color:var(--text-primary); font-size:1.5rem; display:flex; align-items:center; transition: transform 0.3s ease; margin-left:12px;">dark_mode</button>
+                </div>
             </div>
             <div class="drawer-links-container">
                 ${mobileLinks}

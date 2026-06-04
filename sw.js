@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v17';
+const CACHE_NAME = 'sac-pwa-cache-v27';
 const ASSETS_TO_CACHE = [
   './',
   './bible',
@@ -10,6 +10,7 @@ const ASSETS_TO_CACHE = [
   './notices',
   './schedule',
   './sac-admin-portal',
+  './css/dark-overrides.css',
   './css/style.css',
   './css/bible-page.css',
   './css/calendar.css',
@@ -136,7 +137,28 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // --- Strategy 2: Stale-While-Revalidate for large, static media (Images, Fonts, etc.) ---
+  
+  const isImage = event.request.url.match(/\.(png|jpg|jpeg|gif|webp|svg)$/i);
+
+  // --- Strategy 2: Cache-First for Images ---
+  // If it's in the cache, return it immediately without hitting the network.
+  if (isImage) {
+    event.respondWith(
+      caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
+        if (cachedResponse) return cachedResponse;
+        return fetch(event.request).then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(cleanUrl, responseToCache));
+          }
+          return networkResponse;
+        });
+      })
+    );
+    return;
+  }
+
+  // --- Strategy 3: Stale-While-Revalidate for other static media (Fonts, API JSON, etc.) ---
   // Instant load from cache first, then update cache in background.
   event.respondWith(
     caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {

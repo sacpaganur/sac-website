@@ -246,8 +246,8 @@
 
 .sac-msg.ai {
   align-self: flex-start;
-  background: #f1f5f9;
-  color: #334155;
+  background: var(--bg-glass);
+  color: var(--text-secondary);
   border-bottom-left-radius: 4px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
@@ -264,7 +264,7 @@
 
 .sac-typing-indicator {
   align-self: flex-start;
-  background: #f1f5f9;
+  background: var(--bg-glass);
   padding: 12px 16px;
   border-radius: 18px;
   border-bottom-left-radius: 4px;
@@ -293,7 +293,7 @@
 /* Input Area */
 .sac-ai-footer {
   padding: 8px 12px;
-  background: white;
+  background: var(--bg-card);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   gap: 8px;
@@ -302,8 +302,8 @@
 
 .sac-ai-input-wrap {
   flex-grow: 1;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
   border-radius: 24px;
   padding: 4px 4px 4px 12px;
   display: flex;
@@ -314,7 +314,7 @@
 
 .sac-ai-input-wrap:focus-within {
   border-color: var(--ai-secondary);
-  background: white;
+  background: var(--bg-card);
 }
 
 .sac-ai-lang-btn {
@@ -324,7 +324,7 @@
   padding: 6px 10px;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #334155;
+  color: var(--text-secondary);
   cursor: pointer;
   margin-right: 10px;
   transition: all 0.2s;
@@ -378,8 +378,8 @@
 }
 
 .sac-btn-mic {
-  background: #f1f5f9;
-  color: #64748b;
+  background: var(--bg-glass);
+  color: var(--text-secondary);
 }
 
 .sac-btn-mic:hover {

@@ -25,6 +25,9 @@
     <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     <link rel="icon" type="image/jpeg" href="images/church_logo.jpg">
+
+    <!-- Exhaustive Dark Mode Overrides -->
+    <link rel="stylesheet" href="css/dark-overrides.css?v=1.0">
 </head>
 
 <body>
@@ -254,10 +257,9 @@
             </style>
             
             <div class="prayers-grid" id="prayers-container">
-                <!-- Skeletons -->
-                <div class="prayer-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
-                <div class="prayer-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
-                <div class="prayer-card"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text"></div></div>
+                <div class="sac-skeleton sac-skeleton-card" style="height: 200px; margin-bottom: 20px;"></div>
+                <div class="sac-skeleton sac-skeleton-card" style="height: 200px; margin-bottom: 20px;"></div>
+                <div class="sac-skeleton sac-skeleton-card" style="height: 200px; margin-bottom: 20px;"></div>
             </div>
         </section>
     </main>

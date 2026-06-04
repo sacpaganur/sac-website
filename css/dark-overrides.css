@@ -1,0 +1,118 @@
+
+/* ============================================================
+   EXHAUSTIVE GLOBAL DARK MODE OVERRIDES
+   Ensures complete dark theme integration across all components.
+   ============================================================ */
+
+/* --- MAJOR SECTIONS --- */
+html[data-theme="dark"] body,
+html[data-theme="dark"] .patron-vision-section,
+html[data-theme="dark"] .legacy-page,
+html[data-theme="dark"] .contact-section,
+html[data-theme="dark"] .bible-viewer-container,
+html[data-theme="dark"] .rosary-container,
+html[data-theme="dark"] .schedule-grid,
+html[data-theme="dark"] .gallery-grid,
+html[data-theme="dark"] .prayers-grid,
+html[data-theme="dark"] .notices-grid,
+html[data-theme="dark"] .sacraments-section,
+html[data-theme="dark"] .footer-wrapper,
+html[data-theme="dark"] .site-footer {
+    background: var(--bg-light) !important;
+    background-color: var(--bg-light) !important;
+    color: var(--text-primary) !important;
+}
+
+/* --- CARDS & PANELS --- */
+html[data-theme="dark"] .admin-card,
+html[data-theme="dark"] .admin-login-card-fixed,
+html[data-theme="dark"] .admin-sidebar,
+html[data-theme="dark"] .admin-header,
+html[data-theme="dark"] .prayer-card,
+html[data-theme="dark"] .devotion-card,
+html[data-theme="dark"] .notice-card,
+html[data-theme="dark"] .sched-card,
+html[data-theme="dark"] .gallery-card,
+html[data-theme="dark"] .worship-card,
+html[data-theme="dark"] .staff-card,
+html[data-theme="dark"] .summary-card,
+html[data-theme="dark"] .nav-dropdown,
+html[data-theme="dark"] .mobile-drawer .drawer-content,
+html[data-theme="dark"] .event-modal-content,
+html[data-theme="dark"] .event-modal-header,
+html[data-theme="dark"] .event-modal-footer,
+html[data-theme="dark"] .sac-toast,
+html[data-theme="dark"] .patron-vision-content,
+html[data-theme="dark"] .office-card {
+    background: var(--bg-card) !important;
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-glass) !important;
+    color: var(--text-primary) !important;
+}
+
+/* --- BUTTONS & HOVER STATES --- */
+html[data-theme="dark"] .nav-dropdown a:hover,
+html[data-theme="dark"] .footer-contact-chip:hover,
+html[data-theme="dark"] .drawer-links a:hover,
+html[data-theme="dark"] .btn-outline:hover,
+html[data-theme="dark"] .btn-ghost:hover,
+html[data-theme="dark"] .prayer-card:hover,
+html[data-theme="dark"] .notice-card:hover,
+html[data-theme="dark"] .sched-card:hover,
+html[data-theme="dark"] .office-card:hover {
+    background: var(--bg-glass) !important;
+    background-color: var(--bg-glass) !important;
+}
+
+/* --- SPECIFIC TEXT COLOR FIXES --- */
+html[data-theme="dark"] .notice-title,
+html[data-theme="dark"] .sched-card-title,
+html[data-theme="dark"] .prayer-title,
+html[data-theme="dark"] .admin-login-title,
+html[data-theme="dark"] .admin-login-subtitle,
+html[data-theme="dark"] .admin-card-title,
+html[data-theme="dark"] .office-card-title {
+    color: var(--text-primary) !important;
+}
+
+/* Specific secondary text overrides */
+html[data-theme="dark"] .footer-contact-item span,
+html[data-theme="dark"] .footer-info p,
+html[data-theme="dark"] .notice-meta span,
+html[data-theme="dark"] .sched-card-time,
+html[data-theme="dark"] .office-card-desc,
+html[data-theme="dark"] .prayer-card p,
+html[data-theme="dark"] .notice-card p {
+    color: var(--text-secondary) !important;
+}
+
+/* --- FORM ELEMENTS & INPUTS --- */
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select,
+html[data-theme="dark"] .form-control {
+    background: rgba(255, 255, 255, 0.05) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-glass) !important;
+}
+
+/* Ensure placeholder text is legible */
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: var(--text-secondary) !important;
+}
+
+/* Protect primary buttons and specific colorful elements from being overwritten */
+html[data-theme="dark"] .btn-primary,
+html[data-theme="dark"] .btn-accent,
+html[data-theme="dark"] .sac-skeleton {
+    color: #ffffff !important;
+}
+
+/* Footer bottom bar */
+html[data-theme="dark"] .footer-bottom,
+html[data-theme="dark"] .footer-copyright {
+    background: var(--bg-card) !important;
+    border-top-color: var(--border-glass) !important;
+}

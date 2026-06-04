@@ -387,6 +387,7 @@ const SAC_DATABASE = {
   },
 
   // Dynamic Firebase Initializer based on Admin Configuration
+  activeListeners: {},
   db: null,
   isFirebaseActive: false,
 

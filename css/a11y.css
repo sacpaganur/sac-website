@@ -52,7 +52,7 @@ body.a11y-high-contrast {
   --primary-glow: transparent !important;
   --accent-gold: #ffffff !important;
   --border-glass: #333333 !important;
-  background-color: #000000 !important;
+  background-color: var(--text-primary) !important;
   color: #ffffff !important;
 }
 
@@ -76,7 +76,7 @@ body.a11y-high-contrast .footer-wrapper {
 body.a11y-high-contrast .btn-portal,
 body.a11y-high-contrast .btn-admin {
   background: #facc15 !important;
-  color: #000000 !important;
+  color: var(--text-primary) !important;
   border: 2px solid #facc15 !important;
 }
 
@@ -248,7 +248,7 @@ body.a11y-high-contrast .btn-admin {
   left: 2px;
   width: 20px;
   height: 20px;
-  background: #fff;
+  background: var(--bg-card);
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   transition: transform 0.3s;

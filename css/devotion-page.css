@@ -710,7 +710,7 @@ body.modal-open {
     top: auto;
     left: 0;
     right: 0;
-    background: #ffffff;
+    background: var(--bg-card);
     border: 1px solid var(--border-glass);
     border-radius: 14px;
     box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
@@ -766,7 +766,7 @@ body.modal-open {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 4px var(--primary-glow);
-    background: #fff;
+    background: var(--bg-card);
 }
 
 /* Encouraging scripture display box */
