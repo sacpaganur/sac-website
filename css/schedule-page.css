@@ -81,7 +81,10 @@
 
 /* Section panels */
 .sched-panel {
-  margin-bottom: clamp(24px, 4vw, 32px);
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto clamp(24px, 4vw, 32px) auto;
+  box-sizing: border-box;
   padding: clamp(24px, 4vw, 32px);
   border-radius: 28px;
   background: hsla(0, 0%, 100%, 0.92);
@@ -205,11 +208,12 @@ body:lang(ta) .schedule-section-lead {
 /* Devotion cards */
 .devotion-cards-grid {
   gap: 16px !important;
+  grid-template-columns: repeat(2, 1fr) !important;
 }
 
 .devotion-card {
   border-radius: 22px !important;
-  padding: 26px !important;
+  padding: 20px !important;
 }
 
 .devotion-card-header {
@@ -231,12 +235,14 @@ body:lang(ta) .schedule-section-lead {
 
 .office-card {
   border-radius: 22px;
-  padding: 26px;
+  padding: 20px;
   background: hsla(0, 0%, 100%, 0.95);
   border: 1px solid var(--border-glass);
   box-shadow: 0 8px 24px hsla(265, 35%, 40%, 0.05);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   text-align: left;
   /* transform/box-shadow transition inherited from style.css — no !important */
 }
@@ -272,7 +278,10 @@ body:lang(ta) .schedule-section-lead {
 
 /* Bottom CTA */
 .schedule-cta {
-  margin-top: 8px;
+  width: 100%;
+  max-width: 1024px;
+  margin: 8px auto 0 auto;
+  box-sizing: border-box;
   padding: clamp(24px, 4vw, 32px);
   border-radius: 24px;
   background: var(--gradient-brand);
@@ -328,7 +337,7 @@ body:lang(ta) .sched-card-title,
 body:lang(ta) .devotion-card-title,
 body:lang(ta) .devotion-card-desc,
 body:lang(ta) .office-card-title,
-body:lang(ta) .office-card-desc {
+body:lang(ta) .office-card-desc { flex-grow: 1;
   font-family: var(--font-tamil), var(--font-primary);
   word-break: keep-all;
   overflow-wrap: normal;
@@ -528,4 +537,61 @@ body:lang(ta) .cal-multi-note {
     left: 18px;
     transform: translateX(0) rotate(45deg);
   }
+}
+/* Countdown Dynamic Classes */
+.countdown-unit-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  padding: 8px 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(139, 92, 246, 0.08), inset 0 2px 0 rgba(255,255,255,1);
+  min-width: 42px;
+  border: 1px solid rgba(139,92,246,0.15);
+}
+.countdown-unit-val {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #6d28d9;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.countdown-unit-label {
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+.countdown-unit-colon {
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-top: -12px;
+}
+
+/* Dark Mode Overrides for Schedule Elements */
+html[data-theme="dark"] .countdown-unit-box {
+  background: linear-gradient(180deg, hsla(265, 40%, 15%, 0.8) 0%, hsla(265, 40%, 10%, 0.8) 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255,255,255,0.05);
+  border-color: rgba(139, 92, 246, 0.25);
+}
+html[data-theme="dark"] .countdown-unit-val {
+  color: hsl(265, 85%, 75%);
+}
+html[data-theme="dark"] .countdown-unit-colon {
+  color: #475569;
+}
+html[data-theme="dark"] .devotion-badge.badge-novena {
+  background: hsla(280, 70%, 48%, 0.2);
+  color: hsl(275, 80%, 75%);
+}
+html[data-theme="dark"] .devotion-badge.badge-friday {
+  background: hsla(0, 70%, 50%, 0.2);
+  color: hsl(0, 80%, 75%);
+}
+html[data-theme="dark"] .devotion-badge.badge-feast {
+  background: hsla(35, 90%, 50%, 0.2);
+  color: hsl(35, 90%, 75%);
 }

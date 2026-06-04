@@ -18,9 +18,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Custom Light Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=1780319176039">
+    <link rel="stylesheet" href="css/style.css?v=1780568734331">
     <link rel="stylesheet" href="css/schedule-page.css?v=1780319176039">
-    <script defer  src="js/navbar.js?v=1780396868527"></script>
+    <script defer  src="js/navbar.js?v=1780553995003"></script>
 
     <!-- Performance Preconnects -->
     <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
@@ -64,8 +64,9 @@
     <link rel="icon" type="image/jpeg" href="images/church_logo.jpg">
 
     <!-- Exhaustive Dark Mode Overrides -->
-    <link rel="stylesheet" href="css/dark-overrides.css?v=1.0">
-</head>
+    <link rel="stylesheet" href="css/dark-overrides.css?v=1780568734331">
+
+    </head>
 
 <body>
     <!-- Global Page Loader -->
@@ -117,7 +118,7 @@
     <!-- Main Content -->
     <main class="main-wrapper schedule-page">
 
-        <section class="notices-hero-header">
+        <section class="notices-hero-header reveal-base reveal-up">
             <div class="notices-hero-inner">
                 <div class="notices-liturgical-badge">
                     <span>🕯️</span>
@@ -150,7 +151,7 @@
                     </div>
                 </div>
 
-                <section class="sched-panel sched-panel--mass" id="sched-mass-panel">
+                <section class="sched-panel sched-panel--mass reveal-base reveal-up" id="sched-mass-panel">
                     <div class="schedule-section-header">
                         <div class="schedule-section-badge badge-purple">
                             <span>🕯️</span>
@@ -170,7 +171,7 @@
                     </div>
                 </section>
 
-                <section class="sched-panel sched-panel--devotion" id="sched-devotion-panel">
+                <section class="sched-panel sched-panel--devotion reveal-base reveal-up" id="sched-devotion-panel">
                     <div class="schedule-section-header">
                         <div class="schedule-section-badge badge-gold">
                             <span>✨</span>
@@ -243,7 +244,7 @@
                     </div>
                 </section>
 
-                <section class="sched-panel sched-panel--office" id="sched-office-panel">
+                <section class="sched-panel sched-panel--office reveal-base reveal-up" id="sched-office-panel">
                     <div class="schedule-section-header">
                         <div class="schedule-section-badge badge-green">
                             <span>🏛️</span>
@@ -276,7 +277,7 @@
                     </div>
                 </section>
 
-                <section class="schedule-cta">
+                <section class="schedule-cta reveal-base reveal-up">
                     <div class="schedule-cta-copy">
                         <h3 id="schedule-cta-title" data-i18n="sched.ctaTitle">Questions about Mass or registrations?
                         </h3>
@@ -300,8 +301,8 @@
 
     <!-- Core Script dependencies -->
     <script src="js/database.js?v=1780396868527" defer></script>
-    <script src="js/footer.js?v=1780396868527" defer></script>
-    <script src="js/common.js?v=1780396868527" defer></script>
+    <script src="js/footer.js?v=1780553995003" defer></script>
+    <script src="js/common.js?v=1780553995003" defer></script>
     <script src="js/calendar-links.js?v=1780396868527" defer></script>
 
     <script>
@@ -450,12 +451,12 @@
                                 <span>${dayIcon}</span>
                                 ${day}
                             </div>
-                            <h4 class="sched-card-title" style="margin-bottom: 12px; min-height: 3.8em; display: flex; align-items: flex-start;">${title}</h4>
+                            <h4 class="sched-card-title" style="margin-bottom: 8px; ">${title}</h4>
                             <div class="sched-time-display">
                                 <span class="material-icons time-icon">schedule</span>
                                 ${formatTimeStacked(time)}
                             </div>
-                            <div class="mass-countdown-container" id="countdown-mass-${idx}" style="margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(139, 92, 246, 0.2); display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <div class="mass-countdown-container" id="countdown-mass-${idx}" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(139, 92, 246, 0.2); display: flex; flex-direction: column; align-items: center; gap: 10px;">
                                 <div style="display:flex; align-items:center; gap: 6px;" id="countdown-label-${idx}">
                                     <span class="material-icons" style="font-size:16px; color: #8b5cf6; animation: sacPulse 2s infinite;">timer</span>
                                     <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #64748b;">${isTa ? 'திருப்பலி தொடங்க' : 'Mass Starts In'}</span>
@@ -560,7 +561,7 @@
                     const s = Math.floor((diff % (1000 * 60)) / 1000);
 
                     // Formatter for sleek bright block widget style
-                    const fmt = (val, label) => `<div style="display: flex; flex-direction: column; align-items: center; background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); padding: 8px 10px; border-radius: 10px; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.08), inset 0 2px 0 rgba(255,255,255,1); min-width: 42px; border: 1px solid rgba(139,92,246,0.15);"><span style="font-weight:800; font-size:1.2rem; color:#6d28d9; line-height:1; font-variant-numeric: tabular-nums;">${val < 10 ? '0'+val : val}</span><span style="font-size:0.55rem; font-weight:700; text-transform:uppercase; color:#94a3b8; margin-top:4px; letter-spacing: 0.5px;">${label}</span></div>`;
+                    const fmt = (val, label) => `<div class="countdown-unit-box"><span class="countdown-unit-val">${val < 10 ? '0'+val : val}</span><span class="countdown-unit-label">${label}</span></div>`;
 
                     let displayStr = "";
                     if (isTa) {
@@ -576,7 +577,7 @@
                     }
 
                     // Add subtle colon separators between units
-                    displayStr = displayStr.replace(/<\/div><div/g, '</div><span style="font-weight: 700; color: #cbd5e1; margin-top: -12px;">:</span><div');
+                    displayStr = displayStr.replace(/<\/div><div/g, '</div><span class="countdown-unit-colon">:</span><div');
 
                     textEl.innerHTML = displayStr;
                 });

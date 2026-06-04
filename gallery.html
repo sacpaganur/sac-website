@@ -14,9 +14,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <!-- Custom Light Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=1780319176039">
+    <link rel="stylesheet" href="css/style.css?v=1780568734319">
     <link rel="stylesheet" href="css/gallery-page.css?v=1780319176039">
-    <script defer  src="js/navbar.js?v=1780396868527"></script>
+    <script defer  src="js/navbar.js?v=1780553995003"></script>
 
     <!-- Performance Preconnects -->
     <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
@@ -38,8 +38,9 @@
     <link rel="icon" type="image/jpeg" href="images/church_logo.jpg">
 
     <!-- Exhaustive Dark Mode Overrides -->
-    <link rel="stylesheet" href="css/dark-overrides.css?v=1.0">
-</head>
+    <link rel="stylesheet" href="css/dark-overrides.css?v=1780568734319">
+
+    </head>
 <body>
     <!-- Global Page Loader -->
     <style id="sac-loader-scroll">body { overflow: hidden !important; }</style>
@@ -63,7 +64,7 @@
 
     <!-- Main Content wrapper -->
     <main class="main-wrapper">
-        <section class="notices-hero-header">
+        <section class="notices-hero-header reveal-base reveal-up">
             <div class="notices-hero-inner">
                 <div class="notices-liturgical-badge" id="gallery-hero-badge">
                     <span>📷</span>
@@ -81,7 +82,7 @@
         <div class="gallery-page-body">
             <div class="gallery-page-inner">
                 <!-- Current Trending -->
-                <section class="gallery-trending-section" id="gallery-trending-section" hidden>
+                <section class="gallery-trending-section reveal-base reveal-up" id="gallery-trending-section" hidden>
                     <div class="gallery-section-head">
                         <span class="gallery-trending-badge" id="gallery-trending-badge-label">🔥 தற்போதைய பிரபலம்</span>
                         <h2 class="gallery-section-title" id="gallery-trending-title">Current Trending</h2>
@@ -95,7 +96,7 @@
                 </div>
 
                 <!-- All photos grid -->
-                <section class="gallery-grid-section">
+                <section class="gallery-grid-section reveal-base reveal-up">
                     <div class="gallery-section-head">
                         <h2 class="gallery-section-title" id="gallery-all-title">அனைத்து புகைப்படங்கள்</h2>
                     </div>
@@ -139,8 +140,8 @@
 
     <!-- Core Script dependencies -->
     <script src="js/database.js?v=1780396868527" defer></script>
-    <script src="js/footer.js?v=1780396868527" defer></script>
-    <script src="js/common.js?v=1780396868527" defer></script>
+    <script src="js/footer.js?v=1780553995003" defer></script>
+    <script src="js/common.js?v=1780553995003" defer></script>
 
     <script>
         let galleryData = [];

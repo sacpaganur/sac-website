@@ -65,21 +65,70 @@ window.SAC_AI = {
     }
 
     // Initialize System Prompt based on current language
-    this._resetHistory();
+    await this._resetHistory();
     this._setupSpeechRecognition();
     
     this.isInitialized = true;
     return true;
   },
 
-  _getSystemInstruction(lang = null) {
-    const isTa = lang ? (lang === 'TA') : (window.SAC_COMMON?.currentLang === 'ta');
+  async _getSystemInstruction(lang = null) {
+    const isTa = lang ? (lang === 'TA') : (typeof window !== 'undefined' && window.SAC_COMMON && window.SAC_COMMON.currentLang === 'ta');
     const langInstruction = isTa ? "Respond primarily in Tamil." : "Respond primarily in English.";
-    return `You are an expert bilingual Catholic theologian and a digital Bible companion for St. Antony's Church, Vadakku Paganur (வடக்கு வடக்கு பாகனூர்). You must answer questions gracefully, accurately, and ONLY using Catholic theological context. When asked about Bible verses, quote the Catholic Bible. ${langInstruction} Keep responses concise, conversational, and formatted cleanly. NEVER include internal monologue, reasoning, self-correction, or parenthetical thoughts in your output. Provide ONLY the final direct response intended for the user.`;
+    
+    // RAG Implementation: Fetch live database context
+    let liveContext = "";
+    try {
+        if (typeof SAC_DATABASE !== 'undefined') {
+            const settings = await SAC_DATABASE.get("settings") || {};
+            liveContext += `--- SAC SETTINGS ---\n`;
+            liveContext += `Church Name: ${settings.churchNameEn || ''} / ${settings.churchNameTa || ''}\n`;
+            liveContext += `Location: ${settings.locationEn || ''} / ${settings.locationTa || ''}\n`;
+            liveContext += `Contact: ${settings.phone || ''} | ${settings.email || ''}\n`;
+            
+            let massSchedules = await SAC_DATABASE.get("mass_schedules") || [];
+            if (!Array.isArray(massSchedules)) massSchedules = Object.values(massSchedules);
+            const activeSchedules = massSchedules.filter(s => s && s.isActive !== false);
+            if (activeSchedules.length > 0) {
+                liveContext += `\n--- MASS TIMINGS ---\n`;
+                activeSchedules.forEach(s => {
+                    liveContext += `${s.dayEn || ''} / ${s.dayTa || ''}: ${s.time || ''} - ${s.typeEn || ''} / ${s.typeTa || ''}\n`;
+                });
+            }
+            
+            let notices = await SAC_DATABASE.get("announcements") || [];
+            if (!Array.isArray(notices)) notices = Object.values(notices);
+            const today = new Date().toISOString().split('T')[0];
+            const activeNotices = notices.filter(n => n && (!n.expiryDate || n.expiryDate >= today) && n.isActive !== false);
+            
+            if (activeNotices.length > 0) {
+                liveContext += `\n--- ACTIVE ANNOUNCEMENTS ---\n`;
+                activeNotices.forEach(n => {
+                    liveContext += `Title: ${n.titleEn || ''} / ${n.titleTa || ''}\n`;
+                    liveContext += `Content: ${n.contentEn || ''} / ${n.contentTa || ''}\n`;
+                    if (n.date) liveContext += `Date: ${n.date}\n`;
+                    liveContext += `-\n`;
+                });
+            }
+        }
+    } catch(e) {
+        console.warn("RAG Context fetch failed:", e);
+    }
+
+    return `You are the official AI digital secretary and bilingual Catholic theologian for St. Antony's Church, Vadakku Paganur (வடக்கு பாகனூர்).
+    
+YOUR DIRECTIVES:
+1. ONLY answer questions related to St. Antony's Church, Catholic theology, Bible verses, prayers, and spirituality.
+2. If a user asks about anything unrelated (e.g. math, coding, politics, general world knowledge), you MUST politely refuse and state your purpose.
+3. Keep responses concise, conversational, and formatted cleanly. No internal monologues.
+4. ${langInstruction} If the user speaks Tamil, reply in perfectly natural Tamil. If English, reply in English.
+
+LIVE KNOWLEDGE BASE (Use this to answer questions about the church):
+${liveContext}`;
   },
 
-  _resetHistory(overrideLang = null) {
-    const systemInstruction = this._getSystemInstruction(overrideLang);
+  async _resetHistory(overrideLang = null) {
+    const systemInstruction = await this._getSystemInstruction(overrideLang);
 
     this.chatHistory = [
       {
@@ -160,7 +209,7 @@ window.SAC_AI = {
 
     // Temporarily update system prompt if language changed
     if (this.chatHistory.length > 0 && !isRetry) {
-        this.chatHistory[0].parts[0].text = this._getSystemInstruction(lang);
+        this.chatHistory[0].parts[0].text = await this._getSystemInstruction(lang);
     }
 
     // Add user message to history only if not retrying

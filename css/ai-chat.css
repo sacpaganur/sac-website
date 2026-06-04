@@ -421,6 +421,39 @@
   box-shadow: none;
 }
 
+/* ================================================================
+   Dark Mode Overrides
+================================================================ */
+html[data-theme="dark"] {
+  --ai-bg: var(--ai-bg-dark);
+}
+html[data-theme="dark"] .sac-ai-modal {
+  border-color: var(--border-glass);
+}
+html[data-theme="dark"] .sac-ai-footer {
+  border-top-color: var(--border-glass);
+}
+html[data-theme="dark"] .sac-ai-lang-btn {
+  background: linear-gradient(135deg, hsla(222, 47%, 20%, 0.9), hsla(222, 47%, 15%, 0.9));
+  color: #fff;
+  border: 1px solid var(--border-glass);
+}
+html[data-theme="dark"] .sac-ai-lang-btn:hover {
+  background: linear-gradient(135deg, hsla(222, 47%, 25%, 0.9), hsla(222, 47%, 20%, 0.9));
+}
+html[data-theme="dark"] .sac-btn-mic:hover {
+  background: var(--bg-card);
+  color: var(--primary-light);
+}
+html[data-theme="dark"] .sac-btn-mic.listening {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+html[data-theme="dark"] .sac-btn-send:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+}
+
 /* Mobile Responsive */
 @media (max-width: 480px) {
   .sac-ai-modal {

@@ -14,11 +14,24 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <!-- Custom Light Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=1780319176039">
-    <link rel="stylesheet" href="css/hero-home.css?v=1780319176039">
-    <link rel="stylesheet" href="css/modal.css?v=1780319176039">
-    <script defer  src="js/navbar.js?v=1780396868527"></script>
+    <link rel="stylesheet" href="css/style.css?v=1780568734321">
+    <link rel="stylesheet" href="css/hero-home.css?v=1780553995003">
+    <link rel="stylesheet" href="css/modal.css?v=1780553995003">
+    <script defer  src="js/navbar.js?v=1780553995003"></script>
 
+        <!-- Dynamic CSS Cache Buster -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var links = document.querySelectorAll('link[rel="stylesheet"]');
+            for(var i = 0; i < links.length; i++) {
+                if(links[i].href.indexOf('style.css') > -1 || links[i].href.indexOf('dark-overrides.css') > -1) {
+                    var url = links[i].href.split('?')[0];
+                    links[i].href = url + '?v=' + new Date().getTime();
+                }
+            }
+        });
+    </script>
+    
     <!-- Performance Preconnects & Preloads -->
     <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
@@ -60,7 +73,7 @@
     <link rel="icon" type="image/jpeg" href="images/church_logo.jpg">
 
     <!-- Exhaustive Dark Mode Overrides -->
-    <link rel="stylesheet" href="css/dark-overrides.css?v=1.0">
+    <link rel="stylesheet" href="css/dark-overrides.css?v=1780568734321">
 </head>
 <body>
     <!-- Global Page Loader -->
@@ -151,7 +164,7 @@
 
 </section>
         <!-- Spiritual Welcome & Patron Saint Details -->
-        <section class="section-container patron-vision-section" id="parish-welcome">
+        <section class="section-container patron-vision-section reveal-base reveal-up" id="parish-welcome">
             <div class="patron-vision-bg" aria-hidden="true"></div>
             
             <div class="patron-vision-header">
@@ -216,7 +229,7 @@
 
 
         <!-- Sacraments overview card grid on index.html -->
-        <section class="section-container" style="padding-top:20px; padding-bottom:60px;">
+        <section class="section-container reveal-base reveal-up" style="padding-top:20px; padding-bottom:60px;">
             <div style="text-align:center; margin-bottom:40px;">
                 <span class="liturgical-badge liturgical-ordinary" style="margin-bottom:12px;" data-i18n="home.sacramentsTag">திருவருட்சாதனங்கள் | Sacraments</span>
                 <h3 style="font-size:2.4rem; color:var(--primary);" data-i18n="home.sacramentsTitle">ஆலய அருட்பணிகள்</h3>
@@ -260,7 +273,7 @@
                 }
             }
         </style>
-        <section class="section-container" style="padding-top:40px; padding-bottom:60px; border-top: 1px solid var(--border-glass);">
+        <section class="section-container reveal-base reveal-up" style="padding-top:40px; padding-bottom:60px; border-top: 1px solid var(--border-glass);">
             <div style="text-align:center; margin-bottom:45px;">
                 <span class="liturgical-badge liturgical-martyrs" style="margin-bottom:12px;" data-i18n="home.ministriesTag">ஆலய இயக்கங்கள் | Parish Ministries</span>
                 <h3 style="font-size:2.2rem; color:var(--primary);" data-i18n="home.ministriesTitle">பங்குப் பேரவை மற்றும் இயக்கங்கள்</h3>
@@ -335,8 +348,8 @@
 
     <!-- Project JS dependencies -->
     <script src="js/database.js?v=1780396868527" defer></script>
-    <script src="js/footer.js?v=1780396868527" defer></script>
-    <script src="js/common.js?v=1780396868527" defer></script>
+    <script src="js/footer.js?v=1780553995003" defer></script>
+    <script src="js/common.js?v=1780553995003" defer></script>
     <script src="js/hero-home.js?v=1780396868527" defer></script>
     <!-- Specific page home countdown & scheduling logic -->
     <script>

@@ -4,13 +4,9 @@
  */
 window.SAC_THEME = {
     init() {
+        this.injectFallbackStyles();
         let savedTheme = null;
-        try {
-            savedTheme = localStorage.getItem('sac_theme');
-        } catch (e) {
-            console.warn("[SAC_THEME] localStorage access blocked:", e);
-        }
-        
+        try { savedTheme = localStorage.getItem('sac_theme'); } catch(e) {}
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
         
         // Determine initial theme
@@ -22,16 +18,531 @@ window.SAC_THEME = {
 
         // Listen for OS-level theme changes in real-time
         prefersDark.addEventListener('change', (e) => {
-            let hasSavedTheme = false;
-            try {
-                hasSavedTheme = !!localStorage.getItem('sac_theme');
-            } catch (err) {}
-            
-            if (!hasSavedTheme) {
+            let hasSaved = false;
+            try { hasSaved = !!localStorage.getItem('sac_theme'); } catch(e) {}
+            if (!hasSaved) {
                 document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
                 this.updateToggleIcon(e.matches ? 'dark' : 'light');
             }
         });
+    },
+
+    injectFallbackStyles() {
+        if (!document.getElementById('sac-theme-fallback')) {
+            const style = document.createElement('style');
+            style.id = 'sac-theme-fallback';
+            style.textContent = `
+                :root[data-theme="dark"] {
+                  --bg-light: hsl(222, 47%, 11%) !important;
+                  --bg-card: hsla(222, 47%, 15%, 0.85) !important;
+                  --bg-glass: hsla(222, 47%, 15%, 0.75) !important;
+                  --bg-input: hsla(222, 47%, 20%, 1) !important;
+                  --primary-glow: hsla(265, 75%, 65%, 0.15) !important;
+                  --primary-light: hsl(265, 75%, 25%) !important;
+                  --text-primary: hsl(210, 40%, 98%) !important;
+                  --text-secondary: hsl(215, 20%, 75%) !important;
+                  --text-tertiary: hsl(215, 15%, 60%) !important;
+                  --text-inverse: hsl(222, 47%, 11%) !important;
+                  --border-light: hsla(215, 20%, 85%, 0.1) !important;
+                  --border-glass: hsla(0, 0%, 100%, 0.1) !important;
+                }
+                html[data-theme="dark"] body {
+                    background-color: var(--bg-light) !important;
+                    color: var(--text-primary) !important;
+                }
+                
+                /* Specific Component Overrides for Dark Mode */
+                html[data-theme="dark"] .patron-vision-pill,
+                html[data-theme="dark"] .filter-btn,
+                html[data-theme="dark"] .schedule-header-status {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                
+                /* Forcefully override the JS-generated inline styles for the countdown timers */
+                html[data-theme="dark"] .mass-countdown-container div[style*="ffffff"],
+                html[data-theme="dark"] .mass-countdown-container div[style*="#ffffff"] {
+                    background: var(--bg-card) !important;
+                    border: 1px solid var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                html[data-theme="dark"] .mass-countdown-container div,
+                html[data-theme="dark"] .mass-countdown-container span {
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] .mass-countdown-container .material-icons {
+                    color: var(--text-secondary) !important;
+                }
+                
+                /* Calendar Dropdown Buttons */
+                html[data-theme="dark"] .btn-calendar,
+                html[data-theme="dark"] button[style*="background-color: white"],
+                html[data-theme="dark"] button[style*="background: white"] {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border-color: var(--border-glass) !important;
+                }
+                
+                /* Legacy Page Overrides */
+                html[data-theme="dark"] .legacy-timeline-section,
+                html[data-theme="dark"] .legacy-po-column {
+                    background: var(--bg-light) !important;
+                }
+                html[data-theme="dark"] .legacy-metrics-bar,
+                html[data-theme="dark"] .legacy-overview-shell,
+                html[data-theme="dark"] .saint-miracles-block,
+                html[data-theme="dark"] .legacy-memory-panel,
+                html[data-theme="dark"] .legacy-milestone-card,
+                html[data-theme="dark"] .legacy-po-card,
+                html[data-theme="dark"] .ultimate-card,
+                html[data-theme="dark"] .glass-icon,
+                html[data-theme="dark"] .legacy-po-icon-wrap,
+                html[data-theme="dark"] .legacy-po-avatar,
+                html[data-theme="dark"] .legacy-value-card {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                html[data-theme="dark"] .legacy-action-link.primary,
+                html[data-theme="dark"] .legacy-hero-secondary-link {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .legacy-overview-quote,
+                html[data-theme="dark"] .legacy-photo-gallery-link {
+                    background: var(--bg-input) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                html[data-theme="dark"] .legacy-action-link.primary:hover,
+                html[data-theme="dark"] .legacy-hero-secondary-link:hover,
+                html[data-theme="dark"] .legacy-photo-gallery-link:hover,
+                html[data-theme="dark"] .legacy-value-card:hover {
+                    background: var(--bg-glass) !important;
+                }
+                html[data-theme="dark"] .legacy-section-kicker,
+                html[data-theme="dark"] .legacy-overview-kicker {
+                    background: var(--bg-glass) !important;
+                    color: var(--text-secondary) !important;
+                }
+                html[data-theme="dark"] .ultimate-kicker {
+                    background: hsla(265, 75%, 65%, 0.15) !important;
+                    color: hsl(265, 85%, 75%) !important;
+                }
+                html[data-theme="dark"] span[data-i18n="heritage.tourHint"],
+                html[data-theme="dark"] span[style*="rgba(139, 92, 246, 0.1)"] {
+                    background: transparent !important;
+                    color: #ffffff !important;
+                }
+                html[data-theme="dark"] div:has(> span[data-i18n="heritage.tourHint"]) {
+                    background: var(--bg-card) !important;
+                    color: #ffffff !important;
+                    border-top: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] div:has(> span[data-i18n="heritage.tourHint"]) span,
+                html[data-theme="dark"] div:has(> span[data-i18n="heritage.tourHint"]) .material-icons {
+                    color: #ffffff !important;
+                }
+                html[data-theme="dark"] .pnlm-compass {
+                    filter: invert(0.85) hue-rotate(180deg) !important;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.5) !important;
+                }
+                html[data-theme="dark"] .legacy-metric {
+                    background: var(--bg-input) !important;
+                    border-color: var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .legacy-metric-value {
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] .legacy-metric-label {
+                    color: var(--text-secondary) !important;
+                }
+                html[data-theme="dark"] .legacy-overview-quote-icon,
+                html[data-theme="dark"] .legacy-value-card .material-icons {
+                    color: var(--text-secondary) !important;
+                }
+                html[data-theme="dark"] .legacy-overview-quote p,
+                html[data-theme="dark"] .legacy-value-card h3,
+                html[data-theme="dark"] .legacy-value-card h4,
+                html[data-theme="dark"] .legacy-value-card p {
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] .legacy-milestone-year {
+                    color: hsl(265, 85%, 75%) !important;
+                }
+                html[data-theme="dark"] .legacy-milestone-icon {
+                    background: var(--bg-glass) !important;
+                    color: hsl(265, 85%, 75%) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .saint-journey-grid::before {
+                    display: none !important;
+                }
+                html[data-theme="dark"] .btn-hero-action.secondary {
+                    background: var(--bg-input) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .btn-hero-action.secondary:hover {
+                    background: var(--bg-glass) !important;
+                    color: #fff !important;
+                }
+                
+                /* Navbar Dropdown Overrides */
+                html[data-theme="dark"] .nav-link:hover,
+                html[data-theme="dark"] .nav-link.active {
+                    color: hsl(265, 85%, 75%) !important;
+                    text-shadow: 0 0 8px rgba(167, 139, 250, 0.3);
+                }
+                html[data-theme="dark"] .nav-link.active::after,
+                html[data-theme="dark"] .nav-link:hover::after {
+                    background: hsl(265, 85%, 75%) !important;
+                    box-shadow: 0 0 8px rgba(167, 139, 250, 0.4) !important;
+                }
+                html[data-theme="dark"] .nav-link.dropdown-toggle {
+                    background: transparent !important;
+                }
+                html[data-theme="dark"] .navbar .dropdown-menu {
+                    background: var(--bg-card) !important;
+                    border-color: var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .navbar .dropdown-item {
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] .navbar .dropdown-item:hover {
+                    background: var(--bg-glass) !important;
+                }
+                
+                /* Language Toggle Button Enhancements */
+                html[data-theme="dark"] .btn-lang {
+                    background: var(--bg-input) !important;
+                    border: 1px solid var(--border-glass) !important;
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] .btn-lang:hover {
+                    background: var(--bg-glass) !important;
+                    border-color: var(--primary-light) !important;
+                    color: #fff !important;
+                    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2) !important;
+                }
+                
+                /* Skeleton Loading Blocks */
+                html[data-theme="dark"] .skeleton-liturgy-block,
+                html[data-theme="dark"] .skeleton-card {
+                    background: var(--bg-card) !important;
+                    border-color: var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                html[data-theme="dark"] .skeleton {
+                    background: linear-gradient(90deg, hsla(222, 47%, 20%, 1) 25%, hsla(222, 47%, 25%, 1) 50%, hsla(222, 47%, 20%, 1) 75%) !important;
+                    background-size: 200% 100% !important;
+                }
+                
+                /* Schedule & Notices Page Overrides */
+                html[data-theme="dark"] .notices-hero-counter,
+                html[data-theme="dark"] .schedule-today-pill,
+                html[data-theme="dark"] .schedule-quick-chip,
+                html[data-theme="dark"] .schedule-quick-chip--sun,
+                html[data-theme="dark"] .schedule-quick-chip--tue,
+                html[data-theme="dark"] .schedule-card,
+                html[data-theme="dark"] .cal-add-btn,
+                html[data-theme="dark"] .notices-filter-bar,
+                html[data-theme="dark"] .notices-subscribe-card,
+                html[data-theme="dark"] .legacy-empty-state,
+                html[data-theme="dark"] .filter-tabs,
+                html[data-theme="dark"] .sched-time-display,
+                html[data-theme="dark"] .schedule-cta-link {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                html[data-theme="dark"] .sched-time-display:hover,
+                html[data-theme="dark"] .schedule-cta-link:hover,
+                html[data-theme="dark"] .cal-add-btn:hover {
+                    background: var(--bg-glass) !important;
+                }
+                html[data-theme="dark"] .sched-time-display .time-icon,
+                html[data-theme="dark"] .cal-add-btn .material-icons,
+                html[data-theme="dark"] .cal-add-btn .cal-chevron {
+                    color: var(--text-secondary) !important;
+                }
+                html[data-theme="dark"] .sched-time-stacked,
+                html[data-theme="dark"] .sched-time-stacked span {
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] .sched-day-badge {
+                    color: var(--text-primary) !important;
+                    background: var(--bg-glass) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                
+                /* Calendar Dropdown Specifics */
+                html[data-theme="dark"] .cal-dropdown {
+                    background: var(--bg-card) !important;
+                    border: 1px solid var(--border-glass) !important;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+                }
+                html[data-theme="dark"] .cal-dropdown::after {
+                    background: var(--bg-card) !important;
+                    border-top: 1px solid var(--border-glass) !important;
+                    border-left: 1px solid var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                html[data-theme="dark"] .cal-option {
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] .cal-option:hover {
+                    background: rgba(255, 255, 255, 0.1) !important;
+                }
+                html[data-theme="dark"] .cal-option-icon svg path {
+                    fill: var(--text-primary) !important;
+                }
+                
+                /* Calendar Page Agenda Card Overrides */
+                html[data-theme="dark"] .calendar-agenda-card {
+                    background: var(--bg-card) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .agenda-item {
+                    border-bottom-color: var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .agenda-sticky-header {
+                    background: hsla(222, 47%, 15%, 0.95) !important; /* var(--bg-card) with higher opacity */
+                    color: var(--text-primary) !important;
+                    border-bottom: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .agenda-item div[style*="linear-gradient"] {
+                    background: var(--bg-input) !important;
+                    border-color: var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .agenda-item div[style*="linear-gradient"] p,
+                html[data-theme="dark"] .agenda-item div[style*="linear-gradient"] span,
+                html[data-theme="dark"] .agenda-item div[style*="linear-gradient"] div {
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] .calendar-event-wrap {
+                    background: var(--bg-glass) !important;
+                }
+                html[data-theme="dark"] .calendar-event-time {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border-color: var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .calendar-event-title,
+                html[data-theme="dark"] .agenda-item .date-number {
+                    color: var(--text-primary) !important;
+                }
+                
+                html[data-theme="dark"] .notices-search-input,
+                html[data-theme="dark"] .subscribe-input {
+                    background: var(--bg-glass) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                
+                html[data-theme="dark"] .subscribe-title {
+                    color: var(--text-primary) !important;
+                }
+                
+                /* Devotion Page Overrides */
+                html[data-theme="dark"] .share-prayer-btn,
+                html[data-theme="dark"] .wall-cat-pill,
+                html[data-theme="dark"] .pray-btn {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                
+                html[data-theme="dark"] .pray-btn .pray-count {
+                    color: var(--text-secondary) !important;
+                }
+                
+                html[data-theme="dark"] .pray-badge {
+                    background: rgba(255, 255, 255, 0.1) !important;
+                    color: var(--text-primary) !important;
+                }
+                
+                html[data-theme="dark"] .pray-btn.prayed-active .pray-badge {
+                    background: rgba(0, 0, 0, 0.2) !important;
+                }
+                
+                html[data-theme="dark"] .prayer-card-name .material-icons,
+                html[data-theme="dark"] .prayer-card-time .material-icons {
+                    color: var(--text-secondary) !important;
+                }
+                
+                /* Rosary Page Overrides */
+                html[data-theme="dark"] .rosary-main-container::before {
+                    background: radial-gradient(circle at center, hsla(265, 75%, 65%, 0.1) 0%, transparent 70%) !important;
+                }
+                html[data-theme="dark"] .rosary-mystery-badge {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .rosary-btn {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .rosary-btn:hover {
+                    background: var(--bg-glass) !important;
+                    color: var(--primary-light) !important;
+                }
+                html[data-theme="dark"] .rosary-btn.primary,
+                html[data-theme="dark"] #btn-prev,
+                html[data-theme="dark"] #btn-next {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .rosary-btn.primary:hover,
+                html[data-theme="dark"] #btn-prev:hover,
+                html[data-theme="dark"] #btn-next:hover {
+                    background: var(--bg-glass) !important;
+                    color: var(--primary-light) !important;
+                }
+                
+                /* Gallery Page Overrides */
+                html[data-theme="dark"] .gallery-filter-bar,
+                html[data-theme="dark"] .gallery-card,
+                html[data-theme="dark"] .gallery-card-info {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border-color: var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                
+                html[data-theme="dark"] .gallery-card-title {
+                    color: var(--text-primary) !important;
+                }
+                
+                html[data-theme="dark"] .gallery-card-category {
+                    background: var(--bg-glass) !important;
+                    color: var(--text-secondary) !important;
+                }
+                
+                /* Contact Page Overrides */
+                html[data-theme="dark"] .contact-quick-card,
+                html[data-theme="dark"] .contact-reach-panel,
+                html[data-theme="dark"] .contact-reach-item,
+                html[data-theme="dark"] .contact-officials-block,
+                html[data-theme="dark"] .contact-official-card,
+                html[data-theme="dark"] .contact-map-block,
+                html[data-theme="dark"] .contact-form-panel {
+                    background: var(--bg-card) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                html[data-theme="dark"] .contact-reach-item:hover,
+                html[data-theme="dark"] .contact-official-card:hover {
+                    background: var(--bg-glass) !important;
+                }
+                html[data-theme="dark"] .contact-form-panel .form-control {
+                    background: var(--bg-input) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .contact-form-panel .form-control:focus {
+                    background: var(--bg-card) !important;
+                    border-color: var(--primary) !important;
+                }
+                html[data-theme="dark"] .contact-panel-title,
+                html[data-theme="dark"] .contact-form-panel h3,
+                html[data-theme="dark"] .contact-map-head h4 {
+                    -webkit-text-fill-color: var(--text-primary) !important;
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] .contact-quick-icon,
+                html[data-theme="dark"] .contact-reach-icon {
+                    background: var(--bg-input) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .contact-panel-badge,
+                html[data-theme="dark"] .official-role-badge {
+                    background: var(--bg-glass) !important;
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] .contact-map-head {
+                    background: var(--bg-card) !important;
+                    border-bottom: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] #ai-assistant-card {
+                    background: var(--bg-input) !important;
+                    border-color: var(--border-glass) !important;
+                }
+                html[data-theme="dark"] #ai-assistant-card div {
+                    color: var(--text-primary) !important;
+                }
+                html[data-theme="dark"] #ai-processing-overlay {
+                    background: hsla(222, 47%, 11%, 0.9) !important;
+                }
+                html[data-theme="dark"] .translit-badge,
+                html[data-theme="dark"] .translit-badge span,
+                html[data-theme="dark"] .voice-lang-btn,
+                html[data-theme="dark"] .voice-btn {
+                    color: var(--text-secondary) !important;
+                    border-color: var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .voice-btn-group {
+                    background: var(--bg-card) !important;
+                    border-color: var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .btn-submit,
+                html[data-theme="dark"] .btn-submit:hover {
+                    background: var(--bg-input) !important;
+                    border: 1px solid var(--border-glass) !important;
+                    box-shadow: none !important;
+                }
+                html[data-theme="dark"] .btn-submit *,
+                html[data-theme="dark"] .btn-submit:hover * {
+                    color: var(--text-primary) !important;
+                    background: transparent !important;
+                }
+                html[data-theme="dark"] .official-contact-link,
+                html[data-theme="dark"] .contact-map-link {
+                    background: var(--bg-input) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-glass) !important;
+                }
+                html[data-theme="dark"] .official-contact-link:hover,
+                html[data-theme="dark"] .official-contact-link:hover *,
+                html[data-theme="dark"] .contact-map-link:hover,
+                html[data-theme="dark"] .contact-map-link:hover * {
+                    background: var(--bg-glass) !important;
+                    color: #ffffff !important;
+                }
+                
+                /* Global Devotion/Tabs Overrides */
+                html[data-theme="dark"] .filter-tab:not(.active):not(.active-feast):not(.active-announcement):not(.active-special) {
+                    color: var(--text-secondary) !important;
+                }
+                html[data-theme="dark"] .filter-tab:not(.active):not(.active-feast):not(.active-announcement):not(.active-special):hover {
+                    background: rgba(255, 255, 255, 0.05) !important;
+                    color: var(--text-primary) !important;
+                }
+                
+                html[data-theme="dark"] .legacy-po-name,
+                html[data-theme="dark"] .legacy-po-role,
+                html[data-theme="dark"] .legacy-po-period,
+                html[data-theme="dark"] .saint-block-header h4,
+                html[data-theme="dark"] .saint-block-header p,
+                html[data-theme="dark"] .legacy-memory-panel h3,
+                html[data-theme="dark"] .legacy-memory-panel p {
+                    color: var(--text-primary) !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
     },
 
     toggle() {
@@ -39,12 +550,7 @@ window.SAC_THEME = {
         const newTheme = current === 'dark' ? 'light' : 'dark';
         
         document.documentElement.setAttribute('data-theme', newTheme);
-        
-        try {
-            localStorage.setItem('sac_theme', newTheme);
-        } catch (e) {
-            console.warn("[SAC_THEME] localStorage save blocked:", e);
-        }
+        try { localStorage.setItem('sac_theme', newTheme); } catch(e) {}
         
         this.updateToggleIcon(newTheme);
     },

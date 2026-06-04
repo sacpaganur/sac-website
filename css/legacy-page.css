@@ -486,24 +486,16 @@ body:lang(ta) .legacy-photo-caption strong {
   position: relative;
 }
 
-/* Scroll Reveal Base */
-.scroll-reveal {
-  opacity: 0;
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal-left {
-  transform: translateX(-50px);
-}
-
-.reveal-right {
-  transform: translateX(50px);
-}
-
-.reveal-active {
-  opacity: 1;
-  transform: translateX(0);
-}
+  /* Scroll Reveal Base (DISABLED BY USER) */
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .scroll-reveal.reveal-active {
+    opacity: 1;
+    transform: none;
+  }
 
 
 /* The central divider line */
@@ -527,6 +519,7 @@ body:lang(ta) .legacy-photo-caption strong {
   box-shadow: 0 0 10px var(--primary);
   height: 0%;
   z-index: 1;
+  max-height: calc(100% - 120px);
 }
 
 .ultimate-timeline-sidebar {
@@ -835,25 +828,28 @@ body:lang(ta) .timeline-desc {
 
 /* Innovation 1: Parallax Hero & Quote */
 .saint-hero-parallax {
-  position: relative;
-  min-height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 24px;
-  overflow: hidden;
-  clip-path: inset(0); /* For fixed bg effect on modern browsers */
-}
-
-.saint-parallax-bg {
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
-  background-size: cover;
-  background-position: center 20%;
-  background-attachment: fixed; /* Parallax effect */
-  z-index: 0;
-}
+    position: relative;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    clip-path: inset(0); /* Crucial for clipping the fixed child */
+    z-index: 1; /* Keep it below navbar */
+  }
+  
+  .saint-parallax-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+    background-size: cover;
+    background-position: center center;
+    z-index: -1;
+    pointer-events: none;
+  }
 
 .saint-parallax-bg.bg-loaded {
   background-image: 
@@ -1144,10 +1140,10 @@ body:lang(ta) .saint-miracle-glass-card p {
 }
 
 @media (max-width: 640px) {
-  .saint-hero-parallax {
-    background-attachment: scroll; /* Disable parallax on mobile for performance */
+    .saint-hero-parallax {
+      min-height: 40vh;
+    }
   }
-}
 
 
 

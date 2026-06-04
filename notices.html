@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Custom Light Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=1780319176039">
+    <link rel="stylesheet" href="css/style.css?v=1780568734325">
     <script defer  src="js/navbar.js?v=1780396868527"></script>
 
     <!-- Performance Preconnects -->
@@ -43,8 +43,9 @@
     <link rel="icon" type="image/jpeg" href="images/church_logo.jpg">
 
     <!-- Exhaustive Dark Mode Overrides -->
-    <link rel="stylesheet" href="css/dark-overrides.css?v=1.0">
-</head>
+    <link rel="stylesheet" href="css/dark-overrides.css?v=1780568734325.0">
+
+    </head>
 
 <body>
     <!-- Global Page Loader -->
@@ -249,6 +250,25 @@
                 const fetched = await SAC_DATABASE.get("announcements") || [];
                 allAnnouncements = fetched.filter(a => a.isActive !== false);
                 renderAnnouncements();
+
+                // Global Search Deep-Linking Integration
+                const urlParams = new URLSearchParams(window.location.search);
+                if(urlParams.has('id')) {
+                    const noticeId = urlParams.get('id');
+                    setTimeout(() => {
+                        const targetCard = document.getElementById(`notice-card-${noticeId}`);
+                        if (targetCard) {
+                            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            targetCard.style.boxShadow = '0 0 0 4px var(--primary)';
+                            targetCard.style.transform = 'scale(1.02)';
+                            targetCard.style.transition = 'all 0.5s ease';
+                            setTimeout(() => {
+                                targetCard.style.boxShadow = '';
+                                targetCard.style.transform = '';
+                            }, 2000);
+                        }
+                    }, 500);
+                }
             } catch (err) {
                 console.error("Error fetching announcements:", err);
             }
@@ -368,7 +388,7 @@
                 const readMoreText = isTa ? 'மேலும் படிக்க' : 'Read more';
 
                 return `
-                    <div class="${cardClasses}" style="animation-delay: ${staggerDelay}s;">
+                    <div id="notice-card-${n.id || idx}" class="${cardClasses}" style="animation-delay: ${staggerDelay}s;">
                         ${ribbonHtml}
                         <div class="notice-card-body">
                             <div class="notice-meta">

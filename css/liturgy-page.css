@@ -2,7 +2,7 @@
 
 .liturgy-page {
     font-family: 'Inter', 'Noto Sans Tamil', sans-serif;
-    background: var(--bg-primary);
+    background: var(--bg-light);
     /* padding-bottom: 40px; */
 }
 
@@ -164,7 +164,7 @@
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--text-secondary);
-    background: var(--bg-secondary);
+    background: var(--bg-glass);
     padding: 4px 12px;
     border-radius: 6px;
     text-align: right;

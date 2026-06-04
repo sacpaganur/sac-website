@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Custom Light Stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=1780319176039">
+    <link rel="stylesheet" href="css/style.css?v=1780568734325">
     <script defer  src="js/navbar.js?v=1780396868527"></script>
 
     <!-- Performance Preconnects -->
@@ -27,8 +27,9 @@
     <link rel="icon" type="image/jpeg" href="images/church_logo.jpg">
 
     <!-- Exhaustive Dark Mode Overrides -->
-    <link rel="stylesheet" href="css/dark-overrides.css?v=1.0">
-</head>
+    <link rel="stylesheet" href="css/dark-overrides.css?v=1780568734325.0">
+
+    </head>
 
 <body>
     <!-- Global Page Loader -->
@@ -362,6 +363,15 @@
                 const fetched = await SAC_DATABASE.get("catholic_prayers") || [];
                 allPrayers = fetched;
                 renderPrayers();
+
+                // Global Search Deep-Linking Integration
+                const urlParams = new URLSearchParams(window.location.search);
+                if(urlParams.has('id')) {
+                    const id = parseInt(urlParams.get('id'), 10);
+                    if(!isNaN(id) && allPrayers[id]) {
+                        setTimeout(() => openPrayerModal(allPrayers[id].id), 300);
+                    }
+                }
             } catch (err) {
                 console.error("Error fetching prayers:", err);
             }
@@ -552,6 +562,13 @@
         function closePrayerModal() {
             document.getElementById('prayer-modal').classList.remove('active');
             document.body.style.overflow = '';
+            
+            // Clear URL parameters for deep-linking
+            if (window.history.replaceState) {
+                const url = new URL(window.location);
+                url.search = '';
+                window.history.replaceState({}, document.title, url.toString());
+            }
         }
 
         function translateLabels() {

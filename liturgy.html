@@ -14,11 +14,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <!-- Custom Stylesheets -->
-    <link rel="stylesheet" href="css/style.css?v=1780319176039">
+    <link rel="stylesheet" href="css/style.css?v=1780568734324">
     <link rel="stylesheet" href="css/liturgy-page.css?v=1780319176039">
     <script defer  src="js/navbar.js?v=1780396868527"></script>
 
-    <!-- Performance Preconnects -->
+        <!-- Performance Preconnects & Preloads -->
     <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,7 +38,7 @@
     <link rel="icon" type="image/jpeg" href="images/church_logo.jpg">
 
     <!-- Exhaustive Dark Mode Overrides -->
-    <link rel="stylesheet" href="css/dark-overrides.css?v=1.0">
+    <link rel="stylesheet" href="css/dark-overrides.css?v=1780568734324.0">
 </head>
 <body class="liturgy-theme">
     <!-- Global Page Loader -->
@@ -165,60 +165,121 @@
                 try {
                     if (!window.SAC_AI || !SAC_AI.isInitialized) await SAC_AI.init();
                     
-                    if (window.SAC_AI && window.SAC_AI.apiKey) {
-                        // Show App-like Skeleton Loading UI
-                        container.innerHTML = `
-                            <div class="skeleton-liturgy-block">
-                                <div class="skeleton skeleton-title"></div>
-                                <div class="skeleton skeleton-text"></div>
-                                <div class="skeleton skeleton-text"></div>
-                                <div class="skeleton skeleton-text medium"></div>
-                            </div>
-                            <div class="skeleton-liturgy-block">
-                                <div class="skeleton skeleton-title short"></div>
-                                <div class="skeleton skeleton-text"></div>
-                                <div class="skeleton skeleton-text"></div>
-                                <div class="skeleton skeleton-text short"></div>
-                            </div>
-                            <div class="skeleton-liturgy-block">
-                                <div class="skeleton skeleton-title"></div>
-                                <div class="skeleton skeleton-text"></div>
-                                <div class="skeleton skeleton-text"></div>
-                                <div class="skeleton skeleton-text"></div>
-                                <div class="skeleton skeleton-text medium"></div>
-                            </div>
-                        `;
-                    } else {
-                        throw new Error("No AI API Key configured.");
+                    // Critical Fix: If LocalStorage was cleared, init() might grab empty settings. Force fetch from Firebase.
+                    if ((!window.SAC_AI || !window.SAC_AI.apiKey) && SAC_DATABASE.isFirebaseActive && SAC_DATABASE.db) {
+                        try {
+                            const snap = await SAC_DATABASE.db.collection("settings").doc("general").get();
+                            if (snap.exists && snap.data().aiApiKey) {
+                                SAC_AI.apiKey = snap.data().aiApiKey;
+                            }
+                        } catch (e) {
+                            console.warn("Failed to fetch API key directly from Firebase", e);
+                        }
                     }
                     
+                    if (!window.SAC_AI || !window.SAC_AI.apiKey) {
+                        throw new Error("Gemini API Key is missing. Please add it in the Admin Portal Settings.");
+                    }
+                    
+                    // Critical Fix: If the models list wasn't populated, fetch it dynamically to prevent 404 errors!
+                    if (!SAC_AI.availableModels || SAC_AI.availableModels.length === 0) {
+                        try {
+                            const resModels = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${SAC_AI.apiKey}`);
+                            const dataModels = await resModels.json();
+                            if (dataModels.models) {
+                                const validModels = dataModels.models.filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes("generateContent") && !m.name.includes("preview"));
+                                if (validModels.length > 0) {
+                                    // Always prefer flash over pro because Pro has 0 free quota in some regions
+                                    const bestModel = validModels.find(m => m.name.includes("1.5-flash")) 
+                                        || validModels.find(m => m.name.includes("flash")) 
+                                        || validModels[0];
+                                    SAC_AI.modelName = bestModel.name.replace("models/", "");
+                                }
+                            }
+                        } catch (e) {
+                            console.warn("Could not dynamically fetch models", e);
+                        }
+                    }
+                    
+                    // Show App-like Skeleton Loading UI
+                    container.innerHTML = `
+                        <div class="skeleton-liturgy-block">
+                            <div class="skeleton skeleton-title"></div>
+                            <div class="skeleton skeleton-text"></div>
+                            <div class="skeleton skeleton-text"></div>
+                            <div class="skeleton skeleton-text medium"></div>
+                        </div>
+                        <div class="skeleton-liturgy-block">
+                            <div class="skeleton skeleton-title short"></div>
+                            <div class="skeleton skeleton-text"></div>
+                            <div class="skeleton skeleton-text"></div>
+                            <div class="skeleton skeleton-text short"></div>
+                        </div>
+                        <div class="skeleton-liturgy-block">
+                            <div class="skeleton skeleton-title"></div>
+                            <div class="skeleton skeleton-text"></div>
+                            <div class="skeleton skeleton-text"></div>
+                            <div class="skeleton skeleton-text"></div>
+                            <div class="skeleton skeleton-text medium"></div>
+                        </div>
+                    `;
+
                     const prompt = `Provide the Catholic Daily Liturgy readings for today (${localTodayStr}). Format the response strictly as a JSON object with no markdown formatting. Do not include \`\`\`json.
 Required keys:
 {"date": "${localTodayStr}","seasonEn": "Current Liturgical Season in English","seasonTa": "Current Liturgical Season in Tamil","saintEn": "Saint of the day (if any) or empty string","saintTa": "Saint of the day in Tamil or empty string","reading1TitleEn": "e.g., A reading from the Acts of the Apostles","reading1TitleTa": "முதல் வாசகம் தலைப்பு","reading1Ref": "e.g., Acts 10:25-26","reading1TextEn": "First reading text","reading1TextTa": "முதல் வாசகம் உரை","psalmRef": "e.g., Ps 98:1","psalmResponseEn": "Responsorial Psalm response","psalmResponseTa": "பதிலுரைப்பாடல் பல்லவி","psalmTextEn": "Psalm verses","psalmTextTa": "பதிலுரைப்பாடல் உரை","reading2TitleEn": "Second reading title or empty if none","reading2TitleTa": "இரண்டாம் வாசகம் தலைப்பு or empty","reading2Ref": "Second reading reference or empty","reading2TextEn": "Second reading text or empty","reading2TextTa": "இரண்டாம் வாசகம் உரை or empty","gospelTitleEn": "e.g., A reading from the holy Gospel according to John","gospelTitleTa": "நற்செய்தி வாசகம் தலைப்பு","gospelRef": "e.g., Jn 15:9-17","gospelTextEn": "Gospel text","gospelTextTa": "நற்செய்தி வாசகம் உரை","reflectionEn": "A short reflection on the Gospel","reflectionTa": "நற்செய்தி சிந்தனை"}`;
 
                     const url = `https://generativelanguage.googleapis.com/v1beta/models/${SAC_AI.modelName || 'gemini-1.5-flash'}:generateContent?key=${SAC_AI.apiKey}`;
-                    const res = await fetch(url, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            contents: [{ role: "user", parts: [{ text: prompt }] }],
-                            generationConfig: { temperature: 0.1 }
-                        })
-                    });
                     
-                    if (!res.ok) throw new Error("API request failed");
+                    let res;
+                    let retries = 3;
+                    let delay = 8000; // Start with 8 seconds
+                    
+                    while (retries > 0) {
+                        res = await fetch(url, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                contents: [{ role: "user", parts: [{ text: prompt }] }],
+                                generationConfig: { temperature: 0.1 }
+                            })
+                        });
+                        
+                        if (res.status === 429) {
+                            console.warn(`Gemini API rate limit hit. Retrying in ${delay/1000}s...`);
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            retries--;
+                            delay += 10000; // Exponential backoff
+                        } else {
+                            break;
+                        }
+                    }
+                    
+                    if (!res.ok) {
+                        const errText = await res.text();
+                        throw new Error(`API request failed: ${res.status} ${res.statusText} - ${errText}`);
+                    }
                     const data = await res.json();
                     let text = data.candidates[0].content.parts[0].text;
                     text = text.replace(/```json/g, "").replace(/```/g, "").trim();
                     
                     const aiLiturgy = JSON.parse(text);
                     aiLiturgy.id = "liturgy_" + Date.now();
-                    
-                    // Save to database so we don't fetch again today
-                    await SAC_DATABASE.save("daily_liturgy", aiLiturgy);
                     todayLiturgy = aiLiturgy;
+                    
+                    // Save to database (try-catch prevents public users' permission errors from discarding the AI data)
+                    try {
+                        await SAC_DATABASE.save("daily_liturgy", aiLiturgy);
+                    } catch (dbError) {
+                        console.warn("Failed to sync generated liturgy to cloud (expected for public users):", dbError);
+                    }
                 } catch (error) {
                     console.error("AI Fetch Failed:", error);
+                    // Show a warning banner above the container
+                    const warningBanner = document.createElement('div');
+                    warningBanner.style.cssText = "background: #fee2e2; color: #991b1b; padding: 12px 20px; border-radius: 8px; margin-bottom: 24px; font-weight: bold; text-align: left; border: 1px solid #f87171; display: flex; align-items: center; justify-content: flex-start; gap: 10px;";
+                    warningBanner.innerHTML = `<span class="material-icons">error_outline</span> <span>${isTa ? "பிழை:" : "Error:"} ${error.message}</span>`;
+                    container.parentNode.insertBefore(warningBanner, container);
+                    
                     // Fallback to the most recent reading we have
                     todayLiturgy = sortedReadings[0];
                 }
