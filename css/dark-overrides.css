@@ -617,3 +617,42 @@ html[data-theme="dark"] .prayer-card:hover .prayer-read-more {
     color: var(--accent-gold) !important;
     transform: translateX(4px);
 }
+
+/* 20. Bible Audio & Karaoke Dark Mode Enhancements */
+html[data-theme="dark"] .verse-row.active-karaoke-verse {
+    background: rgba(139, 92, 246, 0.15) !important; /* Deep transparent purple instead of bright solid purple */
+    border-left-color: var(--primary) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+html[data-theme="dark"] .verse-row.active-karaoke-verse .verse-text {
+    color: #ffffff !important; /* Force high contrast white text */
+}
+
+html[data-theme="dark"] .verse-row.active-karaoke-verse .verse-number {
+    color: #a78bfa !important;
+}
+
+html[data-theme="dark"] .bible-audio-player {
+    background: rgba(15, 23, 42, 0.85) !important; /* Deep slate dark glassmorphism */
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05) inset !important;
+}
+
+html[data-theme="dark"] .audio-progress-info {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .audio-bar-container {
+    background: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.2) !important;
+}
+
+html[data-theme="dark"] .audio-btn {
+    color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .audio-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}

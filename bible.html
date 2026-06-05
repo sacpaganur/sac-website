@@ -137,6 +137,23 @@
                     <!-- Default loaded text -->
                 </div>
             </div>
+
+            <!-- Spotify-Style Audio Player -->
+            <div class="bible-audio-player" id="bible-audio-player">
+                <div class="audio-progress-info">
+                    <span class="audio-title" id="audio-title">Ready to Read</span>
+                    <span class="audio-time" id="audio-verse-counter">0:00</span>
+                </div>
+                <div class="audio-bar-container">
+                    <div class="audio-bar-bg"></div>
+                    <div class="audio-bar-fill" id="audio-bar-fill"></div>
+                </div>
+                <div class="audio-controls">
+                    <button id="btn-audio-prev" class="audio-btn"><span class="material-icons">skip_previous</span></button>
+                    <button id="btn-audio-play" class="audio-btn play-btn"><span class="material-icons" id="audio-play-icon">play_arrow</span></button>
+                    <button id="btn-audio-next" class="audio-btn"><span class="material-icons">skip_next</span></button>
+                </div>
+            </div>
         </div>
 
         <!-- Right Panel: AI Companion -->
@@ -194,6 +211,119 @@
 
             // Build Bible logic inline for this page
             window.SAC_BIBLE = {
+                audioState: {
+                    isPlaying: false,
+                    currentVerseIndex: 0,
+                    verses: [],
+                    utterance: null
+                },
+
+                initAudio() {
+                    document.getElementById('btn-audio-play').addEventListener('click', () => this.toggleAudio());
+                    document.getElementById('btn-audio-prev').addEventListener('click', () => this.playPrevVerse());
+                    document.getElementById('btn-audio-next').addEventListener('click', () => this.playNextVerse());
+                    
+                    // Stop audio on tab change
+                    document.addEventListener('visibilitychange', () => {
+                        if (document.hidden) this.stopAudio();
+                    });
+                },
+
+                toggleAudio() {
+                    if (this.audioState.isPlaying) {
+                        this.stopAudio();
+                    } else {
+                        if (this.audioState.verses.length > 0) {
+                            this.playAudio();
+                        }
+                    }
+                },
+
+                playPrevVerse() {
+                    if (this.audioState.currentVerseIndex > 0) {
+                        this.audioState.currentVerseIndex--;
+                        this.playAudio();
+                    }
+                },
+
+                playNextVerse() {
+                    if (this.audioState.currentVerseIndex < this.audioState.verses.length - 1) {
+                        this.audioState.currentVerseIndex++;
+                        this.playAudio();
+                    } else {
+                        this.stopAudio();
+                    }
+                },
+
+                stopAudio() {
+                    if (window.speechSynthesis) window.speechSynthesis.cancel();
+                    this.audioState.isPlaying = false;
+                    this.updateAudioUI();
+                    
+                    // Remove all highlights
+                    document.querySelectorAll('.active-karaoke-verse').forEach(el => el.classList.remove('active-karaoke-verse'));
+                },
+
+                playAudio() {
+                    if (!window.speechSynthesis) return;
+                    window.speechSynthesis.cancel(); // Stop current
+                    
+                    const text = this.audioState.verses[this.audioState.currentVerseIndex];
+                    if (!text) return;
+
+                    const isTa = SAC_COMMON.currentLang === 'ta';
+                    this.audioState.utterance = new SpeechSynthesisUtterance(text);
+                    this.audioState.utterance.lang = isTa ? 'ta-IN' : 'en-US';
+                    this.audioState.utterance.rate = 0.85; // slightly slower for reverence
+
+                    this.audioState.utterance.onend = () => {
+                        this.playNextVerse();
+                    };
+
+                    this.audioState.isPlaying = true;
+                    window.speechSynthesis.speak(this.audioState.utterance);
+                    this.updateAudioUI();
+                },
+
+                updateAudioUI() {
+                    const icon = document.getElementById('audio-play-icon');
+                    const player = document.getElementById('bible-audio-player');
+                    
+                    if (this.audioState.isPlaying) {
+                        if (icon) icon.innerText = 'pause';
+                        if (player) player.classList.add('playing');
+                    } else {
+                        if (icon) icon.innerText = 'play_arrow';
+                        if (player) player.classList.remove('playing');
+                    }
+                    
+                    const title = document.getElementById('audio-title');
+                    const counter = document.getElementById('audio-verse-counter');
+                    const fill = document.getElementById('audio-bar-fill');
+                    
+                    if (this.audioState.verses.length > 0) {
+                        const current = this.audioState.currentVerseIndex + 1;
+                        const total = this.audioState.verses.length;
+                        const isTa = SAC_COMMON.currentLang === 'ta';
+                        if (title) title.innerText = isTa ? `வசனம் ${current}` : `Reading Verse ${current}`;
+                        if (counter) counter.innerText = `${current} / ${total}`;
+                        if (fill) fill.style.width = `${(current / total) * 100}%`;
+                        
+                        // Highlight Karaoke line
+                        document.querySelectorAll('.active-karaoke-verse').forEach(el => el.classList.remove('active-karaoke-verse'));
+                        const activeRow = document.getElementById(`verse-row-${this.audioState.currentVerseIndex}`);
+                        if (activeRow) {
+                            activeRow.classList.add('active-karaoke-verse');
+                            // Force verse to center of screen so player doesn't hide it
+                            activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    } else {
+                        if (title) title.innerText = 'Ready to Read';
+                        if (counter) counter.innerText = '0:00';
+                        if (fill) fill.style.width = '0%';
+                    }
+                },
+
                 async loadChapter() {
                     const book = document.getElementById('bible-book-select').value;
                     const chapter = document.getElementById('bible-chapter-select').value;
@@ -350,6 +480,9 @@
                 },
 
                 renderVerses(verses) {
+                    this.audioState.verses = verses;
+                    this.stopAudio(); // Reset audio on new chapter
+                    
                     const container = document.getElementById('bible-verses-container');
 
                     // Smooth fade out
@@ -361,9 +494,23 @@
                         verses.forEach((text, i) => {
                             const row = document.createElement('div');
                             row.className = 'verse-row';
+                            row.id = `verse-row-${i}`;
+                            
+                            // Make row clickable to play from that verse
+                            row.style.cursor = 'pointer';
+                            row.onclick = () => {
+                                this.audioState.currentVerseIndex = i;
+                                this.playAudio();
+                            };
+                            
                             row.innerHTML = `<div class="verse-number">${i + 1}</div><div class="verse-text">${text}</div>`;
                             container.appendChild(row);
                         });
+
+                        // Show Audio Player UI
+                        document.getElementById('bible-audio-player').classList.add('visible');
+                        document.getElementById('bible-content-area').classList.add('audio-active');
+                        this.updateAudioUI();
 
                         // Smooth fade in
                         container.style.display = 'block'; // Force browser repaint
@@ -499,8 +646,9 @@
                 }
             };
 
-            // Init custom selects
+            // Init custom selects and audio
             window.SAC_BIBLE.initCustomSelects();
+            window.SAC_BIBLE.initAudio();
 
             // Hook into language change to reload the chapter
             window.addEventListener('sacLanguageChanged', () => {

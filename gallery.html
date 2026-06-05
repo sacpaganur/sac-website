@@ -451,6 +451,47 @@
             else if (e.key === 'ArrowLeft') prevImage();
             else if (e.key === 'Escape') closeLightboxOverlay();
         });
+
+        // Touch Swipe Gestures for Mobile Lightbox
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const lightboxContainer = document.querySelector('.lightbox-container');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        lightboxContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+            lightboxImg.style.transition = 'none'; // Disable transition during drag
+        }, { passive: true });
+
+        lightboxContainer.addEventListener('touchmove', e => {
+            const currentX = e.changedTouches[0].screenX;
+            const diff = currentX - touchStartX;
+            
+            // Only transform slightly to give visual resistance feedback
+            if (Math.abs(diff) < window.innerWidth) {
+                lightboxImg.style.transform = `translateX(${diff * 0.4}px) scale(0.98)`;
+            }
+        }, { passive: true });
+
+        lightboxContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipeGesture();
+        }, { passive: true });
+
+        function handleSwipeGesture() {
+            // Restore transition for smooth snap back or change
+            lightboxImg.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+            lightboxImg.style.transform = '';
+            
+            const swipeThreshold = 50; // Minimum distance to register a swipe
+            if (touchEndX < touchStartX - swipeThreshold) {
+                // Swiped Left -> Next Image
+                nextImage();
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                // Swiped Right -> Prev Image
+                prevImage();
+            }
+        }
     </script>
 </body>
 </html>

@@ -173,6 +173,12 @@ function updateUI(instant = false) {
     }
 }
 
+function triggerHaptic() {
+    if (navigator.vibrate) {
+        navigator.vibrate(40); // Gentle 40ms buzz
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const { sequence, mysteryObj } = buildSequence();
     rosarySequence = sequence;
@@ -180,9 +186,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const isTa = SAC_COMMON.currentLang === 'ta';
     document.getElementById('mystery-badge').textContent = isTa ? mysteryObj.ta : mysteryObj.en;
     
-    // Controls
+    // Apply dynamic mystery theme to the body
+    let themeId = 'glorious';
+    if (mysteryObj.en.includes('Joyful')) themeId = 'joyful';
+    if (mysteryObj.en.includes('Sorrowful')) themeId = 'sorrowful';
+    if (mysteryObj.en.includes('Luminous')) themeId = 'luminous';
+    document.body.classList.add(`mystery-theme-${themeId}`);
+    
+    // Controls with Haptics
     document.getElementById('rosary-tap-zone').addEventListener('click', () => {
         if (currentStepIndex < rosarySequence.length - 1) {
+            triggerHaptic();
             currentStepIndex++;
             updateUI();
         }
@@ -191,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-next').addEventListener('click', (e) => {
         e.stopPropagation();
         if (currentStepIndex < rosarySequence.length - 1) {
+            triggerHaptic();
             currentStepIndex++;
             updateUI();
         }
@@ -199,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-prev').addEventListener('click', (e) => {
         e.stopPropagation();
         if (currentStepIndex > 0) {
+            triggerHaptic();
             currentStepIndex--;
             updateUI();
         }
@@ -206,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('btn-restart').addEventListener('click', (e) => {
         e.stopPropagation();
+        triggerHaptic();
         currentStepIndex = 0;
         updateUI();
     });
