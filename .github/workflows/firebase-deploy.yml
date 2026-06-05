@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - DEV
+      - dev
 
 jobs:
   deploy:
@@ -15,7 +15,7 @@ jobs:
 
       # 🛠️ DEV BRANCH -> Deploy to stacpaganurdev.web.app
       - name: Deploy to Development Environment
-        if: github.ref == 'refs/heads/DEV'
+        if: github.ref == 'refs/heads/dev'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
