@@ -114,8 +114,8 @@ const SAC_MESSAGING = {
       console.error("An error occurred while retrieving token. ", err);
       const isTa = SAC_COMMON.currentLang === 'ta';
       const errorMsg = isTa
-        ? "டோக்கனைப் பெறுவதில் பிழை ஏற்பட்டது. தயவுசெய்து உங்கள் ஃபயர்பேஸ் அமைப்புகளைச் சரிபார்க்கவும்."
-        : "Failed to retrieve subscription token. Please verify your Firebase/VAPID configurations in the Admin Portal.";
+        ? "டோக்கனைப் பெறுவதில் பிழை: " + (err.message || "Unknown error")
+        : "Failed to retrieve subscription token: " + (err.message || "Unknown error");
       if (!isSilent) this.showErrorToast(errorMsg);
     }
   },
