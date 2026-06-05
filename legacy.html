@@ -444,7 +444,8 @@
         }
 
         async function loadPastOfficials() {
-            const officials = await SAC_DATABASE.get("past_officials") || [];
+            let officials = await SAC_DATABASE.get("past_officials") || [];
+            if (!Array.isArray(officials)) officials = [];
             const isTa = SAC_COMMON.currentLang === 'ta';
 
             // Translate headers manually since data-i18n is not populated in dictionary
@@ -454,8 +455,8 @@
             document.getElementById('past-treasurers-title').innerText = isTa ? "மணியக்காரர்கள்" : "Past Treasurers";
             document.getElementById('past-patrons-title').innerText = isTa ? "பட்டையதாரர்கள்" : "Church Patrons";
 
-            const treasurers = officials.filter(o => o.role === 'treasurer');
-            const patrons = officials.filter(o => o.role === 'patron');
+            const treasurers = officials.filter(o => o && o.role && o.role.toLowerCase().trim() === 'treasurer');
+            const patrons = officials.filter(o => o && o.role && o.role.toLowerCase().trim() === 'patron');
 
             const treasurersList = document.getElementById('list-past-treasurers');
             const patronsList = document.getElementById('list-past-patrons');

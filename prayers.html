@@ -356,6 +356,14 @@
                 renderPrayers();
                 translateLabels();
             });
+
+            window.addEventListener('sacDataRefreshed', async (e) => {
+                if (e.detail && e.detail.collection === 'catholic_prayers') {
+                    const fetched = await SAC_DATABASE.get("catholic_prayers") || [];
+                    allPrayers = fetched;
+                    renderPrayers();
+                }
+            });
         });
 
         async function fetchAndRender() {
