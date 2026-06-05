@@ -1377,7 +1377,7 @@ const SAC_COMMON = {
                           <div class="n-embossed-emblem">
                               <div class="n-emblem-inner">
                                   <div class="n-icon-bg"></div>
-                                  <img src="images/church_logo.webp" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                  <img src="images/church_logo.webp" alt="Logo" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                               </div>
                           </div>
 
@@ -1942,9 +1942,9 @@ const SAC_COMMON = {
     
     document.querySelectorAll('.logo-icon, .footer-church-logo').forEach(el => {
       if (siteLogoUrl) {
-        el.innerHTML = `<img src="${siteLogoUrl}" alt="Church Logo" class="dynamic-logo-img">`;
+        el.innerHTML = `<img src="${siteLogoUrl}" alt="Church Logo" class="dynamic-logo-img" loading="lazy">`;
       } else {
-        el.innerHTML = `<img src="images/church_logo.webp" alt="Church Logo" class="dynamic-logo-img">`;
+        el.innerHTML = `<img src="images/church_logo.webp" alt="Church Logo" class="dynamic-logo-img" loading="lazy">`;
       }
     });
     this._injectFavicon();
@@ -2102,4 +2102,106 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const revealElements = document.querySelectorAll('.reveal-base');
     revealElements.forEach(el => observer.observe(el));
+});
+
+// --- PWA & Offline Experience UI ---
+const PWAUI = {
+    deferredPrompt: null,
+    
+    init() {
+        this.setupOfflineBanner();
+        this.setupInstallPrompt();
+    },
+    
+    setupOfflineBanner() {
+        const banner = document.createElement('div');
+        banner.id = 'sac-offline-banner';
+        banner.innerHTML = `
+            <div style="background: var(--color-primary); color: white; text-align: center; padding: 10px 20px; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 10000; display: flex; align-items: center; gap: 10px; font-weight: bold; transition: all 0.3s ease; opacity: 0; pointer-events: none;">
+                <i class="fas fa-wifi-slash"></i> <span id="sac-offline-text">You are currently offline.</span>
+            </div>
+        `;
+        document.body.appendChild(banner);
+        
+        const updateOnlineStatus = () => {
+            const el = banner.firstElementChild;
+            const textEl = document.getElementById('sac-offline-text');
+            const iconEl = el.querySelector('i');
+            
+            if (navigator.onLine) {
+                textEl.innerText = 'Back online!';
+                iconEl.className = 'fas fa-wifi';
+                el.style.background = '#28a745';
+                el.style.opacity = '1';
+                setTimeout(() => {
+                    el.style.opacity = '0';
+                    el.style.pointerEvents = 'none';
+                }, 3000);
+            } else {
+                textEl.innerText = 'You are currently offline.';
+                iconEl.className = 'fas fa-wifi-slash';
+                el.style.background = 'var(--color-primary)';
+                el.style.opacity = '1';
+                el.style.pointerEvents = 'auto';
+            }
+        };
+
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        
+        // Initial check
+        if (!navigator.onLine) updateOnlineStatus();
+    },
+    
+    setupInstallPrompt() {
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            this.deferredPrompt = e;
+            // Optionally, show our custom install UI here
+            this.showInstallPromotion();
+        });
+    },
+    
+    showInstallPromotion() {
+        // Only show if we haven't dismissed it recently
+        if (localStorage.getItem('sac_pwa_dismissed')) return;
+        if (document.getElementById('sac-install-banner')) return;
+        
+        const banner = document.createElement('div');
+        banner.id = 'sac-install-banner';
+        banner.innerHTML = `
+            <div style="background: var(--bg-card, white); color: var(--text-primary, #333); border: 1px solid var(--border-glass, #ddd); padding: 15px 20px; position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; gap: 15px; width: 90%; max-width: 400px; backdrop-filter: blur(10px);">
+                <img src="images/church_logo.webp" alt="App Logo" loading="lazy" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+                <div style="flex-grow: 1;">
+                    <div style="font-weight: bold; font-size: 1.05rem; margin-bottom: 3px;">Install App</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary, #666); line-height: 1.2;">Install St. Antony's Church on your home screen for quick offline access.</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <button id="pwa-install-btn" style="background: var(--color-primary, #b22222); color: white; border: none; padding: 6px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: transform 0.2s;">Install</button>
+                    <button id="pwa-dismiss-btn" style="background: transparent; color: var(--text-secondary, #666); border: none; padding: 0; font-size: 0.8rem; cursor: pointer; text-decoration: underline;">Not Now</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(banner);
+        
+        document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+            banner.remove();
+            if (this.deferredPrompt) {
+                this.deferredPrompt.prompt();
+                const { outcome } = await this.deferredPrompt.userChoice;
+                console.log('User response to the install prompt:', outcome);
+                this.deferredPrompt = null;
+            }
+        });
+        
+        document.getElementById('pwa-dismiss-btn').addEventListener('click', () => {
+            banner.remove();
+            localStorage.setItem('sac_pwa_dismissed', 'true');
+        });
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    PWAUI.init();
 });

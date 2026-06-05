@@ -92,7 +92,7 @@ window.SAC_AI_UI = {
           <div class="sac-ai-header">
             <div class="sac-ai-title-area">
               <div class="sac-ai-avatar">
-                <img src="images/anthony.webp" alt="SAC AI" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <img src="images/anthony.webp" alt="SAC AI" loading="lazy" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                 <span class="material-icons" style="display:none;">menu_book</span>
               </div>
               <div>

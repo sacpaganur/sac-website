@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline | St. Antony's Church</title>
+    <meta name="theme-color" content="#b22222">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <style>
+        .offline-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--color-background) 0%, #f0f4f8 100%);
+            color: var(--color-text);
+        }
+        
+        .offline-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .offline-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-family: var(--font-primary);
+            color: var(--color-primary-dark);
+        }
+
+        .offline-container p {
+            font-size: 1.2rem;
+            max-width: 500px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .offline-btn {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(178, 34, 34, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .offline-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(178, 34, 34, 0.4);
+        }
+    </style>
+    <meta name="view-transition" content="same-origin">
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            <i class="fas fa-wifi-slash"></i>
+        </div>
+        <h1>You are Offline</h1>
+        <p>It seems you have lost your internet connection. Please check your network settings and try again.</p>
+        <button class="offline-btn" onclick="window.location.reload()">Try Again</button>
+        
+        <p style="margin-top: 2rem; font-size: 0.9rem; color: #666;">
+            If you previously visited other pages, they may still be available from your cache. <br>
+            <a href="./" style="color: var(--color-primary); font-weight: bold;">Return to Home</a>
+        </p>
+    </div>
+
+    <!-- Font Awesome for the wifi-slash icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/common.js"></script>
+</body>
+</html>

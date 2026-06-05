@@ -8007,3 +8007,129 @@ body:lang(ta) .footer-back-top span:last-child {
     -webkit-transform: translate(0, 0) translateZ(0);
     transform: translate(0, 0) translateZ(0);
   }
+
+/* --- Native SPA View Transitions --- */
+@view-transition {
+    navigation: auto;
+}
+
+/* Subtle crossfade and slide for all pages */
+::view-transition-old(root) {
+    animation: fade-out 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards, 
+               slide-up-out 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+::view-transition-new(root) {
+    animation: fade-in 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards, 
+               slide-up-in 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slide-up-out {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+@keyframes slide-up-in {
+    from { transform: translateY(10px); }
+    to { transform: translateY(0); }
+}
+
+/* Prevent transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
+}
+
+
+/* --- Category 2: Advanced Glassmorphism & Micro-Interactions --- */
+
+/* 1. Deepen Navbar Glassmorphism */
+.nav-wrapper, header, #global-navbar .navbar {
+    background: var(--bg-glass, rgba(255, 255, 255, 0.75)) !important;
+    backdrop-filter: blur(16px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+    border-bottom: 1px solid var(--border-glass, rgba(255, 255, 255, 0.2)) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.3s ease !important;
+}
+
+html[data-theme="dark"] .nav-wrapper, 
+html[data-theme="dark"] header, 
+html[data-theme="dark"] #global-navbar .navbar {
+    background: hsla(222, 47%, 15%, 0.75) !important;
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.05) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 2. Button Micro-Interactions */
+button, .btn, .hero-cinema__btn, .sac-btn {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease !important;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover, .btn:hover, .hero-cinema__btn:hover, .sac-btn:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 20px rgba(178, 34, 34, 0.25) !important;
+}
+
+button:active, .btn:active, .hero-cinema__btn:active, .sac-btn:active {
+    transform: translateY(1px) scale(0.98) !important;
+}
+
+/* Button Glow Effect on Primary Buttons */
+.hero-cinema__btn--fill, button[style*="b22222"], .btn-primary {
+    position: relative;
+}
+
+.hero-cinema__btn--fill::after, button[style*="b22222"]::after, .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    transition: none;
+}
+
+.hero-cinema__btn--fill:hover::after, button[style*="b22222"]:hover::after, .btn-primary:hover::after {
+    animation: button-shine 0.7s ease-out forwards;
+}
+
+@keyframes button-shine {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+/* 3. Card Hover Upgrades */
+.vision-card, .summary-card, .gallery-item, .notice-card, .admin-card {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease !important;
+}
+
+.vision-card:hover, .summary-card:hover, .gallery-item:hover, .notice-card:hover, .admin-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+}
+
+html[data-theme="dark"] .vision-card:hover, 
+html[data-theme="dark"] .summary-card:hover, 
+html[data-theme="dark"] .gallery-item:hover, 
+html[data-theme="dark"] .notice-card:hover, 
+html[data-theme="dark"] .admin-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+}

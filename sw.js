@@ -1,74 +1,27 @@
-const CACHE_NAME = 'sac-pwa-cache-v41';
-const ASSETS_TO_CACHE = [
+const CACHE_NAME = 'sac-pwa-cache-v42';
+
+// Minimal pre-cache list: Just the offline fallback and core shell assets
+const PRECACHE_ASSETS = [
   './',
-  './bible.html',
-  './calendar.html',
-  './contact.html',
-  './devotion.html',
-  './gallery.html',
-  './liturgy.html',
-  './notices.html',
-  './schedule.html',
-  './sac-admin-portal.html',
-  './css/dark-overrides.css',
+  './offline.html',
   './css/style.css',
-  './css/bible-page.css',
-  './css/calendar.css',
-  './css/contact-page.css',
-  './css/devotion-page.css',
-  './css/gallery-page.css',
-  './css/liturgy-page.css',
-  './css/schedule-page.css',
-  './css/a11y.css',
-  './css/ai-chat.css',
-  './css/modal.css',
-  './css/hero-home.css',
   './js/common.js',
-  './js/navbar.js',
-  './js/footer.js',
-  './js/database.js',
-  './js/a11y.js',
-  './js/ai-chat-ui.js',
-  './js/ai-service.js',
-  './js/bible-data.js',
-  './js/calendar-links.js',
-  './js/calendar.js',
-  './js/hero-home.js',
-  './js/liturgical_data.js',
-  './js/services.js',
-  './js/messaging.js',
   './images/church_logo.webp'
 ];
 
 self.addEventListener('install', (event) => {
+  console.log('[Service Worker] Installing smart offline cache...');
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Caching all static assets while bypassing browser disk cache...');
-      // Fetch each asset with cache: 'reload' to ensure we download the fresh deployed versions
-      // from the live server instead of reusing stale browser HTTP disk cache entries!
-      const cachePromises = ASSETS_TO_CACHE.map((url) => {
-        const request = new Request(url, { cache: 'reload' });
-        return fetch(request)
-          .then((response) => {
-            if (response.ok) {
-              return cache.put(url, response);
-            }
-            throw new Error(`Failed to fetch ${url} (Status: ${response.status})`);
-          })
-          .catch((err) => {
-            console.warn(`[Service Worker] Pre-caching reload fetch failed for ${url}, falling back to basic caching:`, err);
-            return cache.add(url).catch(fallbackErr => {
-              console.error(`[Service Worker] Critical pre-caching failure for ${url}:`, fallbackErr);
-            });
-          });
-      });
-      return Promise.all(cachePromises);
+      return cache.addAll(PRECACHE_ASSETS);
     })
   );
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
+  console.log('[Service Worker] Activating...');
+  self.clients.claim();
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -81,77 +34,51 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests and HTTP/HTTPS schemes (bypass chrome-extension, data: URIs, etc.)
   if (event.request.method !== 'GET') return;
   if (!event.request.url.startsWith('http')) return;
 
-  const requestUrl = new URL(event.request.url);
-  
-  // Define clean URL by stripping .html extensions
-  let cleanUrl = event.request.url;
-  if (requestUrl.pathname.endsWith('.html')) {
-    const cleanPath = requestUrl.pathname.slice(0, -5);
-    cleanUrl = requestUrl.origin + cleanPath + requestUrl.search;
-  }
+  const url = new URL(event.request.url);
 
-  // Identify core files (pages, scripts, stylesheets) that need to be served fresh online
-  const isDocOrScriptOrStyle = 
-    event.request.mode === 'navigate' ||
-    event.request.url.endsWith('.js') ||
-    event.request.url.endsWith('.css') ||
-    event.request.url.includes('/js/') ||
-    event.request.url.includes('/css/');
-
-  // --- Strategy 1: Stale-While-Revalidate for HTML, Javascript, and CSS ---
-  // Online: Instant load from cache first, then update cache in background.
-  // Offline: Instant load from cache, fallback to index if missing.
-  if (isDocOrScriptOrStyle) {
+  // Strategy 1: Network-First for HTML documents (pages)
+  // Ensures users always see the latest content if online, falls back to cache if offline
+  if (event.request.mode === 'navigate' || url.pathname.endsWith('.html')) {
     event.respondWith(
-      caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
-        const fetchPromise = fetch(event.request)
-          .then((networkResponse) => {
-            if (networkResponse && networkResponse.status === 200 && !networkResponse.redirected) {
-              const responseToCache = networkResponse.clone();
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(cleanUrl, responseToCache).catch(err => {
-                  console.warn('[Service Worker] Cache put failed:', err);
-                });
-              });
+      fetch(event.request)
+        .then((networkResponse) => {
+          // If valid response, clone and cache it
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // Network failed (offline), try to serve from cache
+          return caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+              return cachedResponse;
             }
-            return networkResponse;
-          })
-          .catch((error) => {
-            console.warn('[Service Worker] Fetch failed, keeping cached fallback:', error);
+            // If the specific page isn't in cache, return the generic offline fallback page
+            return caches.match('./offline.html');
           });
-          
-        return cachedResponse || fetchPromise.then(res => {
-            if (!res && event.request.mode === 'navigate') {
-              return caches.match('./', { ignoreSearch: true });
-            }
-            return res;
-        });
-      })
+        })
     );
     return;
   }
 
-  
-  const isImage = event.request.url.match(/\.(png|jpg|jpeg|gif|webp|svg)$/i);
-
-  // --- Strategy 2: Cache-First for Images ---
-  // If it's in the cache, return it immediately without hitting the network.
-  if (isImage) {
+  // Strategy 2: Cache-First for static assets (Images, Fonts)
+  const isStatic = url.pathname.match(/\.(png|jpg|jpeg|gif|webp|svg|woff2|woff)$/i);
+  if (isStatic) {
     event.respondWith(
-      caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
+      caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
         if (cachedResponse) return cachedResponse;
         return fetch(event.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(cleanUrl, responseToCache));
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
           }
           return networkResponse;
         });
@@ -160,31 +87,23 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // --- Strategy 3: Stale-While-Revalidate for other static media (Fonts, API JSON, etc.) ---
-  // Instant load from cache first, then update cache in background.
-  event.respondWith(
-    caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request)
-        .then((networkResponse) => {
-          if (
-            networkResponse &&
-            networkResponse.status === 200 &&
-            (networkResponse.type === 'basic' || networkResponse.type === 'cors') &&
-            !networkResponse.redirected
-          ) {
+  // Strategy 3: Stale-While-Revalidate for CSS and Javascript
+  // Instantly serves cached file, but fetches update in the background for the NEXT load
+  const isScriptOrStyle = url.pathname.endsWith('.js') || url.pathname.endsWith('.css');
+  if (isScriptOrStyle) {
+    event.respondWith(
+      caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
+        const fetchPromise = fetch(event.request).then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
             const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(cleanUrl, responseToCache).catch(err => {
-                console.warn('[Service Worker] Media cache put failed:', err);
-              });
-            });
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
           }
           return networkResponse;
-        })
-        .catch(() => cachedResponse);
+        }).catch(() => null);
 
-      return cachedResponse || fetchPromise;
-    })
-  );
+        return cachedResponse || fetchPromise;
+      })
+    );
+    return;
+  }
 });
-
