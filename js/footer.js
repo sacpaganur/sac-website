@@ -87,10 +87,10 @@ window.SAC_FOOTER = {
         <span id="footer-church-name-copyright">புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர்</span>.
         <span data-i18n="footer.copyText">அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span>
       </p>
-      <div class="footer-visitor-stats" style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-muted); background:rgba(255,255,255,0.05); padding:4px 12px; border-radius:20px; border: 1px solid rgba(255,255,255,0.1);">
+      <div class="footer-visitor-stats" style="display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text-muted); background:rgba(128,128,128,0.08); padding:4px 12px; border-radius:20px; border: 1px solid rgba(128,128,128,0.15);">
         <span class="material-icons" aria-hidden="true" style="font-size:14px; color:var(--primary);">visibility</span>
         <span data-i18n="footer.visitors">மொத்த பார்வையாளர்கள்:</span>
-        <span id="public-visitor-number" style="font-weight:700; color:var(--text-primary);">-</span>
+        <span id="public-visitor-number" style="font-weight:800; color:var(--text-primary);">-</span>
       </div>
       <button type="button" class="footer-back-top" id="sac-back-to-top" aria-label="Back to top">
         <span class="material-icons" aria-hidden="true">keyboard_arrow_up</span>

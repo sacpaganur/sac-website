@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v39';
+const CACHE_NAME = 'sac-pwa-cache-v41';
 const ASSETS_TO_CACHE = [
   './',
   './bible.html',

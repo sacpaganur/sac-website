@@ -42,7 +42,13 @@ const SAC_MESSAGING = {
 
   async requestPermission() {
     const isTa = SAC_COMMON.currentLang === 'ta';
+    
+    // Provide instant feedback
+    this.hidePrompt();
+    this.showInfoToast(isTa ? "அறிவிப்புகளை அமைக்கிறது, காத்திருக்கவும்..." : "Setting up notifications, please wait...");
+
     if (!('Notification' in window)) {
+      this.clearInfoToasts();
       const errMsg = isTa
         ? "உங்கள் உலாவி புஷ் அறிவிப்புகளை ஆதரிக்கவில்லை. தயவுசெய்து இந்த செயலியை முகப்புத் திரையில் நிறுவி (Add to Home Screen) அங்கிருந்து திறக்கவும்."
         : "Your browser does not support push notifications. If you are on iOS, please install the app to your Home Screen first.";
@@ -56,6 +62,7 @@ const SAC_MESSAGING = {
         console.log("Notification permission granted.");
         await this.subscribeToken();
       } else {
+        this.clearInfoToasts();
         console.log("Notification permission denied.");
         const errMsg = isTa
           ? "அறிவிப்பு அனுமதி மறுக்கப்பட்டது! அதை இயக்க, முகவரிப் பட்டியில் உள்ள பூட்டு (Lock 🔒) ஐகானைக் கிளிக் செய்து, அறிவிப்புகளை 'Allow' என மாற்றவும்."
@@ -63,7 +70,9 @@ const SAC_MESSAGING = {
         this.showErrorToast(errMsg);
       }
     } catch (error) {
+      this.clearInfoToasts();
       console.error("Error requesting permission:", error);
+      this.showErrorToast(error.message || "Unknown error occurred.");
     }
   },
 
@@ -90,26 +99,32 @@ const SAC_MESSAGING = {
             const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
             await registration.update();
             tokenOptions.serviceWorkerRegistration = registration;
-
-            // CRITICAL FIX: Aggressively destroy any existing Push Subscriptions!
-            // If the user has a stale subscription from an old VAPID key, FCM will reject the new getToken() request with an OAuth/Credential error.
-            try {
-                const existingSub = await registration.pushManager.getSubscription();
-                if (existingSub) {
-                    console.log("Found stale push subscription. Unsubscribing...");
-                    await existingSub.unsubscribe();
-                }
-            } catch (unsubErr) {
-                console.warn("Failed to unsubscribe old push subscription:", unsubErr);
-            }
-
         } catch (swErr) {
             console.warn("FCM Service Worker registration failed, falling back to default:", swErr);
         }
       }
 
-      // Get FCM token
-      const currentToken = await this.messaging.getToken(tokenOptions);
+      // Get FCM token safely with retry logic for corrupted states
+      let currentToken;
+      try {
+        currentToken = await this.messaging.getToken(tokenOptions);
+      } catch (getTokenErr) {
+        console.warn("Initial getToken failed:", getTokenErr);
+        // If the native PushManager subscription is out of sync with Firebase IndexedDB token
+        if (getTokenErr.code === 'messaging/token-subscribe-failed' || getTokenErr.message.includes('credential')) {
+            console.log("Attempting to delete corrupted Firebase token and retry...");
+            try {
+                await this.messaging.deleteToken();
+                console.log("Corrupted token deleted. Retrying getToken...");
+                currentToken = await this.messaging.getToken(tokenOptions);
+            } catch (retryErr) {
+                console.error("Retry failed:", retryErr);
+                throw retryErr; // Throw to the outer catch block
+            }
+        } else {
+            throw getTokenErr;
+        }
+      }
 
       if (currentToken) {
         console.log("FCM Token obtained.");
@@ -225,7 +240,30 @@ const SAC_MESSAGING = {
     }, 5000);
   },
 
+  showInfoToast(msgText) {
+    const isTa = SAC_COMMON.currentLang === 'ta';
+    const title = isTa ? "காத்திருக்கவும்..." : "Please wait...";
+    
+    const toastHtml = `
+      <div class="sac-toast-notification sac-toast-info" style="position:fixed; top:20px; right:20px; max-width:350px; background:#fff; padding:16px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.15); z-index:10000; display:flex; align-items:flex-start; gap:12px; border-left:4px solid #3B82F6; animation: slideInRight 0.4s ease;">
+        <span class="material-icons" style="color:#3B82F6; font-size:24px; animation:sacSpin 1s infinite linear;">refresh</span>
+        <div>
+          <h4 style="margin:0 0 4px 0; font-size:0.95rem; color:#222;">${title}</h4>
+          <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.4;">${msgText}</p>
+        </div>
+        <button onclick="this.parentElement.remove()" style="background:none; border:none; color:#999; cursor:pointer; padding:0; align-self:flex-start;"><span class="material-icons" style="font-size:18px;">close</span></button>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', toastHtml);
+  },
+
+  clearInfoToasts() {
+    const infoToasts = document.querySelectorAll('.sac-toast-info');
+    infoToasts.forEach(t => t.remove());
+  },
+
   showConfirmationToast() {
+    this.clearInfoToasts();
     const isTa = SAC_COMMON.currentLang === 'ta';
     const title = isTa ? "வெற்றி!" : "Subscription Active!";
     const msg = isTa ? "முக்கிய ஆலய அறிவிப்புகளைப் பெற வெற்றிகரமாக இணைந்துள்ளீர்கள்." : "You are now successfully subscribed to instant parish updates.";
@@ -253,6 +291,7 @@ const SAC_MESSAGING = {
   },
 
   showErrorToast(msgText) {
+    this.clearInfoToasts();
     const isTa = SAC_COMMON.currentLang === 'ta';
     const title = isTa ? "முக்கிய அறிவிப்பு" : "Action Required";
     

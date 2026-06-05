@@ -935,13 +935,20 @@ window.loadVisitorAnalytics = async function() {
     try {
         if (!SAC_DATABASE || !SAC_DATABASE.getVisitorStats) return;
         
+        const logsContainer = document.getElementById('visitor-logs-list');
+        if (logsContainer) {
+            logsContainer.innerHTML = `<div style="text-align:center; padding: 20px; color:#666;">
+                <span class="material-icons" style="animation:sacSpin 1s infinite linear;">refresh</span>
+                <div>Loading...</div>
+            </div>`;
+        }
+        
         // Load total count
         const total = await SAC_DATABASE.getVisitorStats();
         const countEl = document.getElementById('visitor-total-count');
         if (countEl) countEl.innerText = total.toLocaleString();
 
         // Load logs list
-        const logsContainer = document.getElementById('visitor-logs-list');
         if (!logsContainer) return;
         
         const logs = await SAC_DATABASE.getVisitorLogs();
@@ -952,12 +959,22 @@ window.loadVisitorAnalytics = async function() {
 
         let html = '';
         logs.forEach(log => {
-            const dateStr = new Date(log.timestamp).toLocaleString();
+            let dateStr = '—';
+            if (log.timestamp) {
+                if (log.timestamp.seconds) {
+                    dateStr = new Date(log.timestamp.seconds * 1000).toLocaleString();
+                } else {
+                    const d = new Date(log.timestamp);
+                    if (!isNaN(d)) dateStr = d.toLocaleString();
+                }
+            }
+            const ua = log.userAgent || 'Unknown Device';
+            
             html += `
-                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom:8px;">
                     <div>
-                        <div style="font-weight: 600; color: #1e293b; margin-bottom: 4px;">Page: ${log.page}</div>
-                        <div style="font-size: 0.8rem; color: #64748b;">${log.userAgent}</div>
+                        <div style="font-weight: 600; color: #1e293b; margin-bottom: 4px;">Page: ${log.page || 'Unknown'}</div>
+                        <div style="font-size: 0.8rem; color: #64748b;">${ua}</div>
                     </div>
                     <div style="font-size: 0.85rem; color: #94a3b8; white-space: nowrap; margin-left: 10px;">
                         ${dateStr}
