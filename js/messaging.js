@@ -88,7 +88,21 @@ const SAC_MESSAGING = {
       if ('serviceWorker' in navigator) {
         try {
             const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+            await registration.update();
             tokenOptions.serviceWorkerRegistration = registration;
+
+            // CRITICAL FIX: Aggressively destroy any existing Push Subscriptions!
+            // If the user has a stale subscription from an old VAPID key, FCM will reject the new getToken() request with an OAuth/Credential error.
+            try {
+                const existingSub = await registration.pushManager.getSubscription();
+                if (existingSub) {
+                    console.log("Found stale push subscription. Unsubscribing...");
+                    await existingSub.unsubscribe();
+                }
+            } catch (unsubErr) {
+                console.warn("Failed to unsubscribe old push subscription:", unsubErr);
+            }
+
         } catch (swErr) {
             console.warn("FCM Service Worker registration failed, falling back to default:", swErr);
         }
