@@ -2,13 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>FCM Diagnostic Test</title>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+  <title>FCM Deep Diagnostic Test</title>
 </head>
 <body style="font-family: sans-serif; padding: 20px;">
-  <h2>FCM Diagnostic Test</h2>
-  <button id="btn" style="padding: 10px 20px; font-size: 16px;">Test FCM Subscription</button>
+  <h2>FCM Deep Diagnostic Test</h2>
+  <button id="btn" style="padding: 10px 20px; font-size: 16px;">Run API Diagnostics</button>
   <pre id="log" style="background: #f4f4f4; padding: 15px; margin-top: 20px; border-radius: 8px; white-space: pre-wrap; word-break: break-all;"></pre>
 
   <script>
@@ -17,42 +15,72 @@
       logEl.textContent += msg + '\n\n';
     }
 
+    const apiKey = "AIzaSyD2PpMl6jeHehj6GlNS5B1Uni6pos7UkJc";
+    const appId = "1:495839870905:web:f9f8ab0446292689a50068";
+    const projectId = "stacpaganur";
+
     document.getElementById('btn').addEventListener('click', async () => {
-      log("Initializing Firebase...");
+      log("Starting Deep API Diagnostics...");
+
+      // 1. Test Firebase Installations API
+      log("1. Testing Firebase Installations API (FIS)...");
       try {
-        const config = {
-          apiKey: "AIzaSyD2PpMl6jeHehj6GlNS5B1Uni6pos7UkJc",
-          authDomain: "stacpaganur.firebaseapp.com",
-          projectId: "stacpaganur",
-          storageBucket: "stacpaganur.firebasestorage.app",
-          messagingSenderId: "495839870905",
-          appId: "1:495839870905:web:f9f8ab0446292689a50068"
-        };
-        if (!firebase.apps.length) {
-          firebase.initializeApp(config);
-        }
-        log("Firebase initialized.");
+        const fisResponse = await fetch(`https://firebaseinstallations.googleapis.com/v1/projects/${projectId}/installations`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey
+          },
+          body: JSON.stringify({
+            appId: appId,
+            authVersion: "FIS_v2",
+            sdkVersion: "w:10.12.2"
+          })
+        });
 
-        log("Requesting Notification Permission...");
-        const permission = await Notification.requestPermission();
-        log("Permission status: " + permission);
+        const fisData = await fisResponse.json();
+        log(`FIS HTTP Status: ${fisResponse.status}`);
+        log(`FIS Response:\n${JSON.stringify(fisData, null, 2)}`);
         
-        if (permission === 'granted') {
-          log("Registering Service Worker...");
-          const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-          log("Service Worker registered. Getting Token...");
+        if (fisResponse.status !== 200) {
+            log("FAIL: Firebase Installations API blocked the request. This means your Google Cloud API Key is definitely restricted or invalid for this API.");
+            return;
+        } else {
+            log("SUCCESS: Firebase Installations API is perfectly working!");
+        }
 
-          const messaging = firebase.messaging();
-          const token = await messaging.getToken({
-            vapidKey: "BNtMXIN9ne7Nk_kcqnH3wOR57UrCZorPhWJK3kj-RcjHnvxBTHMi_CdeyCJEKTsDVqImDPU34CgWUZ7gNC-GT5A",
-            serviceWorkerRegistration: registration
-          });
-          
-          log("SUCCESS! Token generated:\n" + token);
+      } catch (err) {
+        log("FIS Network Error:\n" + err.message);
+        return;
+      }
+
+      // 2. Test Firebase Cloud Messaging API
+      log("\n----------------------------\n2. Testing Firebase Cloud Messaging API (FCM)...");
+      try {
+        const fcmResponse = await fetch(`https://fcmregistrations.googleapis.com/v1/projects/${projectId}/registrations`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey
+          },
+          body: JSON.stringify({
+            web: {
+              endpoint: "https://fcm.googleapis.com/fcm/send/TEST",
+              auth: "TEST",
+              p256dh: "TEST"
+            }
+          })
+        });
+
+        const fcmData = await fcmResponse.json();
+        log(`FCM HTTP Status: ${fcmResponse.status}`);
+        log(`FCM Response:\n${JSON.stringify(fcmData, null, 2)}`);
+
+        if (fcmResponse.status === 401) {
+            log("FAIL: FCM API threw a 401 Unauthorized error! This means your VAPID key is likely invalid or the FCM API is disabled in Google Cloud.");
         }
       } catch (err) {
-        log("ERROR:\n" + err.name + ": " + err.message);
-        console.error(err);
+        log("FCM Network Error:\n" + err.message);
       }
     });
   </script>
