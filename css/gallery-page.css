@@ -128,6 +128,8 @@ body:lang(ta) .gallery-section-title {
   color: #fff;
   background: hsla(325, 70%, 48%, 0.92);
   backdrop-filter: blur(8px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .gallery-trending-cat {
@@ -170,6 +172,8 @@ body:lang(ta) .gallery-trending-title {
   border: 1px solid var(--border-glass);
   box-shadow: 0 10px 32px hsla(265, 35%, 40%, 0.08);
   backdrop-filter: blur(12px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .gallery-filter-tab {
@@ -343,13 +347,17 @@ body:lang(ta) .gallery-card-title {
 .lightbox-overlay {
   position: fixed;
   inset: 0;
-  z-index: 2000;
+  z-index: 10005;
   display: none;
   align-items: center;
   justify-content: center;
   background: hsla(265, 30%, 12%, 0.82);
   backdrop-filter: blur(20px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   -webkit-backdrop-filter: blur(20px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -393,6 +401,8 @@ body:lang(ta) .gallery-card-title {
   background: hsla(0, 0%, 100%, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(12px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .lightbox-title {
@@ -429,6 +439,8 @@ body:lang(ta) .gallery-card-title {
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #fff;
   backdrop-filter: blur(10px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   transition: var(--transition-smooth);
 }
 
@@ -476,14 +488,22 @@ body:lang(ta) .gallery-card-title {
   }
 
   .gallery-trending-card,
+
   .gallery-trending-card:first-child {
     aspect-ratio: 16/10;
     grid-column: auto;
   }
 
-  .btn-prev { left: 8px; bottom: -72px; top: auto; transform: none; }
-  .btn-next { right: 8px; bottom: -72px; top: auto; transform: none; }
-  .btn-close { top: -64px; right: 8px; }
+  .btn-prev { position: fixed; left: 24px; bottom: 40px; top: auto; transform: none; }
+  .btn-next { position: fixed; right: 24px; bottom: 40px; top: auto; transform: none; }
+  .btn-close { position: fixed; top: 24px; right: 24px; }
+  
+  .btn-prev:hover, 
+  .btn-next:hover,
+  .btn-prev:active,
+  .btn-next:active {
+    transform: scale(1.05);
+  }
 }
 
 @media (max-width: 480px) {
@@ -491,3 +511,4 @@ body:lang(ta) .gallery-card-title {
     grid-template-columns: 1fr;
   }
 }
+

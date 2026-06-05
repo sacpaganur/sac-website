@@ -10,8 +10,8 @@ window.showToast = function(message, type = 'success') {
     const toast = document.createElement('div');
     toast.className = 'sac-toast toast-' + type;
     
-    const icon = type === 'success' ? '?' : '??';
-    toast.innerHTML = <span></span> <span></span>;
+    const icon = type === 'success' ? '✅' : '⚠️';
+    toast.innerHTML = `<span style="margin-right:8px">${icon}</span> <span>${message}</span>`;
     
     container.appendChild(toast);
     
@@ -760,10 +760,12 @@ window.populateGalleryList = async function() {
             var eyeIcon = isActive ? 'visibility' : 'visibility_off';
             var eyeColor = isActive ? '#10b981' : '#94a3b8';
             
+            var safeSrc = (item.src || '').replace(/\.(jpg|jpeg|png)([\?#].*)?$/i, '.webp$2');
+            
             html += `
                 <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; opacity:${opacityStyle}; transition:all 0.2s; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
                     <div style="width:100%; height:100px; background:#f1f5f9; overflow:hidden;">
-                        <img src="${item.src}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none';">
+                        <img src="${safeSrc}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none';">
                     </div>
                     <div style="padding:10px 12px;">
                         <div style="font-size:0.65rem; color:#4f46e5; text-transform:uppercase; font-weight:800; letter-spacing:0.3px; margin-bottom:4px; background:#eef2ff; display:inline-block; padding:2px 8px; border-radius:20px;">${cat}</div>
@@ -998,200 +1000,88 @@ window.addEventListener('sacLanguageChanged', async function(e) {
 
 
 // --- DASHBOARD METRICS ---
-async function loadDashboardMetrics() {
+window.loadDashboardMetrics = async function() {
     try {
-        const prayers = await (typeof SAC_DATABASE !== 'undefined' ? SAC_DATABASE.get('catholic_prayers') : []);
-        if (prayers && document.getElementById('dash-prayers')) document.getElementById('dash-prayers').innerText = prayers.filter(p => p.isDeleted !== true && p.isDeleted !== 'true').length;
+        if (typeof SAC_DATABASE === 'undefined') return;
         
-        const notices = await (typeof SAC_DATABASE !== 'undefined' ? SAC_DATABASE.get('announcements') : []);
-        if (notices && document.getElementById('dash-notices')) document.getElementById('dash-notices').innerText = notices.length;
+        const prayers = await SAC_DATABASE.get('catholic_prayers');
+        if (document.getElementById('dash-prayers')) {
+            document.getElementById('dash-prayers').innerText = Array.isArray(prayers) ? prayers.filter(p => p.isDeleted !== true && p.isDeleted !== 'true').length : 0;
+        }
         
-        const gallery = await (typeof SAC_DATABASE !== 'undefined' ? SAC_DATABASE.get('gallery') : []);
-        if (gallery && document.getElementById('dash-gallery')) document.getElementById('dash-gallery').innerText = gallery.length;
+        const notices = await SAC_DATABASE.get('announcements');
+        if (document.getElementById('dash-notices')) {
+            document.getElementById('dash-notices').innerText = Array.isArray(notices) ? notices.length : 0;
+        }
         
-        const reqs = await (typeof SAC_DATABASE !== 'undefined' ? SAC_DATABASE.get('prayer_requests') : []);
-        if (reqs && document.getElementById('dash-requests')) document.getElementById('dash-requests').innerText = reqs.length;
+        const gallery = await SAC_DATABASE.get('gallery');
+        if (document.getElementById('dash-gallery')) {
+            document.getElementById('dash-gallery').innerText = Array.isArray(gallery) ? gallery.length : 0;
+        }
+        
+        const reqs = await SAC_DATABASE.get('prayer_requests');
+        if (document.getElementById('dash-requests')) {
+            document.getElementById('dash-requests').innerText = Array.isArray(reqs) ? reqs.length : 0;
+        }
     } catch(e) {
         console.error("Dashboard fetch error:", e);
     }
-}
+};
 
+// Start the dashboard metrics once DOM is ready and Database is accessible
+setTimeout(() => {
+    if (typeof window.loadDashboardMetrics === 'function') window.loadDashboardMetrics();
+}, 1500);
+
+// Auto-convert native tooltips to custom CSS tooltips for better UX
+setInterval(() => {
+    document.querySelectorAll('.btn-crud-icon[title], .admin-tab[title], button[title], a[title]').forEach(el => {
+        if (el.hasAttribute('title') && el.getAttribute('title').trim() !== '') {
+            el.setAttribute('data-tooltip', el.getAttribute('title'));
+            el.removeAttribute('title');
+        }
+    });
+}, 1000);
+
+// --- ROBUST DB SYNC UI REFRESHER & VAPID KEY FIX ---
+window.addEventListener('sacDataRefreshed', async (e) => {
+    if (!e.detail || !e.detail.collection) return;
+    const col = e.detail.collection;
+    const activeTabEl = document.querySelector('.admin-tab.active');
+    if (!activeTabEl) return;
     
-    try {
-        const prayersSnap = await SAC_DATABASE.db.collection('catholic_prayers').get();
-        document.getElementById('dash-prayers').innerText = prayersSnap.size;
-        
-        const noticesSnap = await SAC_DATABASE.db.collection('announcements').get();
-        document.getElementById('dash-notices').innerText = noticesSnap.size;
-        
-        const gallerySnap = await SAC_DATABASE.db.collection('gallery').get();
-        document.getElementById('dash-gallery').innerText = gallerySnap.size;
-        
-        const reqSnap = await SAC_DATABASE.db.collection('prayer_requests').get();
-        document.getElementById('dash-requests').innerText = reqSnap.size;
-    } catch(e) {
-        console.error("Dashboard fetch error:", e);
-    }
-}
-setTimeout(loadDashboardMetrics, 1000);
-
-
-async function loadDashboardMetrics() {
-    try {
-        const prayers = await (window.SAC_DATABASE ? window.SAC_DATABASE.get('catholic_prayers') : []);
-        if (prayers) document.getElementById('dash-prayers').innerText = prayers.filter(p => p.isDeleted !== true && p.isDeleted !== 'true').length;
-        
-        const notices = await (window.SAC_DATABASE ? window.SAC_DATABASE.get('announcements') : []);
-        if (notices) document.getElementById('dash-notices').innerText = notices.length;
-        
-        const gallery = await (window.SAC_DATABASE ? window.SAC_DATABASE.get('gallery') : []);
-        if (gallery) document.getElementById('dash-gallery').innerText = gallery.length;
-        
-        const reqs = await (window.SAC_DATABASE ? window.SAC_DATABASE.get('prayer_requests') : []);
-        if (reqs) document.getElementById('dash-requests').innerText = reqs.length;
-    } catch(e) {
-        console.error("Dashboard fetch error:", e);
-    }
-}
-
-// --- AUTOMATED LITURGY PRE-LOADER ---
-document.addEventListener('DOMContentLoaded', () => {
-    // Inject the Pre-Loader UI into the Database Sync tab
-    const dbPanel = document.querySelector('#panel-database .admin-split-layout');
-    if (dbPanel) {
-        dbPanel.insertAdjacentHTML('beforeend', `
-            <div class="admin-card" style="margin-top: 20px;">
-                <div class="admin-card-title">
-                    <span class="material-icons">auto_awesome</span>
-                    <span>Automated Liturgy Pre-Loader (AI)</span>
-                </div>
-                <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:15px; line-height:1.5;">
-                    Click the button below to automatically fetch and save the Catholic Daily Liturgy verses (Tamil & English) for the next 30 days into the database. Doing this once a month ensures public visitors experience <strong>Zero Lag</strong> and <strong>Zero Errors</strong> on the Liturgy page.
-                </p>
-                <div style="display:flex; align-items:center; gap: 15px;">
-                    <button id="btn-preload-liturgy" class="btn-primary" onclick="startLiturgyPreload()" style="display:flex; align-items:center; gap:8px;">
-                        <span class="material-icons">downloading</span> Pre-Load Next 30 Days
-                    </button>
-                    <span id="preload-status-text" style="font-size: 0.9rem; font-weight: bold; color: var(--primary);"></span>
-                </div>
-                <div id="preload-progress-container" style="display:none; margin-top:15px; width:100%; background:#e2e8f0; border-radius:10px; overflow:hidden; height:8px;">
-                    <div id="preload-progress-bar" style="width:0%; height:100%; background:var(--primary); transition:width 0.3s;"></div>
-                </div>
-            </div>
-        `);
+    const onclickStr = activeTabEl.getAttribute('onclick') || '';
+    const match = onclickStr.match(/'([^']+)'/);
+    const tabId = match ? match[1] : null;
+    
+    // Automatically re-populate the active tab if its background data just arrived from Firestore
+    if (col === 'firebase_config' && tabId === 'database') {
+        if (typeof populateDatabaseConfig === 'function') await populateDatabaseConfig();
+        if (typeof updateDBConnectionStatusBadge === 'function') updateDBConnectionStatusBadge();
+    } else if (col === 'settings' && tabId === 'settings') {
+        if (typeof populateGeneralSettings === 'function') await populateGeneralSettings();
+    } else if (col === 'mass_schedules' && tabId === 'masses') {
+        if (typeof populateMassSchedulesList === 'function') await populateMassSchedulesList();
+    } else if (col === 'announcements' && tabId === 'notices') {
+        if (typeof populateNoticesList === 'function') await populateNoticesList();
+    } else if (col === 'legacy_timeline' && tabId === 'timeline') {
+        if (typeof populateTimelineList === 'function') await populateTimelineList();
+    } else if (col === 'past_officials' && tabId === 'past_officials') {
+        if (typeof populatePastOfficialsList === 'function') await populatePastOfficialsList();
+    } else if (col === 'gallery' && tabId === 'gallery') {
+        if (typeof populateGalleryList === 'function') await populateGalleryList();
+    } else if (col === 'prayer_requests' && tabId === 'prayers') {
+        if (typeof populatePrayersList === 'function') await populatePrayersList();
+    } else if (col === 'catholic_prayers' && tabId === 'catholic_prayers') {
+        if (typeof populateCatholicPrayersList === 'function') await populateCatholicPrayersList();
     }
 });
 
-window.startLiturgyPreload = async function() {
-    if (!SAC_AI || !SAC_AI.apiKey) {
-        alert("Please save your Gemini API Key in the Settings tab first.");
-        return;
+// Auto-wipe the default dummy VAPID text so the placeholder shows instead
+setInterval(() => {
+    const vapidInput = document.getElementById('db-vapidKey');
+    if (vapidInput && vapidInput.value === 'YOUR_PUBLIC_VAPID_KEY_HERE') {
+        vapidInput.value = '';
     }
-    
-    if (!confirm("This will fetch the next 30 days of daily liturgy from the AI and save it to your database. This process takes about 5 minutes. Do not close the window until it finishes. Proceed?")) return;
+}, 500);
 
-    const btn = document.getElementById('btn-preload-liturgy');
-    const statusText = document.getElementById('preload-status-text');
-    const progressContainer = document.getElementById('preload-progress-container');
-    const progressBar = document.getElementById('preload-progress-bar');
-    
-    btn.disabled = true;
-    btn.innerHTML = `<span class="material-icons rotating">sync</span> Pre-Loading...`;
-    progressContainer.style.display = 'block';
-    
-    let daysToFetch = 30;
-    
-    // Ensure we have models loaded
-    if (!SAC_AI.availableModels || SAC_AI.availableModels.length === 0) {
-        try {
-            const resModels = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${SAC_AI.apiKey}`);
-            const dataModels = await resModels.json();
-            if (dataModels.models) {
-                const validModels = dataModels.models.filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes("generateContent") && !m.name.includes("preview"));
-                if (validModels.length > 0) {
-                    const bestModel = validModels.find(m => m.name.includes("1.5-flash")) || validModels[0];
-                    SAC_AI.modelName = bestModel.name.replace("models/", "");
-                }
-            }
-        } catch (e) { console.warn(e); }
-    }
-
-    let successCount = 0;
-    
-    for (let i = 0; i < daysToFetch; i++) {
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + i);
-        const y = targetDate.getFullYear();
-        const m = String(targetDate.getMonth() + 1).padStart(2, '0');
-        const d = String(targetDate.getDate()).padStart(2, '0');
-        const dateStr = `${y}-${m}-${d}`;
-        
-        statusText.innerText = `Fetching day ${i + 1} of ${daysToFetch} (${dateStr})...`;
-        progressBar.style.width = \`\${(i / daysToFetch) * 100}%\`;
-
-        // Check if already in DB
-        const existingData = await SAC_DATABASE.get("daily_liturgy");
-        if (existingData && existingData.some(item => item.date === dateStr)) {
-            successCount++;
-            continue; // Skip if we already have it
-        }
-
-        const prompt = `Provide the Catholic Daily Liturgy readings for (${dateStr}). Format the response strictly as a JSON object with no markdown formatting. Do not include \`\`\`json.
-Required keys:
-{"date": "${dateStr}","seasonEn": "Current Liturgical Season in English","seasonTa": "Current Liturgical Season in Tamil","saintEn": "Saint of the day (if any) or empty string","saintTa": "Saint of the day in Tamil or empty string","reading1TitleEn": "e.g., A reading from the Acts of the Apostles","reading1TitleTa": "முதல் வாசகம்","reading1Ref": "e.g., Acts 10:25-26","reading1TextEn": "First reading text","reading1TextTa": "முதல் வாசக உரை","psalmRef": "e.g., Ps 98:1","psalmResponseEn": "Responsorial Psalm response","psalmResponseTa": "பதிலுரை பாடல் பல்லவி","psalmTextEn": "Psalm verses","psalmTextTa": "பதிலுரை பாடல் உரை","reading2TitleEn": "Second reading title or empty","reading2TitleTa": "இரண்டாம் வாசகம் or empty","reading2Ref": "Second reading reference or empty","reading2TextEn": "Second reading text or empty","reading2TextTa": "இரண்டாம் வாசக உரை or empty","gospelTitleEn": "e.g., A reading from the holy Gospel according to John","gospelTitleTa": "நற்செய்தி வாசகம்","gospelRef": "e.g., Jn 15:9-17","gospelTextEn": "Gospel text","gospelTextTa": "நற்செய்தி உரை","reflectionEn": "A short reflection on the Gospel","reflectionTa": "நற்செய்தி சிந்தனை"}`;
-
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${SAC_AI.modelName || 'gemini-1.5-flash'}:generateContent?key=${SAC_AI.apiKey}`;
-        
-        let success = false;
-        let retries = 3;
-        
-        while (retries > 0 && !success) {
-            try {
-                const res = await fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        contents: [{ role: "user", parts: [{ text: prompt }] }],
-                        generationConfig: { temperature: 0.1 }
-                    })
-                });
-                
-                if (res.status === 429) {
-                    await new Promise(resolve => setTimeout(resolve, 15000)); // wait 15s on rate limit
-                    retries--;
-                    continue;
-                }
-                
-                if (res.ok) {
-                    const data = await res.json();
-                    let text = data.candidates[0].content.parts[0].text;
-                    text = text.replace(/```json/g, "").replace(/```/g, "").trim();
-                    const aiLiturgy = JSON.parse(text);
-                    aiLiturgy.id = "liturgy_" + Date.now();
-                    
-                    await SAC_DATABASE.save("daily_liturgy", aiLiturgy);
-                    success = true;
-                    successCount++;
-                } else {
-                    retries--;
-                    await new Promise(resolve => setTimeout(resolve, 5000));
-                }
-            } catch (err) {
-                retries--;
-                await new Promise(resolve => setTimeout(resolve, 5000));
-            }
-        }
-        
-        // Wait 10 seconds between successful requests to strictly avoid API rate limits
-        if (i < daysToFetch - 1) {
-            statusText.innerText = `Waiting 10s to prevent rate limits...`;
-            await new Promise(resolve => setTimeout(resolve, 10000));
-        }
-    }
-    
-    progressBar.style.width = '100%';
-    statusText.innerText = `Complete! Successfully pre-loaded ${successCount} days.`;
-    statusText.style.color = '#10b981';
-    btn.innerHTML = `<span class="material-icons">check_circle</span> Done`;
-    setTimeout(() => { btn.disabled = false; btn.innerHTML = `<span class="material-icons">downloading</span> Pre-Load Next 30 Days`; }, 3000);
-};

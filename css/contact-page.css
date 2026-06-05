@@ -361,6 +361,8 @@ body:lang(ta) .contact-panel-title {
   padding: clamp(24px, 4vw, 32px) !important;
   background: hsla(0, 0%, 100%, 0.94) !important;
   backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   border: 1px solid hsla(265, 40%, 50%, 0.12) !important;
   box-shadow: 0 24px 56px hsla(265, 40%, 40%, 0.12) !important;
   overflow: hidden;

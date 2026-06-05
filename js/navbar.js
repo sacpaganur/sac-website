@@ -64,7 +64,7 @@ window.SAC_NAVBAR = {
     <header class="navbar" id="main-nav-bar">
         <div class="navbar-container">
             <a href="index.html" class="brand-logo" id="nav-brand-link">
-                <span class="logo-icon" id="nav-brand-icon"><img src="images/church_logo.jpg" alt="St. Antony's Church" class="dynamic-logo-img"></span>
+                <span class="logo-icon" id="nav-brand-icon"><img src="images/church_logo.webp" alt="St. Antony's Church" class="dynamic-logo-img"></span>
                 <div class="brand-text">
                     <h1 class="brand-title" id="nav-brand-title">புனித அந்தோணியார் ஆலயம்</h1>
                     <span class="brand-sub" id="nav-brand-sub">வடக்கு பாகனூர்</span>
@@ -97,6 +97,7 @@ window.SAC_NAVBAR = {
                     <span style="font-weight:700; color:var(--text-primary); font-size:1.1rem; letter-spacing:0.5px;">MENU</span>
                 </div>
                 <div style="display:flex; align-items:center;">
+                    <button class="btn-search material-icons" onclick="openGlobalSearch(); document.getElementById('mobile-drawer').classList.remove('active');" style="background:none; border:none; cursor:pointer; color:var(--text-primary); font-size:1.5rem; display:flex; align-items:center; transition: transform 0.3s ease; margin-right:12px;" aria-label="Search">search</button>
                     <button class="btn-lang drawer-lang-toggle">ENG</button>
                     <button class="btn-theme theme-toggle-icon material-icons" style="background:none; border:none; cursor:pointer; color:var(--text-primary); font-size:1.5rem; display:flex; align-items:center; transition: transform 0.3s ease; margin-left:12px;">dark_mode</button>
                 </div>
@@ -313,4 +314,5 @@ function renderGlobalSearchResults(results, query) {
     
     container.innerHTML = html;
 }
+
 

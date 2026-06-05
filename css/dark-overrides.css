@@ -226,3 +226,371 @@ html[data-theme="dark"] .footer-copyright {
 body, .navbar, .contact-section, .footer, .footer-container, .site-footer, .nav-dropdown, .admin-card, .prayer-card, .prayer-req-card, .schedule-card, .notice-card, .public-notice-card, .devotion-card, .vision-card, .sacrament-card, .gallery-card, .sac-toast, .mobile-drawer .drawer-content {
     transition: background-color 0.4s ease, background 0.4s ease, color 0.4s ease, border-color 0.4s ease !important;
 }
+
+/* --- ADMIN PORTAL EXHAUSTIVE DARK MODE FIXES --- */
+
+/* 1. Logo File Section */
+html[data-theme="dark"] #logo-file-section,
+html[data-theme="dark"] #logo-url-section {
+    background: var(--bg-light) !important;
+    border-color: var(--border-glass) !important;
+}
+html[data-theme="dark"] .file-upload-wrapper,
+html[data-theme="dark"] .logo-toggle-container {
+    background: var(--bg-card) !important;
+    border-color: var(--border-glass) !important;
+}
+html[data-theme="dark"] #logo-support-lbl {
+    background: var(--bg-card) !important;
+    color: var(--text-secondary) !important;
+    border-color: var(--border-glass) !important;
+}
+
+/* 2. Admin Card Titles */
+html[data-theme="dark"] .admin-card-title,
+html[data-theme="dark"] .admin-card-title[style] {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-glass) !important;
+}
+html[data-theme="dark"] .admin-card-title span:not(.material-icons) {
+    color: var(--text-primary) !important;
+}
+
+/* 3. Maintenance Mode Alert */
+html[data-theme="dark"] .admin-card div[style*="fffbeb"] {
+    background: rgba(245, 158, 11, 0.1) !important;
+    border-color: rgba(245, 158, 11, 0.2) !important;
+}
+html[data-theme="dark"] .admin-card div[style*="fffbeb"] p,
+html[data-theme="dark"] .admin-card div[style*="fffbeb"] label {
+    color: #fbbf24 !important;
+}
+
+/* 4. CRUD Items */
+html[data-theme="dark"] .crud-item {
+    background: var(--bg-light) !important;
+    border-color: var(--border-glass) !important;
+}
+html[data-theme="dark"] .crud-item.inactive-item {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-color: var(--border-glass) !important;
+}
+html[data-theme="dark"] .crud-title {
+    color: var(--text-primary) !important;
+}
+html[data-theme="dark"] .crud-sub,
+html[data-theme="dark"] .crud-sub span:not(.liturgical-badge) {
+    color: var(--text-secondary) !important;
+}
+html[data-theme="dark"] .btn-crud-icon.inactive-toggle {
+    background: var(--bg-glass) !important;
+    color: var(--text-secondary) !important;
+}
+
+/* 5. Gallery Cards */
+html[data-theme="dark"] #admin-gallery-list > div {
+    background: var(--bg-card) !important;
+    border-color: var(--border-glass) !important;
+}
+html[data-theme="dark"] #admin-gallery-list > div > div:first-child {
+    background: var(--bg-light) !important;
+}
+html[data-theme="dark"] #admin-gallery-list > div > div:last-child > div:nth-child(2) {
+    color: var(--text-primary) !important;
+}
+html[data-theme="dark"] #admin-gallery-list > div > div:last-child button {
+    background: var(--bg-glass) !important;
+    border-color: var(--border-glass) !important;
+}
+html[data-theme="dark"] #admin-gallery-list > div > div:last-child button span:not([style*="ef4444"]):not([style*="10b981"]) {
+    color: var(--text-secondary) !important;
+}
+
+/* 6. Security Notices & Alerts */
+html[data-theme="dark"] .form-alert.success,
+html[data-theme="dark"] .form-alert[style*="background: #f0fdf4"] {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border-color: rgba(16, 185, 129, 0.2) !important;
+    color: #a7f3d0 !important;
+}
+html[data-theme="dark"] .form-alert.success h4,
+html[data-theme="dark"] .form-alert.success span,
+html[data-theme="dark"] .form-alert[style*="background: #f0fdf4"] h4,
+html[data-theme="dark"] .form-alert[style*="background: #f0fdf4"] span {
+    color: #34d399 !important;
+}
+html[data-theme="dark"] .form-alert.success li,
+html[data-theme="dark"] .form-alert[style*="background: #f0fdf4"] li {
+    color: #a7f3d0 !important;
+}
+
+/* 7. CRUD Action Buttons & Icons (Fix for hover, active, disable modes) */
+html[data-theme="dark"] .crud-actions {
+    background: transparent !important;
+}
+html[data-theme="dark"] .btn-crud-icon {
+    background: var(--bg-card) !important;
+    border-color: var(--border-glass) !important;
+    color: var(--text-secondary) !important;
+}
+html[data-theme="dark"] .btn-crud-icon .material-icons {
+    color: var(--text-secondary) !important;
+}
+html[data-theme="dark"] .btn-crud-icon:hover {
+    background: var(--bg-glass) !important;
+    border-color: var(--border-light) !important;
+}
+html[data-theme="dark"] .btn-crud-icon:hover .material-icons {
+    color: var(--text-primary) !important;
+}
+html[data-theme="dark"] .btn-crud-icon.btn-crud-delete:hover .material-icons {
+    color: #ef4444 !important;
+}
+html[data-theme="dark"] .btn-crud-icon:disabled,
+html[data-theme="dark"] .btn-crud-icon:disabled .material-icons {
+    opacity: 0.3 !important;
+    cursor: not-allowed !important;
+}
+
+/* Gallery Action Buttons Fix */
+html[data-theme="dark"] #admin-gallery-list > div > div:last-child button {
+    background: var(--bg-card) !important;
+    border-color: var(--border-glass) !important;
+    transition: all 0.2s ease !important;
+}
+html[data-theme="dark"] #admin-gallery-list > div > div:last-child button:hover {
+    background: var(--bg-glass) !important;
+}
+html[data-theme="dark"] #admin-gallery-list > div > div:last-child button span {
+    color: var(--text-secondary) !important;
+    transition: color 0.2s ease !important;
+}
+html[data-theme="dark"] #admin-gallery-list > div > div:last-child button:hover span {
+    color: var(--text-primary) !important;
+}
+html[data-theme="dark"] #admin-gallery-list > div > div:last-child button[title="Delete"]:hover span {
+    color: #ef4444 !important;
+}
+
+/* 8. Send Push Notification Section Fix */
+html[data-theme="dark"] #panel-notifications .admin-card div[style*="eef2ff"] {
+    background: rgba(99, 102, 241, 0.1) !important; /* Indigo tint */
+    border-color: rgba(99, 102, 241, 0.2) !important;
+}
+html[data-theme="dark"] #panel-notifications .admin-card div[style*="eef2ff"] h4,
+html[data-theme="dark"] #panel-notifications .admin-card div[style*="eef2ff"] h4 .material-icons {
+    color: #818cf8 !important; /* Indigo 400 */
+}
+html[data-theme="dark"] #panel-notifications .admin-card div[style*="eef2ff"] p {
+    color: #a5b4fc !important; /* Indigo 300 */
+}
+
+/* Fix Configure VAPID Key Button */
+html[data-theme="dark"] button[onclick*="switchAdminTab"] {
+    background: var(--bg-card) !important;
+    border-color: var(--border-glass) !important;
+    color: var(--text-primary) !important;
+}
+html[data-theme="dark"] button[onclick*="switchAdminTab"] .material-icons {
+    color: var(--text-secondary) !important;
+}
+html[data-theme="dark"] button[onclick*="switchAdminTab"]:hover {
+    background: var(--bg-glass) !important;
+}
+
+/* 9. Admin Card Title Material Icons Fix */
+html[data-theme="dark"] .admin-card-title .material-icons {
+    color: var(--text-primary) !important;
+}
+
+/* --- ADMIN PORTAL ADDITIONAL REFINEMENTS --- */
+
+/* 10. Catholic Prayers Badges Text Visibility */
+html[data-theme="dark"] #cp-summary-badges span {
+    color: var(--text-primary) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid var(--border-glass) !important;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+/* 11. Admin Tab Active State */
+html[data-theme="dark"] .admin-tabs {
+    border-bottom: 1px solid var(--border-glass) !important;
+}
+html[data-theme="dark"] .admin-tab {
+    color: var(--text-secondary) !important;
+    border-bottom: 2px solid transparent !important;
+}
+html[data-theme="dark"] .admin-tab:hover {
+    color: var(--text-primary) !important;
+    background: var(--bg-glass) !important;
+}
+html[data-theme="dark"] .admin-tab.active {
+    color: var(--primary) !important;
+    border-bottom: 2px solid var(--primary) !important;
+    background: transparent !important;
+}
+
+/* 12. Fix Catholic Prayers Buttons (Remove circle shape & match dark theme) */
+html[data-theme="dark"] #admin-catholic-prayers-list .btn-crud-icon {
+    border-radius: 8px !important;
+    width: 32px !important;
+    height: 32px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-glass) !important;
+    color: var(--text-secondary) !important;
+}
+html[data-theme="dark"] #admin-catholic-prayers-list .btn-crud-icon .material-icons {
+    color: var(--text-secondary) !important;
+}
+html[data-theme="dark"] #admin-catholic-prayers-list .btn-crud-icon:hover {
+    background: var(--bg-glass) !important;
+}
+html[data-theme="dark"] #admin-catholic-prayers-list .btn-crud-icon:hover .material-icons {
+    color: var(--text-primary) !important;
+}
+html[data-theme="dark"] #admin-catholic-prayers-list .btn-crud-icon.btn-crud-delete:hover .material-icons {
+    color: #ef4444 !important;
+}
+
+/* --- ADMIN PORTAL POLISH & TOOLTIPS --- */
+
+/* 13. Enhanced Active Admin Tab Design (Premium Glassmorphism) */
+html[data-theme="dark"] .admin-tab.active {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, var(--primary) 0%, hsla(265, 75%, 45%, 1) 100%) !important;
+    border-bottom: none !important;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3) !important;
+    font-weight: 600;
+    transition: all 0.3s ease !important;
+}
+html[data-theme="dark"] .admin-tab.active .material-icons {
+    color: #ffffff !important;
+}
+html[data-theme="dark"] .admin-tabs {
+    gap: 8px;
+    padding-bottom: 8px;
+}
+
+/* 14. Fix Catholic Prayers Edit Button Override */
+html[data-theme="dark"] #admin-catholic-prayers-list .btn-crud-icon:not(.btn-crud-delete):not(.active-toggle):not(.inactive-toggle) {
+    background: var(--bg-card) !important;
+    color: var(--text-secondary) !important;
+}
+html[data-theme="dark"] #admin-catholic-prayers-list .btn-crud-icon:not(.btn-crud-delete):not(.active-toggle):not(.inactive-toggle):hover {
+    background: var(--bg-glass) !important;
+}
+html[data-theme="dark"] #admin-catholic-prayers-list .btn-crud-icon:not(.btn-crud-delete):not(.active-toggle):not(.inactive-toggle) .material-icons {
+    color: var(--text-secondary) !important;
+}
+html[data-theme="dark"] #admin-catholic-prayers-list .btn-crud-icon:not(.btn-crud-delete):not(.active-toggle):not(.inactive-toggle):hover .material-icons {
+    color: var(--text-primary) !important;
+}
+
+/* 15. Fix Gallery Image Title and Category Badge */
+html[data-theme="dark"] #admin-gallery-list > div > div:nth-child(2) > div:first-child {
+    background: rgba(99, 102, 241, 0.15) !important; /* Soft Indigo */
+    color: #a5b4fc !important; /* Indigo 300 */
+}
+html[data-theme="dark"] #admin-gallery-list > div > div:nth-child(2) > div:nth-child(2) {
+    color: var(--text-primary) !important;
+}
+
+/* 16. Custom Tooltips for All Buttons */
+[data-tooltip] {
+    position: relative;
+}
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: #1e293b;
+    color: #f8fafc;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 9999;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+[data-tooltip]::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #1e293b transparent transparent transparent;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9999;
+}
+[data-tooltip]:hover::after,
+[data-tooltip]:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+
+/* --- TOOLTIP OVERFLOW FIX & PREMIUM SCROLLBARS --- */
+
+/* Fix horizontal scrollbar issue on right-most tooltips */
+.crud-actions button:last-child[data-tooltip]::after,
+.btn-crud-delete[data-tooltip]::after {
+    left: auto;
+    right: -4px; /* Pull it slightly to right edge */
+    transform: translateX(0) scale(0.9);
+}
+.crud-actions button:last-child[data-tooltip]:hover::after,
+.btn-crud-delete[data-tooltip]:hover::after {
+    transform: translateX(0) scale(1);
+}
+.crud-actions button:last-child[data-tooltip]::before,
+.btn-crud-delete[data-tooltip]::before {
+    left: auto;
+    right: 8px;
+    transform: translateX(0);
+}
+
+/* 17. Global Custom Scrollbars for Dark Mode */
+html[data-theme="dark"] ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 163, 184, 0.3) !important;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: padding-box !important;
+}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(148, 163, 184, 0.6) !important;
+    border: 3px solid transparent;
+    background-clip: padding-box !important;
+}
+html[data-theme="dark"] * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+}
+
+/* 18. Liturgy Page Reading Badges (Dark Mode Match) */
+html[data-theme="dark"] .reading-badge {
+    background: rgba(124, 58, 237, 0.15) !important;
+    color: #a78bfa !important; /* Soft purple-400 */
+    border: 1px solid rgba(124, 58, 237, 0.3) !important;
+}

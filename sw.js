@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v38';
+const CACHE_NAME = 'sac-pwa-cache-v39';
 const ASSETS_TO_CACHE = [
   './',
   './bible.html',
@@ -37,7 +37,7 @@ const ASSETS_TO_CACHE = [
   './js/liturgical_data.js',
   './js/services.js',
   './js/messaging.js',
-  './images/church_logo.jpg'
+  './images/church_logo.webp'
 ];
 
 self.addEventListener('install', (event) => {
@@ -106,33 +106,35 @@ self.addEventListener('fetch', (event) => {
     event.request.url.includes('/js/') ||
     event.request.url.includes('/css/');
 
-  // --- Strategy 1: Network-First for HTML, Javascript, and CSS ---
-  // Online: queries the live server to return the latest deployed changes instantly.
-  // Offline: falls back to the local cached version.
+  // --- Strategy 1: Stale-While-Revalidate for HTML, Javascript, and CSS ---
+  // Online: Instant load from cache first, then update cache in background.
+  // Offline: Instant load from cache, fallback to index if missing.
   if (isDocOrScriptOrStyle) {
     event.respondWith(
-      fetch(event.request)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200 && !networkResponse.redirected) {
-            const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(cleanUrl, responseToCache).catch(err => {
-                console.warn('[Service Worker] Cache put failed:', err);
+      caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
+        const fetchPromise = fetch(event.request)
+          .then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200 && !networkResponse.redirected) {
+              const responseToCache = networkResponse.clone();
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(cleanUrl, responseToCache).catch(err => {
+                  console.warn('[Service Worker] Cache put failed:', err);
+                });
               });
-            });
-          }
-          return networkResponse;
-        })
-        .catch((error) => {
-          console.warn('[Service Worker] Fetch failed, returning cached fallback:', error);
-          return caches.match(cleanUrl, { ignoreSearch: true }).then((cachedResponse) => {
-            if (cachedResponse) return cachedResponse;
-            if (event.request.mode === 'navigate') {
-              // Ultimate navigation fallback to home page
+            }
+            return networkResponse;
+          })
+          .catch((error) => {
+            console.warn('[Service Worker] Fetch failed, keeping cached fallback:', error);
+          });
+          
+        return cachedResponse || fetchPromise.then(res => {
+            if (!res && event.request.mode === 'navigate') {
               return caches.match('./', { ignoreSearch: true });
             }
-          });
-        })
+            return res;
+        });
+      })
     );
     return;
   }
@@ -185,3 +187,4 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
+

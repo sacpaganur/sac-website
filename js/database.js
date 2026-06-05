@@ -192,12 +192,12 @@ const SAC_DATABASE = {
       storageBucket: "stacpaganur.firebasestorage.app",
       messagingSenderId: "495839870905",
       appId: "1:495839870905:web:f9f8ab0446292689a50068",
-      vapidKey: "YOUR_PUBLIC_VAPID_KEY_HERE"
+      vapidKey: "BNtMXIN9ne7Nk_kcqnH3wOR57UrCZorPhWJK3kj-RcjHnvxBTHMi_CdeyCJEKTsDVqImDPU34CgWUZ7gNC-GT5A"
     },
     gallery: [
       {
         id: "gallery_1",
-        src: "images/gallery_altar.png",
+        src: "images/gallery_altar.webp",
         catTa: "பலிபீடம்",
         catEn: "Sanctuary Altar",
         titleTa: "அழகிய நற்கருணை பலிபீடம்",
@@ -206,7 +206,7 @@ const SAC_DATABASE = {
       },
       {
         id: "gallery_2",
-        src: "images/gallery_fest.png",
+        src: "images/gallery_fest.webp",
         catTa: "ஆண்டு திருவிழா",
         catEn: "Annual Festival",
         titleTa: "ஆண்டு திருவிழா மின்விளக்கு அலங்காரம்",
@@ -215,7 +215,7 @@ const SAC_DATABASE = {
       },
       {
         id: "gallery_3",
-        src: "images/gallery_choir.png",
+        src: "images/gallery_choir.webp",
         catTa: "பங்கு பாடகர் குழு",
         catEn: "Parish Liturgical Choir",
         titleTa: "மெழுகுவர்த்தி வழிபாட்டு திருப்பலி பாடல்",
@@ -224,7 +224,7 @@ const SAC_DATABASE = {
       },
       {
         id: "gallery_4",
-        src: "images/gallery_statue.png",
+        src: "images/gallery_statue.webp",
         catTa: "பாதுகாவலர்",
         catEn: "Patron Saint Devotion",
         titleTa: "அற்புத புனித அந்தோணியார் திருவுருவச் சிலை",
@@ -233,7 +233,7 @@ const SAC_DATABASE = {
       },
       {
         id: "gallery_5",
-        src: "images/old_church_altar.png",
+        src: "images/old_church_altar.webp",
         catTa: "பழைய ஆலயம்",
         catEn: "Historical Sanctuary",
         titleTa: "வரலாற்று சிறப்புமிக்க பழைய ஆலய பீடம்",
@@ -242,7 +242,7 @@ const SAC_DATABASE = {
       },
       {
         id: "gallery_new_1",
-        src: "images/opening_ceremony_1.jpg",
+        src: "images/opening_ceremony_1.webp",
         catTa: "திறப்பு விழா",
         catEn: "Opening Ceremony",
         titleTa: "புதிய ஆலய திறப்பு விழா பவனி மற்றும் ஆராதனை",
@@ -251,7 +251,7 @@ const SAC_DATABASE = {
       },
       {
         id: "gallery_new_2",
-        src: "images/opening_ceremony_2.jpg",
+        src: "images/opening_ceremony_2.webp",
         catTa: "திறப்பு விழா",
         catEn: "Opening Ceremony",
         titleTa: "பேராயர் தலைமையில் புதிய ஆலய அர்ச்சிப்பு மற்றும் வரவேற்பு",
@@ -260,7 +260,7 @@ const SAC_DATABASE = {
       },
       {
         id: "gallery_new_3",
-        src: "images/opening_ceremony_3.jpg",
+        src: "images/opening_ceremony_3.webp",
         catTa: "திறப்பு விழா",
         catEn: "Opening Ceremony",
         titleTa: "விழாக்கோலத்தில் புதிய ஆலயம்",
@@ -602,7 +602,7 @@ const SAC_DATABASE = {
     // Sync to Firestore if active (Optimistic UI: non-blocking background task to prevent UI lag!)
     if (this.isFirebaseActive && this.db) {
       if (collectionName === "settings" || collectionName === "firebase_config") {
-        this.db.collection(collectionName).doc("general").set(data, { merge: true })
+        await this.db.collection(collectionName).doc("general").set(data, { merge: true })
           .catch(err => {
             console.error(`Firestore save failed for ${collectionName}:`, err);
             if (err.code === 'permission-denied') {
@@ -620,7 +620,7 @@ const SAC_DATABASE = {
           });
       } else {
         const { id, ...dataWithoutId } = data;
-        this.db.collection(collectionName).doc(id).set(dataWithoutId)
+        await this.db.collection(collectionName).doc(id).set(dataWithoutId)
           .catch(err => {
             console.error(`Firestore save failed for ${collectionName}:`, err);
             if (err.code === 'permission-denied') {
@@ -663,7 +663,7 @@ const SAC_DATABASE = {
 
     // Sync to Firestore if active (Optimistic UI: non-blocking background task to prevent UI lag!)
     if (this.isFirebaseActive && this.db) {
-      this.db.collection(collectionName).doc(id).delete()
+      await this.db.collection(collectionName).doc(id).delete()
         .catch(err => {
             console.error(`Firestore delete failed for ${collectionName} with id ${id}:`, err);
             if (err.code === 'permission-denied') {
@@ -755,3 +755,13 @@ const SAC_DATABASE = {
 
 // Auto-run DB init
 SAC_DATABASE.init();
+
+// Cross-tab synchronization for instant UI updates across all open tabs
+window.addEventListener('storage', (e) => {
+    if (e.key && e.key.startsWith('sac_')) {
+        const collectionName = e.key.replace('sac_', '');
+        window.dispatchEvent(new CustomEvent('sacDataRefreshed', { detail: { collection: collectionName } }));
+    }
+});
+
+

@@ -27,8 +27,8 @@ messaging.onBackgroundMessage((payload) => {
   const notificationTitle = payload.notification?.title || 'St. Antony\'s Church';
   const notificationOptions = {
     body: payload.notification?.body || 'You have a new parish notification.',
-    icon: '/images/church_logo.jpg',
-    badge: '/images/church_logo.jpg',
+    icon: '/images/church_logo.webp',
+    badge: '/images/church_logo.webp',
     tag: 'sac-notification',
     renotify: true,
     data: { url: payload.data?.url || '/' }
@@ -58,3 +58,4 @@ self.addEventListener('message', (event) => {
     console.log('[firebase-messaging-sw.js] Config update received from main thread — already initialized, skipping re-init.');
   }
 });
+

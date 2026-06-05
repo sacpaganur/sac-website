@@ -34,6 +34,8 @@
   border: 1px solid var(--border-glass);
   box-shadow: 0 14px 40px hsla(265, 35%, 40%, 0.1);
   backdrop-filter: blur(12px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -439,7 +441,11 @@ body:lang(ta) .office-card-desc { flex-grow: 1;
   min-width: 190px;
   background: hsla(0, 0%, 100%, 0.97);
   backdrop-filter: blur(16px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   -webkit-backdrop-filter: blur(16px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   border: 1px solid var(--border-glass);
   border-radius: 14px;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255,255,255,0.5) inset;
@@ -519,22 +525,28 @@ body:lang(ta) .cal-multi-note {
 
 /* Mobile responsiveness */
 @media (max-width: 480px) {
-  .cal-add-btn .cal-btn-text {
+  .cal-add-btn .cal-btn-text,
+  .cal-add-btn .cal-chevron {
     display: none;
   }
   .cal-add-btn {
-    padding: 8px 10px;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
   }
   .cal-dropdown {
     min-width: 170px;
-    left: 0;
+    left: auto;
+    right: 0;
     transform: translateX(0) translateY(8px);
   }
   .cal-dropdown.open {
     transform: translateX(0) translateY(0);
   }
   .cal-dropdown::after {
-    left: 18px;
+    left: auto;
+    right: 12px;
     transform: translateX(0) rotate(45deg);
   }
 }
@@ -595,3 +607,4 @@ html[data-theme="dark"] .devotion-badge.badge-feast {
   background: hsla(35, 90%, 50%, 0.2);
   color: hsl(35, 90%, 75%);
 }
+

@@ -1378,7 +1378,7 @@ const SAC_COMMON = {
                           <div class="n-embossed-emblem">
                               <div class="n-emblem-inner">
                                   <div class="n-icon-bg"></div>
-                                  <img src="images/church_logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                  <img src="images/church_logo.webp" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                               </div>
                           </div>
 
@@ -1788,7 +1788,7 @@ const SAC_COMMON = {
       link.href = siteLogoUrl;
     } else {
       link.type = 'image/jpeg';
-      link.href = 'images/church_logo.jpg';
+      link.href = 'images/church_logo.webp';
     }
   },
 
@@ -1940,7 +1940,7 @@ const SAC_COMMON = {
       if (siteLogoUrl) {
         el.innerHTML = `<img src="${siteLogoUrl}" alt="Church Logo" class="dynamic-logo-img">`;
       } else {
-        el.innerHTML = `<img src="images/church_logo.jpg" alt="Church Logo" class="dynamic-logo-img">`;
+        el.innerHTML = `<img src="images/church_logo.webp" alt="Church Logo" class="dynamic-logo-img">`;
       }
     });
     this._injectFavicon();
@@ -2076,4 +2076,26 @@ document.addEventListener("DOMContentLoaded", () => {
         // Fallback for older browsers
         revealElements.forEach(el => el.classList.add('revealed'));
     }
+});
+
+
+// --- Global Scroll Micro-Animations ---
+document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -50px 0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Only animate once
+            }
+        });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.reveal-base');
+    revealElements.forEach(el => observer.observe(el));
 });

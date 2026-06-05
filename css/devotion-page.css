@@ -64,6 +64,8 @@
     border: 1px solid var(--border-glass);
     box-shadow: var(--shadow-premium);
     backdrop-filter: blur(10px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
     margin-bottom: 16px;
     transition: var(--transition-smooth);
 }
@@ -102,6 +104,8 @@
     color: var(--text-primary);
     box-shadow: var(--shadow-premium);
     backdrop-filter: blur(10px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
     position: relative;
     z-index: 2;
     text-align: left;
@@ -397,7 +401,11 @@
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(24px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
     -webkit-backdrop-filter: blur(24px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1;
 }
@@ -615,7 +623,11 @@
     top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(15, 23, 42, 0.5);
     backdrop-filter: blur(12px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
     -webkit-backdrop-filter: blur(12px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
     z-index: 10000;
     display: none;
     justify-content: center;
@@ -827,4 +839,5 @@ body.modal-open {
         border-radius: 20px;
     }
 }
+
 
