@@ -1670,11 +1670,11 @@ const SAC_COMMON = {
 
         // Load firebase-app-compat.js first
         const appScript = document.createElement('script');
-        appScript.src = 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js';
+        appScript.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js';
         appScript.onload = () => {
           // Load firebase-firestore-compat.js next
           const firestoreScript = document.createElement('script');
-          firestoreScript.src = 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js';
+          firestoreScript.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js';
           firestoreScript.onload = () => {
             // Re-trigger DB connection check since firebase is now loaded
             if (window.SAC_DATABASE) {
@@ -1723,7 +1723,7 @@ const SAC_COMMON = {
     // Load Firebase Messaging if not already present
     if (this.pageName !== 'admin') {
       const fcmScript = document.createElement('script');
-      fcmScript.src = 'https://www.gstatic.com/firebasejs/10.10.0/firebase-messaging-compat.js';
+      fcmScript.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js';
       fcmScript.onload = () => {
         const customMessagingScript = document.createElement('script');
         customMessagingScript.src = 'js/messaging.js';
