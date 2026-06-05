@@ -192,7 +192,7 @@ const SAC_DATABASE = {
       storageBucket: "stacpaganur.firebasestorage.app",
       messagingSenderId: "495839870905",
       appId: "1:495839870905:web:f9f8ab0446292689a50068",
-      vapidKey: "BNtMXIN9ne7Nk_kcqnH3wOR57UrCZorPhWJK3kj-RcjHnvxBTHMi_CdeyCJEKTsDVqImDPU34CgWUZ7gNC-GT5A"
+      vapidKey: "BKtoXjOv7MTKksHjpfPRa5eJ99hbpxt9t3plbHWmkxQfYEUVAFaVbNE4J1d_oC0GSraKF15VaqRN7tvEj4aGFxs"
     },
     gallery: [
       {
