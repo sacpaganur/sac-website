@@ -2002,10 +2002,10 @@
                         : (isTa ? 'VAPID சாவி இல்லை — அமைப்புகள் பக்கத்திற்குச் செல்லவும்' : 'VAPID Key missing — go to Database tab to configure');
                 }
 
-                // Fetch subscribers directly from Firestore 'sac_subscribers' collection
+                // Fetch subscribers directly from Firestore 'push_subscribers' collection
                 let subscribers = [];
                 if (SAC_DATABASE.isFirebaseActive && SAC_DATABASE.db) {
-                    const snap = await SAC_DATABASE.db.collection('sac_subscribers').get();
+                    const snap = await SAC_DATABASE.db.collection('push_subscribers').get();
                     subscribers = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 }
 

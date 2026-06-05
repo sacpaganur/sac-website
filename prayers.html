@@ -152,9 +152,13 @@
                     padding: 4px 10px;
                     border-radius: 100px;
                     width: fit-content;
-                    background: rgba(139, 92, 246, 0.1);
-                    color: var(--primary);
                 }
+                .badge-type-daily { background: rgba(59, 130, 246, 0.1); color: rgb(37, 99, 235); }
+                .badge-type-healing { background: rgba(239, 68, 68, 0.1); color: rgb(220, 38, 38); }
+                .badge-type-departed { background: rgba(107, 114, 128, 0.1); color: rgb(75, 85, 99); }
+                .badge-type-saints { background: rgba(245, 158, 11, 0.1); color: rgb(217, 119, 6); }
+                .badge-type-family { background: rgba(16, 185, 129, 0.1); color: rgb(5, 150, 105); }
+                .badge-type-general { background: rgba(139, 92, 246, 0.1); color: var(--primary); }
                 .prayer-title {
                     font-size: 1.15rem;
                     font-weight: 800;
@@ -306,12 +310,12 @@
 
         // Categories dictionary for dynamic badges
         const catMap = {
-            'daily': { ta: 'அன்றாட செபங்கள்', en: 'Daily', icon: '☀️', color: 'rgba(59, 130, 246, 0.1)', text: 'rgb(37, 99, 235)' },
-            'healing': { ta: 'நலமளிக்க', en: 'Healing', icon: '❤️‍🩹', color: 'rgba(239, 68, 68, 0.1)', text: 'rgb(220, 38, 38)' },
-            'departed': { ta: 'இறந்தவர்களுக்காக', en: 'Departed', icon: '🕊️', color: 'rgba(107, 114, 128, 0.1)', text: 'rgb(75, 85, 99)' },
-            'saints': { ta: 'புனிதர்கள்', en: 'Saints', icon: '🛐', color: 'rgba(245, 158, 11, 0.1)', text: 'rgb(217, 119, 6)' },
-            'family': { ta: 'குடும்பம்', en: 'Family', icon: '👨‍👩‍👧‍👦', color: 'rgba(16, 185, 129, 0.1)', text: 'rgb(5, 150, 105)' },
-            'general': { ta: 'பொதுவானது', en: 'General', icon: '🌟', color: 'rgba(139, 92, 246, 0.1)', text: 'var(--primary)' }
+            'daily': { ta: 'அன்றாட செபங்கள்', en: 'Daily', icon: '☀️', type: 'daily' },
+            'healing': { ta: 'நலமளிக்க', en: 'Healing', icon: '❤️‍🩹', type: 'healing' },
+            'departed': { ta: 'இறந்தவர்களுக்காக', en: 'Departed', icon: '🕊️', type: 'departed' },
+            'saints': { ta: 'புனிதர்கள்', en: 'Saints', icon: '🛐', type: 'saints' },
+            'family': { ta: 'குடும்பம்', en: 'Family', icon: '👨‍👩‍👧‍👦', type: 'family' },
+            'general': { ta: 'பொதுவானது', en: 'General', icon: '🌟', type: 'general' }
         };
 
         window.addEventListener('DOMContentLoaded', async () => {
@@ -455,7 +459,7 @@
                 // We safely stringify the ID to open the modal and add data-prayer-id for background translations
                 return `
                     <div class="prayer-card" data-prayer-id="${p.id}" onclick="openPrayerModal('${p.id}')" style="animation: fadeUp 0.4s ease forwards; animation-delay: ${Math.min(idx * 0.05, 0.5)}s; opacity:0; transform:translateY(10px);">
-                        <div class="prayer-cat-badge" style="background: ${catInfo.color}; color: ${catInfo.text};">
+                        <div class="prayer-cat-badge badge-type-${catInfo.type}">
                             ${catInfo.icon} ${catLabel}
                         </div>
                         <h3 class="prayer-title">${title}</h3>

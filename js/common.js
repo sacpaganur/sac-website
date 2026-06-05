@@ -1363,9 +1363,8 @@ const SAC_COMMON = {
       // MAINTENANCE MODE INTERCEPTION
       // ==========================================
       const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
-      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       if (this.settings && (this.settings.maintenanceMode === true || this.settings.maintenanceMode === 'true')) {
-          if (this.pageName !== 'admin' && !isAdminLogged && !isLocalhost) {
+          if (this.pageName !== 'admin' && !isAdminLogged) {
               document.body.innerHTML = `
                   <div class="n-wrapper">
                       <!-- Two dynamic colored ambient orbs -->
@@ -1405,11 +1404,12 @@ const SAC_COMMON = {
                       <style>
                           @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;500;700&family=Tiro+Tamil:ital@0;1&display=swap');
 
-                          body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #e0e5ec; }
+                          body, html { margin: 0; padding: 0; width: 100%; min-height: 100vh; overflow-x: hidden; overflow-y: auto; background: #e0e5ec; }
 
                           .n-wrapper {
-                              position: relative; width: 100%; height: 100vh;
+                              position: relative; width: 100%; min-height: 100vh;
                               display: flex; justify-content: center; align-items: center;
+                              padding: 100px 20px 60px 20px; box-sizing: border-box;
                           }
 
                           /* Ultra-premium colorful ambient backdrop orbs */
@@ -1574,29 +1574,6 @@ const SAC_COMMON = {
       this._injectParticlesContainer();
       this._generateParticles();
 
-      // Handle visitor tracking and display
-      if (window.SAC_DATABASE && typeof SAC_DATABASE.getVisitorStats === 'function') {
-        // Skip logging if this is the admin portal or an admin is browsing
-        const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
-        if (this.pageName !== 'admin' && !isAdminLogged && SAC_DATABASE.logVisit) {
-          SAC_DATABASE.logVisit({
-            page: window.location.pathname,
-            userAgent: navigator.userAgent,
-            lang: this.currentLang
-          });
-        }
-        
-        // Fetch and display total visitor count in footer
-        try {
-          const totalVisits = await SAC_DATABASE.getVisitorStats();
-          const visitorEl = document.getElementById('public-visitor-number');
-          if (visitorEl) {
-            visitorEl.innerText = totalVisits.toLocaleString();
-          }
-        } catch (e) {
-          console.warn("Failed to load visitor stats:", e);
-        }
-      }
 
       // Translate page content
       await this.translatePage();
@@ -1718,6 +1695,30 @@ const SAC_COMMON = {
     try {
       await ensureFirebaseLoaded();
     } catch(e) { console.warn("Firebase load failed", e); }
+
+    // Handle visitor tracking and display (Runs after Firebase is active)
+    if (window.SAC_DATABASE && typeof SAC_DATABASE.getVisitorStats === 'function') {
+      // Skip logging if this is the admin portal or an admin is browsing
+      const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
+      if (this.pageName !== 'admin' && !isAdminLogged && SAC_DATABASE.logVisit) {
+        SAC_DATABASE.logVisit({
+          page: window.location.pathname,
+          userAgent: navigator.userAgent,
+          lang: this.currentLang
+        });
+      }
+      
+      // Fetch and display total visitor count in footer
+      try {
+        const totalVisits = await SAC_DATABASE.getVisitorStats();
+        const visitorEl = document.getElementById('public-visitor-number');
+        if (visitorEl) {
+          visitorEl.innerText = totalVisits.toLocaleString();
+        }
+      } catch (e) {
+        console.warn("Failed to load visitor stats:", e);
+      }
+    }
 
     // Load Firebase Messaging if not already present
     if (this.pageName !== 'admin') {

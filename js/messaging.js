@@ -4,12 +4,17 @@ const SAC_MESSAGING = {
   messaging: null,
 
   async init() {
-    if (!SAC_DATABASE.isFirebaseActive || !window.firebase) {
+    if (!SAC_DATABASE.isFirebaseActive || !window.firebase || !window.firebase.messaging) {
       console.log("Firebase is not active. Push notifications disabled.");
       return;
     }
 
     try {
+      const isSupported = await firebase.messaging.isSupported();
+      if (!isSupported) {
+        console.warn("FCM is not supported on this browser/OS.");
+        return;
+      }
       this.messaging = firebase.messaging();
       
       // Send config to service worker
@@ -118,8 +123,8 @@ const SAC_MESSAGING = {
   async saveTokenToDB(token) {
     if (!SAC_DATABASE.db) return;
     try {
-      // Save to sac_subscribers collection
-      const docRef = SAC_DATABASE.db.collection('sac_subscribers').doc(token);
+      // Save to push_subscribers collection (matches firestore.rules)
+      const docRef = SAC_DATABASE.db.collection('push_subscribers').doc(token);
       await docRef.set({
         token: token,
         subscribedAt: firebase.firestore.FieldValue.serverTimestamp(),

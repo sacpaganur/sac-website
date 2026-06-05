@@ -594,3 +594,26 @@ html[data-theme="dark"] .reading-badge {
     color: #a78bfa !important; /* Soft purple-400 */
     border: 1px solid rgba(124, 58, 237, 0.3) !important;
 }
+
+/* 19. Prayers Page Dark Theme Enhancements */
+html[data-theme="dark"] .badge-type-daily { background: rgba(96, 165, 250, 0.15) !important; color: #93c5fd !important; border: 1px solid rgba(96, 165, 250, 0.25) !important; }
+html[data-theme="dark"] .badge-type-healing { background: rgba(248, 113, 113, 0.15) !important; color: #fca5a5 !important; border: 1px solid rgba(248, 113, 113, 0.25) !important; }
+html[data-theme="dark"] .badge-type-departed { background: rgba(156, 163, 175, 0.15) !important; color: #d1d5db !important; border: 1px solid rgba(156, 163, 175, 0.25) !important; }
+html[data-theme="dark"] .badge-type-saints { background: rgba(251, 191, 36, 0.15) !important; color: #fcd34d !important; border: 1px solid rgba(251, 191, 36, 0.25) !important; }
+html[data-theme="dark"] .badge-type-family { background: rgba(52, 211, 153, 0.15) !important; color: #6ee7b7 !important; border: 1px solid rgba(52, 211, 153, 0.25) !important; }
+html[data-theme="dark"] .badge-type-general { background: rgba(167, 139, 250, 0.15) !important; color: #c4b5fd !important; border: 1px solid rgba(167, 139, 250, 0.25) !important; }
+
+html[data-theme="dark"] .prayer-read-more {
+    color: var(--primary) !important; 
+    filter: brightness(1.2);
+    transition: all 0.3s ease;
+}
+
+html[data-theme="dark"] .prayer-read-more .material-icons {
+    color: var(--primary) !important;
+}
+
+html[data-theme="dark"] .prayer-card:hover .prayer-read-more {
+    color: var(--accent-gold) !important;
+    transform: translateX(4px);
+}

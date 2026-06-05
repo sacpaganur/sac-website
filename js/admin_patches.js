@@ -973,23 +973,40 @@ window.loadVisitorAnalytics = async function() {
     }
 };
 
-window.clearVisitorLogs = async function() {
-    if (!confirm("Are you sure you want to delete ALL visitor logs? This cannot be undone. (Note: Total visitor count will NOT be reset).")) return;
-    
+window.clearVisitorLogs = function() {
+    if (typeof window.showCustomConfirm === 'function') {
+        window.showCustomConfirm(
+            "Are you sure you want to delete ALL visitor logs? This cannot be undone. (Note: Total visitor count will NOT be reset).",
+            "அனைத்து பார்வையாளர் பதிவுகளையும் நீக்க வேண்டுமா? இதை திரும்பப் பெற முடியாது.",
+            async () => {
+                await executeClearLogs();
+            }
+        );
+    } else {
+        if (!confirm("Are you sure you want to delete ALL visitor logs? This cannot be undone.")) return;
+        executeClearLogs();
+    }
+};
+
+async function executeClearLogs() {
     try {
         if (SAC_DATABASE && SAC_DATABASE.clearVisitorLogs) {
             const success = await SAC_DATABASE.clearVisitorLogs();
             if (success) {
-                if (typeof showGlobalSuccessAlert !== 'undefined') showGlobalSuccessshowToast("பார்வையாளர் பதிவுகள் அழிக்கப்பட்டன (Logs cleared)");
+                if (typeof window.showToast === 'function') window.showToast("பார்வையாளர் பதிவுகள் அழிக்கப்பட்டன (Logs cleared)", "success");
+                else if (typeof SAC_COMMON !== 'undefined' && typeof SAC_COMMON.showToast === 'function') SAC_COMMON.showToast("பார்வையாளர் பதிவுகள் அழிக்கப்பட்டன (Logs cleared)", "success");
+                else alert("Logs cleared");
                 await loadVisitorAnalytics();
             } else {
-                showToast("Failed to clear logs.");
+                if (typeof window.showToast === 'function') window.showToast("Failed to clear logs.", "error");
+                else if (typeof SAC_COMMON !== 'undefined' && typeof SAC_COMMON.showToast === 'function') SAC_COMMON.showToast("Failed to clear logs.", "error");
+                else alert("Failed to clear logs");
             }
         }
     } catch(e) {
         console.error("Error clearing logs:", e);
     }
-};
+}
 
 // Listen for global language changes and re-populate the tables dynamically
 window.addEventListener('sacLanguageChanged', async function(e) {

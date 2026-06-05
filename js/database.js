@@ -740,11 +740,14 @@ const SAC_DATABASE = {
     if (!this.isFirebaseActive || !this.db) return false;
     try {
       const snapshot = await this.db.collection("visitor_logs").get();
-      const batch = this.db.batch();
+      if (snapshot.empty) return true;
+      
+      // Batch has a limit of 500, so we delete them individually in parallel for robustness
+      const deletePromises = [];
       snapshot.docs.forEach(doc => {
-        batch.delete(doc.ref);
+          deletePromises.push(doc.ref.delete());
       });
-      await batch.commit();
+      await Promise.all(deletePromises);
       return true;
     } catch (e) {
       console.error("Failed to clear visitor logs:", e);
