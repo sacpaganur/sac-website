@@ -985,7 +985,10 @@
                                 <label class="form-label">Phone / தொலைபேசி</label>
                                 <input type="text" id="set-priestPhone" class="form-control">
                             </div>
-
+                            <div class="form-group">
+                                <label class="form-label">Email / மின்னஞ்சல்</label>
+                                <input type="email" id="set-priestEmail" class="form-control">
+                            </div>
                         </div>
 
                         <div class="drawer-divider" style="margin:24px 0;"></div>
@@ -1004,7 +1007,10 @@
                                 <label class="form-label">Phone / தொலைபேசி</label>
                                 <input type="text" id="set-treasurerPhone" class="form-control">
                             </div>
-
+                            <div class="form-group">
+                                <label class="form-label">Email / மின்னஞ்சல்</label>
+                                <input type="email" id="set-treasurerEmail" class="form-control">
+                            </div>
                         </div>
 
                         <div class="drawer-divider" style="margin:24px 0;"></div>
@@ -1023,7 +1029,10 @@
                                 <label class="form-label">Phone / தொலைபேசி</label>
                                 <input type="text" id="set-patronPhone" class="form-control">
                             </div>
-
+                            <div class="form-group">
+                                <label class="form-label">Email / மின்னஞ்சல்</label>
+                                <input type="email" id="set-patronEmail" class="form-control">
+                            </div>
                         </div>
                     </div>
                     
@@ -2540,17 +2549,17 @@
             document.getElementById('set-priestNameEn').value = settings.priestNameEn || "Rev. Fr. A. Savarimuthu";
             document.getElementById('set-priestNameTa').value = settings.priestNameTa || "அருட்தந்தை ஏ. சவரிமுத்து";
             document.getElementById('set-priestPhone').value = settings.priestPhone || "+91 94860 11111";
-
+            document.getElementById('set-priestEmail').value = settings.priestEmail || "";
 
             document.getElementById('set-treasurerNameEn').value = settings.treasurerNameEn || "Mr. S. Joseph";
             document.getElementById('set-treasurerNameTa').value = settings.treasurerNameTa || "திரு. எஸ். ஜோசப்";
             document.getElementById('set-treasurerPhone').value = settings.treasurerPhone || "+91 94860 22222";
-
+            document.getElementById('set-treasurerEmail').value = settings.treasurerEmail || "";
             
             document.getElementById('set-patronNameEn').value = settings.patronNameEn || "Mr. P. Antonysamy";
             document.getElementById('set-patronNameTa').value = settings.patronNameTa || "திரு. பி. அந்தோணிசாமி";
             document.getElementById('set-patronPhone').value = settings.patronPhone || "+91 94860 33333";
-
+            document.getElementById('set-patronEmail').value = settings.patronEmail || "";
 
             document.getElementById('set-aiApiKey').value = settings.aiApiKey || '';
             
@@ -2624,15 +2633,15 @@
                 priestNameEn: document.getElementById('set-priestNameEn').value,
                 priestNameTa: document.getElementById('set-priestNameTa').value,
                 priestPhone: document.getElementById('set-priestPhone').value,
-
+                priestEmail: document.getElementById('set-priestEmail').value,
                 treasurerNameEn: document.getElementById('set-treasurerNameEn').value,
                 treasurerNameTa: document.getElementById('set-treasurerNameTa').value,
                 treasurerPhone: document.getElementById('set-treasurerPhone').value,
-
+                treasurerEmail: document.getElementById('set-treasurerEmail').value,
                 patronNameEn: document.getElementById('set-patronNameEn').value,
                 patronNameTa: document.getElementById('set-patronNameTa').value,
                 patronPhone: document.getElementById('set-patronPhone').value,
-
+                patronEmail: document.getElementById('set-patronEmail').value,
                 aiApiKey: document.getElementById('set-aiApiKey').value,
                 logoUrl: logoUrlValue
             };
