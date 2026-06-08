@@ -344,6 +344,25 @@
     <script src="js/hero-home.js?v=1780671817258" defer></script>
     <!-- Specific page home countdown & scheduling logic -->
     <script>
+        // Failsafe for visitor count (Bypasses Service Worker cache)
+        setTimeout(() => {
+            const visitorEl = document.getElementById('public-visitor-number');
+            if (visitorEl && (visitorEl.innerText === '-' || visitorEl.innerText === '')) {
+                if (window.firebase && window.firebase.firestore) {
+                    window.firebase.firestore().collection('stats').doc('visitors').get()
+                        .then(doc => {
+                            if (doc.exists) {
+                                visitorEl.innerText = (doc.data().total_count || 0).toLocaleString();
+                            } else {
+                                visitorEl.innerText = '0';
+                            }
+                        }).catch(() => { visitorEl.innerText = '0'; });
+                } else {
+                    visitorEl.innerText = '0';
+                }
+            }
+        }, 2500);
+
         // Init shared scripts
             window.addEventListener('DOMContentLoaded', async () => {
                 await SAC_COMMON.init('home');
