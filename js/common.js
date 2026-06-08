@@ -2159,6 +2159,16 @@ const SAC_COMMON = {
     document.querySelectorAll('.btn-lang, #lang-toggle').forEach(btn => {
       btn.addEventListener('click', () => this.toggleLanguage());
     });
+
+    // Phase 1: Navbar scroll effect — toggles .scrolled class for enhanced glassmorphism
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+      const onScroll = () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 20);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll(); // Set initial state
+    }
   },
 
   // Highlights current page on navigation bars
