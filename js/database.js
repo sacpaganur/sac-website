@@ -711,7 +711,7 @@ const SAC_DATABASE = {
     try {
       if (this.isFirebaseActive && this.db) {
         const fetchPromise = this.db.collection("stats").doc("visitors").get();
-        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 8000));
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 2500));
         const doc = await Promise.race([fetchPromise, timeoutPromise]);
         if (doc && doc.exists) {
           count = doc.data().total_count || 0;
