@@ -1363,11 +1363,12 @@ const SAC_COMMON = {
       // LAUNCH MODE INTERCEPTION (Takes priority over Maintenance Mode)
       // ==========================================
       const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
+      const isDevEnvironment = window.location.hostname === 'localhost' || window.location.hostname === 'stacpaganurdev.web.app';
       const launchTargetDate = new Date('June 13, 2026 21:00:00').getTime();
       const isPastLaunch = new Date().getTime() >= launchTargetDate;
 
       if (this.settings && (this.settings.launchMode === true || this.settings.launchMode === 'true') && !isPastLaunch) {
-        if (this.pageName !== 'admin' && !isAdminLogged) {
+        if (this.pageName !== 'admin' && !isAdminLogged && !isDevEnvironment) {
           document.body.innerHTML = `
                   <div class="l-wrapper">
                       <!-- Ambient orbs and Festive Elements -->
@@ -1619,7 +1620,7 @@ const SAC_COMMON = {
       // MAINTENANCE MODE INTERCEPTION
       // ==========================================
       if (this.settings && (this.settings.maintenanceMode === true || this.settings.maintenanceMode === 'true')) {
-        if (this.pageName !== 'admin' && !isAdminLogged) {
+        if (this.pageName !== 'admin' && !isAdminLogged && !isDevEnvironment) {
           document.body.innerHTML = `
                   <div class="n-wrapper">
                       <!-- Two dynamic colored ambient orbs -->
