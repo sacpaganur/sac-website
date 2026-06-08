@@ -552,7 +552,13 @@ const SAC_DATABASE = {
   },
 
   getCollection(key) {
-    return JSON.parse(localStorage.getItem(key));
+    try {
+      const val = localStorage.getItem(key);
+      if (!val || val === "undefined") return null;
+      return JSON.parse(val);
+    } catch (e) {
+      return null;
+    }
   },
 
   setCollection(key, value) {
@@ -707,15 +713,21 @@ const SAC_DATABASE = {
         const fetchPromise = this.db.collection("stats").doc("visitors").get();
         const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 8000));
         const doc = await Promise.race([fetchPromise, timeoutPromise]);
-        if (doc.exists) {
+        if (doc && doc.exists) {
           count = doc.data().total_count || 0;
           this.setCollection("sac_visitor_count", count);
+        } else {
+          count = parseInt(this.getCollection("sac_visitor_count")) || 0;
         }
       } else {
-        count = this.getCollection("sac_visitor_count") || 0;
+        count = parseInt(this.getCollection("sac_visitor_count")) || 0;
       }
     } catch(e) {
-      count = this.getCollection("sac_visitor_count") || 0;
+      try {
+        count = parseInt(this.getCollection("sac_visitor_count")) || 0;
+      } catch(innerE) {
+        count = 0;
+      }
     }
     return count;
   },
