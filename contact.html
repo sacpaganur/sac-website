@@ -157,7 +157,7 @@
                                     <div class="official-role-badge" id="contact-lbl-priest-role">பங்குத் தந்தை</div>
                                     <div class="official-name" id="priest-card-name"></div>
                                     <a class="official-contact-link" id="priest-card-phone" href=""><span class="material-icons">phone</span> <span></span></a>
-                                    <a class="official-contact-link" id="priest-card-email" href=""><span class="material-icons">email</span> <span></span></a>
+
                                 </div>
                                 <div class="contact-official-card">
                                     <div class="official-card-top-glow bg-treasurer"></div>
@@ -167,7 +167,7 @@
                                     <div class="official-role-badge" id="contact-lbl-treasurer-role">மணியக்காரர்</div>
                                     <div class="official-name" id="treasurer-card-name"></div>
                                     <a class="official-contact-link" id="treasurer-card-phone" href=""><span class="material-icons">phone</span> <span></span></a>
-                                    <a class="official-contact-link" id="treasurer-card-email" href=""><span class="material-icons">email</span> <span></span></a>
+
                                 </div>
                                 <div class="contact-official-card">
                                     <div class="official-card-top-glow bg-patron" style="background: linear-gradient(135deg, hsl(40, 90%, 55%), hsl(25, 90%, 50%));"></div>
@@ -177,7 +177,7 @@
                                     <div class="official-role-badge" id="contact-lbl-patron-role">பட்டையதாரார்</div>
                                     <div class="official-name" id="patron-card-name"></div>
                                     <a class="official-contact-link" id="patron-card-phone" href=""><span class="material-icons">phone</span> <span></span></a>
-                                    <a class="official-contact-link" id="patron-card-email" href=""><span class="material-icons">email</span> <span></span></a>
+
                                 </div>
                             </div>
                         </section>
@@ -413,13 +413,7 @@
                 priestPhoneEl.style.display = priestPhone ? "inline-flex" : "none";
             }
 
-            const priestEmail = cleanSettingValue(settings.priestEmail);
-            const priestEmailEl = document.getElementById('priest-card-email');
-            if (priestEmailEl) {
-                priestEmailEl.href = priestEmail ? `mailto:${priestEmail}` : "";
-                priestEmailEl.querySelector('span:not(.material-icons)').innerText = priestEmail;
-                priestEmailEl.style.display = priestEmail ? "inline-flex" : "none";
-            }
+
 
             // Treasurer Card population
             setOfficialName(document.getElementById("treasurer-card-name"), settings, "treasurer", isTa);
@@ -432,13 +426,7 @@
                 treasurerPhoneEl.style.display = treasurerPhone ? "inline-flex" : "none";
             }
 
-            const treasurerEmail = cleanSettingValue(settings.treasurerEmail);
-            const treasurerEmailEl = document.getElementById('treasurer-card-email');
-            if (treasurerEmailEl) {
-                treasurerEmailEl.href = treasurerEmail ? `mailto:${treasurerEmail}` : "";
-                treasurerEmailEl.querySelector('span:not(.material-icons)').innerText = treasurerEmail;
-                treasurerEmailEl.style.display = treasurerEmail ? "inline-flex" : "none";
-            }
+
 
             // Patron Card population
             setOfficialName(document.getElementById("patron-card-name"), settings, "patron", isTa);
@@ -451,13 +439,7 @@
                 patronPhoneEl.style.display = patronPhone ? "inline-flex" : "none";
             }
 
-            const patronEmail = cleanSettingValue(settings.patronEmail);
-            const patronEmailEl = document.getElementById('patron-card-email');
-            if (patronEmailEl) {
-                patronEmailEl.href = patronEmail ? `mailto:${patronEmail}` : "";
-                patronEmailEl.querySelector('span:not(.material-icons)').innerText = patronEmail;
-                patronEmailEl.style.display = patronEmail ? "inline-flex" : "none";
-            }
+
         }
 
         // Form submission logic
