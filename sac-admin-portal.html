@@ -916,6 +916,20 @@
                     
                     <div class="admin-card" style="margin-bottom: 24px;">
                         <div class="admin-card-title">
+                            <span class="material-icons">rocket_launch</span>
+                            <span>வெளியீட்டு நிலை / Launch Mode</span>
+                        </div>
+                        <div style="padding: 20px; background: #e0e7ff; border: 1px solid #c7d2fe; border-radius: 12px; margin-bottom: 24px;">
+                            <p style="font-size:0.85rem; color:#3730a3; margin-bottom:16px;">
+                                When enabled, the public website will show a "Grand Launch Countdown" screen. This overrides Maintenance Mode. As an admin, you can still view the normal website.
+                            </p>
+                            <div class="form-group" style="display:flex; align-items:center; gap:10px; margin:0;">
+                                <input type="checkbox" id="set-launchMode" style="width:20px; height:20px;">
+                                <label for="set-launchMode" style="font-weight:700; cursor:pointer; color:#312e81; margin:0;">Enable Launch Mode / வெளியீட்டு நிலையை செயல்படுத்து</label>
+                            </div>
+                        </div>
+
+                        <div class="admin-card-title">
                             <span class="material-icons">construction</span>
                             <span>பராமரிப்பு நிலை / Maintenance Mode</span>
                         </div>
@@ -2524,6 +2538,11 @@
         async function populateGeneralSettings() {
             const settings = await SAC_DATABASE.get("settings");
             
+            const launchToggle = document.getElementById('set-launchMode');
+            if (launchToggle) {
+                launchToggle.checked = settings.launchMode === true || settings.launchMode === 'true';
+            }
+
             const maintenanceToggle = document.getElementById('set-maintenanceMode');
             if (maintenanceToggle) {
                 maintenanceToggle.checked = settings.maintenanceMode === true || settings.maintenanceMode === 'true';
@@ -2615,6 +2634,7 @@
 
             const data = {
                 ...currentSettings,
+                launchMode: document.getElementById('set-launchMode') ? document.getElementById('set-launchMode').checked : false,
                 maintenanceMode: document.getElementById('set-maintenanceMode') ? document.getElementById('set-maintenanceMode').checked : false,
                 churchNameEn: document.getElementById('set-churchNameEn').value,
                 churchNameTa: document.getElementById('set-churchNameTa').value,

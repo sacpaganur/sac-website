@@ -3,35 +3,35 @@
  * Executes immediately to prevent theme flickering.
  */
 window.SAC_THEME = {
-    init() {
-        this.injectFallbackStyles();
-        let savedTheme = null;
-        try { savedTheme = localStorage.getItem('sac_theme'); } catch(e) {}
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        // Determine initial theme
-        if (savedTheme === 'dark' || (!savedTheme && prefersDark.matches)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-        }
+  init() {
+    this.injectFallbackStyles();
+    let savedTheme = null;
+    try { savedTheme = localStorage.getItem('sac_theme'); } catch (e) { }
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-        // Listen for OS-level theme changes in real-time
-        prefersDark.addEventListener('change', (e) => {
-            let hasSaved = false;
-            try { hasSaved = !!localStorage.getItem('sac_theme'); } catch(e) {}
-            if (!hasSaved) {
-                document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-                this.updateToggleIcon(e.matches ? 'dark' : 'light');
-            }
-        });
-    },
+    // Determine initial theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark.matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
 
-    injectFallbackStyles() {
-        if (!document.getElementById('sac-theme-fallback')) {
-            const style = document.createElement('style');
-            style.id = 'sac-theme-fallback';
-            style.textContent = `
+    // Listen for OS-level theme changes in real-time
+    prefersDark.addEventListener('change', (e) => {
+      let hasSaved = false;
+      try { hasSaved = !!localStorage.getItem('sac_theme'); } catch (e) { }
+      if (!hasSaved) {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        this.updateToggleIcon(e.matches ? 'dark' : 'light');
+      }
+    });
+  },
+
+  injectFallbackStyles() {
+    if (!document.getElementById('sac-theme-fallback')) {
+      const style = document.createElement('style');
+      style.id = 'sac-theme-fallback';
+      style.textContent = `
                 :root[data-theme="dark"] {
                   --bg-light: hsl(222, 47%, 11%) !important;
                   --bg-card: hsla(222, 47%, 15%, 0.85) !important;
@@ -541,31 +541,31 @@ window.SAC_THEME = {
                     color: var(--text-primary) !important;
                 }
             `;
-            document.head.appendChild(style);
-        }
-    },
-
-    toggle() {
-        const current = document.documentElement.getAttribute('data-theme');
-        const newTheme = current === 'dark' ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        try { localStorage.setItem('sac_theme', newTheme); } catch(e) {}
-        
-        this.updateToggleIcon(newTheme);
-    },
-
-    updateToggleIcon(theme) {
-        // Find both desktop and mobile toggle icons if they exist
-        const toggles = document.querySelectorAll('.theme-toggle-icon');
-        toggles.forEach(icon => {
-            icon.innerText = theme === 'dark' ? 'light_mode' : 'dark_mode';
-            
-            // Add subtle spin animation on click
-            icon.style.transform = 'rotate(180deg)';
-            setTimeout(() => icon.style.transform = 'none', 300);
-        });
+      document.head.appendChild(style);
     }
+  },
+
+  toggle() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const newTheme = current === 'dark' ? 'light' : 'dark';
+
+    document.documentElement.setAttribute('data-theme', newTheme);
+    try { localStorage.setItem('sac_theme', newTheme); } catch (e) { }
+
+    this.updateToggleIcon(newTheme);
+  },
+
+  updateToggleIcon(theme) {
+    // Find both desktop and mobile toggle icons if they exist
+    const toggles = document.querySelectorAll('.theme-toggle-icon');
+    toggles.forEach(icon => {
+      icon.innerText = theme === 'dark' ? 'light_mode' : 'dark_mode';
+
+      // Add subtle spin animation on click
+      icon.style.transform = 'rotate(180deg)';
+      setTimeout(() => icon.style.transform = 'none', 300);
+    });
+  }
 };
 
 // Initialize immediately before DOM content loads
@@ -573,34 +573,34 @@ SAC_THEME.init();
 
 // Ensure the icon matches the initial theme after navbar is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    SAC_THEME.updateToggleIcon(document.documentElement.getAttribute('data-theme') || 'light');
+  SAC_THEME.updateToggleIcon(document.documentElement.getAttribute('data-theme') || 'light');
 });
 
 // Toast Notification System
-window.showToast = function(message, type = 'success') {
-    let container = document.getElementById('toast-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.id = 'toast-container';
-        document.body.appendChild(container);
-    }
-    
-    const toast = document.createElement('div');
-    toast.className = 'sac-toast toast-' + type;
-    
-    const icon = type === 'success' ? '✅' : '⚠️';
-    toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
-    
-    container.appendChild(toast);
-    
-    // Trigger animation
-    setTimeout(() => toast.classList.add('toast-show'), 10);
-    
-    // Remove after 3 seconds
-    setTimeout(() => {
-        toast.classList.remove('toast-show');
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
+window.showToast = function (message, type = 'success') {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'sac-toast toast-' + type;
+
+  const icon = type === 'success' ? '✅' : '⚠️';
+  toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+
+  container.appendChild(toast);
+
+  // Trigger animation
+  setTimeout(() => toast.classList.add('toast-show'), 10);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    toast.classList.remove('toast-show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
 };
 
 // --- GLOBAL PAGE LOADER INJECTION ---
@@ -617,10 +617,10 @@ window.showToast = function(message, type = 'success') {
   // Expose hideLoader globally so revealPage can call it
   window.hideSACLoader = () => {
     if (isLoaderHidden) return;
-    
+
     const elapsed = Date.now() - loaderStartTime;
     const remaining = Math.max(0, 800 - elapsed);
-    
+
     setTimeout(() => {
       isLoaderHidden = true;
       document.body.style.overflow = ''; // Restore scrolling
@@ -664,8 +664,8 @@ window.showToast = function(message, type = 'success') {
     // Theme Toggle Delegation
     const themeBtn = e.target.closest('.theme-toggle-icon');
     if (themeBtn && window.SAC_THEME) {
-        window.SAC_THEME.toggle();
-        return;
+      window.SAC_THEME.toggle();
+      return;
     }
 
     const link = e.target.closest('a');
@@ -1360,12 +1360,267 @@ const SAC_COMMON = {
       }
 
       // ==========================================
-      // MAINTENANCE MODE INTERCEPTION
+      // LAUNCH MODE INTERCEPTION (Takes priority over Maintenance Mode)
       // ==========================================
       const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
+      const launchTargetDate = new Date('June 13, 2026 21:00:00').getTime();
+      const isPastLaunch = new Date().getTime() >= launchTargetDate;
+
+      if (this.settings && (this.settings.launchMode === true || this.settings.launchMode === 'true') && !isPastLaunch) {
+        if (this.pageName !== 'admin' && !isAdminLogged) {
+          document.body.innerHTML = `
+                  <div class="l-wrapper">
+                      <!-- Ambient orbs and Festive Elements -->
+                      <div class="l-ambient-orb orb1"></div>
+                      <div class="l-ambient-orb orb2"></div>
+                      <div class="l-stars"></div>
+                      <div id="l-festive-container" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:2; overflow:hidden;"></div>
+
+                      <div class="l-glass-board">
+                          <div class="l-glass-bevel"></div>
+                          
+                          <div class="l-logo-container">
+                              <img src="images/church_logo.webp" alt="Logo" loading="lazy" class="l-logo">
+                              <div class="l-logo-glow"></div>
+                          </div>
+
+                          <div class="l-badge">
+                              <span class="material-icons" style="font-size:14px; margin-right:6px;">campaign</span>
+                              GRAND DIGITAL LAUNCH
+                          </div>
+
+                          <h1 class="l-title-ta">புதிய இணையதள திறப்பு விழா</h1>
+                          <h2 class="l-title-en">OFFICIAL WEBSITE LAUNCH</h2>
+                          
+                          <p class="l-desc-ta">புனித அந்தோணியார் ஆலயத்தின் புதிய அதிகாரப்பூர்வ இணையதளம் விரைவில் நேரலையில்...</p>
+                          <p class="l-desc-en">Experience our new digital sanctuary. Going live on June 13, 2026 at 9:00 PM.</p>
+
+                          <div class="l-countdown" id="launch-countdown">
+                              <div class="l-time-box"><div class="l-time-val" id="cd-days">00</div><div class="l-time-label">DAYS</div></div>
+                              <div class="l-time-box"><div class="l-time-val" id="cd-hours">00</div><div class="l-time-label">HOURS</div></div>
+                              <div class="l-time-box"><div class="l-time-val" id="cd-mins">00</div><div class="l-time-label">MINS</div></div>
+                              <div class="l-time-box"><div class="l-time-val" id="cd-secs">00</div><div class="l-time-label">SECS</div></div>
+                          </div>
+
+                          <div class="l-glow-line"></div>
+
+                          <div class="l-footer">
+                              <div class="l-f-ta">புனித அந்தோணியார் ஆலயம் • வடக்கு பாகனூர்</div>
+                              <div class="l-f-en">ST. ANTONY'S CHURCH • NORTH PAGANUR</div>
+                          </div>
+                      </div>
+
+                      <style>
+                          @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;600;800&family=Tiro+Tamil:ital@0;1&family=Material+Icons&display=swap');
+
+                          body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #f8fafc; font-family: 'Inter', sans-serif; }
+
+                          .l-wrapper {
+                              position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                              display: flex; justify-content: center; align-items: center;
+                              padding: 20px; box-sizing: border-box;
+                              overflow: hidden;
+                              background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
+                          }
+
+                          /* Ambient Orbs */
+                          .l-ambient-orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0; opacity: 0.5; animation: orbit 20s infinite linear; }
+                          .l-wrapper .orb1 { width: 50vw; height: 50vw; max-width: 600px; max-height: 600px; background: #d8b4fe; top: -10%; left: -10%; }
+                          .l-wrapper .orb2 { width: 40vw; height: 40vw; max-width: 500px; max-height: 500px; background: #fef08a; bottom: -10%; right: -10%; animation-direction: reverse; animation-duration: 25s; }
+
+                          /* Light Starfield / Pattern */
+                          .l-stars {
+                              position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+                              background-image: radial-gradient(2px 2px at 20px 30px, #e2e8f0, rgba(0,0,0,0)), radial-gradient(2px 2px at 40px 70px, #e2e8f0, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #e2e8f0, rgba(0,0,0,0)), radial-gradient(2px 2px at 90px 40px, #e2e8f0, rgba(0,0,0,0));
+                              background-repeat: repeat; background-size: 200px 200px; opacity: 0.6; animation: twinkle 5s infinite alternate;
+                          }
+                          
+                          /* Global Digital Launch Animations */
+                          .l-data-stream { position: absolute; bottom: -150px; width: 2px; background: linear-gradient(to top, transparent, currentColor); border-radius: 2px; animation: streamUp linear infinite; opacity: 0.6; }
+                          @keyframes streamUp { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { transform: translateY(-120vh); opacity: 0; } }
+                          
+                          .l-digital-spark { position: absolute; bottom: -20px; width: 5px; height: 5px; background: currentColor; border-radius: 50%; box-shadow: 0 0 10px currentColor, 0 0 20px currentColor; animation: sparkFloat linear infinite; }
+                          @keyframes sparkFloat { 0% { transform: translateY(0) scale(1); opacity: 0; } 20% { opacity: 1; transform: translateY(-20vh) scale(1.5); } 80% { opacity: 1; transform: translateY(-80vh) scale(0.8); } 100% { transform: translateY(-110vh) scale(0); opacity: 0; } }
+                          
+                          .l-ripple { position: absolute; top: 50%; left: 50%; border: 2px solid currentColor; border-radius: 50%; transform: translate(-50%, -50%); animation: rippleOut linear infinite; opacity: 0; }
+                          @keyframes rippleOut { 0% { width: 20px; height: 20px; opacity: 0.8; border-width: 4px; } 100% { width: 600px; height: 600px; opacity: 0; border-width: 1px; } }
+
+                          .l-glass-board {
+                              position: relative; z-index: 10; width: 90%; max-width: 680px;
+                              background: rgba(255, 255, 255, 0.75);
+                              backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+                              border-radius: 32px;
+                              padding: 60px 40px 40px 40px;
+                              text-align: center;
+                              border: 1px solid rgba(255, 255, 255, 0.9);
+                              box-shadow: 0 25px 60px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,1);
+                              animation: materialize 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+                          }
+
+                          .l-logo-container { position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 120px; height: 120px; z-index: 20; }
+                          .l-logo { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid #ffffff; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; z-index: 2; }
+                          .l-logo-glow { position: absolute; inset: -20px; background: radial-gradient(circle, rgba(168,85,247,0.3) 0%, transparent 70%); z-index: 1; animation: pulseGlow 3s infinite alternate; }
+
+                          .l-badge {
+                              display: inline-flex; align-items: center; justify-content: center;
+                              background: rgba(147, 51, 234, 0.08);
+                              border: 1px solid rgba(147, 51, 234, 0.2); border-radius: 30px;
+                              padding: 8px 20px; color: #7e22ce; font-size: 0.75rem; font-weight: 800; letter-spacing: 3px;
+                              margin: 20px 0 30px 0; box-shadow: 0 4px 15px rgba(147,51,234,0.05);
+                          }
+
+                          .l-title-ta { font-family: 'Tiro Tamil', serif; font-size: 2.2rem; font-weight: 800; margin: 0 0 10px 0; background: linear-gradient(135deg, #7e22ce, #db2777); -webkit-background-clip: text; color: transparent; text-shadow: 0 2px 10px rgba(126,34,206,0.1); }
+                          .l-title-en { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 800; color: #9333ea; letter-spacing: 6px; margin: 0 0 25px 0; text-shadow: 0 2px 10px rgba(147,51,234,0.1); }
+
+                          .l-desc-ta { font-family: 'Tiro Tamil', serif; font-size: 1.05rem; line-height: 1.6; color: #475569; margin: 0 0 10px 0; }
+                          .l-desc-en { font-size: 0.9rem; line-height: 1.5; color: #64748b; margin: 0 0 35px 0; }
+
+                          /* Countdown Styles */
+                          .l-countdown { display: flex; justify-content: center; gap: 20px; margin-bottom: 35px; }
+                          .l-time-box { 
+                              background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(147, 51, 234, 0.15); 
+                              border-radius: 16px; width: 90px; padding: 15px 0;
+                              box-shadow: inset 0 2px 10px rgba(255,255,255,0.8), 0 10px 20px rgba(147, 51, 234, 0.05);
+                              position: relative; overflow: hidden;
+                          }
+                          .l-time-box::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,1), transparent); }
+                          .l-time-val { font-family: 'Inter', sans-serif; font-size: 2.5rem; font-weight: 800; color: #7e22ce; line-height: 1; margin-bottom: 5px; text-shadow: 0 2px 15px rgba(126,34,206,0.1); }
+                          .l-time-label { font-size: 0.65rem; font-weight: 700; color: #a855f7; letter-spacing: 2px; }
+
+                          .l-glow-line { width: 100px; height: 3px; margin: 0 auto 25px auto; border-radius: 3px; background: linear-gradient(90deg, transparent, #d8b4fe, transparent); box-shadow: 0 0 15px rgba(216,180,254,0.6); }
+
+                          .l-footer { position: relative; }
+                          .l-f-ta { font-family: 'Tiro Tamil', serif; font-size: 0.9rem; color: #64748b; margin-bottom: 5px; }
+                          .l-f-en { font-size: 0.65rem; color: #94a3b8; letter-spacing: 4px; font-weight: 700; }
+
+                          /* Hide floating buttons during interception */
+                          #sac-ai-fab, #a11y-fab { display: none !important; }
+
+                          /* Animations */
+                          @keyframes materialize { 0% { transform: scale(0.95) translateY(20px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+                          @keyframes pulseGlow { 0% { opacity: 0.6; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.1); } }
+                          @keyframes orbit { 0% { transform: rotate(0deg) translateX(30px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(30px) rotate(-360deg); } }
+                          @keyframes twinkle { 0% { opacity: 0.4; } 100% { opacity: 0.8; } }
+
+                          /* Responsive Rules */
+                          @media (max-width: 640px) {
+                              .l-glass-board { padding: 50px 20px 30px 20px; border-radius: 24px; width: 95%; }
+                              .l-logo-container { width: 90px; height: 90px; top: -45px; }
+                              .l-title-ta { font-size: 1.6rem; }
+                              .l-title-en { font-size: 0.85rem; }
+                              .l-desc-ta { font-size: 0.95rem; }
+                              .l-desc-en { font-size: 0.8rem; }
+                              .l-countdown { gap: 10px; margin-bottom: 25px; }
+                              .l-time-box { width: 70px; padding: 10px 0; border-radius: 12px; }
+                              .l-time-val { font-size: 1.8rem; }
+                              .l-time-label { font-size: 0.55rem; }
+                              .l-badge { margin: 15px 0 20px 0; padding: 6px 15px; font-size: 0.65rem; }
+                          }
+
+                          @media (max-height: 700px) {
+                              .l-glass-board { padding: 40px 20px 20px 20px; }
+                              .l-title-ta { font-size: 1.5rem; margin-bottom: 5px; }
+                              .l-title-en { font-size: 0.8rem; margin-bottom: 15px; }
+                              .l-desc-ta { font-size: 0.9rem; margin-bottom: 5px; }
+                              .l-desc-en { font-size: 0.75rem; margin-bottom: 20px; }
+                              .l-countdown { margin-bottom: 20px; }
+                              .l-time-box { padding: 8px 0; }
+                              .l-time-val { font-size: 1.6rem; }
+                              .l-glow-line { margin-bottom: 15px; }
+                          }
+                          
+                          @media (max-height: 580px) {
+                              .l-glass-board { padding: 30px 15px 15px 15px; border-radius: 16px; }
+                              .l-logo-container { width: 60px; height: 60px; top: -30px; }
+                              .l-badge { margin: 5px 0 10px 0; padding: 4px 10px; font-size: 0.55rem; }
+                              .l-title-ta { font-size: 1.2rem; }
+                              .l-title-en { font-size: 0.65rem; margin-bottom: 8px; }
+                              .l-desc-ta { font-size: 0.8rem; line-height: 1.3; }
+                              .l-desc-en { font-size: 0.7rem; margin-bottom: 12px; }
+                              .l-countdown { margin-bottom: 12px; gap: 8px; }
+                              .l-time-box { width: 55px; padding: 6px 0; border-radius: 8px; }
+                              .l-time-val { font-size: 1.2rem; margin-bottom: 2px; }
+                              .l-time-label { font-size: 0.45rem; }
+                              .l-glow-line { margin-bottom: 10px; }
+                              .l-f-ta { font-size: 0.7rem; }
+                              .l-f-en { font-size: 0.5rem; }
+                          }
+                      </style>
+                  </div>
+              `;
+
+          // Global Launch Digital Generation
+          const festiveContainer = document.getElementById('l-festive-container');
+          const launchColors = ['#8b5cf6', '#3b82f6', '#06b6d4', '#10b981', '#f43f5e']; // Tech/Digital colors
+
+          // Generate Data Streams
+          for (let i = 0; i < 30; i++) {
+            let stream = document.createElement('div');
+            stream.className = 'l-data-stream';
+            stream.style.left = Math.random() * 100 + 'vw';
+            stream.style.color = launchColors[Math.floor(Math.random() * launchColors.length)];
+            stream.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+            stream.style.animationDelay = (Math.random() * 3) + 's';
+            stream.style.height = (Math.random() * 100 + 50) + 'px';
+            festiveContainer.appendChild(stream);
+          }
+
+          // Generate Digital Sparks
+          for (let i = 0; i < 40; i++) {
+            let spark = document.createElement('div');
+            spark.className = 'l-digital-spark';
+            spark.style.left = Math.random() * 100 + 'vw';
+            spark.style.color = launchColors[Math.floor(Math.random() * launchColors.length)];
+            spark.style.animationDuration = (Math.random() * 6 + 4) + 's';
+            spark.style.animationDelay = (Math.random() * 5) + 's';
+            festiveContainer.appendChild(spark);
+          }
+          
+          // Generate Global Ripples (Radar/Ping effect)
+          for (let i = 0; i < 3; i++) {
+            let ripple = document.createElement('div');
+            ripple.className = 'l-ripple';
+            ripple.style.color = launchColors[i % launchColors.length];
+            ripple.style.animationDuration = '4s';
+            ripple.style.animationDelay = (i * 1.3) + 's';
+            festiveContainer.appendChild(ripple);
+          }
+
+          // Countdown Logic
+          const timer = setInterval(function () {
+            const now = new Date().getTime();
+            const distance = launchTargetDate - now;
+
+            if (distance <= 0) {
+              clearInterval(timer);
+              // Time reached! Refresh the page so the public can instantly see the live site.
+              window.location.reload();
+              return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (document.getElementById('cd-days')) {
+              document.getElementById('cd-days').innerText = days.toString().padStart(2, '0');
+              document.getElementById('cd-hours').innerText = hours.toString().padStart(2, '0');
+              document.getElementById('cd-mins').innerText = minutes.toString().padStart(2, '0');
+              document.getElementById('cd-secs').innerText = seconds.toString().padStart(2, '0');
+            }
+          }, 1000);
+
+          return; // Abort further initialization
+        }
+      }
+
+      // ==========================================
+      // MAINTENANCE MODE INTERCEPTION
+      // ==========================================
       if (this.settings && (this.settings.maintenanceMode === true || this.settings.maintenanceMode === 'true')) {
-          if (this.pageName !== 'admin' && !isAdminLogged) {
-              document.body.innerHTML = `
+        if (this.pageName !== 'admin' && !isAdminLogged) {
+          document.body.innerHTML = `
                   <div class="n-wrapper">
                       <!-- Two dynamic colored ambient orbs -->
                       <div class="n-ambient-orb orb1"></div>
@@ -1404,12 +1659,13 @@ const SAC_COMMON = {
                       <style>
                           @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;500;700&family=Tiro+Tamil:ital@0;1&display=swap');
 
-                          body, html { margin: 0; padding: 0; width: 100%; min-height: 100vh; overflow-x: hidden; overflow-y: auto; background: #e0e5ec; }
+                          body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #e0e5ec; }
 
                           .n-wrapper {
-                              position: relative; width: 100%; min-height: 100vh;
+                              position: fixed; top: 0; left: 0; width: 100%; height: 100%;
                               display: flex; justify-content: center; align-items: center;
-                              padding: 100px 20px 60px 20px; box-sizing: border-box;
+                              padding: 20px; box-sizing: border-box;
+                              overflow: hidden;
                           }
 
                           /* Ultra-premium colorful ambient backdrop orbs */
@@ -1429,10 +1685,10 @@ const SAC_COMMON = {
                           }
 
                           .n-stone-board {
-                              position: relative; z-index: 10; width: 90%; max-width: 650px;
+                              position: relative; z-index: 10; width: 90%; max-width: 620px;
                               background: #e0e5ec;
-                              border-radius: 40px;
-                              padding: 60px 40px 40px 40px;
+                              border-radius: 36px;
+                              padding: 50px 36px 32px 36px;
                               text-align: center;
                               box-shadow: 25px 25px 75px #bec3c9, -25px -25px 75px #ffffff;
                               animation: materialize 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
@@ -1440,13 +1696,13 @@ const SAC_COMMON = {
                           
                           /* Subtle white beveled edge for extra physical realism */
                           .n-stone-bevel {
-                              position: absolute; inset: 1px; border-radius: 39px;
+                              position: absolute; inset: 1px; border-radius: 35px;
                               border: 1px solid rgba(255,255,255,0.7); pointer-events: none;
                           }
 
                           .n-embossed-emblem {
-                              position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-                              width: 120px; height: 120px;
+                              position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
+                              width: 100px; height: 100px;
                               background: #e0e5ec;
                               border-radius: 50%;
                               display: flex; justify-content: center; align-items: center;
@@ -1454,7 +1710,7 @@ const SAC_COMMON = {
                           }
                           
                           .n-emblem-inner {
-                              position: relative; width: 80px; height: 80px;
+                              position: relative; width: 70px; height: 70px;
                               border-radius: 50%;
                               background: #e0e5ec;
                               display: flex; justify-content: center; align-items: center;
@@ -1476,30 +1732,30 @@ const SAC_COMMON = {
 
                           .n-inset-box {
                               background: #e0e5ec;
-                              border-radius: 24px;
-                              padding: 35px 20px;
-                              margin: 30px 0;
+                              border-radius: 20px;
+                              padding: 28px 16px;
+                              margin: 20px 0;
                               box-shadow: inset 10px 10px 20px #bec3c9, inset -10px -10px 20px #ffffff;
                               position: relative;
                           }
 
                           .n-badge {
                               display: inline-flex; align-items: center; gap: 10px;
-                              background: rgba(255, 255, 255, 0.3); padding: 8px 18px; border-radius: 30px;
+                              background: rgba(255, 255, 255, 0.3); padding: 6px 16px; border-radius: 30px;
                               border: 1px solid rgba(255,255,255,0.6);
-                              font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 800;
-                              color: var(--primary); letter-spacing: 3px; margin-bottom: 25px;
+                              font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 800;
+                              color: var(--primary); letter-spacing: 3px; margin-bottom: 18px;
                               box-shadow: 4px 4px 10px rgba(0,0,0,0.03);
                           }
                           .n-led {
-                              width: 10px; height: 10px; border-radius: 50%; background: var(--accent-gold);
+                              width: 8px; height: 8px; border-radius: 50%; background: var(--accent-gold);
                               box-shadow: 0 0 15px var(--accent-gold), inset 2px 2px 4px rgba(255,255,255,0.8);
                               animation: blink 1.5s infinite;
                           }
 
                           .n-title-ta {
-                              font-family: 'Tiro Tamil', serif; font-size: 2.2rem; font-weight: 800;
-                              margin: 0 0 10px 0;
+                              font-family: 'Tiro Tamil', serif; font-size: 1.8rem; font-weight: 800;
+                              margin: 0 0 8px 0;
                               background: linear-gradient(135deg, var(--primary) 0%, var(--accent-gold) 50%, var(--primary) 100%);
                               background-size: 200% auto;
                               -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -1507,13 +1763,13 @@ const SAC_COMMON = {
                           }
                           
                           .n-title-en {
-                              font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 800;
+                              font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 800;
                               color: var(--text-primary); letter-spacing: 6px; margin: 0;
                               text-shadow: 1px 1px 0px #ffffff;
                           }
 
                           .n-glow-line {
-                              width: 120px; height: 5px; margin: 35px auto; border-radius: 3px;
+                              width: 100px; height: 4px; margin: 20px auto; border-radius: 3px;
                               background: linear-gradient(90deg, var(--primary), var(--accent-gold), var(--primary));
                               background-size: 200% 200%;
                               box-shadow: 0 4px 20px var(--primary-glow);
@@ -1521,17 +1777,20 @@ const SAC_COMMON = {
                           }
 
                           .n-desc-ta {
-                              font-family: 'Tiro Tamil', serif; font-size: 1.05rem; line-height: 1.8;
-                              color: var(--text-secondary); margin: 0 0 15px 0; padding: 0 20px;
+                              font-family: 'Tiro Tamil', serif; font-size: 0.95rem; line-height: 1.7;
+                              color: var(--text-secondary); margin: 0 0 10px 0; padding: 0 10px;
                           }
                           .n-desc-en {
-                              font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.6;
-                              color: var(--text-muted); margin: 0 0 10px 0; padding: 0 20px;
+                              font-family: 'Inter', sans-serif; font-size: 0.8rem; line-height: 1.5;
+                              color: var(--text-muted); margin: 0; padding: 0 10px;
                           }
 
-                          .n-footer { margin-top: 25px; position: relative; }
-                          .n-f-ta { font-family: 'Tiro Tamil', serif; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 5px; }
-                          .n-f-en { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 4px; font-weight: 700; }
+                          .n-footer { margin-top: 16px; position: relative; }
+                          .n-f-ta { font-family: 'Tiro Tamil', serif; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px; }
+                          .n-f-en { font-family: 'Inter', sans-serif; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 4px; font-weight: 700; }
+
+                          /* Hide floating buttons during interception */
+                          #sac-ai-fab, #a11y-fab { display: none !important; }
 
                           @keyframes materialize { 0% { transform: scale(0.9) translateY(30px); opacity: 0; box-shadow: 0 0 0 transparent, 0 0 0 transparent; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
                           @keyframes blink { 0%, 100% { opacity: 1; box-shadow: 0 0 15px var(--accent-gold); } 50% { opacity: 0.3; box-shadow: 0 0 2px var(--accent-gold); } }
@@ -1540,20 +1799,60 @@ const SAC_COMMON = {
                           @keyframes gradientShift { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
                           @keyframes shimmer { 0% { background-position: 0% 50%; } 100% { background-position: -200% 50%; } }
 
-                          @media (max-width: 640px) {
-                              .n-stone-board { padding: 50px 20px 30px 20px; border-radius: 30px; width: 95%; }
-                              .n-embossed-emblem { width: 100px; height: 100px; top: -50px; }
-                              .n-emblem-inner { width: 70px; height: 70px; }
-                              .n-icon { font-size: 36px; }
-                              .n-title-ta { font-size: 1.6rem; }
+                          /* Tablet */
+                          @media (max-height: 700px) {
+                              .n-stone-board { padding: 40px 24px 24px 24px; border-radius: 28px; }
+                              .n-embossed-emblem { width: 80px; height: 80px; top: -40px; }
+                              .n-emblem-inner { width: 58px; height: 58px; }
+                              .n-inset-box { padding: 20px 12px; margin: 14px 0; }
+                              .n-title-ta { font-size: 1.4rem; }
                               .n-title-en { font-size: 0.75rem; letter-spacing: 4px; }
-                              .n-inset-box { padding: 30px 15px; }
+                              .n-desc-ta { font-size: 0.85rem; line-height: 1.6; margin-bottom: 6px; }
+                              .n-desc-en { font-size: 0.75rem; }
+                              .n-glow-line { margin: 14px auto; width: 80px; }
+                              .n-footer { margin-top: 10px; }
+                              .n-badge { margin-bottom: 12px; padding: 5px 12px; font-size: 0.65rem; }
+                          }
+
+                          /* Mobile */
+                          @media (max-width: 640px) {
+                              .n-stone-board { padding: 40px 16px 24px 16px; border-radius: 24px; width: 95%; }
+                              .n-embossed-emblem { width: 80px; height: 80px; top: -40px; }
+                              .n-emblem-inner { width: 58px; height: 58px; }
+                              .n-icon { font-size: 32px; }
+                              .n-title-ta { font-size: 1.3rem; }
+                              .n-title-en { font-size: 0.7rem; letter-spacing: 3px; }
+                              .n-inset-box { padding: 18px 10px; margin: 14px 0; }
+                              .n-desc-ta { font-size: 0.85rem; padding: 0 5px; }
+                              .n-desc-en { font-size: 0.72rem; padding: 0 5px; }
+                              .n-glow-line { margin: 14px auto; width: 70px; }
+                              .n-footer { margin-top: 10px; }
+                              .n-f-ta { font-size: 0.78rem; }
+                              .n-f-en { font-size: 0.6rem; letter-spacing: 3px; }
+                          }
+
+                          /* Very short screens (landscape mobile, small laptops) */
+                          @media (max-height: 580px) {
+                              .n-stone-board { padding: 32px 16px 16px 16px; border-radius: 20px; }
+                              .n-embossed-emblem { width: 64px; height: 64px; top: -32px; }
+                              .n-emblem-inner { width: 48px; height: 48px; }
+                              .n-icon { font-size: 28px; }
+                              .n-inset-box { padding: 14px 10px; margin: 10px 0; border-radius: 14px; }
+                              .n-title-ta { font-size: 1.15rem; margin-bottom: 4px; }
+                              .n-title-en { font-size: 0.65rem; letter-spacing: 3px; }
+                              .n-desc-ta { font-size: 0.78rem; line-height: 1.5; margin-bottom: 4px; }
+                              .n-desc-en { font-size: 0.68rem; line-height: 1.4; }
+                              .n-glow-line { margin: 8px auto; height: 3px; width: 60px; }
+                              .n-footer { margin-top: 6px; }
+                              .n-f-ta { font-size: 0.72rem; }
+                              .n-f-en { font-size: 0.55rem; }
+                              .n-badge { margin-bottom: 8px; padding: 4px 10px; font-size: 0.6rem; letter-spacing: 2px; }
                           }
                       </style>
                   </div>
               `;
-              return; // Abort further initialization
-          }
+          return; // Abort further initialization
+        }
       }
       // ==========================================
 
@@ -1585,11 +1884,26 @@ const SAC_COMMON = {
       // Set active nav styling
       this._highlightActiveNav();
 
-      // Listen for background settings refresh to update header/footer live
+      // Listen for background settings refresh to update header/footer live and catch mode toggles
       window.addEventListener('sacDataRefreshed', async (e) => {
         if (e.detail && e.detail.collection === 'settings') {
           try {
+            const oldLaunchMode = this.settings ? this.settings.launchMode : null;
+            const oldMaintenanceMode = this.settings ? this.settings.maintenanceMode : null;
+
             this.settings = await SAC_DATABASE.get("settings");
+
+            const newLaunchMode = this.settings ? this.settings.launchMode : null;
+            const newMaintenanceMode = this.settings ? this.settings.maintenanceMode : null;
+
+            // If admin is NOT logged in, and modes changed, we MUST instantly reload to show/hide the blocks
+            const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
+            if (!isAdminLogged && (oldLaunchMode !== newLaunchMode || oldMaintenanceMode !== newMaintenanceMode)) {
+              console.log("System mode changed. Instantly reloading page to apply changes...");
+              window.location.reload();
+              return;
+            }
+
             await this.translatePage();
           } catch (err) {
             console.warn("Background settings sync re-translate failed:", err);
@@ -1614,7 +1928,7 @@ const SAC_COMMON = {
       manifestLink.href = 'manifest.json';
       document.head.appendChild(manifestLink);
     }
-    
+
     // Inject Theme Color meta tag dynamically for PWA
     if (!document.querySelector('meta[name="theme-color"]')) {
       const themeMeta = document.createElement('meta');
@@ -1630,7 +1944,7 @@ const SAC_COMMON = {
           .then((registration) => {
             // Check for service worker updates immediately on page load
             registration.update();
-            
+
             // Listen for new service worker installation
             registration.onupdatefound = () => {
               const installingWorker = registration.installing;
@@ -1694,7 +2008,7 @@ const SAC_COMMON = {
 
     try {
       await ensureFirebaseLoaded();
-    } catch(e) { console.warn("Firebase load failed", e); }
+    } catch (e) { console.warn("Firebase load failed", e); }
 
     // Handle visitor tracking and display (Runs after Firebase is active)
     if (window.SAC_DATABASE && typeof SAC_DATABASE.getVisitorStats === 'function') {
@@ -1710,7 +2024,7 @@ const SAC_COMMON = {
           sessionStorage.setItem('sac_visit_logged_today', 'true');
         }
       }
-      
+
       // Fetch and display total visitor count in footer
       try {
         const totalVisits = await SAC_DATABASE.getVisitorStats();
@@ -1786,7 +2100,7 @@ const SAC_COMMON = {
     }
     let siteLogoUrl = this.settings && (this.settings.logoUrl || this.settings.siteLogo) ? (this.settings.logoUrl || this.settings.siteLogo) : null;
     if (siteLogoUrl === 'undefined' || siteLogoUrl === 'null') siteLogoUrl = null;
-    
+
     if (siteLogoUrl) {
       link.removeAttribute('type');
       link.href = siteLogoUrl;
@@ -1939,7 +2253,7 @@ const SAC_COMMON = {
 
     let siteLogoUrl = settings.logoUrl || settings.siteLogo || '';
     if (siteLogoUrl === 'undefined' || siteLogoUrl === 'null') siteLogoUrl = '';
-    
+
     document.querySelectorAll('.logo-icon, .footer-church-logo').forEach(el => {
       if (siteLogoUrl) {
         el.innerHTML = `<img src="${siteLogoUrl}" alt="Church Logo" class="dynamic-logo-img" loading="lazy">`;
@@ -2035,142 +2349,142 @@ const SAC_COMMON = {
 
 /* --- ADVANCED CSS BACKGROUND LAZY LOADING --- */
 document.addEventListener("DOMContentLoaded", () => {
-    const lazyBackgrounds = document.querySelectorAll('.lazy-bg');
-    if ('IntersectionObserver' in window) {
-        const bgObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const lazyBg = entry.target;
-                    const bgUrl = lazyBg.getAttribute('data-bg');
-                    if (bgUrl) {
-                        lazyBg.style.backgroundImage = `url('${bgUrl}')`;
-                        lazyBg.classList.add('bg-loaded');
-                    }
-                    observer.unobserve(lazyBg);
-                }
-            });
-        }, { rootMargin: "200px 0px" }); // Preload slightly before it enters viewport
+  const lazyBackgrounds = document.querySelectorAll('.lazy-bg');
+  if ('IntersectionObserver' in window) {
+    const bgObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const lazyBg = entry.target;
+          const bgUrl = lazyBg.getAttribute('data-bg');
+          if (bgUrl) {
+            lazyBg.style.backgroundImage = `url('${bgUrl}')`;
+            lazyBg.classList.add('bg-loaded');
+          }
+          observer.unobserve(lazyBg);
+        }
+      });
+    }, { rootMargin: "200px 0px" }); // Preload slightly before it enters viewport
 
-        lazyBackgrounds.forEach(bg => bgObserver.observe(bg));
-    } else {
-        // Fallback for older browsers
-        lazyBackgrounds.forEach(lazyBg => {
-            const bgUrl = lazyBg.getAttribute('data-bg');
-            if (bgUrl) lazyBg.style.backgroundImage = `url('${bgUrl}')`;
-        });
-    }
+    lazyBackgrounds.forEach(bg => bgObserver.observe(bg));
+  } else {
+    // Fallback for older browsers
+    lazyBackgrounds.forEach(lazyBg => {
+      const bgUrl = lazyBg.getAttribute('data-bg');
+      if (bgUrl) lazyBg.style.backgroundImage = `url('${bgUrl}')`;
+    });
+  }
 });
 
 /* --- SCROLL REVEAL ANIMATION ENGINE --- */
 document.addEventListener("DOMContentLoaded", () => {
-    const revealElements = document.querySelectorAll('.reveal-base');
-    if ('IntersectionObserver' in window) {
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                    // Optional: stop observing once revealed so it doesn't animate out and in repeatedly
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { rootMargin: "0px 0px -50px 0px", threshold: 0.1 }); // Trigger slightly before fully in view
+  const revealElements = document.querySelectorAll('.reveal-base');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          // Optional: stop observing once revealed so it doesn't animate out and in repeatedly
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -50px 0px", threshold: 0.1 }); // Trigger slightly before fully in view
 
-        revealElements.forEach(el => revealObserver.observe(el));
-    } else {
-        // Fallback for older browsers
-        revealElements.forEach(el => el.classList.add('revealed'));
-    }
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    // Fallback for older browsers
+    revealElements.forEach(el => el.classList.add('revealed'));
+  }
 });
 
 
 // --- Global Scroll Micro-Animations ---
 document.addEventListener('DOMContentLoaded', () => {
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px -50px 0px',
-        threshold: 0.1
-    };
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -50px 0px',
+    threshold: 0.1
+  };
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target); // Only animate once
-            }
-        });
-    }, observerOptions);
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target); // Only animate once
+      }
+    });
+  }, observerOptions);
 
-    const revealElements = document.querySelectorAll('.reveal-base');
-    revealElements.forEach(el => observer.observe(el));
+  const revealElements = document.querySelectorAll('.reveal-base');
+  revealElements.forEach(el => observer.observe(el));
 });
 
 // --- PWA & Offline Experience UI ---
 const PWAUI = {
-    deferredPrompt: null,
-    
-    init() {
-        this.setupOfflineBanner();
-        this.setupInstallPrompt();
-    },
-    
-    setupOfflineBanner() {
-        const banner = document.createElement('div');
-        banner.id = 'sac-offline-banner';
-        banner.innerHTML = `
+  deferredPrompt: null,
+
+  init() {
+    this.setupOfflineBanner();
+    this.setupInstallPrompt();
+  },
+
+  setupOfflineBanner() {
+    const banner = document.createElement('div');
+    banner.id = 'sac-offline-banner';
+    banner.innerHTML = `
             <div style="background: var(--color-primary); color: white; text-align: center; padding: 10px 20px; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 10000; display: flex; align-items: center; gap: 10px; font-weight: bold; transition: all 0.3s ease; opacity: 0; pointer-events: none;">
                 <i class="fas fa-wifi-slash"></i> <span id="sac-offline-text">You are currently offline.</span>
             </div>
         `;
-        document.body.appendChild(banner);
-        
-        const updateOnlineStatus = () => {
-            const el = banner.firstElementChild;
-            const textEl = document.getElementById('sac-offline-text');
-            const iconEl = el.querySelector('i');
-            
-            if (navigator.onLine) {
-                textEl.innerText = 'Back online!';
-                iconEl.className = 'fas fa-wifi';
-                el.style.background = '#28a745';
-                el.style.opacity = '1';
-                setTimeout(() => {
-                    el.style.opacity = '0';
-                    el.style.pointerEvents = 'none';
-                }, 3000);
-            } else {
-                textEl.innerText = 'You are currently offline.';
-                iconEl.className = 'fas fa-wifi-slash';
-                el.style.background = 'var(--color-primary)';
-                el.style.opacity = '1';
-                el.style.pointerEvents = 'auto';
-            }
-        };
+    document.body.appendChild(banner);
 
-        window.addEventListener('online', updateOnlineStatus);
-        window.addEventListener('offline', updateOnlineStatus);
-        
-        // Initial check
-        if (!navigator.onLine) updateOnlineStatus();
-    },
-    
-    setupInstallPrompt() {
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent the mini-infobar from appearing on mobile
-            e.preventDefault();
-            this.deferredPrompt = e;
-            // Optionally, show our custom install UI here
-            this.showInstallPromotion();
-        });
-    },
-    
-    showInstallPromotion() {
-        // Only show if we haven't dismissed it recently
-        if (localStorage.getItem('sac_pwa_dismissed')) return;
-        if (document.getElementById('sac-install-banner')) return;
-        
-        const banner = document.createElement('div');
-        banner.id = 'sac-install-banner';
-        banner.innerHTML = `
+    const updateOnlineStatus = () => {
+      const el = banner.firstElementChild;
+      const textEl = document.getElementById('sac-offline-text');
+      const iconEl = el.querySelector('i');
+
+      if (navigator.onLine) {
+        textEl.innerText = 'Back online!';
+        iconEl.className = 'fas fa-wifi';
+        el.style.background = '#28a745';
+        el.style.opacity = '1';
+        setTimeout(() => {
+          el.style.opacity = '0';
+          el.style.pointerEvents = 'none';
+        }, 3000);
+      } else {
+        textEl.innerText = 'You are currently offline.';
+        iconEl.className = 'fas fa-wifi-slash';
+        el.style.background = 'var(--color-primary)';
+        el.style.opacity = '1';
+        el.style.pointerEvents = 'auto';
+      }
+    };
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+
+    // Initial check
+    if (!navigator.onLine) updateOnlineStatus();
+  },
+
+  setupInstallPrompt() {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      this.deferredPrompt = e;
+      // Optionally, show our custom install UI here
+      this.showInstallPromotion();
+    });
+  },
+
+  showInstallPromotion() {
+    // Only show if we haven't dismissed it recently
+    if (localStorage.getItem('sac_pwa_dismissed')) return;
+    if (document.getElementById('sac-install-banner')) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'sac-install-banner';
+    banner.innerHTML = `
             <div style="background: var(--bg-card, white); color: var(--text-primary, #333); border: 1px solid var(--border-glass, #ddd); padding: 15px 20px; position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; gap: 15px; width: 90%; max-width: 400px; backdrop-filter: blur(10px);">
                 <img src="images/church_logo.webp" alt="App Logo" loading="lazy" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
                 <div style="flex-grow: 1;">
@@ -2183,25 +2497,25 @@ const PWAUI = {
                 </div>
             </div>
         `;
-        document.body.appendChild(banner);
-        
-        document.getElementById('pwa-install-btn').addEventListener('click', async () => {
-            banner.remove();
-            if (this.deferredPrompt) {
-                this.deferredPrompt.prompt();
-                const { outcome } = await this.deferredPrompt.userChoice;
-                console.log('User response to the install prompt:', outcome);
-                this.deferredPrompt = null;
-            }
-        });
-        
-        document.getElementById('pwa-dismiss-btn').addEventListener('click', () => {
-            banner.remove();
-            localStorage.setItem('sac_pwa_dismissed', 'true');
-        });
-    }
+    document.body.appendChild(banner);
+
+    document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+      banner.remove();
+      if (this.deferredPrompt) {
+        this.deferredPrompt.prompt();
+        const { outcome } = await this.deferredPrompt.userChoice;
+        console.log('User response to the install prompt:', outcome);
+        this.deferredPrompt = null;
+      }
+    });
+
+    document.getElementById('pwa-dismiss-btn').addEventListener('click', () => {
+      banner.remove();
+      localStorage.setItem('sac_pwa_dismissed', 'true');
+    });
+  }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    PWAUI.init();
+  PWAUI.init();
 });
