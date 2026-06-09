@@ -516,14 +516,15 @@ const VoiceInput = {
 const PrayerAIService = {
   async parsePrayerVoice(text) {
     let apiKey = localStorage.getItem('sac_local_api_key');
-    if (!apiKey && window.SAC_DATABASE) {
+    if (!apiKey && typeof SAC_DATABASE !== 'undefined') {
       try {
-        const settings = await window.SAC_DATABASE.get("settings");
+        const settings = await SAC_DATABASE.get("settings");
         if (settings && settings.aiApiKey) apiKey = settings.aiApiKey;
-        if (!apiKey && window.SAC_DATABASE.defaultData?.firebase_config?.apiKey) {
-          apiKey = window.SAC_DATABASE.defaultData.firebase_config.apiKey;
-        }
       } catch (e) { console.warn("Failed to fetch settings for AI API Key"); }
+
+      if (!apiKey && SAC_DATABASE.defaultData?.firebase_config?.apiKey) {
+        apiKey = SAC_DATABASE.defaultData.firebase_config.apiKey;
+      }
     }
     
     if (!apiKey) {
