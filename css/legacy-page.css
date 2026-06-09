@@ -755,8 +755,8 @@ body:lang(ta) .timeline-desc {
     padding: 12px 0;
     background: hsla(30, 25%, 98%, 0.95);
     backdrop-filter: blur(10px);
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
     z-index: 10;
     margin-bottom: 16px;
     border-radius: 12px;
@@ -1351,7 +1351,7 @@ body:lang(ta) .saint-miracle-glass-card p {
   font-weight: 700;
   font-size: 1rem;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   word-break: break-word;
   overflow-wrap: break-word;
   line-height: 1.4;
@@ -1413,8 +1413,10 @@ body:lang(ta) .saint-miracle-glass-card p {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   flex: 1;
   min-width: 0;
+  gap: 4px; /* Add slight gap between name and period */
 }
 
 @keyframes fadeUpIn {
@@ -1423,4 +1425,3 @@ body:lang(ta) .saint-miracle-glass-card p {
     transform: translateY(0);
   }
 }
-
