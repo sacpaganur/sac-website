@@ -520,6 +520,9 @@ const PrayerAIService = {
       try {
         const settings = await window.SAC_DATABASE.get("settings");
         if (settings && settings.aiApiKey) apiKey = settings.aiApiKey;
+        if (!apiKey && window.SAC_DATABASE.defaultData?.firebase_config?.apiKey) {
+          apiKey = window.SAC_DATABASE.defaultData.firebase_config.apiKey;
+        }
       } catch (e) { console.warn("Failed to fetch settings for AI API Key"); }
     }
     

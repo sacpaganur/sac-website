@@ -24,7 +24,7 @@ window.SAC_AI = {
     
     // Fetch API Key from Settings
     const settings = await SAC_DATABASE.get("settings");
-    this.apiKey = settings?.aiApiKey || "";
+    this.apiKey = settings?.aiApiKey || SAC_DATABASE?.defaultData?.firebase_config?.apiKey || "";
     
     if (!this.apiKey) {
       console.warn("SAC_AI: Gemini API Key not found. Please set it in the Admin Portal.");
