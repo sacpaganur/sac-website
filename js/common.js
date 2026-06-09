@@ -929,8 +929,8 @@ const SAC_COMMON = {
       "legacy.heroSecondaryLink": "வரலாற்றுப் படங்கள்",
       "legacy.statFoundation": "முதல் ஜெபக் கூடம் நினைவு",
       "legacy.statStone": "கல் ஆலயம் எழுந்த ஆண்டு",
-      "legacy.statParish": "தனி பங்காக உயர்வு",
-      "legacy.statShrine": "ஆலயம் புதுப்பிப்பு",
+      "legacy.statParish": "புதிய ஆலயம் அடிக்கல்",
+      "legacy.statShrine": "புதிய ஆலயம் அர்ச்சிப்பு",
       "legacy.eventCountLabel": "வரலாற்று மைல்கற்கள்",
       "legacy.overviewKicker": "உயிருடன் வாழும் பாரம்பரியம்",
       "legacy.overviewTitle": "ஜெபம், சேவை, பகிர்ந்த அர்ப்பணிப்பால் கட்டப்பட்டது",
@@ -948,7 +948,7 @@ const SAC_COMMON = {
       "legacy.valueServiceTitle": "சேவை",
       "legacy.valueServiceDesc": "தியாகம், தாராளம், மேய்ப்புப் பராமரிப்பு ஆகியவற்றால் பலமடைந்த பாரம்பரியம்.",
       "legacy.oldPhotoTitle": "பழமையான கல் ஆலயம்",
-      "legacy.newPhotoTitle": "புதிய பங்கு திருத்தலம்",
+      "legacy.newPhotoTitle": "புதிய அந்தோணியார் ஆலயம்",
       "legacy.timelineKicker": "வரலாற்றுப் பாதை",
       "legacy.timelineTitle": "அருளும் வளர்ச்சியும் கொண்ட காலவரிசை",
       "legacy.timelineLead": "வழிபாடு, கட்டிடம், கொண்டாட்டங்கள், சமூகச் சாட்சி ஆகியவற்றின் வழியாக உயிருடன் இருக்கும் பங்கின் முக்கிய நினைவுத் தருணங்கள்.",
@@ -957,8 +957,8 @@ const SAC_COMMON = {
       "legacy.ms24Desc": "வடக்கு பாகனூரில் எளிய ஓலைக் கூரையின் கீழ் முதல் ஜெபக் கூடம் அமைக்கப்பட்டது.",
       "legacy.ms60Title": "கல் கோவில் எழுப்பப்பட்டது",
       "legacy.ms60Desc": "பங்கு மக்களின் கூட்டு முயற்சியால் அழகிய நிரந்தர கல் ஆலயம் கட்டப்பட்டு அர்ப்பணிக்கப்பட்டது.",
-      "legacy.ms95Title": "தனி பங்காக உயர்வு",
-      "legacy.ms95Desc": "புனித அந்தோணியார் ஆலயம் தனி பங்காக உயர்த்தப்பட்டு முதல் பங்குத்தந்தை நியமிக்கப்பட்டார்.",
+      "legacy.ms95Title": "புதிய ஆலய அடிக்கல்",
+      "legacy.ms95Desc": "ஊர் மற்றும் பங்கு மக்களின் செபம், தியாகம் மற்றும் கூட்டு முயற்சியால் புதிய ஆலயத்தின் அடிக்கல் நாட்டும் விழா நடைபெற்றது.",
       "legacy.ms20Title": "நவீன திருத்தல புதுப்பிப்பு",
       "legacy.ms20Desc": "ஆலயம் வண்ணக் கண்ணாடி, புதிய பீடங்கள் மற்றும் எழிலார்ந்த உள்ளமைப்புடன் முழுமையாக புதுப்பிக்கப்பட்டது.",
       "legacy.ctaKicker": "பங்கு நினைவுகள்",
@@ -1205,8 +1205,8 @@ const SAC_COMMON = {
       "legacy.heroSecondaryLink": "View Historic Photos",
       "legacy.statFoundation": "first chapel remembered",
       "legacy.statStone": "stone sanctuary built",
-      "legacy.statParish": "raised as a parish",
-      "legacy.statShrine": "sanctuary renewed",
+      "legacy.statParish": "Foundation Stone Laying",
+      "legacy.statShrine": "New Church Consecration",
       "legacy.eventCountLabel": "historic milestones",
       "legacy.overviewKicker": "Living Heritage",
       "legacy.overviewTitle": "Built by prayer, service, and shared sacrifice",
@@ -1224,7 +1224,7 @@ const SAC_COMMON = {
       "legacy.valueServiceTitle": "Service",
       "legacy.valueServiceDesc": "A legacy strengthened by sacrifice, generosity, and pastoral care.",
       "legacy.oldPhotoTitle": "The historical stone sanctuary",
-      "legacy.newPhotoTitle": "The renewed parish shrine",
+      "legacy.newPhotoTitle": "The renewed St.Antony's Church",
       "legacy.timelineKicker": "Chronicle",
       "legacy.timelineTitle": "A timeline of grace and growth",
       "legacy.timelineLead": "Key moments from the parish memory, kept alive through worship, architecture, celebrations, and community witness.",
@@ -1233,13 +1233,13 @@ const SAC_COMMON = {
       "legacy.ms24Desc": "The first simple thatched chapel was built in Vadakku Paganur as a place of communal prayer.",
       "legacy.ms60Title": "The Stone Sanctuary",
       "legacy.ms60Desc": "With united parish labor, a permanent stone sanctuary was built and consecrated for worship.",
-      "legacy.ms95Title": "Independent Parish Status",
-      "legacy.ms95Desc": "St. Antony's Church was raised to an independent parish with its first resident parish priest.",
+      "legacy.ms95Title": "New Church Foundation Stone Laying",
+      "legacy.ms95Desc": "The Foundation Stone Laying Ceremony of the new church was made possible through the prayers, sacrifices, and united efforts of the parish and village community.",
       "legacy.ms20Title": "Modern Shrine Renovation",
       "legacy.ms20Desc": "The church was beautifully renovated with stained glass, renewed shrines, and a dignified sanctuary.",
-      "legacy.ctaKicker": "Parish Memory",
+      "legacy.ctaKicker": "Church Memory",
       "legacy.ctaTitle": "Every photograph carries a prayer",
-      "legacy.ctaText": "Continue the story through altar images, feast celebrations, choir moments, and historic parish photographs preserved in the gallery.",
+      "legacy.ctaText": "Continue the story through altar images, feast celebrations, choir moments, and historic church photographs preserved in the gallery.",
       "legacy.ctaLink": "Open Gallery",
       "saint.heroKicker": "Patron Saint History",
       "saint.heroTitle": "St. Antony of Padua",
@@ -1576,7 +1576,7 @@ const SAC_COMMON = {
             spark.style.animationDelay = (Math.random() * 5) + 's';
             festiveContainer.appendChild(spark);
           }
-          
+
           // Generate Global Ripples (Radar/Ping effect)
           for (let i = 0; i < 3; i++) {
             let ripple = document.createElement('div');
