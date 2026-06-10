@@ -33,33 +33,4 @@ function initHeroCinema() {
         portal.style.setProperty('--portal-tilt-x', '0deg');
         portal.style.setProperty('--portal-tilt-y', '0deg');
     });
-
-    // --- Phase 2.1 Enhancements ---
-    
-    // Scroll Parallax for Hero Background
-    const parallaxBg = document.getElementById('hero-parallax-bg');
-    if (parallaxBg) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            parallaxBg.style.transform = `translateY(${scrolled * 0.4}px) scale(1.12)`;
-        }, { passive: true });
-    }
-
-    // 3D Tilt Cards
-    const tiltCards = document.querySelectorAll('.tilt-card');
-    tiltCards.forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -10;
-            const rotateY = ((x - centerX) / centerX) * 10;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        });
-    });
 }
