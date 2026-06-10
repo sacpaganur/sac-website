@@ -8987,16 +8987,59 @@ html[data-theme="dark"] .mp-ed-visuals {
   }
 
   .mp-ed-layout {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .mp-ed-content-area {
+    display: contents;
+  }
+
+  .mp-ed-tabs {
+    order: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .mp-tab-btn {
+    white-space: normal;
+    padding: 14px 10px;
+    font-size: 0.95rem;
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    text-align: center;
+    background: rgba(128, 128, 128, 0.05) !important;
+    line-height: 1.3;
+  }
+
+  .mp-tab-btn.active {
+    background: var(--primary) !important;
+    color: white !important;
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px rgba(106, 27, 154, 0.3) !important;
+  }
+
+  .mp-tab-btn::after {
+    display: none;
   }
 
   .mp-ed-visuals {
+    order: 2;
     height: 300px;
     min-height: unset;
     position: relative;
     top: 0;
     border-radius: 16px;
+    width: 100%;
+  }
+
+  .mp-ed-panels {
+    order: 3;
+    padding-top: 10px;
   }
 
   .mp-panel-title {
@@ -9008,16 +9051,6 @@ html[data-theme="dark"] .mp-ed-visuals {
   }
 
   .mp-eng-text {
-    font-size: 0.95rem;
-  }
-
-  .mp-ed-tabs {
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-
-  .mp-tab-btn {
-    padding: 8px 12px 12px 12px;
     font-size: 0.95rem;
   }
 }
