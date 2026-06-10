@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -127,8 +127,8 @@
         <!-- Hero — premium welcome + live mass widget -->
         <!-- Hero Section -->
         <section class="hero-cinema" id="hero-banner" aria-label="Welcome">
-            <div class="hero-cinema__backdrop" aria-hidden="true">
-                <div class="hero-cinema__backdrop-img"></div>
+            <div class="hero-cinema__backdrop" aria-hidden="true" id="hero-parallax-container">
+                <div class="hero-cinema__backdrop-img" id="hero-parallax-bg"></div>
                 <div class="hero-cinema__backdrop-gradient"></div>
                 <div class="hero-cinema__halo"></div>
                 <ul class="hero-cinema__rays" aria-hidden="true">
@@ -155,7 +155,7 @@
                         பூமியில், எங்கள் பங்கு சமூகத்துடன் இணைந்து இறைவனின் அருளையும் நன்மைகளையும் பெற்று மகிழுங்கள்.
                     </p>
                     <figure class="hero-cinema__scripture" data-hero-animate>
-                        <blockquote id="hero-daily-scripture"></blockquote>
+                        <blockquote id="hero-daily-scripture" class="typewriter-text"></blockquote>
                     </figure>
                     <div class="hero-cinema__cta" data-hero-animate>
                         <a href="schedule.html" class="hero-cinema__btn hero-cinema__btn--fill">
@@ -270,6 +270,38 @@
             </div>
         </section>
 
+        <!-- Live Mass Widget Restored with Phase 2.1 Circular SVG Ring -->
+        <section class="section-container reveal-base reveal-up" style="margin-top: -60px; position: relative; z-index: 10;">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+                <!-- Live Countdown -->
+                <div class="summary-card glass-panel tilt-card" data-tilt style="text-align:center; padding:24px; position:relative;">
+                    <span class="liturgical-badge liturgical-ordinary" id="countdown-season-badge" style="margin-bottom:12px;">அடுத்த திருப்பலி</span>
+                    
+                    <!-- SVG Circular Progress Ring -->
+                    <div style="position: relative; width: 140px; height: 140px; margin: 0 auto 16px;">
+                        <svg width="140" height="140" viewBox="0 0 140 140" style="transform: rotate(-90deg);">
+                            <circle cx="70" cy="70" r="60" fill="none" stroke="var(--border-glass)" stroke-width="8"></circle>
+                            <circle cx="70" cy="70" r="60" fill="none" stroke="var(--hero-gold)" stroke-width="8" stroke-dasharray="377" stroke-dashoffset="0" style="transition: stroke-dashoffset 1s linear;" id="mass-progress-ring"></circle>
+                        </svg>
+                        <div class="countdown-time" id="mass-timer" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; font-weight: 800; color: var(--text-primary); letter-spacing: 1px;">00:00:00</div>
+                    </div>
+                    
+                    <div class="countdown-label" id="countdown-label-text" style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 600;">தொடங்குவதற்கு மீதமுள்ள நேரம்</div>
+                </div>
+                
+                <!-- Weekly masses dynamic summary -->
+                <div class="summary-card glass-panel tilt-card" data-tilt id="card-weekly-masses" style="padding:24px;">
+                    <h3 class="summary-card-title" style="margin-bottom: 16px; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span>⛪</span>
+                        <span id="weekly-masses-title">வாராந்திர வழிபாடுகள்</span>
+                    </h3>
+                    <div class="timetable-list" id="home-mass-list">
+                        <!-- Dynamic Mass Schedules load here -->
+                        <div style="text-align:center;color:var(--text-muted);padding:20px;">ஏற்றப்படுகிறது... / Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Sacraments overview card grid on index.html -->
         <section class="section-container reveal-base reveal-up" style="padding-top:20px; padding-bottom:60px;">
@@ -285,7 +317,7 @@
 
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
                 <!-- Mass Booking Card -->
-                <div class="summary-card" style="text-align:center; padding:24px;">
+                <div class="summary-card glass-panel tilt-card" data-tilt style="text-align:center; padding:24px;">
                     <div style="font-size:2.8rem; margin-bottom:16px;">🥖</div>
                     <h4 style="font-size:1.25rem; margin-bottom:12px;" data-i18n="home.sacMassTitle">திருப்பலி
                         கருத்துக்கள்</h4>
@@ -295,7 +327,7 @@
                 </div>
 
                 <!-- Confession Card -->
-                <div class="summary-card" style="text-align:center; padding:24px;">
+                <div class="summary-card glass-panel tilt-card" data-tilt style="text-align:center; padding:24px;">
                     <div style="font-size:2.8rem; margin-bottom:16px;">💜</div>
                     <h4 style="font-size:1.25rem; margin-bottom:12px;" data-i18n="home.sacConfTitle">ஒப்புரவு
                         அருட்சாதனம்</h4>
@@ -305,7 +337,7 @@
                 </div>
 
                 <!-- Prayers Card -->
-                <div class="summary-card" style="text-align:center; padding:24px;">
+                <div class="summary-card glass-panel tilt-card" data-tilt style="text-align:center; padding:24px;">
                     <div style="font-size:2.8rem; margin-bottom:16px;">🙏</div>
                     <h4 style="font-size:1.25rem; margin-bottom:12px;" data-i18n="home.sacPrayTitle">தனிப்பட்ட செபங்கள்
                     </h4>
@@ -489,6 +521,7 @@
 
     <!-- Upcoming Event Modal -->
     <div class="event-modal-overlay" id="upcomingEventModal">
+        <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
         <div class="event-modal-content">
             <button class="event-modal-close" onclick="closeEventModal()">
                 <span class="material-icons">close</span>
@@ -619,6 +652,9 @@
 
                 setTimeout(() => {
                     document.getElementById('upcomingEventModal').classList.add('active');
+                    if (window.triggerConfetti) {
+                        setTimeout(window.triggerConfetti, 300);
+                    }
                     sessionStorage.setItem('eventPopupShown', 'true');
                 }, 1500);
             }
@@ -781,6 +817,14 @@
                     timerBox.innerText = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
                 }
 
+                const progressRing = document.getElementById('mass-progress-ring');
+                if (progressRing) {
+                    const diffSecs = diff / 1000;
+                    const totalSecs = Math.max(diffSecs, 24 * 60 * 60);
+                    const offset = 377 - (diffSecs / totalSecs) * 377;
+                    progressRing.style.strokeDashoffset = offset;
+                }
+
                 // Dynamically update the countdown badge label to reflect the upcoming mass type bilingually
                 const badge = document.getElementById('countdown-season-badge');
                 if (badge) {
@@ -814,9 +858,65 @@
 
             const bq = document.getElementById('hero-daily-scripture');
             if (bq) {
-                bq.innerHTML = `<strong>${verseText}</strong><br><small style="font-style: italic; opacity: 0.8; margin-top: 6px; display: inline-block; font-size: 0.85em;">- ${verseRef}</small>`;
+                if (window.typewriterEffect) {
+                    window.typewriterEffect(bq, verseText, verseRef);
+                } else {
+                    bq.innerHTML = `<strong>${verseText}</strong><br><small style="font-style: italic; opacity: 0.8; margin-top: 6px; display: inline-block; font-size: 0.85em;">- ${verseRef}</small>`;
+                }
             }
         }
+        
+        window.typewriterEffect = function(element, text, ref) {
+            element.innerHTML = '';
+            let i = 0;
+            function typeChar() {
+                if (i < text.length) {
+                    element.innerHTML = `<strong>${text.substring(0, i + 1)}</strong>`;
+                    i++;
+                    setTimeout(typeChar, 40);
+                } else {
+                    element.innerHTML += `<br><small style="font-style: italic; opacity: 0; margin-top: 6px; display: inline-block; font-size: 0.85em; transition: opacity 1s;">- ${ref}</small>`;
+                    setTimeout(() => {
+                        element.querySelector('small').style.opacity = '0.8';
+                    }, 100);
+                }
+            }
+            typeChar();
+        };
+
+        window.triggerConfetti = function() {
+            const canvas = document.getElementById('confetti-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            let particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2 + 100,
+                    r: Math.random() * 6 + 2,
+                    dx: Math.random() * 10 - 5,
+                    dy: Math.random() * -10 - 5,
+                    color: ['#ffd700', '#f59e0b', '#8b5cf6', '#fff'][Math.floor(Math.random() * 4)]
+                });
+            }
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach((p, index) => {
+                    p.x += p.dx;
+                    p.y += p.dy;
+                    p.dy += 0.3; // gravity
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                    if (p.y > canvas.height) particles.splice(index, 1);
+                });
+            }
+            animate();
+        };
 
     </script>
 </body>

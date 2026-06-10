@@ -2486,11 +2486,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('active');
+        entry.target.classList.add('active', 'reveal-visible');
         observer.unobserve(entry.target); // Only animate once
       }
     });
   }, observerOptions);
+
+  // --- Magnetic Buttons Hover Effect ---
+  const magneticButtons = document.querySelectorAll('.btn, .nav-btn, .mp-tab-btn');
+  magneticButtons.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0px, 0px)';
+    });
+  });
 
   const revealElements = document.querySelectorAll('.reveal-base');
   revealElements.forEach(el => observer.observe(el));

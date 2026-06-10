@@ -28,54 +28,113 @@
 }
 
 :root {
+  /* Fluid Typography */
   --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
   --font-tamil: 'Noto Sans Tamil', sans-serif;
+
+  --fs-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --fs-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --fs-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --fs-md: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+  --fs-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --fs-xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --fs-2xl: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem);
+  --fs-3xl: clamp(2rem, 1.75rem + 1.5vw, 3rem);
+  --fs-4xl: clamp(2.5rem, 2rem + 2.5vw, 4rem);
 
   /* Pristine Light Theme Color Palette */
   --bg-light: hsl(30, 25%, 98%);
-  /* Elegant soft warm white / cream background */
   --bg-card: hsla(0, 0%, 100%, 0.85);
-  /* Pure white with glass transparency */
   --bg-glass: hsla(0, 0%, 100%, 0.75);
-  /* Translucent white glass */
   --bg-input: hsl(0, 0%, 99%);
 
-  --primary: hsl(265, 75%, 45%);
-  /* Royal indigo / purple */
+  /* Semantic Color Palette (oklch) */
+  --primary-50: oklch(0.97 0.02 280);
+  --primary-100: oklch(0.94 0.04 280);
+  --primary-200: oklch(0.88 0.08 280);
+  --primary-300: oklch(0.80 0.12 280);
+  --primary-400: oklch(0.70 0.16 280);
+  --primary: oklch(0.48 0.20 280); /* Legacy support */
+  --primary-500: oklch(0.48 0.20 280);
+  --primary-600: oklch(0.40 0.18 280);
+  --primary-700: oklch(0.32 0.14 280);
+  --primary-800: oklch(0.24 0.10 280);
+  --primary-900: oklch(0.18 0.06 280);
+  
   --primary-glow: hsla(265, 75%, 45%, 0.12);
-  --primary-light: hsl(265, 75%, 96%);
-  --accent-gold: hsl(40, 90%, 42%);
-  /* Warm glowing gold */
+  --primary-light: var(--primary-100);
+
+  --accent-gold: oklch(0.75 0.15 70);
   --accent-gold-glow: hsla(40, 90%, 42%, 0.15);
+  --accent-rose: oklch(0.65 0.20 350);
 
   --text-primary: hsl(240, 25%, 15%);
-  /* Charcoal slate for ultimate legibility */
   --text-secondary: hsl(240, 10%, 38%);
-  /* Muted charcoal */
   --text-muted: hsl(240, 8%, 56%);
-  /* Light grey */
 
   --border-glass: rgba(0, 0, 0, 0.08);
-  /* Clean, crisp light borders */
   --border-glow: hsla(265, 75%, 45%, 0.1);
 
   --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   --shadow-premium: 0 10px 30px rgba(139, 92, 246, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
   --shadow-hover: 0 20px 40px rgba(139, 92, 246, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
 
-  /* Unified branding gradients — primary (indigo) → accent-gold only */
+  /* Unified branding gradients */
   --gradient-brand: linear-gradient(135deg, var(--primary) 0%, var(--accent-gold) 100%);
   --gradient-brand-90: linear-gradient(90deg, var(--primary) 0%, var(--accent-gold) 100%);
   --gradient-brand-180: linear-gradient(180deg, var(--primary) 0%, var(--accent-gold) 100%);
   --gradient-brand-soft: linear-gradient(135deg, var(--primary-light) 0%, hsl(40, 90%, 96%) 100%);
   --gradient-brand-bg: linear-gradient(180deg, #fff 0%, var(--primary-light) 50%, hsl(40, 90%, 97%) 100%);
   --gradient-brand-text: linear-gradient(135deg, var(--primary) 0%, var(--accent-gold) 100%);
-  --gradient-brand-mesh:
-    radial-gradient(circle at 15% 25%, var(--primary-glow) 0%, transparent 45%),
-    radial-gradient(circle at 85% 75%, var(--accent-gold-glow) 0%, transparent 45%);
-  --gradient-brand-overlay:
-    radial-gradient(circle at 80% 20%, var(--primary-glow) 0%, transparent 45%),
-    radial-gradient(circle at 10% 80%, var(--accent-gold-glow) 0%, transparent 40%);
+  
+  --mesh-gradient: 
+    radial-gradient(at 0% 0%, var(--primary-glow) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, var(--accent-gold-glow) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, oklch(0.65 0.20 350 / 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, var(--primary-glow) 0px, transparent 50%);
+  
+  --gradient-brand-mesh: var(--mesh-gradient);
+  --gradient-brand-overlay: var(--mesh-gradient);
+}
+
+/* Global Glassmorphism v2.0 Utility */
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow-premium);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.2) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Global Scroll Reveal Animations */
+.reveal-base {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-up { transform: translateY(40px); }
+.reveal-scale { transform: scale(0.95); }
+
+.reveal-visible {
+  opacity: 1;
+  transform: translate(0) scale(1);
 }
 
 /* Global resets & typography */
@@ -120,12 +179,22 @@ body:lang(ta) {
   font-family: var(--font-tamil), var(--font-primary);
 }
 
+body:lang(ta) h1,
+body:lang(ta) h2,
+body:lang(ta) h3,
+body:lang(ta) h4,
+body:lang(ta) h5,
+body:lang(ta) h6 {
+  font-family: var(--font-tamil), var(--font-heading);
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
+  font-family: var(--font-heading);
   font-weight: 800;
   letter-spacing: -0.5px;
   line-height: 1.25;
@@ -8997,7 +9066,8 @@ html[data-theme="dark"] .mp-ed-visuals {
   }
 
   .mp-ed-visuals {
-    height: 300px;
+    height: auto;
+    aspect-ratio: 16 / 10;
     min-height: unset;
     position: relative;
     top: 0;
@@ -9019,11 +9089,16 @@ html[data-theme="dark"] .mp-ed-visuals {
   .mp-ed-tabs {
     gap: 8px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+    overflow-x: visible;
   }
 
   .mp-tab-btn {
+    flex: 1 1 calc(50% - 8px);
     padding: 8px 12px 12px 12px;
     font-size: 0.95rem;
+    white-space: normal;
+    text-align: center;
   }
 }
 
