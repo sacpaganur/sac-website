@@ -8874,15 +8874,10 @@ html[data-theme="dark"] .mp-ed-visuals {
 
 .mp-ed-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 30px;
   border-bottom: 1px solid var(--border-glass);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.mp-ed-tabs::-webkit-scrollbar {
-  display: none;
 }
 
 .mp-tab-btn {
