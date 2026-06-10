@@ -352,10 +352,10 @@
                 if(e.target.id === 'prayer-modal') closePrayerModal();
             });
 
-            await fetchAndRender();
             translateLabels();
-
             SAC_COMMON.revealPage();
+
+            await fetchAndRender();
 
             window.addEventListener('sacLanguageChanged', () => {
                 renderPrayers();
@@ -372,6 +372,17 @@
         });
 
         async function fetchAndRender() {
+            const container = document.getElementById('prayers-container');
+            if (container) {
+                container.innerHTML = Array(6).fill(`
+                    <div class="skeleton-card">
+                        <div class="skeleton-title skeleton"></div>
+                        <div class="skeleton-text skeleton"></div>
+                        <div class="skeleton-text medium skeleton"></div>
+                        <div class="skeleton-text short skeleton"></div>
+                    </div>
+                `).join('');
+            }
             try {
                 const fetched = await SAC_DATABASE.get("catholic_prayers") || [];
                 allPrayers = fetched;

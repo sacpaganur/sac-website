@@ -1,0 +1,49 @@
+The USER performed the following action:
+Show the contents of file d:\SAC Website\index.html from lines 385 to 432
+File Path: `file:///d:/SAC%20Website/index.html`
+Total Lines: 818
+Total Bytes: 55310
+Showing lines 385 to 432
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+385:             </div>
+386:         </section>
+387:         <!-- Editorial Tabs Mother Parish Section -->
+388:         <section class="mother-parish-editorial reveal-base reveal-up" id="mother-parish">
+389:             <div class="mp-ed-container">
+390:                 <div class="mp-ed-header">
+391:                     <span class="mp-ed-badge" data-i18n="home.mpBadge">தாய் பங்கு | Mother Parish</span>
+392:                     <h2 class="mp-ed-title" data-i18n="home.mpTitle">சகாய அன்னை பங்கு</h2>
+393:                     <p class="mp-ed-subtitle" data-i18n="home.mpSub">நமது புனித அந்தோணியார் ஆலயம், அனைத்து மக்களின் சகாய
+394:                         அன்னை பங்கின் கிளைப் பங்காக செயல்பட்டு வருகிறது.</p>
+395:                 </div>
+396: 
+397:                 <div class="mp-ed-layout">
+398:                     <!-- Left: Interactive Image Display -->
+399:                     <div class="mp-ed-visuals">
+400:                         <img src="images/sagaya_annai_collage.webp" id="mp-dynamic-img" alt="Parish Visual" loading="lazy">
+401:                         <div class="mp-ed-img-overlay"></div>
+402:                     </div>
+403: 
+404:                     <!-- Right: Tabs and Content -->
+405:                     <div class="mp-ed-content-area">
+406:                         <!-- Tab Buttons -->
+407:                         <div class="mp-ed-tab
+<truncated 965 bytes>
+டுகள்</button>
+417:                         </div>
+418: 
+419:                         <!-- Tab Content Panels -->
+420:                         <div class="mp-ed-panels">
+421:                             <!-- Sagaya Annai Panel -->
+422:                             <div class="mp-panel active" id="tab-sagaya">
+423:                                 <h3 class="mp-panel-title" data-i18n="home.mpSagayaTitle">அருள் பொழியும் சகாயத் தாய்
+424:                                 </h3>
+425:                                 <div class="mp-panel-body">
+426:                                     <p data-i18n="home.mpSagayaDesc">சகாய அன்னை, நம்மை எப்போதும் பாதுகாத்து, நம்
+427:                                         தேவைகளில் இறைவனிடம் பரிந்துபேசும் அன்பின் தாய். பக்தர்களின் வேண்டுதல்களைக்
+428:                                         கேட்டு, அற்புதங்கள் பல புரியும் சகாயத் தாயின் கருணையை நாம் தினமும் உணர்கிறோம்.
+429:                                     </p>
+430:                                     <p data-i18n="home.mpSagayaDesc2">துன்புறும் வேளைகளில் ஆறுதலாகவும், இருளில் நல்
+431:                                         ஒளியாகவும் விளங்கும் அன்னை மரியாளின் திருக்கரம், நம் குடும்பங்களை அரவணைத்து
+432:                                         ஆசீர்வதிக்கிறது. அன்னையின் மன்றாட்டால் நம் வாழ்வில் இறைவனின் சமாதானமும்
+

@@ -226,11 +226,12 @@
                 });
             }
 
-            await fetchAndRender();
             translateNoticesLabels();
             updateLiturgicalBadge();
-
+            
             SAC_COMMON.revealPage();
+            
+            await fetchAndRender();
 
             window.addEventListener('sacLanguageChanged', async () => {
                 renderAnnouncements();
@@ -566,4 +567,3 @@
 </body>
 
 </html>
-

@@ -802,7 +802,7 @@ const SAC_COMMON = {
       "sched.devotionTitle": "மாதாந்திர மற்றும் சிறப்பு வழிபாட்டு விவரங்கள்",
       "sched.novenaBadge": "செவ்வாய் நவநாள்",
       "sched.novenaTitle": "புனித அந்தோணியார் நவநாள்",
-      "sched.novenaDesc": "ஒவ்வொரு செவ்வாய்க்கிழமையும் காலை 6:00 மணி மற்றும் மாலை 6:00 மணிக்கு புனித அந்தோணியாரின் சிறப்பு நவநாள் திருப்பலியும், எண்ணெய் அபிஷேகமும், தேர்ப்பவனியும் நடைபெறும்.",
+      "sched.novenaDesc": "ஒவ்வொரு செவ்வாய்க்கிழமையும் மாலை 6:30 மணி முதல் இரவு 8:30 மணி வரை புனித அந்தோணியாரின் சிறப்பு நவநாள் திருப்பலியும், எண்ணெய் அபிஷேகமும், நற்கருணை ஆராதனையும்  நடைபெறும்.",
       "sched.fridayBadge": "முதல் வெள்ளி",
       "sched.fridayTitle": "முழு இரவு ஜெபம்",
       "sched.fridayDesc": "அம்சம் பங்கு ஆலயத்தில் ஒவ்வொரு மாதமும் முதல் வெள்ளிக்கிழமை இரவு 10 மணி முதல் அதிகாலை 4 மணி வரை முழு இரவு ஜெபம் நடைபெறுகிறது.",
@@ -892,11 +892,13 @@ const SAC_COMMON = {
       "home.minAnbiyamTitle": "அன்பியங்கள்",
       "home.minAnbiyamDesc": "நமது பங்குத் தளத்தில் மத்தேயு, மாற்கு, லூக்கா மற்றும் அன்னை தெரசா ஆகிய நான்கு அன்பியங்கள் செயல்பட்டு வருகின்றன. இவை இறைமக்களை ஒருங்கிணைத்து விவிலியப் பகிர்வை வளர்க்கும் அடிப்படை கிறிஸ்தவ சமூகங்களாகும்.",
       "sched.officeTag": "அலுவலக நிர்வாகம்",
-      "sched.officeTitle": "அலுவலக வேலை நேரங்கள் & பதிவுகள்",
-      "sched.offTimeTitle": "அலுவலக வேலை நேரம்",
-      "sched.offTimeDesc": "திங்கள் முதல் சனி வரை: காலை 9:00 - மதியம் 12:30, மாலை 4:00 - 6:30 மணி. (ஞாயிறு விடுமுறை)",
+      "sched.officeTitle": "பங்கு அலுவலக வேலை நேரங்கள் & பதிவுகள்",
+      "sched.offTimeTitle": "பங்கு அலுவலக வேலை நேரம்",
+      "sched.offTimeDesc": "திங்கள் முதல் சனி வரை: <strong style=\"color: #6d28d9;\">காலை 9:00 - மதியம் 12:00, மாலை 2:30 - 4:30 மணி.</strong> (ஞாயிறு விடுமுறை)",
       "sched.baptTitle": "திருமுழுக்கு பதிவுகள்",
-      "sched.baptDesc": "மாதத்தின் முதல் மற்றும் மூன்றாம் ஞாயிற்றுக்கிழமைகளில் ஞாயிறு திருப்பலியைத் தொடர்ந்து குழந்தைகளுக்கு திருமுழுக்கு வழங்கப்படும். ஒரு வாரத்திற்கு முன்பே பதிவு செய்யவும்.",
+      "sched.baptDesc": "மாதத்தின் <strong style=\"color: #6d28d9;\">முதல் மற்றும் மூன்றாம் ஞாயிற்றுக்கிழமைகளில்</strong> ஞாயிறு திருப்பலியைத் தொடர்ந்து குழந்தைகளுக்கு திருமுழுக்கு வழங்கப்படும். ஒரு வாரத்திற்கு முன்பே பதிவு செய்யவும்.",
+      "sched.marriageTitle": "திருமண ஓலை",
+      "sched.marriageDesc": "திருமணத்திற்கு ஒரு மாதத்திற்கு முன்பே பங்கு அலுவலகத்தை அணுகி முன்பதிவு செய்ய வேண்டும். <br><strong style=\"color: #6d28d9; font-size: 1.05em;\">ஓலை எழுதும் நாட்கள்:</strong> <strong>புதன் மற்றும் வெள்ளி.</strong>",
       "legacy.milestoneTag": "வரலாற்று மைல்கற்கள் | Historical Milestones",
       "legacy.milestoneTitle": "ஆலயத்தின் முக்கிய வரலாற்றுத் தருணங்கள்",
       "legacy.ms85Title": "அடித்தளம் & தொடக்கம்",
@@ -914,7 +916,7 @@ const SAC_COMMON = {
       "sched.chipDaily": "தினசரி",
       "sched.massBadgeLabel": "திருப்பலி அட்டவணை",
       "sched.massTitle": "திருப்பலி நேரங்கள்",
-      "sched.massLead": "எங்கள் பங்கு சமூகத்திற்கான வாராந்திர திருப்பலி நேரங்கள்.",
+      "sched.massLead": "எங்கள் ஆலய சமூகத்திற்கான வாராந்திர திருப்பலி நேரங்கள்.",
       "sched.devotionBadgeLabel": "சிறப்பு வழிபாடுகள்",
       "sched.devotionLead": "நவநாள், திருவிழா வழிபாடுகள் மற்றும் மாதாந்திர சிறப்பு வழிபாடுகள்.",
       "sched.officeBadgeLabel": "அலுவலக நிர்வாகம்",
@@ -1019,7 +1021,25 @@ const SAC_COMMON = {
       "wall.ai.processDesc": "Gemini உங்களுக்காக தகவல்களை மொழிபெயர்த்து நிரப்புகிறது.",
       "rosary.title": "மெய்நிகர் செபமாலை",
       "rosary.beads": "மணிகள்",
-      "rosary.instruction": "தொடங்க எங்கும் தட்டவும்"
+      "rosary.instruction": "தொடங்க எங்கும் தட்டவும்",
+      "home.mpBadge": "தாய் பங்கு | Mother Parish",
+      "home.mpTitle": "சகாய அன்னை பங்கு",
+      "home.mpSub": "நமது புனித அந்தோணியார் ஆலயம், அனைத்து மக்களின்சகாய அன்னை பங்கின் கிளைப் பங்காக செயல்பட்டு வருகிறது.",
+      "home.mpTabSagaya": "சகாய அன்னை",
+      "home.mpTabParish": "தாய் பங்கு",
+      "home.mpTabSub": "கிளைப் பங்குகள்",
+      "home.mpTabAct": "செயல்பாடுகள்",
+      "home.mpSagayaTitle": "அருள் பொழியும் சகாயத் தாய்",
+      "home.mpSagayaDesc": "சகாய அன்னை, நம்மை எப்போதும் பாதுகாத்து, நம் தேவைகளில் இறைவனிடம் பரிந்துபேசும் அன்பின் தாய். பக்தர்களின் வேண்டுதல்களைக் கேட்டு, அற்புதங்கள் பல புரியும் சகாயத் தாயின் கருணையை நாம் தினமும் உணர்கிறோம்.",
+      "home.mpSagayaDesc2": "துன்புறும் வேளைகளில் ஆறுதலாகவும், இருளில் நல் ஒளியாகவும் விளங்கும் அன்னை மரியாளின் திருக்கரம், நம் குடும்பங்களை அரவணைத்து ஆசீர்வதிக்கிறது. அன்னையின் மன்றாட்டால் நம் வாழ்வில் இறைவனின் சமாதானமும் மகிழ்ச்சியும் என்றும் தங்கியிருக்கிறது.",
+      "home.mpParishTitle": "தொன்போஸ்கோ சகாய அன்னை பங்கு",
+      "home.mpParishDesc": "நமது தாய் பங்கு, தொன்போஸ்கோ மாணவர் இல்ல வளாகத்தில் அமைந்துள்ள சகாய அன்னை பங்கு ஆகும். இது ஆன்மீக வழிகாட்டுதலையும், சமுதாய வளர்ச்சியையும் முன்னிறுத்தி செயலாற்றி வருகிறது.",
+      "home.mpParishDesc2": "சலேசிய சபை அருட்தந்தையர்களின் சிறப்பான வழிகாட்டுதலில், இளையோர் நலன் மற்றும் கல்விக்கு முக்கியத்துவம் அளிக்கப்படுகிறது. சகாய அன்னையின் அருளாலும், புனித ஜான் போஸ்கோவின் பரிந்துரையாலும் இப்பங்கு மக்கள் ஆன்மீகத்திலும் சமுதாய வாழ்விலும் தொடர்ந்து முன்னேற்றம் கண்டு வருகின்றனர்.",
+      "home.mpParishDesc3": "இப்பங்கு 24-07-1990 அன்று உருவாக்கப்பட்டது. அப்போதைய திருச்சிராப்பள்ளி மறைமாவட்ட ஆயர் மேதகு தாமஸ் பெர்னாண்டோ அவர்களால் இப்பங்கு நிறுவப்பட்டது. சலேசிய மாநிலத் தலைவர் அருட்தந்தை வின்சென்ட் துரைராஜ் (ச.ச) அவர்களின் வழிகாட்டுதலில், அனைத்து மக்களின் சகாய அன்னை மையமாக இது உருவெடுத்தது.",
+      "home.mpSubTitle": "இறையாட்சி வளரும் கிளைப் பங்குகள்",
+      "home.mpSubDesc": "வடக்கு பாகனூர் நமது புனித அந்தோணியார் ஆலயம், நவலூர் குட்டப்பட்டு (அருள்நிறை அடைக்கல அன்னை ஆலயம்), முதுக்குளம் (புனித செபஸ்தியார் ஆலயம்), தெற்கு பாகனூர் (புனித ஆரோக்கிய அன்னை ஆலயம்) மற்றும் சோழன் நகர், பூங்குடி, சத்திரப்பட்டி, மாத்தூர் உட்பட கிளைப் பங்குகள், தாய் பங்கின் ஆன்மீகக் குடையின் கீழ் செயல்பட்டு வருகின்றன.",
+      "home.mpActTitle": "பங்குப் பேரவை மற்றும் ஆன்மீகப் பணிகள்",
+      "home.mpActDesc": "மறைக்கல்வி, இளைஞர் இயக்கம், அன்பியங்கள், சலேசிய உடனுழைப்பாளர்கள் மற்றும் பல்வேறு ஆன்மீகப் பணிகள் தாய் பங்கின் வழிகாட்டுதலில் சிறப்பாக நடைபெறுகின்றன. இறைமக்களின் ஆன்மீக வளர்ச்சிக்காக பல கூட்டங்கள் தொடர்ந்து ஒருங்கிணைக்கப்படுகின்றன."
     },
     "en": {
       "nav.home": "Home",
@@ -1041,7 +1061,7 @@ const SAC_COMMON = {
       "footer.quickLinks": "Quick Links",
       "footer.resources": "Resources",
       "footer.navigate": "Navigate",
-      "footer.parish": "Parish & Resources",
+      "footer.parish": "Church & Resources",
       "footer.visit": "Plan Your Visit",
       "footer.visitLead": "Mass times, prayer requests, and parish services — we welcome you.",
       "footer.contactBtn": "Contact Us",
@@ -1073,11 +1093,29 @@ const SAC_COMMON = {
       "home.sacConfDesc": "Experience God's healing mercy through Confession, available every Saturday evening and before daily Masses.",
       "home.sacPrayTitle": "Personal Prayer Intentions",
       "home.sacPrayDesc": "Submit your prayer requests online or in the church drop-box to join our community prayers.",
+      "home.mpBadge": "Mother Parish",
+      "home.mpTitle": "Sagaya Annai Parish",
+      "home.mpSub": "Our St. Antony's Church flourishes as a vibrant sub-parish under the Sagaya Annai Mother Parish, Kuttapattu.",
+      "home.mpTabSagaya": "Sagaya Annai",
+      "home.mpTabParish": "Mother Parish",
+      "home.mpTabSub": "Sub Parishes",
+      "home.mpTabAct": "Activities",
+      "home.mpSagayaTitle": "Our Lady of Perpetual Help",
+      "home.mpSagayaDesc": "Our Lady of Perpetual Help is the patroness who constantly intercedes for us. She offers maternal comfort, guidance, and endless miracles to her devoted children.",
+      "home.mpSagayaDesc2": "In times of suffering, the gentle hand of Mother Mary serves as our comfort and a guiding light in the darkness, embracing and blessing our families. Through her intercession, God's peace and joy dwell in our lives forever.",
+      "home.mpParishTitle": "Don Bosco Sagaya Annai Parish",
+      "home.mpParishDesc": "Located at the Don Bosco Student Home campus, our Mother Parish serves as the spiritual epicenter, guiding the community in faith, education, and social upliftment.",
+      "home.mpParishDesc2": "Under the dedicated guidance of the Salesian Fathers of Don Bosco, special emphasis is placed on youth welfare and education. Through the grace of Our Lady of Perpetual Help and the intercession of St. John Bosco, the parishioners continue to flourish both spiritually and socially.",
+      "home.mpParishDesc3": "This parish was established on July 24, 1990. It was founded by the then Bishop of Tiruchirappalli, His Excellency Most Rev. Thomas Fernando. Under the guidance of the Salesian Provincial Rev. Fr. Vincent Durairaj SDB, it was formed as the All Peoples' Our Lady of Perpetual Help Center.",
+      "home.mpSubTitle": "Flourishing Sub Parishes",
+      "home.mpSubDesc": "Our St. Antony's Church in Vadakku Paganur, Navalur Kuttappattu (Our Lady of Refuge Church), Muthukkulam (St. Sebastian's Church), Therku Paganur (Our Lady of Health Church), along with other sub-parishes including Cholan Nagar, Poongudi, Chathirappatti, and Mathur, operate under the spiritual umbrella of the Mother Parish.",
+      "home.mpActTitle": "Parish Council & Pastoral Activities",
+      "home.mpActDesc": "Catechism, Youth Ministry, Basic Christian Communities (Anbiyam), Parish Council, Salesian Cooperators, and various other spiritual activities are successfully carried out under the guidance of the Mother Parish. Numerous gatherings are continuously organized for the spiritual growth of the congregation.",
       "sched.devotionTag": "Special Devotions",
       "sched.devotionTitle": "Monthly Devotions & Special Services",
       "sched.novenaBadge": "Tuesday Novena",
       "sched.novenaTitle": "Novena of St. Antony of Padua",
-      "sched.novenaDesc": "Every Tuesday, special Novena Mass for St. Antony is held at 6:00 AM and 6:00 PM, followed by oil anointing and a car procession.",
+      "sched.novenaDesc": "Every Tuesday, from 6:30 PM to 8:30 PM, a special Novena Mass in honor of St. Antony, followed by the Anointing with Oil and Eucharistic Adoration, is conducted.",
       "sched.fridayBadge": "First Friday",
       "sched.fridayTitle": "All-Night Vigil",
       "sched.fridayDesc": "The All-Night Vigil is held on every first Friday of the month at Amsam Parish Church from 10:00 PM to 4:00 AM.",
@@ -1143,7 +1181,6 @@ const SAC_COMMON = {
       "hero.scrollCue": "Scroll down",
       "hero.quoteAntony1": "\"St. Antony of Padua, pray for us.\"",
       "hero.quoteAntony2": "\"The light of faith, the path of love.\"",
-      "hero.scrollCue": "Scroll down",
       "hero.viewGallery": "Photo Gallery",
       "hero.captionNew": "New Sanctuary",
       "hero.captionOld": "Heritage Church",
@@ -1169,10 +1206,12 @@ const SAC_COMMON = {
       "home.minAnbiyamDesc": "Our parish consists of four Anbiyams: Mathew, Mark, Luke, and Annai Theresa, connecting parishioners to share the Word of God and foster mutual support.",
       "sched.officeTag": "Parish Administration",
       "sched.officeTitle": "Parish Office Timings & Registrations",
-      "sched.offTimeTitle": "Office Working Hours",
-      "sched.offTimeDesc": "Monday to Saturday: 9:00 AM - 12:30 PM, 4:00 PM - 6:30 PM. (Closed on Sundays)",
+      "sched.offTimeTitle": "Parish Office Working Hours",
+      "sched.offTimeDesc": "Monday to Saturday: <strong style=\"color: #6d28d9;\">9:00 AM - 12:00 PM, 2:30 PM - 4:30 PM.</strong> (Closed on Sundays)",
       "sched.baptTitle": "Holy Baptism Registrations",
-      "sched.baptDesc": "Baptisms are celebrated on the 1st and 3rd Sundays of the month after Sunday Mass. Register one week prior.",
+      "sched.baptDesc": "Baptisms are celebrated on the <strong style=\"color: #6d28d9;\">1st and 3rd Sundays</strong> of the month after Sunday Mass. Register one week prior.",
+      "sched.marriageTitle": "Marriage Registration",
+      "sched.marriageDesc": "Couples are requested to contact the parish office at least one month prior to the wedding date. <br><strong style=\"color: #6d28d9; font-size: 1.05em;\">Registration Days:</strong> <strong>Wednesday and Friday.</strong>",
       "legacy.milestoneTag": "Historical Milestones",
       "legacy.milestoneTitle": "Key Historical Parish Moments",
       "legacy.ms85Title": "The Humble Foundation",
@@ -1190,14 +1229,14 @@ const SAC_COMMON = {
       "sched.chipDaily": "Weekday",
       "sched.massBadgeLabel": "Holy Mass Schedule",
       "sched.massTitle": "Mass Timings",
-      "sched.massLead": "Weekly Holy Mass times for our parish community.",
+      "sched.massLead": "Weekly Holy Mass times for our church community.",
       "sched.devotionBadgeLabel": "Special Devotions",
-      "sched.devotionLead": "Novena, feast devotions, and monthly parish liturgies.",
+      "sched.devotionLead": "Novena, feast devotions, and monthly church liturgies.",
       "sched.officeBadgeLabel": "Parish Administration",
       "sched.officeLead": "Parish office hours and sacrament registration information.",
       "sched.ctaTitle": "Questions about Mass or registrations?",
       "sched.ctaText": "Contact the parish office for bookings, baptisms, and special intentions.",
-      "sched.ctaLink": "Contact Parish",
+      "sched.ctaLink": "Contact Church",
       "legacy.heroKicker": "Journey of Faith",
       "legacy.heroTitle": "Parish Legacy & History",
       "legacy.heroSubtitle": "The journey of St. Antony's Parish in Vadakku Paganur through faith, devotion, and community.",
@@ -1778,8 +1817,36 @@ const SAC_COMMON = {
                           }
 
                           .n-desc-ta {
-                              font-family: 'Tiro Tamil', serif; font-size: 0.95rem; line-height: 1.7;
-                              color: var(--text-secondary); margin: 0 0 10px 0; padding: 0 10px;
+                              // 2. Static standard translations with highly defensive dictionary lookup
+    const dict = this.staticTranslations[this.currentLang] || {};
+    const fallbackDict = this.staticTranslations['ta'] || {};
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+
+      // Check local dynamic data settings overrides first
+      if (key === 'hero.headline') {
+        el.innerText = isTa ? settings.heroHeadlineTa : settings.heroHeadlineEn;
+      } else if (key === 'hero.tag') {
+        el.innerText = isTa ? settings.heroTagTa : settings.heroTagEn;
+      } else if (key === 'hero.lead') {
+        el.innerText = isTa ? settings.heroLeadTa : settings.heroLeadEn;
+      } else if (key === 'contact.addressVal') {
+        el.innerText = address;
+      }
+
+      // Fallback to static dictionaries
+      else {
+        const translatedText = dict[key] || fallbackDict[key];
+        if (translatedText) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.setAttribute('placeholder', translatedText);
+          } else {
+            el.innerHTML = translatedText;
+          }
+        }
+      }
+    });
                           }
                           .n-desc-en {
                               font-family: 'Inter', sans-serif; font-size: 0.8rem; line-height: 1.5;
@@ -2529,4 +2596,44 @@ const PWAUI = {
 
 document.addEventListener('DOMContentLoaded', () => {
   PWAUI.init();
+});
+
+
+// --- Mother Parish Editorial Tabs Logic ---
+document.addEventListener('DOMContentLoaded', () => {
+  const tabBtns = document.querySelectorAll('.mp-tab-btn');
+  const panels = document.querySelectorAll('.mp-panel');
+  const visualImg = document.getElementById('mp-dynamic-img');
+
+  if (!visualImg || tabBtns.length === 0) return;
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active from all
+      tabBtns.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+
+      // Add active to clicked
+      btn.classList.add('active');
+
+      // Show target panel
+      const targetId = btn.getAttribute('data-target');
+      const targetPanel = document.getElementById(targetId);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+
+      // Update Image with crossfade
+      const newImgSrc = btn.getAttribute('data-img');
+      if (newImgSrc && visualImg.src !== newImgSrc) {
+        visualImg.style.opacity = '0';
+        setTimeout(() => {
+          visualImg.src = newImgSrc;
+          visualImg.onload = () => {
+            visualImg.style.opacity = '1';
+          };
+        }, 300);
+      }
+    });
+  });
 });

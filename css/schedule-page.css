@@ -79,7 +79,9 @@
 
 .schedule-quick-chip--sun,
 .schedule-quick-chip--tue,
-.schedule-quick-chip--daily { border-color: var(--border-glow); }
+.schedule-quick-chip--daily {
+  border-color: var(--border-glow);
+}
 
 /* Section panels */
 .sched-panel {
@@ -232,6 +234,8 @@ body:lang(ta) .schedule-section-lead {
 
 /* Office cards */
 .office-cards-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px !important;
 }
 
@@ -268,6 +272,7 @@ body:lang(ta) .schedule-section-lead {
 }
 
 .office-card-icon {
+  min-width: 50px !important;
   width: 50px !important;
   height: 50px !important;
   border-radius: 16px !important;
@@ -339,7 +344,8 @@ body:lang(ta) .sched-card-title,
 body:lang(ta) .devotion-card-title,
 body:lang(ta) .devotion-card-desc,
 body:lang(ta) .office-card-title,
-body:lang(ta) .office-card-desc { flex-grow: 1;
+body:lang(ta) .office-card-desc {
+  flex-grow: 1;
   font-family: var(--font-tamil), var(--font-primary);
   word-break: keep-all;
   overflow-wrap: normal;
@@ -448,7 +454,7 @@ body:lang(ta) .office-card-desc { flex-grow: 1;
   transform: translateZ(0);
   border: 1px solid var(--border-glass);
   border-radius: 14px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255,255,255,0.5) inset;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
   padding: 6px;
   opacity: 0;
   visibility: hidden;
@@ -525,31 +531,37 @@ body:lang(ta) .cal-multi-note {
 
 /* Mobile responsiveness */
 @media (max-width: 480px) {
+
   .cal-add-btn .cal-btn-text,
   .cal-add-btn .cal-chevron {
     display: none;
   }
+
   .cal-add-btn {
     padding: 0;
     width: 36px;
     height: 36px;
     justify-content: center;
   }
+
   .cal-dropdown {
     min-width: 170px;
     left: auto;
     right: 0;
     transform: translateX(0) translateY(8px);
   }
+
   .cal-dropdown.open {
     transform: translateX(0) translateY(0);
   }
+
   .cal-dropdown::after {
     left: auto;
     right: 12px;
     transform: translateX(0) rotate(45deg);
   }
 }
+
 /* Countdown Dynamic Classes */
 .countdown-unit-box {
   display: flex;
@@ -558,10 +570,11 @@ body:lang(ta) .cal-multi-note {
   background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   padding: 8px 10px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(139, 92, 246, 0.08), inset 0 2px 0 rgba(255,255,255,1);
+  box-shadow: 0 4px 10px rgba(139, 92, 246, 0.08), inset 0 2px 0 rgba(255, 255, 255, 1);
   min-width: 42px;
-  border: 1px solid rgba(139,92,246,0.15);
+  border: 1px solid rgba(139, 92, 246, 0.15);
 }
+
 .countdown-unit-val {
   font-weight: 800;
   font-size: 1.2rem;
@@ -569,6 +582,7 @@ body:lang(ta) .cal-multi-note {
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
+
 .countdown-unit-label {
   font-size: 0.55rem;
   font-weight: 700;
@@ -577,6 +591,7 @@ body:lang(ta) .cal-multi-note {
   margin-top: 4px;
   letter-spacing: 0.5px;
 }
+
 .countdown-unit-colon {
   font-weight: 700;
   color: #cbd5e1;
@@ -586,25 +601,29 @@ body:lang(ta) .cal-multi-note {
 /* Dark Mode Overrides for Schedule Elements */
 html[data-theme="dark"] .countdown-unit-box {
   background: linear-gradient(180deg, hsla(265, 40%, 15%, 0.8) 0%, hsla(265, 40%, 10%, 0.8) 100%);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255,255,255,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.05);
   border-color: rgba(139, 92, 246, 0.25);
 }
+
 html[data-theme="dark"] .countdown-unit-val {
   color: hsl(265, 85%, 75%);
 }
+
 html[data-theme="dark"] .countdown-unit-colon {
   color: #475569;
 }
+
 html[data-theme="dark"] .devotion-badge.badge-novena {
   background: hsla(280, 70%, 48%, 0.2);
   color: hsl(275, 80%, 75%);
 }
+
 html[data-theme="dark"] .devotion-badge.badge-friday {
   background: hsla(0, 70%, 50%, 0.2);
   color: hsl(0, 80%, 75%);
 }
+
 html[data-theme="dark"] .devotion-badge.badge-feast {
   background: hsla(35, 90%, 50%, 0.2);
   color: hsl(35, 90%, 75%);
 }
-

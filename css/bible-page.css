@@ -388,6 +388,12 @@ body {
     .verse-number {
         font-size: 0.8rem;
     }
+
+    .bible-audio-player {
+        position: fixed !important;
+        bottom: 24px !important;
+        z-index: 100 !important;
+    }
 }
 
 /* Spotify-Style Audio Player */
