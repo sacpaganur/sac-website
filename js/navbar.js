@@ -113,7 +113,7 @@ window.SAC_NAVBAR = {
         <div class="global-search-modal" style="background:var(--bg-card); width:90%; max-width:600px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.3); overflow:hidden; display:flex; flex-direction:column; max-height:80vh; border:1px solid var(--border-glass);">
             <div class="search-header" style="display:flex; align-items:center; padding:15px 20px; border-bottom:1px solid var(--border-glass); background:var(--bg-glass);">
                 <span class="material-icons" style="color:var(--primary); font-size:1.5rem; margin-right:12px;">search</span>
-                <input type="text" id="global-search-input" placeholder="Search prayers, notices, events..." autocomplete="off" style="flex:1; background:transparent; border:none; outline:none; font-size:1.1rem; color:var(--text-primary); font-family:var(--font-base);">
+                <input type="text" id="global-search-input" placeholder="Search prayers, notices, schedules..." autocomplete="off" style="flex:1; background:transparent; border:none; outline:none; font-size:1.1rem; color:var(--text-primary); font-family:var(--font-base);">
                 <button onclick="closeGlobalSearch()" class="material-icons" style="background:none; border:none; cursor:pointer; color:var(--text-secondary); font-size:1.5rem; margin-left:12px; transition:color 0.2s;">close</button>
             </div>
             <div class="search-results-container" id="global-search-results" style="padding:10px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:8px;">
@@ -221,10 +221,12 @@ async function performGlobalSearch(query) {
 
         let prayers = await SAC_DATABASE.get("catholic_prayers") || [];
         let notices = await SAC_DATABASE.get("announcements") || [];
+        let schedules = await SAC_DATABASE.get("mass_schedules") || [];
         
         // Ensure data structures are Arrays (Firebase sometimes returns Objects for missing indices)
         if(!Array.isArray(prayers)) prayers = Object.values(prayers);
         if(!Array.isArray(notices)) notices = Object.values(notices);
+        if(!Array.isArray(schedules)) schedules = Object.values(schedules);
         
         prayers.forEach((item, index) => {
             if (!item) return; // Skip deleted items (null in Firebase arrays)
@@ -263,6 +265,65 @@ async function performGlobalSearch(query) {
                 });
             }
         });
+
+        schedules.forEach((item, index) => {
+            if (!item) return; // Skip deleted items
+            const typeEn = (item.typeEn || '').toLowerCase();
+            const typeTa = (item.typeTa || '').toLowerCase();
+            const dayEn = (item.dayEn || '').toLowerCase();
+            const dayTa = (item.dayTa || '').toLowerCase();
+            const timeStr = (item.time || '').toLowerCase();
+            
+            if(typeEn.includes(query) || typeTa.includes(query) || dayEn.includes(query) || dayTa.includes(query) || timeStr.includes(query)) {
+                let displayTitle = (typeof SAC_COMMON !== 'undefined' && SAC_COMMON.currentLang === 'ta') 
+                    ? ((item.dayTa || '') + ' - ' + (item.typeTa || item.typeEn)) 
+                    : ((item.dayEn || '') + ' - ' + (item.typeEn || item.typeTa));
+                
+                allResults.push({
+                    type: 'Schedule',
+                    icon: 'church',
+                    title: displayTitle,
+                    subtitle: 'Mass Schedules / வழிபாட்டு நேரங்கள்',
+                    link: `schedule.html`,
+                    score: typeEn.includes(query) || typeTa.includes(query) || dayEn.includes(query) || dayTa.includes(query) ? 9 : 4
+                });
+            }
+        });
+
+        // Special Devotions (from common translations)
+        const devotions = [
+            { key: 'novena', icon: 'volunteer_activism' },
+            { key: 'friday', icon: 'nightlight' },
+            { key: 'feast', icon: 'celebration' },
+            { key: 'juneFeast', icon: 'star' }
+        ];
+
+        if (typeof SAC_COMMON !== 'undefined' && SAC_COMMON.staticTranslations) {
+            devotions.forEach(dev => {
+                const enDict = SAC_COMMON.staticTranslations.en || {};
+                const taDict = SAC_COMMON.staticTranslations.ta || {};
+                
+                const titleEn = (enDict[`sched.${dev.key}Title`] || '').toLowerCase();
+                const titleTa = (taDict[`sched.${dev.key}Title`] || '').toLowerCase();
+                const descEn = (enDict[`sched.${dev.key}Desc`] || '').toLowerCase();
+                const descTa = (taDict[`sched.${dev.key}Desc`] || '').toLowerCase();
+
+                if (titleEn.includes(query) || titleTa.includes(query) || descEn.includes(query) || descTa.includes(query)) {
+                    let displayTitle = SAC_COMMON.currentLang === 'ta' 
+                        ? (taDict[`sched.${dev.key}Title`] || titleEn)
+                        : (enDict[`sched.${dev.key}Title`] || titleTa);
+                    
+                    allResults.push({
+                        type: 'Devotion',
+                        icon: dev.icon,
+                        title: displayTitle,
+                        subtitle: 'Special Devotions / சிறப்பு வழிபாடுகள்',
+                        link: `schedule.html#devotion-${dev.key}`,
+                        score: titleEn.includes(query) || titleTa.includes(query) ? 9 : 4
+                    });
+                }
+            });
+        }
         
         allResults.sort((a, b) => b.score - a.score);
         renderGlobalSearchResults(allResults, query);
@@ -299,7 +360,7 @@ function renderGlobalSearchResults(results, query) {
     let html = '';
     results.forEach(res => {
         html += `
-            <a href="${res.link}" class="search-result-card" style="display:flex; align-items:center; padding:12px 15px; background:var(--bg-glass); border:1px solid var(--border-glass); border-radius:12px; text-decoration:none; color:inherit; transition:transform 0.2s, background 0.2s;">
+            <a href="${res.link}" onclick="closeGlobalSearch()" class="search-result-card" style="display:flex; align-items:center; padding:12px 15px; background:var(--bg-glass); border:1px solid var(--border-glass); border-radius:12px; text-decoration:none; color:inherit; transition:transform 0.2s, background 0.2s;">
                 <div style="background:var(--primary); color:#fff; width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-right:15px; flex-shrink:0;">
                     <span class="material-icons">${res.icon}</span>
                 </div>

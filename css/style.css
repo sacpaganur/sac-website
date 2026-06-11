@@ -267,11 +267,11 @@ a {
 }
 
 .brand-sub {
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  /* letter-spacing: 2px; */
   margin-top: 1px;
 }
 
@@ -3194,7 +3194,7 @@ textarea.form-control {
 
 .footer-brand-titles h3 {
   margin: 0 0 4px;
-  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+  font-size: clamp(1.15rem, 2.5vw, 1rem);
   font-weight: 900;
   color: hsl(240, 25%, 12%);
   letter-spacing: -0.02em;
@@ -6782,7 +6782,7 @@ body:lang(ta) .footer-back-top span:last-child {
   }
 
   .notices-hero-header {
-    padding: 90px 16px 40px;
+    padding: 30px 16px 30px;
   }
 
   .notices-hero-title {
@@ -8871,7 +8871,7 @@ html[data-theme="dark"] .bento-item:hover {
   background: transparent !important;
   border: none;
   color: var(--text-secondary);
-  font-size: clamp(0.85rem, 1vw, 1.05rem);
+  font-size: clamp(0.85rem, 1vw, 1rem);
   font-weight: 600;
   padding: 10px 8px 15px 8px;
   cursor: pointer;
@@ -8980,7 +8980,7 @@ html[data-theme="dark"] .bento-item:hover {
   .mp-ed-layout {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 0px;
   }
 
   .mp-ed-content-area {

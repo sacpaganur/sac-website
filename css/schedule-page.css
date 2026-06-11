@@ -220,6 +220,16 @@ body:lang(ta) .schedule-section-lead {
   padding: 20px !important;
 }
 
+@keyframes devotionTargetPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); background-color: var(--primary-glow); }
+  50% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); background-color: var(--primary-glow); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); background-color: var(--bg-card); }
+}
+
+.devotion-card:target {
+  animation: devotionTargetPulse 2s ease-out;
+}
+
 .devotion-card-header {
   display: flex;
   align-items: flex-start;
@@ -546,18 +556,46 @@ body:lang(ta) .cal-multi-note {
 
   .cal-dropdown {
     min-width: 170px;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+  }
+
+  .cal-dropdown.open {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .cal-dropdown::after {
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  /* Right-aligned for Mass Cards */
+  .sched-card-footer .cal-dropdown {
     left: auto;
     right: 0;
     transform: translateX(0) translateY(8px);
   }
-
-  .cal-dropdown.open {
+  .sched-card-footer .cal-dropdown.open {
     transform: translateX(0) translateY(0);
   }
-
-  .cal-dropdown::after {
+  .sched-card-footer .cal-dropdown::after {
     left: auto;
     right: 12px;
+    transform: translateX(0) rotate(45deg);
+  }
+
+  /* Left-aligned for Devotion Cards */
+  .devotion-card .cal-dropdown {
+    left: 0;
+    right: auto;
+    transform: translateX(0) translateY(8px);
+  }
+  .devotion-card .cal-dropdown.open {
+    transform: translateX(0) translateY(0);
+  }
+  .devotion-card .cal-dropdown::after {
+    left: 12px;
+    right: auto;
     transform: translateX(0) rotate(45deg);
   }
 }

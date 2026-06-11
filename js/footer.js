@@ -62,7 +62,7 @@ window.SAC_FOOTER = {
         </ul>
       </div>
       <div class="footer-col">
-        <h4 class="footer-col-title" data-i18n="footer.parish">பங்கு &amp; வளங்கள்</h4>
+        <h4 class="footer-col-title" data-i18n="footer.parish">கிளைப்பங்கு &amp; வளங்கள்</h4>
         <ul class="footer-links">
           <li><a href="notices.html" data-i18n="nav.notices">அறிவிப்புகள்</a></li>
           <li><a href="contact.html" data-i18n="nav.contact">தொடர்பு</a></li>
@@ -71,7 +71,7 @@ window.SAC_FOOTER = {
       </div>
       <div class="footer-col footer-col--cta">
         <h4 class="footer-col-title" data-i18n="footer.visit">ஆலயத்தை வருகை</h4>
-        <p class="footer-visit-lead" data-i18n="footer.visitLead">வழிபாட்டு நேரங்கள், செப விண்ணப்பங்கள் மற்றும் பங்கு சேவைகளுக்கு எங்களைத் தொடர்பு கொள்ளுங்கள்.</p>
+        <p class="footer-visit-lead" data-i18n="footer.visitLead">வழிபாட்டு நேரங்கள், செப விண்ணப்பங்கள் மற்றும் கிளைப்பங்கு சேவைகளுக்கு எங்களைத் தொடர்பு கொள்ளுங்கள்.</p>
         <div class="footer-cta-row">
           <a href="contact.html" class="footer-cta-btn" data-i18n="footer.contactBtn">தொடர்பு கொள்ளுங்கள்</a>
           <a href="schedule.html" class="footer-cta-btn footer-cta-btn--ghost" data-i18n="footer.scheduleBtn">அட்டவணை</a>

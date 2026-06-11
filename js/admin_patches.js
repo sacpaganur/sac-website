@@ -1057,6 +1057,11 @@ window.loadDashboardMetrics = async function() {
         if (document.getElementById('dash-requests')) {
             document.getElementById('dash-requests').innerText = Array.isArray(reqs) ? reqs.length : 0;
         }
+
+        const visitors = await SAC_DATABASE.getVisitorStats();
+        if (document.getElementById('dash-visitors')) {
+            document.getElementById('dash-visitors').innerText = visitors ? visitors.toLocaleString() : 0;
+        }
     } catch(e) {
         console.error("Dashboard fetch error:", e);
     }

@@ -295,7 +295,8 @@
                     <aside class="contact-form-panel">
                         <div class="contact-form-head">
                             <h3 id="form-prayer-title">உங்கள் செப வேண்டுதல்</h3>
-                            <p class="contact-form-note" id="contact-form-note">உங்கள் செப வேண்டுதலை பங்கு சமூகத்துடன்
+                            <p class="contact-form-note" id="contact-form-note">உங்கள் செப வேண்டுதலை கிளைப்பங்கு
+                                சமூகத்துடன்
                                 பகிர்ந்து கொள்ளுங்கள். நாங்கள் உங்களுக்காக இறைவனிடம் செபிப்போம்.</p>
                         </div>
 
@@ -674,7 +675,7 @@
                 if (alertBox) {
                     alertBox.className = 'form-alert success';
                     alertBox.style.display = 'flex';
-                    alertBox.innerHTML = `<strong>🙏</strong> <span>${isTa ? "உங்களது வேண்டுதல் சமர்ப்பிக்கப்பட்டது. பங்கு சமூகம் உங்களுக்காகச் செபிக்கும்!" : "Your prayer request has been submitted. Our parish community will pray for you!"}</span>`;
+                    alertBox.innerHTML = `<strong>🙏</strong> <span>${isTa ? "உங்களது வேண்டுதல் சமர்ப்பிக்கப்பட்டது. கிளைப்பங்கு சமூகம் உங்களுக்காகச் செபிக்கும்!" : "Your prayer request has been submitted. Our parish community will pray for you!"}</span>`;
                 }
 
                 document.getElementById('public-prayer-form').reset();
@@ -731,7 +732,7 @@
             const formNote = document.getElementById('contact-form-note');
             if (formNote) {
                 formNote.innerText = isTa
-                    ? "உங்கள் செப வேண்டுதலை பங்கு சமூகத்துடன் பகிர்ந்து கொள்ளுங்கள். நாங்கள் உங்களுக்காக இறைவனிடம் செபிப்போம்."
+                    ? "உங்கள் செப வேண்டுதலை கிளைப்பங்கு சமூகத்துடன் பகிர்ந்து கொள்ளுங்கள். நாங்கள் உங்களுக்காக இறைவனிடம் செபிப்போம்."
                     : "Share your prayer intention with our parish community. We will lift you up in prayer.";
             }
 

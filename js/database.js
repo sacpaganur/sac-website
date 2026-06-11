@@ -17,7 +17,7 @@ const SAC_DATABASE = {
       heroHeadlineEn: "Welcome to St. Antony's Church",
       heroHeadlineTa: "புனித அந்தோணியார் ஆலயத்திற்கு அன்போடு வரவேற்கிறோம்",
       heroLeadEn: "Welcome to our parish family. Join us in worship, find spiritual peace, and receive blessings in our sacred home.",
-      heroLeadTa: "அமைதியும் அன்பும் தவழும் புனித பூமியில், எங்கள் பங்கு சமூகத்துடன் இணைந்து இறைவனின் அருளையும் நன்மைகளையும் பெற்று மகிழுங்கள்."
+      heroLeadTa: "அமைதியும் அன்பும் தவழும் புனித பூமியில், எங்கள் கிளைப்பங்கு சமூகத்துடன் இணைந்து இறைவனின் அருளையும் நன்மைகளையும் பெற்று மகிழுங்கள்."
     },
     mass_schedules: [
 
@@ -67,7 +67,7 @@ const SAC_DATABASE = {
         titleEn: "New Stone Church",
         titleTa: "புதிய கல் கோவில்",
         descEn: "Through the collective efforts and physical labor of the parishioners, the church was expanded and rebuilt with stone, replacing the old thatched structure.",
-        descTa: "பங்கு மக்களின் கூட்டு முயற்சியாலும் உடல் உழைப்பாலும் ஆலயம் விரிவாக்கப்பட்டு, பழைய ஓலைக் கூரைக்கு பதிலாக புதிய கல் கட்டடமாக எழுப்பப்பட்டது.",
+        descTa: "கிளைப்பங்கு மக்களின் கூட்டு முயற்சியாலும் உடல் உழைப்பாலும் ஆலயம் விரிவாக்கப்பட்டு, பழைய ஓலைக் கூரைக்கு பதிலாக புதிய கல் கட்டடமாக எழுப்பப்பட்டது.",
         isActive: true
       },
       {
@@ -538,7 +538,7 @@ const SAC_DATABASE = {
               finalSyncData = sanitizeObj(genDoc, collectionName);
               // Auto-heal strings on Firestore if they got corrupted
               if (JSON.stringify(genDoc) !== JSON.stringify(finalSyncData)) {
-                await this.db.collection(collectionName).doc("general").set(finalSyncData).catch(e => {});
+                await this.db.collection(collectionName).doc("general").set(finalSyncData).catch(e => { });
               }
             }
 
@@ -622,16 +622,16 @@ const SAC_DATABASE = {
           .catch(err => {
             console.error(`Firestore save failed for ${collectionName}:`, err);
             if (err.code === 'permission-denied') {
-                const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                if (!isLocalhost) {
-                    if (typeof showGlobalErrorAlert === 'function') {
-                        showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
-                    } else {
-                        showToast("Security Error: Permission Denied. You must be logged in to save.");
-                    }
+              const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+              if (!isLocalhost) {
+                if (typeof showGlobalErrorAlert === 'function') {
+                  showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
                 } else {
-                    console.warn("Localhost bypass: Suppressed permission denied error for save.");
+                  showToast("Security Error: Permission Denied. You must be logged in to save.");
                 }
+              } else {
+                console.warn("Localhost bypass: Suppressed permission denied error for save.");
+              }
             }
           });
       } else {
@@ -640,16 +640,16 @@ const SAC_DATABASE = {
           .catch(err => {
             console.error(`Firestore save failed for ${collectionName}:`, err);
             if (err.code === 'permission-denied') {
-                const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                if (!isLocalhost) {
-                    if (typeof showGlobalErrorAlert === 'function') {
-                        showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
-                    } else {
-                        showToast("Security Error: Permission Denied. You must be logged in to save.");
-                    }
+              const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+              if (!isLocalhost) {
+                if (typeof showGlobalErrorAlert === 'function') {
+                  showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
                 } else {
-                    console.warn("Localhost bypass: Suppressed permission denied error for save.");
+                  showToast("Security Error: Permission Denied. You must be logged in to save.");
                 }
+              } else {
+                console.warn("Localhost bypass: Suppressed permission denied error for save.");
+              }
             }
           });
       }
@@ -681,14 +681,14 @@ const SAC_DATABASE = {
     if (this.isFirebaseActive && this.db) {
       await this.db.collection(collectionName).doc(id).delete()
         .catch(err => {
-            console.error(`Firestore delete failed for ${collectionName} with id ${id}:`, err);
-            if (err.code === 'permission-denied') {
-                if (typeof showGlobalErrorAlert === 'function') {
-                    showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to delete data.");
-                } else {
-                    showToast("Security Error: Permission Denied. You must be logged in to delete.");
-                }
+          console.error(`Firestore delete failed for ${collectionName} with id ${id}:`, err);
+          if (err.code === 'permission-denied') {
+            if (typeof showGlobalErrorAlert === 'function') {
+              showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to delete data.");
+            } else {
+              showToast("Security Error: Permission Denied. You must be logged in to delete.");
             }
+          }
         });
     }
 
@@ -701,10 +701,10 @@ const SAC_DATABASE = {
     try {
       const id = "visit_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5);
       const dataWithId = { ...data, id, timestamp: new Date().toISOString() };
-      
+
       // 1. Log the individual visit
       await this.db.collection("visitor_logs").doc(id).set(dataWithId);
-      
+
       // 2. Increment the total counter safely
       await this.db.collection("stats").doc("visitors").set({
         total_count: firebase.firestore.FieldValue.increment(1),
@@ -732,10 +732,10 @@ const SAC_DATABASE = {
       } else {
         count = parseInt(this.getCollection("sac_visitor_count")) || 0;
       }
-    } catch(e) {
+    } catch (e) {
       try {
         count = parseInt(this.getCollection("sac_visitor_count")) || 0;
-      } catch(innerE) {
+      } catch (innerE) {
         count = 0;
       }
     }
@@ -752,7 +752,7 @@ const SAC_DATABASE = {
       const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 8000));
       const snapshot = await Promise.race([fetchPromise, timeoutPromise]);
       return snapshot.docs.map(doc => doc.data());
-    } catch(e) {
+    } catch (e) {
       console.error("Failed to fetch visitor logs:", e);
       return [];
     }
@@ -763,11 +763,11 @@ const SAC_DATABASE = {
     try {
       const snapshot = await this.db.collection("visitor_logs").get();
       if (snapshot.empty) return true;
-      
+
       // Batch has a limit of 500, so we delete them individually in parallel for robustness
       const deletePromises = [];
       snapshot.docs.forEach(doc => {
-          deletePromises.push(doc.ref.delete());
+        deletePromises.push(doc.ref.delete());
       });
       await Promise.all(deletePromises);
       return true;
@@ -783,10 +783,10 @@ SAC_DATABASE.init();
 
 // Cross-tab synchronization for instant UI updates across all open tabs
 window.addEventListener('storage', (e) => {
-    if (e.key && e.key.startsWith('sac_')) {
-        const collectionName = e.key.replace('sac_', '');
-        window.dispatchEvent(new CustomEvent('sacDataRefreshed', { detail: { collection: collectionName } }));
-    }
+  if (e.key && e.key.startsWith('sac_')) {
+    const collectionName = e.key.replace('sac_', '');
+    window.dispatchEvent(new CustomEvent('sacDataRefreshed', { detail: { collection: collectionName } }));
+  }
 });
 
 
