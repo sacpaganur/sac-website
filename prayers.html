@@ -263,9 +263,34 @@
             </style>
             
             <div class="prayers-grid" id="prayers-container">
-                <div class="sac-skeleton sac-skeleton-card" style="height: 200px; margin-bottom: 20px;"></div>
-                <div class="sac-skeleton sac-skeleton-card" style="height: 200px; margin-bottom: 20px;"></div>
-                <div class="sac-skeleton sac-skeleton-card" style="height: 200px; margin-bottom: 20px;"></div>
+                <div class="prayer-card" style="pointer-events: none;">
+                    <div class="sac-skeleton" style="width: 100px; height: 24px; border-radius: 100px; margin-bottom: 12px;"></div>
+                    <div class="sac-skeleton" style="width: 80%; height: 24px; border-radius: 4px; margin-bottom: 12px;"></div>
+                    <div class="sac-skeleton" style="width: 100%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div class="sac-skeleton" style="width: 90%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div class="sac-skeleton" style="width: 60%; height: 16px; border-radius: 4px; margin-top: 16px;"></div>
+                </div>
+                <div class="prayer-card" style="pointer-events: none;">
+                    <div class="sac-skeleton" style="width: 100px; height: 24px; border-radius: 100px; margin-bottom: 12px;"></div>
+                    <div class="sac-skeleton" style="width: 80%; height: 24px; border-radius: 4px; margin-bottom: 12px;"></div>
+                    <div class="sac-skeleton" style="width: 100%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div class="sac-skeleton" style="width: 90%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div class="sac-skeleton" style="width: 60%; height: 16px; border-radius: 4px; margin-top: 16px;"></div>
+                </div>
+                <div class="prayer-card" style="pointer-events: none;">
+                    <div class="sac-skeleton" style="width: 100px; height: 24px; border-radius: 100px; margin-bottom: 12px;"></div>
+                    <div class="sac-skeleton" style="width: 80%; height: 24px; border-radius: 4px; margin-bottom: 12px;"></div>
+                    <div class="sac-skeleton" style="width: 100%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div class="sac-skeleton" style="width: 90%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div class="sac-skeleton" style="width: 60%; height: 16px; border-radius: 4px; margin-top: 16px;"></div>
+                </div>
+                <div class="prayer-card" style="pointer-events: none;">
+                    <div class="sac-skeleton" style="width: 100px; height: 24px; border-radius: 100px; margin-bottom: 12px;"></div>
+                    <div class="sac-skeleton" style="width: 80%; height: 24px; border-radius: 4px; margin-bottom: 12px;"></div>
+                    <div class="sac-skeleton" style="width: 100%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div class="sac-skeleton" style="width: 90%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div class="sac-skeleton" style="width: 60%; height: 16px; border-radius: 4px; margin-top: 16px;"></div>
+                </div>
             </div>
         </section>
     </main>
@@ -355,8 +380,6 @@
             translateLabels();
             SAC_COMMON.revealPage();
 
-            await fetchAndRender();
-
             window.addEventListener('sacLanguageChanged', () => {
                 renderPrayers();
                 translateLabels();
@@ -369,17 +392,20 @@
                     renderPrayers();
                 }
             });
+
+            await fetchAndRender();
         });
 
         async function fetchAndRender() {
             const container = document.getElementById('prayers-container');
             if (container) {
                 container.innerHTML = Array(6).fill(`
-                    <div class="skeleton-card">
-                        <div class="skeleton-title skeleton"></div>
-                        <div class="skeleton-text skeleton"></div>
-                        <div class="skeleton-text medium skeleton"></div>
-                        <div class="skeleton-text short skeleton"></div>
+                    <div class="prayer-card" style="pointer-events: none;">
+                        <div class="sac-skeleton" style="width: 100px; height: 24px; border-radius: 100px; margin-bottom: 12px;"></div>
+                        <div class="sac-skeleton" style="width: 80%; height: 24px; border-radius: 4px; margin-bottom: 12px;"></div>
+                        <div class="sac-skeleton" style="width: 100%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                        <div class="sac-skeleton" style="width: 90%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                        <div class="sac-skeleton" style="width: 60%; height: 16px; border-radius: 4px; margin-top: 16px;"></div>
                     </div>
                 `).join('');
             }
@@ -444,6 +470,20 @@
 
             // Update counter
             document.getElementById('prayers-count-number').innerText = filtered.length;
+
+            if (allPrayers.length === 0) {
+                // Keep skeletons while loading
+                container.innerHTML = Array(6).fill(`
+                    <div class="prayer-card" style="pointer-events: none;">
+                        <div class="sac-skeleton" style="width: 100px; height: 24px; border-radius: 100px; margin-bottom: 12px;"></div>
+                        <div class="sac-skeleton" style="width: 80%; height: 24px; border-radius: 4px; margin-bottom: 12px;"></div>
+                        <div class="sac-skeleton" style="width: 100%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                        <div class="sac-skeleton" style="width: 90%; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
+                        <div class="sac-skeleton" style="width: 60%; height: 16px; border-radius: 4px; margin-top: 16px;"></div>
+                    </div>
+                `).join('');
+                return;
+            }
 
             if (filtered.length === 0) {
                 container.innerHTML = `

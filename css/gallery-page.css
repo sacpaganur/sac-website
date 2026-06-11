@@ -213,17 +213,15 @@ body:lang(ta) .gallery-trending-title {
 }
 
 .gallery-grid {
-  column-count: 3;
-  column-gap: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   width: 100%;
 }
 
 .gallery-card {
-  break-inside: avoid-column;
-  page-break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  margin-bottom: 18px;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   background: hsla(0, 0%, 100%, 0.92);
   border: 1px solid var(--border-glass);
@@ -445,8 +443,6 @@ body:lang(ta) .gallery-card-title {
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #fff;
   backdrop-filter: blur(10px);
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
   transition: var(--transition-smooth);
 }
 
@@ -457,13 +453,8 @@ body:lang(ta) .gallery-card-title {
 }
 
 .btn-close { top: -56px; right: 0; }
-.btn-prev { left: -76px; top: 50%; transform: translateY(-50%); }
-.btn-next { right: -76px; top: 50%; transform: translateY(-50%); }
-
-.btn-prev:hover, 
-.btn-next:hover {
-  transform: translateY(-50%) scale(1.05);
-}
+.btn-prev { left: -76px; top: 50%; margin-top: -26px; }
+.btn-next { right: -76px; top: 50%; margin-top: -26px; }
 
 /* Responsive */
 @media (max-width: 992px) {
@@ -477,7 +468,7 @@ body:lang(ta) .gallery-card-title {
   }
   
   .gallery-grid {
-    column-count: 2;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -503,8 +494,8 @@ body:lang(ta) .gallery-card-title {
     grid-column: auto;
   }
 
-  .btn-prev { position: fixed; left: 24px; bottom: 40px; top: auto; transform: none; }
-  .btn-next { position: fixed; right: 24px; bottom: 40px; top: auto; transform: none; }
+  .btn-prev { position: fixed; left: 24px; bottom: 40px; top: auto; margin-top: 0; }
+  .btn-next { position: fixed; right: 24px; bottom: 40px; top: auto; margin-top: 0; }
   .btn-close { position: fixed; top: 24px; right: 24px; }
   
   .btn-prev:hover, 
@@ -517,7 +508,7 @@ body:lang(ta) .gallery-card-title {
 
 @media (max-width: 480px) {
   .gallery-grid {
-    column-count: 1;
+    grid-template-columns: 1fr;
   }
 }
 

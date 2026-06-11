@@ -121,7 +121,6 @@
   box-shadow:
     0 24px 60px hsla(265, 35%, 40%, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.95);
-  overflow: hidden;
 }
 
 .legacy-overview-shell::before {
@@ -132,13 +131,13 @@
   right: 0;
   height: 4px;
   background: var(--gradient-brand-90);
+  border-radius: 32px 32px 0 0;
 }
 
 .legacy-overview-grid {
   display: grid !important;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) !important;
   gap: clamp(32px, 5vw, 48px) !important;
-  align-items: start !important;
 }
 
 /* Intro copy */
@@ -212,6 +211,28 @@ body:lang(ta) .legacy-overview-lead {
 body:lang(ta) .legacy-overview-quote p {
   font-family: var(--font-tamil), var(--font-primary);
   font-style: normal;
+}
+
+/* History Body - Full Width Typography */
+.legacy-history-body {
+  margin-top: clamp(16px, 3vw, 24px);
+  padding-top: clamp(16px, 3vw, 24px);
+  border-top: 1px dashed hsla(265, 50%, 55%, 0.15);
+  column-count: 2;
+  column-gap: 40px;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.85;
+  text-align: justify;
+}
+
+.legacy-history-body p {
+  margin-bottom: 1.25rem;
+}
+
+body:lang(ta) .legacy-history-body {
+  font-family: var(--font-tamil), var(--font-primary);
+  line-height: 2;
 }
 
 /* Value pillars — horizontal rows */
@@ -291,10 +312,7 @@ body:lang(ta) .legacy-overview-section .legacy-value-card p {
 
 /* Photo story — Then & Now */
 .legacy-photo-story {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 16px !important;
-  grid-template-columns: none !important;
+  display: block !important;
 }
 
 .legacy-photo-story-head {
@@ -711,6 +729,11 @@ body:lang(ta) .timeline-desc {
 
   .legacy-overview-grid {
     grid-template-columns: 1fr !important;
+  }
+
+  .legacy-history-body {
+    column-count: 1;
+    text-align: left;
   }
 
   .legacy-overview-section .legacy-values-grid {
