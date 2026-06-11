@@ -122,6 +122,12 @@ html[data-theme="dark"] .schedule-section-badge {
     color: var(--text-primary) !important;
 }
 
+html[data-theme="dark"] .mp-ed-badge {
+    background: rgba(167, 139, 250, 0.1) !important;
+    color: #c4b5fd !important;
+    border: 1px solid rgba(167, 139, 250, 0.25) !important;
+}
+
 /* --- BUTTONS & HOVER STATES --- */
 html[data-theme="dark"] .footer-cta-btn {
     background: var(--bg-card) !important;

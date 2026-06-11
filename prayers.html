@@ -82,7 +82,7 @@
         <!-- Segmented Pill Filter & Search Bar -->
         <section style="max-width: 1100px; margin: -28px auto 0; padding: 0 24px; position: relative; z-index: 2;">
             <div class="notices-filter-bar" style="flex-wrap: wrap; gap: 10px;">
-                <div class="filter-tabs" id="prayers-filter-tabs" style="flex-wrap: wrap;">
+                <div class="filter-tabs" id="prayers-filter-tabs">
                     <button class="filter-tab active" data-category="all" id="filter-tab-all">
                         <span class="tab-icon">🌟</span>
                         <span class="tab-label">அனைத்தும்</span>
@@ -580,11 +580,13 @@
             document.getElementById('whatsapp-share-btn').href = `https://wa.me/?text=${encodedShare}`;
 
             document.getElementById('prayer-modal').classList.add('active');
+            document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
         }
 
         function closePrayerModal() {
             document.getElementById('prayer-modal').classList.remove('active');
+            document.documentElement.style.overflow = '';
             document.body.style.overflow = '';
             
             // Clear URL parameters for deep-linking

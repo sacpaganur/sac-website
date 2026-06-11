@@ -497,6 +497,7 @@
     <!-- Pannellum 360 Viewer -->
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js" defer></script>
 
+
     <!-- Core Script dependencies -->
     <script src="js/database.js?v=1780671817258" defer></script>
     <script src="js/footer.js?v=1780671817258" defer></script>
@@ -537,6 +538,7 @@
                     "type": "equirectangular",
                     "panorama": "images/church_panorama.webp",
                     "autoLoad": true,
+                    "autoRotate": -2,
                     "compass": true,
                     "mouseZoom": false,
                     "showControls": true,
@@ -546,6 +548,7 @@
                 });
             }
         }
+
 
         async function loadPastOfficials() {
             let officials = await SAC_DATABASE.get("past_officials") || [];

@@ -216,10 +216,10 @@ const SAC_DATABASE = {
       {
         id: "gallery_3",
         src: "images/gallery_choir.webp",
-        catTa: "பங்கு பாடகர் குழு",
-        catEn: "Parish Liturgical Choir",
-        titleTa: "மெழுகுவர்த்தி வழிபாட்டு திருப்பலி பாடல்",
-        titleEn: "Solemn Candlelight Liturgical Choir Service",
+        catTa: "சந்நிதி",
+        catEn: "Shrine",
+        titleTa: "மெழுகுவர்த்தி ஏற்றி ஜெபிக்கும் சந்நிதி",
+        titleEn: "Candlelight Prayer Shrine",
         isActive: true
       },
       {
@@ -320,8 +320,18 @@ const SAC_DATABASE = {
             window.dispatchEvent(new CustomEvent('sacDataRefreshed', { detail: { collection: 'gallery' } }));
           }
         }
-      } catch (e) {
-        console.error("Migration failed", e);
+
+        // Force update gallery_3 if it has the old title
+        const gallery3 = items && items.find(i => i.id === 'gallery_3');
+        if (gallery3 && gallery3.catEn === 'Parish Liturgical Choir') {
+          const updatedItem = this.defaultData.gallery.find(i => i.id === 'gallery_3');
+          if (updatedItem) {
+            await this.save("gallery", updatedItem);
+            window.dispatchEvent(new CustomEvent('sacDataRefreshed', { detail: { collection: 'gallery' } }));
+          }
+        }
+      } catch (err) {
+        console.error("Migration failed", err);
       }
     }, 500);
   },

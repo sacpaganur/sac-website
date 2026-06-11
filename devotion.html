@@ -20,7 +20,7 @@
     <!-- Custom Light Stylesheet -->
     <link rel="stylesheet" href="css/style.css?v=1780671817258">
     <link rel="stylesheet" href="css/devotion-page.css?v=1780671817258">
-    <script defer  src="js/navbar.js?v=1780671817258"></script>
+    <script defer src="js/navbar.js?v=1780671817258"></script>
 
     <!-- Performance Preconnects -->
     <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
@@ -31,21 +31,23 @@
     <!-- Comprehensive Technical SEO & Social Tags -->
     <link rel="canonical" href="https://stacpaganur.web.app/devotion.html" />
     <meta property="og:title" content="நவநாள் மற்றும் செபங்கள் | Digital Novena & Prayers" />
-    <meta property="og:description" content="புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர். St. Antony's Church Vadakku Paganur - Official Catholic Devotion, Mass Timings, and Digital Novena." />
+    <meta property="og:description"
+        content="புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர். St. Antony's Church Vadakku Paganur - Official Catholic Devotion, Mass Timings, and Digital Novena." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://stacpaganur.web.app/devotion.html" />
     <meta property="og:image" content="https://stacpaganur.web.app/images/church_logo.webp" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="நவநாள் மற்றும் செபங்கள் | Digital Novena & Prayers" />
-    <meta name="twitter:description" content="புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர். St. Antony's Church Vadakku Paganur - Official Catholic Devotion, Mass Timings, and Digital Novena." />
+    <meta name="twitter:description"
+        content="புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர். St. Antony's Church Vadakku Paganur - Official Catholic Devotion, Mass Timings, and Digital Novena." />
     <meta name="twitter:image" content="https://stacpaganur.web.app/images/church_logo.webp" />
     <link rel="icon" type="image/jpeg" href="images/church_logo.webp">
 
     <!-- Exhaustive Dark Mode Overrides -->
     <link rel="stylesheet" href="css/dark-overrides.css?v=1780671817258">
 
-    
-    </head>
+
+</head>
 
 <body class="devotion-theme">
     <!-- Global Page Loader -->
@@ -181,56 +183,56 @@
         <!-- Traditional Prayers Grid -->
         <section id="traditional-prayers-section" class="devotion-section reveal-base reveal-up">
             <div class="devotion-section-header" style="text-align: center;">
-                <h3 class="section-heading">பக்தியறச் செபங்கள்</h3>
-                <p class="section-desc">Traditional Litanies & Prayers</p>
+                <h3 class="section-heading" data-i18n="devotion.tradTitle">பக்தியறச் செபங்கள்</h3>
+                <!-- <p class="section-desc" data-i18n="devotion.tradSubtitle">Traditional Litanies & Prayers</p> -->
             </div>
 
             <div class="prayers-grid">
                 <a href="#" class="prayer-card" onclick="showPrayerModal('litany'); return false;">
                     <div class="prayer-card-icon"><span class="material-icons">menu_book</span></div>
                     <div class="prayer-card-content">
-                        <h4>புனித அந்தோணியார் மன்றாட்டுமாலை</h4>
-                        <p>Litany of St. Antony</p>
+                        <h4 data-i18n="devotion.tradLitanyTitle">புனித அந்தோணியார் மன்றாட்டுமாலை</h4>
+                        <!-- <p>Litany of St. Antony</p> -->
                     </div>
                 </a>
 
                 <a href="#" class="prayer-card" onclick="showPrayerModal('lost'); return false;">
                     <div class="prayer-card-icon"><span class="material-icons">auto_awesome</span></div>
                     <div class="prayer-card-content">
-                        <h4>தவறவிட்டதைக் கண்டுபிடிக்கச் செபம்</h4>
-                        <p>Prayer to find lost items</p>
+                        <h4 data-i18n="devotion.tradLostTitle">தவறவிட்டதைக் கண்டுபிடிக்கச் செபம்</h4>
+                        <!-- <p>Prayer to find lost items</p> -->
                     </div>
                 </a>
 
                 <a href="#" class="prayer-card" onclick="showPrayerModal('unfailing'); return false;">
                     <div class="prayer-card-icon"><span class="material-icons">favorite</span></div>
                     <div class="prayer-card-content">
-                        <h4>நம்பிக்கை தளராத செபம்</h4>
-                        <p>Unfailing Prayer to St. Antony</p>
+                        <h4 data-i18n="devotion.tradUnfailingTitle">நம்பிக்கை தளராத செபம்</h4>
+                        <!-- <p>Unfailing Prayer to St. Antony</p> -->
                     </div>
                 </a>
 
-                <a href="#" class="prayer-card" onclick="showPrayerModal('health'); return false;">
+                <a href="#" class="prayer-card" onclick="showPrayerModal('novena'); return false;">
+                    <div class="prayer-card-icon"><span class="material-icons">church</span></div>
+                    <div class="prayer-card-content">
+                        <h4 data-i18n="devotion.tradNovenaTitle">புனித அந்தோணியார் நவநாள் செபம்</h4>
+                        <!-- <p>Novena Prayer to St. Antony</p> -->
+                    </div>
+                </a>
+
+                <a href="#" class="prayer-card" onclick="showPrayerModal('miracle'); return false;">
                     <div class="prayer-card-icon"><span class="material-icons">flare</span></div>
                     <div class="prayer-card-content">
-                        <h4>புனித ஆரோக்கிய அன்னை செபம்</h4>
-                        <p>Prayer to Our Lady of Good Health</p>
+                        <h4 data-i18n="devotion.tradMiracleTitle">புனித அந்தோணியார் அற்புத செபம்</h4>
+                        <!-- <p>Miracle Prayer to St. Antony</p> -->
                     </div>
                 </a>
 
-                <a href="#" class="prayer-card" onclick="showPrayerModal('morning'); return false;">
-                    <div class="prayer-card-icon"><span class="material-icons">wb_sunny</span></div>
+                <a href="#" class="prayer-card" onclick="showPrayerModal('thanksgiving'); return false;">
+                    <div class="prayer-card-icon"><span class="material-icons">volunteer_activism</span></div>
                     <div class="prayer-card-content">
-                        <h4>காலைச் செபம்</h4>
-                        <p>Morning Prayer</p>
-                    </div>
-                </a>
-
-                <a href="#" class="prayer-card" onclick="showPrayerModal('evening'); return false;">
-                    <div class="prayer-card-icon"><span class="material-icons">nights_stay</span></div>
-                    <div class="prayer-card-content">
-                        <h4>மாலைச் செபம்</h4>
-                        <p>Evening Prayer</p>
+                        <h4 data-i18n="devotion.tradThanksgivingTitle">புனித அந்தோணியாருக்கு நன்றி செபம்</h4>
+                        <!-- <p>Thanksgiving Prayer to St. Antony</p> -->
                     </div>
                 </a>
             </div>
@@ -272,10 +274,11 @@
             <form id="prayer-submit-form" onsubmit="handlePrayerSubmit(event)"
                 style="display: flex; flex-direction: column; height: 100%; overflow: hidden; margin: 0;">
                 <!-- Modal Header -->
-                <div style="padding: 16px 20px 16px 30px; border-bottom: 1px solid var(--border-glass); background: linear-gradient(to bottom, rgba(139,92,246,0.02), transparent); flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;">
+                <div
+                    style="padding: 16px 20px 16px 30px; border-bottom: 1px solid var(--border-glass); background: linear-gradient(to bottom, rgba(139,92,246,0.02), transparent); flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;">
                     <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--primary); margin: 0; display: flex; align-items: center; gap: 8px;"
                         data-i18n="wall.modalTitle">செப விண்ணப்பம் சமர்ப்பித்தல்</h3>
-                    
+
                     <button type="button" onclick="closePrayerWallModal()"
                         style="background:var(--bg-card); border:1px solid var(--border-glass); border-radius:50%; width:36px; height:36px; flex-shrink: 0; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer; z-index:10; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.2s ease;">
                         <span class="material-icons">close</span>
@@ -426,12 +429,12 @@
             style="width:120px; height:120px; border-radius:50%; background:rgba(139,92,246,0.15); display:flex; align-items:center; justify-content:center; margin-bottom:30px; border:2px solid rgba(139,92,246,0.3); animation:pulseMic 2s infinite;">
             <span class="material-icons" style="font-size:3.5rem; color:#a78bfa;">mic</span>
         </div>
-        <h3
-            style="font-size:1.8rem; font-weight:800; margin-bottom:12px; background:linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent;"
+        <h3 style="font-size:1.8rem; font-weight:800; margin-bottom:12px; background:linear-gradient(to right, #a78bfa, #f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent;"
             data-i18n="wall.ai.listenTitle">
             Listening to your prayer...</h3>
         <p style="color:rgba(255,255,255,0.7); max-width:400px; line-height:1.6; margin-bottom:30px;"
-            id="ai-mic-instruction" data-i18n="wall.ai.listenDesc">Speak your name, email, and prayer request naturally. St. Antony's AI organized form
+            id="ai-mic-instruction" data-i18n="wall.ai.listenDesc">Speak your name, email, and prayer request naturally.
+            St. Antony's AI organized form
             for you.</p>
         <div id="ai-live-text"
             style="font-size:1.15rem; color:#fff; font-weight:600; font-style:italic; max-width:600px; padding:16px 24px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:16px;"
@@ -452,9 +455,11 @@
             <span class="material-icons"
                 style="font-size:3rem; color:#f472b6; animation:pulseMic 1.5s ease-in-out infinite;">psychology</span>
         </div>
-        <h3 style="font-size:1.6rem; font-weight:800; margin-bottom:12px;" id="ai-process-title" data-i18n="wall.ai.processTitle">Organizing with AI...
+        <h3 style="font-size:1.6rem; font-weight:800; margin-bottom:12px;" id="ai-process-title"
+            data-i18n="wall.ai.processTitle">Organizing with AI...
         </h3>
-        <p style="color:rgba(255,255,255,0.7);" id="ai-process-desc" data-i18n="wall.ai.processDesc">Gemini is translating and populating the fields for
+        <p style="color:rgba(255,255,255,0.7);" id="ai-process-desc" data-i18n="wall.ai.processDesc">Gemini is
+            translating and populating the fields for
             you.</p>
     </div>
 
@@ -760,7 +765,7 @@
                     const localData = JSON.parse(localStr);
                     if (localData && localData.length > 0) renderGrid(localData);
                 }
-            } catch(e) { console.warn(e); }
+            } catch (e) { console.warn(e); }
 
             // 2. Background fetch from Firebase
             try {
@@ -973,28 +978,40 @@
         // Traditional Prayers Modal Logic
         const traditionalPrayers = {
             'litany': {
-                title: 'புனித அந்தோணியார் மன்றாட்டுமாலை',
-                content: 'ஆண்டவரே இரக்கமாயிரும்.\nகிறிஸ்துவே இரக்கமாயிரும்.\nஆண்டவரே இரக்கமாயிரும்.\nகிறிஸ்துவே எங்கள் மன்றாட்டைக் கேட்டருளும்.\nகிறிஸ்துவே எங்கள் மன்றாட்டை நன்றாகக் கேட்டருளும்.\n\nவிண்ணகத் தந்தையாகிய இறைவா, எங்கள் மேல் இரக்கமாயிரும்.\nஉலகத்தை மீட்ட சுதனாகிய இறைவா, எங்கள் மேல் இரக்கமாயிரும்.\nதூய ஆவியாகிய இறைவா, எங்கள் மேல் இரக்கமாயிரும்.\nமூவொரு இறைவனாகிய இறைவா, எங்கள் மேல் இரக்கமாயிரும்.\n\nபுனித மரியாயே - எங்களுக்காக மன்றாடும்\nபுனித அந்தோணியாரே - எங்களுக்காக மன்றாடும்\n\n(தொடர்ந்து உங்கள் வேண்டுதல்களை ஒப்புக்கொடுத்துச் செபிக்கவும்...)'
+                titleTa: 'புனித அந்தோணியார் மன்றாட்டுமாலை',
+                titleEn: 'Litany of St. Antony',
+                contentTa: 'ஆண்டவரே இரக்கமாயிரும்.\nகிறிஸ்துவே இரக்கமாயிரும்.\nஆண்டவரே இரக்கமாயிரும்.\nகிறிஸ்துவே எங்கள் மன்றாட்டைக் கேட்டருளும்.\nகிறிஸ்துவே எங்கள் மன்றாட்டை நன்றாகக் கேட்டருளும்.\n\nவிண்ணகத் தந்தையாகிய இறைவா, எங்கள் மேல் இரக்கமாயிரும்.\nஉலகத்தை மீட்ட சுதனாகிய இறைவா, எங்கள் மேல் இரக்கமாயிரும்.\nதூய ஆவியாகிய இறைவா, எங்கள் மேல் இரக்கமாயிரும்.\nமூவொரு இறைவனாகிய இறைவா, எங்கள் மேல் இரக்கமாயிரும்.\n\nபுனித மரியாயே - எங்களுக்காக மன்றாடும்\nபுனித அந்தோணியாரே - எங்களுக்காக மன்றாடும்\n\n(தொடர்ந்து உங்கள் வேண்டுதல்களை ஒப்புக்கொடுத்துச் செபிக்கவும்...)',
+                contentEn: 'Lord, have mercy.\nChrist, have mercy.\nLord, have mercy.\nChrist, hear us.\nChrist, graciously hear us.\n\nGod the Father of Heaven, have mercy on us.\nGod the Son, Redeemer of the world, have mercy on us.\nGod the Holy Spirit, have mercy on us.\nHoly Trinity, one God, have mercy on us.\n\nHoly Mary, pray for us.\nSt. Antony of Padua, pray for us.\n\n(Continue to offer your personal intentions...)'
             },
             'lost': {
-                title: 'தவறவிட்டதைக் கண்டுபிடிக்கச் செபம்',
-                content: 'அற்புதப் புனிதரே, தொலைந்து போன பொருட்களைக் கண்டுபிடித்துத் தருபவரே! \n\nநான் இழந்துவிட்ட பொருளை (இங்கு குறிப்பிடவும்) மீண்டும் எனக்குக் கிடைக்க உமது வல்லமையால் இறைவனிடம் மன்றாடும். எனது வாழ்விலும், எனது குடும்பத்திலும் தொலைந்துபோன சமாதானத்தையும், அன்பையும், நம்பிக்கையையும் நான் மீண்டும் கண்டடைய உமது பரிந்துரையால் எனக்கு உதவி செய்யும். ஆமென்.'
+                titleTa: 'தவறவிட்டதைக் கண்டுபிடிக்கச் செபம்',
+                titleEn: 'Prayer to Find Lost Items',
+                contentTa: 'அற்புதப் புனிதரே, தொலைந்து போன பொருட்களைக் கண்டுபிடித்துத் தருபவரே! \n\nநான் இழந்துவிட்ட பொருளை (இங்கு குறிப்பிடவும்) மீண்டும் எனக்குக் கிடைக்க உமது வல்லமையால் இறைவனிடம் மன்றாடும். எனது வாழ்விலும், எனது குடும்பத்திலும் தொலைந்துபோன சமாதானத்தையும், அன்பையும், நம்பிக்கையையும் நான் மீண்டும் கண்டடைய உமது பரிந்துரையால் எனக்கு உதவி செய்யும். ஆமென்.',
+                contentEn: 'O glorious St. Antony, who has the power to find lost items! \n\nI beseech you to intercede before God so that I may recover the item I have lost (mention the item here). Please help me, through your intercession, to also regain the peace, love, and hope that may have been lost in my life and in my family. Amen.'
             },
             'unfailing': {
-                title: 'நம்பிக்கை தளராத செபம்',
-                content: 'ஓ புனித அந்தோணியாரே, இறைவனின் பேரன்பைப் பெற்றவரே! \n\nஎனது இந்த இக்கட்டான சூழ்நிலையில் (உங்கள் வேண்டுதலைக் குறிப்பிடவும்) எனக்காக இறைவனிடம் பரிந்து பேசும். உமது வல்லமையான மன்றாட்டினால் நான் புதுவாழ்வு பெற அருள்புரியும். நான் கேட்கும் இந்த நன்மையை, இறைவனின் சித்தத்திற்கு ஏற்ப பெற்றுத் தாரும். ஆமென்.'
+                titleTa: 'நம்பிக்கை தளராத செபம்',
+                titleEn: 'Unfailing Prayer to St. Antony',
+                contentTa: 'ஓ புனித அந்தோணியாரே, இறைவனின் பேரன்பைப் பெற்றவரே! \n\nஎனது இந்த இக்கட்டான சூழ்நிலையில் (உங்கள் வேண்டுதலைக் குறிப்பிடவும்) எனக்காக இறைவனிடம் பரிந்து பேசும். உமது வல்லமையான மன்றாட்டினால் நான் புதுவாழ்வு பெற அருள்புரியும். நான் கேட்கும் இந்த நன்மையை, இறைவனின் சித்தத்திற்கு ஏற்ப பெற்றுத் தாரும். ஆமென்.',
+                contentEn: 'O Holy St. Antony, gentlest of Saints, your love for God and charity for His creatures made you worthy! \n\nI implore you to intercede for me in my current distress (mention your request). May your powerful intercession bring me new life and hope. Obtain for me the grace I ask for, if it be in accordance with God\'s holy will. Amen.'
             },
-            'health': {
-                title: 'புனித ஆரோக்கிய அன்னை செபம்',
-                content: 'ஓ ஆரோக்கியத் தாயே, நோயாளிகளின் ஆரோக்கியமே! \n\nஎங்கள் உடல் மற்றும் உள்ளப் பிணிகளைப் போக்கி, முழுமையான நலம் தந்து காக்க உம் திருமகனிடம் எங்களுக்காக மன்றாடும். உடல் நலிவுற்று மருத்துவமனைகளில் வாடுவோருக்கும், குணமளிக்க முடியாத நோய்களால் துன்புறுவோருக்கும் ஆறுதலாய் இருந்து நலம் தர வேண்டும் என்று உம்மை கெஞ்சி மன்றாடுகிறோம். ஆமென்.'
+            'novena': {
+                titleTa: 'புனித அந்தோணியார் நவநாள் செபம்',
+                titleEn: 'Novena Prayer to St. Antony',
+                contentTa: 'ஓ மகிமை பொருந்திய புனித அந்தோணியாரே! இறைவனின் பேரன்பைப் பெற்றவரே! உம்மிடம் அடைக்கலம் தேடி வரும் அனைவர் மீதும் இரக்கம் காட்டும். என்னுடைய இந்த மன்றாட்டை (உங்கள் வேண்டுதலைக் கூறவும்) இறைவனிடம் எடுத்துரைத்து, எனக்கு இறையாசீர் பெற்றுத் தாரும். ஆமென்.',
+                contentEn: 'O glorious St. Antony! You are known for your powerful intercession before God. Have pity on everyone who seeks your help. Please present my request (mention your request) before God and obtain His divine blessings for me. Amen.'
             },
-            'morning': {
-                title: 'காலைச் செபம்',
-                content: 'அன்புத் தந்தையே இறைவா, \n\nஇந்த புதிய நாளுக்காக உமக்கு நன்றி கூறுகிறேன். இன்று நான் செய்யும் அனைத்துச் செயல்களையும், சந்திக்கும் மனிதர்களையும் உமது கரங்களில் ஒப்புக்கொடுக்கிறேன். உமது தூய ஆவியானவர் என்னை வழிநடத்தி, நாள் முழுவதும் தீமையிலிருந்து என்னைக் காத்தருள வேண்டும் என்று இயேசுவின் பெயரால் மன்றாடுகிறேன். ஆமென்.'
+            'miracle': {
+                titleTa: 'புனித அந்தோணியார் அற்புத செபம்',
+                titleEn: 'Miracle Prayer to St. Antony',
+                contentTa: 'ஓ அற்புதப் புனிதரே! வறியோரின் நண்பரே! உமது வல்லமையால் எத்தனையோ அற்புதங்களைச் செய்துள்ளீர். துன்பத்தில் உழலும் எனக்கு ஆறுதல் அளித்து, நான் சந்திக்கும் இந்தச் சிக்கலிலிருந்து என்னை விடுவித்து, இறைவனின் அமைதியால் என்னை நிரப்பியருளும். ஆமென்.',
+                contentEn: 'O Miracle Worker! Friend of the poor! You have performed countless miracles through your power. Comfort me in my distress, deliver me from the difficulties I face, and fill me with God\'s peace. Amen.'
             },
-            'evening': {
-                title: 'மாலைச் செபம்',
-                content: 'எல்லாம் வல்ல இறைவா, \n\nஇன்றைய நாள் முழுவதும் நீர் எனக்கு அளித்த அனைத்து ஆசீர்வாதங்களுக்கும் நன்றி கூறுகிறேன். நான் இன்று செய்த தவறுகளை மன்னித்து, உமது அமைதியால் என் உள்ளத்தை நிரப்பியருளும். இந்தப் இரவில் நல்ல நித்திரையைத் தந்து, நாளைய நாளை புதிய ஆற்றலோடு தொடங்க அருள்புரியும். ஆமென்.'
+            'thanksgiving': {
+                titleTa: 'புனித அந்தோணியாருக்கு நன்றி செபம்',
+                titleEn: 'Thanksgiving Prayer to St. Antony',
+                contentTa: 'அன்பின் புனிதரே! நீர் எனக்குச் செய்த அனைத்து நன்மைகளுக்கும் என் நெஞ்சார்ந்த நன்றியை உரித்தாக்குகிறேன். உமது பரிந்துரையால் நான் பெற்ற இறையாசீர்களுக்காக இறைவனைப் போற்றுகிறேன். தொடர்ந்து என் வாழ்நாளில் எனக்குத் துணையாக இருந்து என்னைக் காத்தருளும். ஆமென்.',
+                contentEn: 'O beloved Saint! I offer my heartfelt thanks for all the favors you have granted me. I praise God for the blessings I have received through your intercession. Continue to be my guide and protector throughout my life. Amen.'
             }
         };
 
@@ -1002,11 +1019,16 @@
             const prayer = traditionalPrayers[prayerKey];
             if (!prayer) return;
 
-            document.getElementById('modal-prayer-title').innerText = prayer.title;
-            document.getElementById('modal-prayer-content').innerText = prayer.content;
+            const isEng = document.documentElement.lang === 'en';
+            document.getElementById('modal-prayer-title').innerText = isEng ? prayer.titleEn : prayer.titleTa;
+            document.getElementById('modal-prayer-content').innerText = isEng ? prayer.contentEn : prayer.contentTa;
 
             const modal = document.getElementById('prayer-modal');
             const modalInner = document.getElementById('prayer-modal-inner');
+
+            // Prevent background scroll
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
 
             // Show and animate in
             modal.style.display = 'flex';
@@ -1022,6 +1044,10 @@
             const modal = document.getElementById('prayer-modal');
             const modalInner = document.getElementById('prayer-modal-inner');
 
+            // Restore background scroll
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+
             // Animate out
             modal.style.opacity = '0';
             modalInner.style.transform = 'scale(0.95)';
@@ -1036,4 +1062,3 @@
 </body>
 
 </html>
-
