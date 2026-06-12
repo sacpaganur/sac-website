@@ -1067,6 +1067,32 @@ window.loadDashboardMetrics = async function() {
     }
 };
 
+window.clearPushSubscribers = async function() {
+    if (!confirm("Are you sure you want to delete all 92+ Push Notification Subscribers? This cannot be undone.")) return;
+    
+    try {
+        const snap = await SAC_DATABASE.db.collection('push_subscribers').get();
+        if (snap.empty) {
+            alert("No subscribers found.");
+            return;
+        }
+
+        const batch = SAC_DATABASE.db.batch();
+        snap.docs.forEach(doc => batch.delete(doc.ref));
+        await batch.commit();
+
+        alert("All push subscribers cleared successfully!");
+        if (typeof window.refreshSubscriberList === 'function') {
+            window.refreshSubscriberList();
+        } else {
+            location.reload();
+        }
+    } catch (e) {
+        console.error("Error clearing subscribers:", e);
+        alert("Failed to clear subscribers: " + e.message);
+    }
+};
+
 // Start the dashboard metrics once DOM is ready and Database is accessible
 setTimeout(() => {
     if (typeof window.loadDashboardMetrics === 'function') window.loadDashboardMetrics();
