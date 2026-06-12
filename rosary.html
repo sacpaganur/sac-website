@@ -37,20 +37,29 @@
 
     <main class="rosary-main-container">
         <!-- Header / Status -->
-        <header class="rosary-header">
-            <h1 class="rosary-title" data-i18n="rosary.title">மெய்நிகர் செபமாலை</h1>
-            <div class="rosary-mystery-badge" id="mystery-badge">Loading...</div>
-            <div class="rosary-progress">
-                <span id="bead-counter">0/53</span> 
-                <span data-i18n="rosary.beads">Beads</span>
+        <header class="rosary-header glass-card">
+            <div class="rosary-header-content">
+                <div class="rosary-header-top">
+                    <span class="material-icons title-icon">auto_awesome</span>
+                    <h1 class="rosary-title" data-i18n="rosary.title">மெய்நிகர் செபமாலை</h1>
+                </div>
+                <p class="rosary-subtitle" data-i18n="rosary.subtitle">Interactive Digital Rosary</p>
+                <div class="rosary-chips-container">
+                    <div class="rosary-mystery-badge" id="mystery-badge">Loading...</div>
+                    <div class="rosary-progress">
+                        <span class="material-icons">timeline</span> 
+                        <span id="bead-counter">0/80</span> 
+                        <span data-i18n="rosary.beads">Beads Prayed</span>
+                    </div>
+                </div>
             </div>
         </header>
 
         <!-- Interactive Tap Area -->
         <div class="rosary-tap-zone" id="rosary-tap-zone">
-            <!-- Visual Rosary Ring -->
-            <div class="rosary-visual-ring">
-                <div class="rosary-glowing-bead" id="active-bead"></div>
+            <!-- Visual SVG Rosary -->
+            <div id="svg-rosary-container" style="width: 100%; max-width: 350px; margin: 0 auto 20px; height: 350px; position: relative;">
+                <!-- SVG injected by JS -->
             </div>
 
             <!-- Current Prayer Text -->

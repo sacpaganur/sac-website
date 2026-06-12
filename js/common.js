@@ -1035,6 +1035,7 @@ const SAC_COMMON = {
       "wall.ai.processTitle": "AI மூலம் ஒருங்கிணைக்கப்படுகிறது...",
       "wall.ai.processDesc": "Gemini உங்களுக்காக தகவல்களை மொழிபெயர்த்து நிரப்புகிறது.",
       "rosary.title": "மெய்நிகர் செபமாலை",
+      "rosary.subtitle": "ஊடாடும் டிஜிட்டல் செபமாலை",
       "rosary.beads": "மணிகள்",
       "rosary.instruction": "தொடங்க எங்கும் தட்டவும்",
       "home.mpBadge": "தாய் பங்கு",
@@ -1360,6 +1361,7 @@ const SAC_COMMON = {
       "wall.ai.processTitle": "Organizing with AI...",
       "wall.ai.processDesc": "Gemini is extracting and filling out the details for you.",
       "rosary.title": "Virtual Rosary",
+      "rosary.subtitle": "Interactive Digital Rosary",
       "rosary.beads": "Beads",
       "rosary.instruction": "Tap anywhere to begin"
     },

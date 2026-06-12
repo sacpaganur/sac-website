@@ -154,13 +154,29 @@ function updateUI(instant = false) {
         titleEl.textContent = pTitle;
         contentEl.innerHTML = pText;
         
-        // Update Bead visual
-        beadEl.className = `rosary-glowing-bead type-${pType}`;
         progressEl.textContent = `${currentStepIndex + 1}/${rosarySequence.length}`;
+        
+        // Update SVG Beads
+        rosarySequence.forEach((s, idx) => {
+            const b = document.getElementById(`svg-bead-${idx}`);
+            if(!b) return;
+            if (idx < currentStepIndex) {
+                b.setAttribute('fill', 'var(--primary)');
+                b.setAttribute('stroke', 'var(--primary)');
+                b.classList.remove('bead-active');
+            } else if (idx === currentStepIndex) {
+                b.setAttribute('fill', '#fff');
+                b.setAttribute('stroke', 'var(--primary)');
+                b.classList.add('bead-active');
+            } else {
+                b.setAttribute('fill', 'var(--bg-surface)');
+                b.setAttribute('stroke', 'var(--text-secondary)');
+                b.classList.remove('bead-active');
+            }
+        });
         
         // Fade in
         textContainer.classList.remove('fade-transition');
-        beadEl.style.transform = 'scale(1)';
     };
 
     if (instant) {
@@ -168,9 +184,80 @@ function updateUI(instant = false) {
     } else {
         // Fade out
         textContainer.classList.add('fade-transition');
-        beadEl.style.transform = 'scale(0.8)';
         setTimeout(applyUpdate, 150);
     }
+}
+
+function initSvgRosary() {
+    const container = document.getElementById('svg-rosary-container');
+    if (!container) return;
+
+    // SVG dimensions
+    const width = 400;
+    const height = 500;
+    
+    let svgHtml = `<svg width="100%" height="100%" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">`;
+    
+    // Draw the subtle connecting thread
+    svgHtml += `<path d="M 200 460 L 200 320 A 160 140 0 1 1 199.9 320" fill="none" stroke="var(--border-glass)" stroke-width="2" />`;
+
+    // Calculate bead positions
+    const beadPositions = [];
+    
+    // 0-7: Tail going up (140px length)
+    for(let i=0; i<8; i++) {
+        const y = 460 - (i * (140 / 7));
+        beadPositions.push({ x: 200, y: y });
+    }
+
+    // 8-77: Loop (70 steps). Starts at bottom of loop (90 deg) and goes full circle.
+    for(let i=0; i<70; i++) {
+        // Angle from PI/2 (bottom) to 5PI/2
+        const angle = (Math.PI / 2) + (i / 70) * (2 * Math.PI);
+        const x = 200 + 160 * Math.cos(angle);
+        const y = 180 + 140 * Math.sin(angle);
+        beadPositions.push({ x: x, y: y });
+    }
+
+    // 78-79: Outro (back to the cross at bottom)
+    beadPositions.push({ x: 200, y: 390 });
+    beadPositions.push({ x: 200, y: 460 });
+
+    // Draw beads
+    rosarySequence.forEach((step, index) => {
+        const pos = beadPositions[index];
+        const isLarge = step.beadType === 'large' || step.ref === 'ourFather' || step.type === 'mystery' || step.ref === 'creed' || step.ref === 'salveRegina';
+        const r = step.ref === 'signOfCross' ? 10 : (isLarge ? 6 : 4);
+        
+        // Use a cross path for the sign of cross
+        if (step.ref === 'signOfCross') {
+            svgHtml += `
+                <g id="svg-bead-${index}" class="svg-bead" transform="translate(${pos.x-10}, ${pos.y-10})">
+                    <path d="M8,2 h4 v6 h6 v4 h-6 v10 h-4 v-10 h-6 v-4 h6 z" fill="var(--bg-surface)" stroke="var(--text-secondary)" stroke-width="1.5" />
+                </g>
+            `;
+        } else {
+            svgHtml += `<circle id="svg-bead-${index}" class="svg-bead" cx="${pos.x}" cy="${pos.y}" r="${r}" fill="var(--bg-surface)" stroke="var(--text-secondary)" stroke-width="1.5" />`;
+        }
+    });
+
+    svgHtml += `</svg>`;
+    container.innerHTML = svgHtml;
+    
+    // Add click listeners to beads for gamified navigation
+    rosarySequence.forEach((step, index) => {
+        const beadEl = document.getElementById(`svg-bead-${index}`);
+        if(beadEl) {
+            beadEl.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (index <= currentStepIndex + 1 || true) { // Allow jumping
+                    triggerHaptic();
+                    currentStepIndex = index;
+                    updateUI();
+                }
+            });
+        }
+    });
 }
 
 function triggerHaptic() {
@@ -183,6 +270,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const { sequence, mysteryObj } = buildSequence();
     rosarySequence = sequence;
     
+    initSvgRosary();
+
     const isTa = SAC_COMMON.currentLang === 'ta';
     document.getElementById('mystery-badge').textContent = isTa ? mysteryObj.ta : mysteryObj.en;
     
