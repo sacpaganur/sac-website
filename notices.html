@@ -389,6 +389,10 @@
 
                 const readMoreText = isTa ? 'மேலும் படிக்க' : 'Read more';
 
+                const imageHtml = n.imageUrl 
+                    ? `<div style="margin-top: 20px; padding: 20px 0; border-radius: 16px; overflow: hidden; box-shadow: inset 0 0 40px rgba(0,0,0,0.03), 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(139, 92, 246, 0.15); background: radial-gradient(circle at center, rgba(139, 92, 246, 0.06) 0%, var(--bg-card) 100%); position: relative;"><div style="position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg, transparent, rgba(139,92,246,0.2), transparent);"></div><img loading="lazy" src="${n.imageUrl}" style="width: 100%; max-height: 450px; object-fit: contain; display: block; margin: 0 auto; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15)); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);"></div>`
+                    : '';
+
                 return `
                     <div id="notice-card-${n.id || idx}" class="${cardClasses}" style="animation-delay: ${staggerDelay}s;">
                         ${ribbonHtml}
@@ -404,6 +408,7 @@
                             </div>
                             <h3 class="notice-title">${isTa ? (n.titleTa || n.titleEn) : (n.titleEn || n.titleTa)}</h3>
                             <p class="notice-desc">${isTa ? (n.contentTa || n.contentEn) : (n.contentEn || n.contentTa)}</p>
+                            ${imageHtml}
                         </div>
                         <div class="notice-card-footer" style="padding-top: 16px; border-top: 1px dashed var(--border-glass); margin-top: 16px;">
                             <span style="font-size: 0.88rem; font-style: italic; color: var(--primary); display: flex; gap: 8px; align-items: flex-start; line-height: 1.4;">

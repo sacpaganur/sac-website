@@ -360,10 +360,9 @@ body:lang(ta) .gallery-card-title {
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   -webkit-backdrop-filter: blur(20px);
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
   opacity: 0;
   transition: opacity 0.4s ease;
+  overscroll-behavior: contain;
 }
 
 .lightbox-overlay.open {
@@ -452,7 +451,7 @@ body:lang(ta) .gallery-card-title {
   transform: scale(1.05);
 }
 
-.btn-close { top: -56px; right: 0; }
+.btn-close { position: fixed; top: 24px; right: 24px; }
 .btn-prev { left: -76px; top: 50%; margin-top: -26px; }
 .btn-next { right: -76px; top: 50%; margin-top: -26px; }
 

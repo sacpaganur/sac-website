@@ -577,6 +577,11 @@ const SAC_DATABASE = {
     } catch (e) {
       if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED' || (e.message && e.message.includes('quota'))) {
         console.warn("Local storage limit reached! Cannot cache collection: " + key);
+        if (typeof showGlobalErrorAlert === 'function') {
+           showGlobalErrorAlert("Storage Limit Reached", "Your browser's local storage is completely full. Please delete some old gallery images or announcements to free up space before saving new ones.");
+        } else {
+           alert("Storage Limit Reached: Your browser's local storage is full. Please delete some old data to free up space.");
+        }
       } else {
         console.error("Storage error:", e);
       }
@@ -622,17 +627,15 @@ const SAC_DATABASE = {
           .catch(err => {
             console.error(`Firestore save failed for ${collectionName}:`, err);
             if (err.code === 'permission-denied') {
-              const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-              if (!isLocalhost) {
                 if (typeof showGlobalErrorAlert === 'function') {
-                  showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
+                  showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data. If you are testing locally, check your Firestore Security Rules.");
                 } else {
-                  showToast("Security Error: Permission Denied. You must be logged in to save.");
+                  alert("Security Error: Permission Denied. Check your Firestore Security Rules.");
                 }
-              } else {
-                console.warn("Localhost bypass: Suppressed permission denied error for save.");
-              }
+            } else {
+                alert("Firestore Error: " + err.message);
             }
+            throw err;
           });
       } else {
         const { id, ...dataWithoutId } = data;
@@ -640,17 +643,15 @@ const SAC_DATABASE = {
           .catch(err => {
             console.error(`Firestore save failed for ${collectionName}:`, err);
             if (err.code === 'permission-denied') {
-              const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-              if (!isLocalhost) {
                 if (typeof showGlobalErrorAlert === 'function') {
-                  showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data.");
+                  showGlobalErrorAlert("Security Error", "Permission Denied. Please log in securely to save data. If you are testing locally, check your Firestore Security Rules.");
                 } else {
-                  showToast("Security Error: Permission Denied. You must be logged in to save.");
+                  alert("Security Error: Permission Denied. Check your Firestore Security Rules.");
                 }
-              } else {
-                console.warn("Localhost bypass: Suppressed permission denied error for save.");
-              }
+            } else {
+                alert("Firestore Error: " + err.message);
             }
+            throw err;
           });
       }
     }

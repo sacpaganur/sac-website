@@ -103,10 +103,10 @@
                 <div class="notices-liturgical-badge">
                     <span class="material-icons" aria-hidden="true"
                         style="font-size: 16px;">local_fire_department</span>
-                    <span data-i18n="devotion.heroKicker">நம்பிக்கையின் ஒளி (Light of Faith)</span>
+                    <span data-i18n="devotion.heroKicker">நம்பிக்கையின் ஒளி</span>
                 </div>
                 <h2 class="notices-hero-title" data-i18n="devotion.heroTitle">மெழுகுவர்த்தி ஏற்றி செபிப்போம்</h2>
-                <p class="notices-hero-subtitle" style="margin-bottom: 24px;">Light a Candle, Say a Prayer</p>
+                <!-- <p class="notices-hero-subtitle" style="margin-bottom: 24px;">Light a Candle, Say a Prayer</p> -->
 
                 <div class="notices-hero-counter"
                     style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 24px; text-align: center; margin-top: 10px;">
@@ -123,13 +123,7 @@
         <!-- 13 Week Novena Section -->
         <section id="novena-section" class="devotion-section novena-section reveal-base reveal-up">
             <div class="devotion-section-header">
-                <h3 class="section-heading">புனித அந்தோணியார் 13 வார நவநாள் செபம்</h3>
-                <p class="section-desc">13-Week Tuesday Novena Prayers</p>
-
-                <div class="language-toggle">
-                    <span class="lang-label ta active" onclick="toggleLanguage('ta')">தமிழ்</span>
-                    <span class="lang-label en" onclick="toggleLanguage('en')">English</span>
-                </div>
+                <h3 class="section-heading" data-i18n="devotion.novenaTitle">புனித அந்தோணியார் 13 வார நவநாள் செபம்</h3>
             </div>
 
             <div class="novena-content-container">
@@ -480,10 +474,10 @@
 
             <!-- Floating Close Button -->
             <button onclick="closePrayerModal()"
-                style="position:absolute; top:20px; right:20px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer; box-shadow:var(--shadow-soft); z-index:10; transition:all 0.3s;"
+                style="position:absolute; top:12px; right:12px; background:var(--bg-card); border:1px solid var(--border-glass); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer; box-shadow:var(--shadow-soft); z-index:100; transition:all 0.3s;"
                 onmouseover="this.style.transform='rotate(90deg)'; this.style.background='var(--primary)'; this.style.color='#fff';"
                 onmouseout="this.style.transform='none'; this.style.background='var(--bg-card)'; this.style.color='var(--text-secondary)';">
-                <span class="material-icons">close</span>
+                <span class="material-icons" style="font-size: 20px;">close</span>
             </button>
 
             <!-- Elegant Header -->
@@ -531,6 +525,9 @@
         document.addEventListener('DOMContentLoaded', async () => {
             await SAC_COMMON.init('devotion');
 
+            // Set initial novena visibility based on global language
+            updateNovenaLanguage();
+
             // Load and render prayer wall requests
             await loadPrayerRequests();
 
@@ -574,6 +571,9 @@
             // Listen for global language changes
             window.addEventListener('sacLanguageChanged', async () => {
                 await loadPrayerRequests();
+                
+                // Update novena section visibility based on language
+                updateNovenaLanguage();
 
                 // Update custom select display text based on current selected option
                 setTimeout(() => {
@@ -586,6 +586,21 @@
                 }, 50);
             });
         });
+
+        function updateNovenaLanguage() {
+            const isTa = SAC_COMMON.currentLang === 'ta';
+            const taBlock = document.querySelector('.prayer-block.lang-ta');
+            const enBlock = document.querySelector('.prayer-block.lang-en');
+            if (taBlock && enBlock) {
+                if (isTa) {
+                    taBlock.classList.add('active');
+                    enBlock.classList.remove('active');
+                } else {
+                    enBlock.classList.add('active');
+                    taBlock.classList.remove('active');
+                }
+            }
+        }
 
         // ----------------------------------------------------
         // CUSTOM SELECT UI LOGIC
@@ -1027,8 +1042,8 @@
             const modalInner = document.getElementById('prayer-modal-inner');
 
             // Prevent background scroll
-            document.documentElement.style.overflow = 'hidden';
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
+            document.documentElement.classList.add('modal-open');
 
             // Show and animate in
             modal.style.display = 'flex';
@@ -1045,8 +1060,8 @@
             const modalInner = document.getElementById('prayer-modal-inner');
 
             // Restore background scroll
-            document.documentElement.style.overflow = '';
-            document.body.style.overflow = '';
+            document.body.classList.remove('modal-open');
+            document.documentElement.classList.remove('modal-open');
 
             // Animate out
             modal.style.opacity = '0';

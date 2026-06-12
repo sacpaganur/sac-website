@@ -257,7 +257,7 @@ const VoiceInput = {
         if (this._silenceTimer) clearTimeout(this._silenceTimer);
         this._silenceTimer = setTimeout(() => {
           if (this.isRecording) this.stop();
-        }, 5000);
+        }, 10000);
       }
     };
 
@@ -266,7 +266,7 @@ const VoiceInput = {
         if (this._silenceTimer) clearTimeout(this._silenceTimer);
         this._silenceTimer = setTimeout(() => {
           if (this.isRecording) this.stop();
-        }, 3000);
+        }, 60000);
       }
 
       let currentSessionText = '';

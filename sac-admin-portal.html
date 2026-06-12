@@ -1460,6 +1460,47 @@
                                 <textarea id="notice-contentTa" class="form-control" required></textarea>
                             </div>
                             <div class="form-group">
+                                <label class="form-label">Announcement Image / Poster (Optional)</label>
+                                <div style="display:flex; gap:20px; align-items:stretch; flex-wrap:wrap;">
+                                    <div style="flex-grow: 1; min-width: 250px;">
+                                        <div class="file-upload-wrapper"
+                                            style="height:100%; min-height: 140px; position:relative; border: 2px dashed var(--border-glass); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--bg-card);"
+                                            onmouseover="this.style.borderColor='var(--primary)'; this.style.backgroundColor='#f3e8ff';"
+                                            onmouseout="this.style.borderColor='#cbd5e1'; this.style.backgroundColor='#fff';">
+                                            <input type="file" id="notice-file-picker"
+                                                accept="image/png, image/jpeg, image/jpg, image/webp"
+                                                style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; cursor:pointer; z-index:1;"
+                                                onchange="handleNoticeImageSelect(event)">
+                                            <div
+                                                style="width:50px; height:50px; border-radius:50%; background:#f3e8ff; display:flex; align-items:center; justify-content:center; margin-bottom:12px; color:var(--primary);">
+                                                <span class="material-icons" style="font-size: 28px;">add_photo_alternate</span>
+                                            </div>
+                                            <p id="notice-drop-text"
+                                                style="margin:0; font-size: 14px; color: var(--text-secondary); font-weight:500;">
+                                                Click or drop an image (Max: 5MB)</p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="width: 130px; display:flex; flex-direction:column; align-items:center; gap:8px;">
+                                        <span style="font-size:13px; font-weight:600; color:var(--text-secondary);">Live Preview</span>
+                                        <div
+                                            style="position:relative; width:100px; height:100px; border-radius:16px; border:2px solid var(--border-glass); display:flex; align-items:center; justify-content:center; background:var(--bg-card); box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition:all 0.3s ease;">
+                                            <span id="notice-default-emoji" style="font-size:40px; opacity:0.5;">🖼️</span>
+                                            <img loading="lazy" id="notice-preview-img" src=""
+                                                style="display:none; max-width:85%; max-height:85%; border-radius:8px; object-fit:contain;">
+                                            
+                                            <button type="button" id="notice-remove-btn" onclick="clearNoticeImagePreview()"
+                                                style="display:none; position:absolute; top:-10px; right:-10px; background: #ef4444; color: white; padding:0; width:28px; height:28px; border-radius: 50%; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4); z-index:2; border: 2px solid white; cursor: pointer; align-items:center; justify-content:center; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);"
+                                                title="Remove Image"
+                                                onmouseover="this.style.transform='scale(1.15) rotate(90deg)';"
+                                                onmouseout="this.style.transform='scale(1) rotate(0deg)';">
+                                                <span class="material-icons" style="font-size:16px; margin:0; line-height:1;">close</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="form-label">Expiry Date (Notice will hide after this date)</label>
                                 <input type="date" id="notice-expiryDate" class="form-control" required>
                             </div>
@@ -3102,6 +3143,18 @@
             document.getElementById('notice-contentEn').value = n.contentEn;
             document.getElementById('notice-contentTa').value = n.contentTa;
             document.getElementById('notice-expiryDate').value = n.expiryDate;
+            
+            if (n.imageUrl) {
+                selectedNoticeImageBase64 = n.imageUrl;
+                document.getElementById('notice-default-emoji').style.display = 'none';
+                document.getElementById('notice-preview-img').src = selectedNoticeImageBase64;
+                document.getElementById('notice-preview-img').style.display = 'block';
+                document.getElementById('notice-remove-btn').style.display = 'flex';
+                const isTa = SAC_COMMON && SAC_COMMON.currentLang === 'ta';
+                document.getElementById('notice-drop-text').innerHTML = isTa ? `தற்போதைய படம் ஏற்றப்பட்டது<br><span style="font-size:12px;color:#888;">மாற்ற கிளிக் செய்யவும்</span>` : `Image Loaded<br><span style="font-size:12px;color:#888;">Click or drop to change</span>`;
+            } else {
+                clearNoticeImagePreview();
+            }
 
             const btnLabel = document.getElementById('notice-btn-submit-label');
             if (btnLabel) btnLabel.innerText = "மாற்றங்களைச் சேமி (Update)";
@@ -3113,6 +3166,7 @@
         async function saveNotice(e) {
             e.preventDefault();
             if (!validateAdminForm(e.target)) return;
+            
             const id = document.getElementById('notice-id').value;
             const data = {
                 date: document.getElementById('notice-date').value,
@@ -3121,7 +3175,8 @@
                 titleTa: document.getElementById('notice-titleTa').value,
                 contentEn: document.getElementById('notice-contentEn').value,
                 contentTa: document.getElementById('notice-contentTa').value,
-                expiryDate: document.getElementById('notice-expiryDate').value
+                expiryDate: document.getElementById('notice-expiryDate').value,
+                imageUrl: selectedNoticeImageBase64 || ""
             };
             if (id) data.id = id;
 
@@ -3143,8 +3198,109 @@
         function resetNoticeForm() {
             document.getElementById('form-crud-notice').reset();
             document.getElementById('notice-id').value = '';
+            clearNoticeImagePreview();
             const btnLabel = document.getElementById('notice-btn-submit-label');
             if (btnLabel) btnLabel.innerText = "அறிவிப்பை வெளியிடு";
+        }
+
+        let selectedNoticeImageBase64 = null;
+
+        function handleNoticeImageSelect(e) {
+            const file = e.target.files[0];
+            if (!file) {
+                clearNoticeImagePreview();
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                showGlobalErrorAlert("File too large!", "Please select an image under 5MB.");
+                e.target.value = '';
+                return;
+            }
+
+            const isTa = SAC_COMMON && SAC_COMMON.currentLang === 'ta';
+            const dropText = document.getElementById('notice-drop-text');
+            if (dropText) {
+                dropText.innerHTML = isTa ? `படத்தை சுருக்குகிறது...<br><span style="font-size:12px;color:#888;">தயவுசெய்து காத்திருக்கவும்</span>` : `Processing Image...<br><span style="font-size:12px;color:#888;">Please wait</span>`;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    // Max dimensions for safe database storage
+                    const MAX_WIDTH = 1600;
+                    const MAX_HEIGHT = 1600;
+                    
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Fill white background in case of transparent PNG to JPEG conversion
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, width, height);
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // High-Quality compression (92%)
+                    selectedNoticeImageBase64 = canvas.toDataURL('image/jpeg', 0.92);
+                    
+                    // Firebase Firestore has a hard limit of 1MB (1,048,576 bytes) per document.
+                    // If the 92% quality image is too big, try compressing it more before giving up.
+                    if (selectedNoticeImageBase64.length > 950000) {
+                        selectedNoticeImageBase64 = canvas.toDataURL('image/jpeg', 0.80);
+                    }
+                    if (selectedNoticeImageBase64.length > 950000) {
+                        selectedNoticeImageBase64 = canvas.toDataURL('image/jpeg', 0.65);
+                    }
+                    
+                    if (selectedNoticeImageBase64.length > 950000) {
+                         showGlobalErrorAlert("Image too complex", "Even after heavy compression, this image is too large for the database limit (1MB). Please select a simpler or smaller image.");
+                         clearNoticeImagePreview();
+                         return;
+                    }
+                    
+                    document.getElementById('notice-default-emoji').style.display = 'none';
+                    document.getElementById('notice-preview-img').src = selectedNoticeImageBase64;
+                    document.getElementById('notice-preview-img').style.display = 'block';
+                    document.getElementById('notice-remove-btn').style.display = 'flex';
+                    
+                    if (dropText) {
+                        dropText.innerHTML = isTa ? `தற்போதைய கோப்பு: <b>${file.name}</b><br><span style="font-size:12px;color:#888;">மாற்ற கிளிக் செய்யவும்</span>` : `Current file: <b>${file.name}</b><br><span style="font-size:12px;color:#888;">Click or drop to change</span>`;
+                    }
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearNoticeImagePreview() {
+            selectedNoticeImageBase64 = null;
+            document.getElementById('notice-file-picker').value = '';
+            document.getElementById('notice-default-emoji').style.display = 'block';
+            document.getElementById('notice-preview-img').style.display = 'none';
+            document.getElementById('notice-preview-img').src = '';
+            document.getElementById('notice-remove-btn').style.display = 'none';
+            const isTa = SAC_COMMON && SAC_COMMON.currentLang === 'ta';
+            const dropText = document.getElementById('notice-drop-text');
+            if (dropText) {
+                dropText.innerHTML = isTa ? `படம் / போஸ்டரை தேர்வு செய்யவும் (Max: 5MB)` : `Click or drop an image (Max: 5MB)`;
+            }
         }
 
         // ======================= TAB 4: TIMELINE FUNCTIONS =======================
