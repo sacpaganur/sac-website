@@ -1473,8 +1473,8 @@ const SAC_COMMON = {
                               <div class="l-time-box"><div class="l-time-val" id="cd-secs">00</div><div class="l-time-label">SECS</div></div>
                           </div>
 
-                          <div id="live-current-time" style="font-family: 'Tiro Tamil', serif; font-size: 1.1rem; color: #7e22ce; font-weight: 800; margin-bottom: 30px; display: flex; justify-content: center; align-items: center;">
-                              தற்போதைய நேரம்: <span id="current-time-display" style="color: #db2777; margin-left: 10px; font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: 2px; display: inline-block; font-variant-numeric: tabular-nums;">--:--:-- --</span>
+                          <div id="live-current-time" class="l-current-time-container">
+                              தற்போதைய நேரம்: <span id="current-time-display" class="l-current-time-display">--:--:-- --</span>
                           </div>
 
                           <div class="l-glow-line"></div>
@@ -1552,6 +1552,10 @@ const SAC_COMMON = {
 
                           /* Countdown Styles */
                           .l-countdown { display: flex; justify-content: center; gap: 20px; margin-bottom: 35px; }
+                          
+                          /* Live Clock Styles */
+                          .l-current-time-container { font-family: 'Tiro Tamil', serif; font-size: 1.1rem; color: #7e22ce; font-weight: 800; margin-bottom: 30px; display: flex; justify-content: center; align-items: center; flex-direction: row; gap: 10px; }
+                          .l-current-time-display { color: #db2777; font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: 2px; font-variant-numeric: tabular-nums; }
                           .l-time-box { 
                               background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(147, 51, 234, 0.15); 
                               border-radius: 16px; width: 90px; padding: 15px 0;
@@ -1589,6 +1593,8 @@ const SAC_COMMON = {
                               .l-time-box { width: 70px; padding: 10px 0; border-radius: 12px; }
                               .l-time-val { font-size: 1.8rem; }
                               .l-time-label { font-size: 0.55rem; }
+                              .l-current-time-container { flex-direction: column; font-size: 1rem; gap: 6px; }
+                              .l-current-time-display { font-size: 1.2rem; }
                               .l-badge { margin: 15px 0 20px 0; padding: 6px 15px; font-size: 0.65rem; }
                           }
 
