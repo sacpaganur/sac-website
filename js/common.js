@@ -1434,11 +1434,40 @@ const SAC_COMMON = {
       // ==========================================
       const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
       const isDevEnvironment = window.location.hostname === 'localhost' || window.location.hostname === 'stacpaganurdev.web.app';
-      const launchTargetDate = new Date('June 13, 2026 21:00:00').getTime();
+      const launchTargetDate = new Date('June 13, 2026 17:30:00').getTime();
       const isPastLaunch = new Date().getTime() >= launchTargetDate;
 
-      if (this.settings && (this.settings.launchMode === true || this.settings.launchMode === 'true') && !isPastLaunch) {
+      if (this.settings && (this.settings.launchMode === true || this.settings.launchMode === 'true')) {
         if (this.pageName !== 'admin' && !isAdminLogged && !isDevEnvironment) {
+
+          // 1. Local Testing & Cross-Tab Sync (Instant Unlock when Admin saves in another tab)
+          window.addEventListener('storage', (e) => {
+            if (e.key === 'sac_settings') {
+              try {
+                const newSettings = JSON.parse(e.newValue);
+                if (newSettings && (newSettings.launchMode === false || newSettings.launchMode === 'false')) {
+                  console.log("Launch unlocked via local sync!");
+                  window.location.reload();
+                }
+              } catch (err) { }
+            }
+          });
+
+          // 2. Real-World Production Sync (Instant unlock for thousands of users without exhausting quota)
+          if (typeof window.firebase !== 'undefined' && window.firebase.firestore) {
+            try {
+              window.firebase.firestore().collection("settings").onSnapshot((snapshot) => {
+                if (!snapshot.empty) {
+                  const data = snapshot.docs[0].data();
+                  if (data.launchMode === false || data.launchMode === 'false') {
+                    console.log("Launch unlocked via live server signal!");
+                    window.location.reload();
+                  }
+                }
+              });
+            } catch (e) { console.warn("Live launch listener failed:", e); }
+          }
+
           document.body.innerHTML = `
                   <div class="l-wrapper">
                       <!-- Ambient orbs and Festive Elements -->
@@ -1674,9 +1703,16 @@ const SAC_COMMON = {
             const distance = launchTargetDate - now;
 
             if (distance <= 0) {
-              clearInterval(timer);
-              // Time reached! Refresh the page so the public can instantly see the live site.
-              window.location.reload();
+              if (document.getElementById('cd-days')) {
+                document.getElementById('cd-days').innerText = '00';
+                document.getElementById('cd-hours').innerText = '00';
+                document.getElementById('cd-mins').innerText = '00';
+                document.getElementById('cd-secs').innerText = '00';
+              }
+              if (document.getElementById('current-time-display')) {
+                document.getElementById('current-time-display').innerText = new Date(now).toLocaleTimeString('en-US');
+              }
+              // Waiting for the admin to flip the switch...
               return;
             }
 
