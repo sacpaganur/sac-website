@@ -7,6 +7,7 @@ window.SAC_FOOTER = {
     if (!mount || mount.dataset.sacEnhanced === 'true') return;
     mount.outerHTML = this.markup;
     this.bindBackToTop();
+    this.fetchVisitorCount();
   },
 
   bindBackToTop() {
@@ -20,6 +21,36 @@ window.SAC_FOOTER = {
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       });
     });
+  },
+
+  fetchVisitorCount() {
+    // Robust, independent failsafe to ensure visitor count always displays
+    setTimeout(() => {
+      const visitorEl = document.getElementById('public-visitor-number');
+      if (!visitorEl || (visitorEl.innerText !== '-' && visitorEl.innerText !== '')) return;
+      
+      // Try using the main SAC_DATABASE first if available
+      if (window.SAC_DATABASE && typeof SAC_DATABASE.getVisitorStats === 'function') {
+        SAC_DATABASE.getVisitorStats().then(count => {
+          if (count > 0) visitorEl.innerText = count.toLocaleString();
+        }).catch(() => {});
+      }
+      
+      // Secondary absolute failsafe directly via firebase
+      setTimeout(() => {
+        if (visitorEl.innerText === '-' || visitorEl.innerText === '') {
+          if (window.firebase && window.firebase.firestore) {
+            window.firebase.firestore().collection('stats').doc('visitors').get()
+              .then(doc => {
+                if (doc.exists) visitorEl.innerText = (doc.data().total_count || 0).toLocaleString();
+                else visitorEl.innerText = '0';
+              }).catch(() => { visitorEl.innerText = '0'; });
+          } else {
+            visitorEl.innerText = '0';
+          }
+        }
+      }, 1500);
+    }, 1000);
   },
 
   markup: `
