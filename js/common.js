@@ -1474,7 +1474,7 @@ const SAC_COMMON = {
                           </div>
 
                           <div id="live-current-time" style="font-family: 'Tiro Tamil', serif; font-size: 1.1rem; color: #7e22ce; font-weight: 800; margin-bottom: 30px; display: flex; justify-content: center; align-items: center;">
-                              தற்போதைய நேரம்: <span id="current-time-display" style="color: #db2777; margin-left: 10px; font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: 2px; display: inline-block;">--:--:-- --</span>
+                              தற்போதைய நேரம்: <span id="current-time-display" style="color: #db2777; margin-left: 10px; font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: 2px; display: inline-block; font-variant-numeric: tabular-nums;">--:--:-- --</span>
                           </div>
 
                           <div class="l-glow-line"></div>
