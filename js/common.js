@@ -1434,7 +1434,7 @@ const SAC_COMMON = {
       // ==========================================
       const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
       const isDevEnvironment = window.location.hostname === 'localhost' || window.location.hostname === 'stacpaganurdev.web.app';
-      const launchTargetDate = new Date('June 13, 2026 17:30:00').getTime();
+      const launchTargetDate = new Date('June 13, 2026 21:00:00').getTime();
       const isPastLaunch = new Date().getTime() >= launchTargetDate;
 
       if (this.settings && (this.settings.launchMode === true || this.settings.launchMode === 'true')) {
@@ -1456,14 +1456,14 @@ const SAC_COMMON = {
           // 2. Real-World Production Sync (Instant unlock for thousands of users without exhausting quota)
           if (typeof window.firebase !== 'undefined' && window.firebase.firestore) {
             try {
-              window.firebase.firestore().collection("settings").onSnapshot((snapshot) => {
-                if (!snapshot.empty) {
-                  const data = snapshot.docs[0].data();
-                  if (data.launchMode === false || data.launchMode === 'false') {
-                    console.log("Launch unlocked via live server signal!");
-                    window.location.reload();
+              window.firebase.firestore().collection("settings").doc("global").onSnapshot((doc) => {
+                  if (doc.exists) {
+                      const data = doc.data();
+                      if (data.launchMode === false || data.launchMode === 'false') {
+                          console.log("Launch unlocked via live server signal!");
+                          window.location.reload();
+                      }
                   }
-                }
               });
             } catch (e) { console.warn("Live launch listener failed:", e); }
           }
