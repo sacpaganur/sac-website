@@ -136,17 +136,17 @@ body.mystery-theme-glorious .rosary-main-container::before {
   justify-content: center;
   gap: 8px;
   font-size: 0.95rem;
-  color: #64748b;
+  color: var(--text-primary);
   font-weight: 600;
-  background: rgba(241, 245, 249, 0.6);
+  background: var(--bg-input);
   padding: 6px 16px;
   border-radius: 100px;
-  border: 1px solid rgba(203, 213, 225, 0.5);
+  border: 1px solid var(--border-glass);
 }
 
 .rosary-progress .material-icons {
   font-size: 1.2rem;
-  color: #8b5cf6;
+  color: var(--primary);
 }
 
 /* Tap Zone */

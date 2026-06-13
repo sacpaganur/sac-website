@@ -1434,7 +1434,7 @@ const SAC_COMMON = {
       // ==========================================
       const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
       const isDevEnvironment = window.location.hostname === 'localhost' || window.location.hostname === 'stacpaganurdev.web.app';
-      const launchTargetDate = new Date('June 13, 2026 21:00:00').getTime();
+      const launchTargetDate = new Date('June 13, 2026 09:25:00').getTime();
       const isPastLaunch = new Date().getTime() >= launchTargetDate;
 
       if (this.settings && (this.settings.launchMode === true || this.settings.launchMode === 'true') && !isPastLaunch) {
