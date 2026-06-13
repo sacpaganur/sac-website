@@ -1463,14 +1463,18 @@ const SAC_COMMON = {
                           <h1 class="l-title-ta">புதிய இணையதள திறப்பு விழா</h1>
                           <h2 class="l-title-en">OFFICIAL WEBSITE LAUNCH</h2>
                           
-                          <p class="l-desc-ta">புனித அந்தோணியார் ஆலயத்தின் புதிய அதிகாரப்பூர்வ இணையதளம் ஜூன் 13, 2026 இரவு 9:00 மணிக்கு நேரலையில்...</p>
-                          <p class="l-desc-en">Experience our new digital sanctuary. Going live on June 13, 2026 at 9:00 PM.</p>
+                          <p class="l-desc-ta">புனித அந்தோணியார் ஆலயத்தின் புதிய அதிகாரப்பூர்வ இணையதளம் இன்று ஜூன் 13, 2026 இரவு 9:00 மணிக்கு நேரலையில்...</p>
+                          <p class="l-desc-en">Experience our new digital sanctuary. Going live Today, June 13, 2026 at 9:00 PM.</p>
 
                           <div class="l-countdown" id="launch-countdown">
                               <div class="l-time-box"><div class="l-time-val" id="cd-days">00</div><div class="l-time-label">DAYS</div></div>
                               <div class="l-time-box"><div class="l-time-val" id="cd-hours">00</div><div class="l-time-label">HOURS</div></div>
                               <div class="l-time-box"><div class="l-time-val" id="cd-mins">00</div><div class="l-time-label">MINS</div></div>
                               <div class="l-time-box"><div class="l-time-val" id="cd-secs">00</div><div class="l-time-label">SECS</div></div>
+                          </div>
+
+                          <div id="live-current-time" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #d8b4fe; font-weight: 600; letter-spacing: 2px; margin-bottom: 30px;">
+                              CURRENT TIME: <span id="current-time-display" style="color: #ffffff; margin-left: 8px;">--:--:-- --</span>
                           </div>
 
                           <div class="l-glow-line"></div>
@@ -1679,6 +1683,10 @@ const SAC_COMMON = {
               document.getElementById('cd-hours').innerText = hours.toString().padStart(2, '0');
               document.getElementById('cd-mins').innerText = minutes.toString().padStart(2, '0');
               document.getElementById('cd-secs').innerText = seconds.toString().padStart(2, '0');
+            }
+
+            if (document.getElementById('current-time-display')) {
+              document.getElementById('current-time-display').innerText = new Date(now).toLocaleTimeString('en-US');
             }
           }, 1000);
 
