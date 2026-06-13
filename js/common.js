@@ -1583,19 +1583,20 @@ const SAC_COMMON = {
 
                           /* Responsive Rules */
                           @media (max-width: 640px) {
-                              .l-glass-board { padding: 50px 20px 30px 20px; border-radius: 24px; width: 95%; }
-                              .l-logo-container { width: 90px; height: 90px; top: -45px; }
-                              .l-title-ta { font-size: 1.6rem; }
-                              .l-title-en { font-size: 0.85rem; }
-                              .l-desc-ta { font-size: 0.95rem; }
-                              .l-desc-en { font-size: 0.8rem; }
-                              .l-countdown { gap: 10px; margin-bottom: 25px; }
-                              .l-time-box { width: 70px; padding: 10px 0; border-radius: 12px; }
-                              .l-time-val { font-size: 1.8rem; }
-                              .l-time-label { font-size: 0.55rem; }
-                              .l-current-time-container { flex-direction: column; font-size: 1rem; gap: 6px; }
-                              .l-current-time-display { font-size: 1.2rem; }
-                              .l-badge { margin: 15px 0 20px 0; padding: 6px 15px; font-size: 0.65rem; }
+                              .l-wrapper { align-items: flex-start; padding-top: 70px; padding-bottom: 30px; overflow-y: auto; }
+                              .l-glass-board { padding: 40px 15px 25px 15px; border-radius: 20px; width: 92%; margin: 0 auto; }
+                              .l-logo-container { width: 80px; height: 80px; top: -40px; }
+                              .l-title-ta { font-size: 1.5rem; margin-bottom: 5px; }
+                              .l-title-en { font-size: 0.8rem; margin-bottom: 12px; }
+                              .l-desc-ta { font-size: 0.9rem; margin-bottom: 8px; }
+                              .l-desc-en { font-size: 0.75rem; margin-bottom: 15px; }
+                              .l-countdown { gap: 8px; margin-bottom: 20px; }
+                              .l-time-box { width: 65px; padding: 8px 0; border-radius: 12px; }
+                              .l-time-val { font-size: 1.6rem; }
+                              .l-time-label { font-size: 0.5rem; }
+                              .l-current-time-container { flex-direction: column; font-size: 0.9rem; gap: 4px; margin-bottom: 20px; }
+                              .l-current-time-display { font-size: 1.1rem; }
+                              .l-badge { margin: 10px 0 15px 0; padding: 5px 12px; font-size: 0.6rem; }
                           }
 
                           @media (max-height: 700px) {
