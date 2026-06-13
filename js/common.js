@@ -1463,7 +1463,7 @@ const SAC_COMMON = {
                           <h1 class="l-title-ta">புதிய இணையதள திறப்பு விழா</h1>
                           <h2 class="l-title-en">OFFICIAL WEBSITE LAUNCH</h2>
                           
-                          <p class="l-desc-ta">புனித அந்தோணியார் ஆலயத்தின் புதிய அதிகாரப்பூர்வ இணையதளம் விரைவில் நேரலையில்...</p>
+                          <p class="l-desc-ta">புனித அந்தோணியார் ஆலயத்தின் புதிய அதிகாரப்பூர்வ இணையதளம் ஜூன் 13, 2026 இரவு 9:00 மணிக்கு நேரலையில்...</p>
                           <p class="l-desc-en">Experience our new digital sanctuary. Going live on June 13, 2026 at 9:00 PM.</p>
 
                           <div class="l-countdown" id="launch-countdown">
