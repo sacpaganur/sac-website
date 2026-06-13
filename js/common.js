@@ -1429,12 +1429,12 @@ const SAC_COMMON = {
         this.settings = SAC_DATABASE.defaultData.settings;
       }
 
-      // ==========================================
+      // ========================================== 
       // LAUNCH MODE INTERCEPTION (Takes priority over Maintenance Mode)
       // ==========================================
       const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
       const isDevEnvironment = window.location.hostname === 'localhost' || window.location.hostname === 'stacpaganurdev.web.app';
-      const launchTargetDate = new Date('June 13, 2026 21:00:00').getTime();
+      const launchTargetDate = new Date('June 13, 2026 09:32:00').getTime();
       const isPastLaunch = new Date().getTime() >= launchTargetDate;
 
       if (this.settings && (this.settings.launchMode === true || this.settings.launchMode === 'true') && !isPastLaunch) {
