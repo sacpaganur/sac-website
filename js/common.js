@@ -1473,8 +1473,8 @@ const SAC_COMMON = {
                               <div class="l-time-box"><div class="l-time-val" id="cd-secs">00</div><div class="l-time-label">SECS</div></div>
                           </div>
 
-                          <div id="live-current-time" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #d8b4fe; font-weight: 600; letter-spacing: 2px; margin-bottom: 30px;">
-                              CURRENT TIME: <span id="current-time-display" style="color: #ffffff; margin-left: 8px;">--:--:-- --</span>
+                          <div id="live-current-time" style="font-family: 'Tiro Tamil', serif; font-size: 1.1rem; color: #7e22ce; font-weight: 800; margin-bottom: 30px; display: flex; justify-content: center; align-items: center;">
+                              தற்போதைய நேரம்: <span id="current-time-display" class="l-time-tick" style="color: #db2777; margin-left: 10px; font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: 2px; display: inline-block;">--:--:-- --</span>
                           </div>
 
                           <div class="l-glow-line"></div>
@@ -1549,6 +1549,13 @@ const SAC_COMMON = {
 
                           .l-desc-ta { font-family: 'Tiro Tamil', serif; font-size: 1.05rem; line-height: 1.6; color: #475569; margin: 0 0 10px 0; }
                           .l-desc-en { font-size: 0.9rem; line-height: 1.5; color: #64748b; margin: 0 0 35px 0; }
+
+                          .l-time-tick { animation: tickPulse 1s ease-in-out infinite; }
+                          @keyframes tickPulse {
+                              0% { transform: scale(1); opacity: 1; text-shadow: 0 0 0px rgba(219,39,119,0); }
+                              50% { transform: scale(1.08); opacity: 0.7; text-shadow: 0 0 10px rgba(219,39,119,0.5); }
+                              100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0px rgba(219,39,119,0); }
+                          }
 
                           /* Countdown Styles */
                           .l-countdown { display: flex; justify-content: center; gap: 20px; margin-bottom: 35px; }
