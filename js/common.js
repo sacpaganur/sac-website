@@ -2174,7 +2174,7 @@ const SAC_COMMON = {
         const todayStr = new Date().toDateString();
         let shouldLog = true;
         try {
-          if (localStorage.getItem('sac_visit_logged_v2') === todayStr) {
+          if (localStorage.getItem('sac_visit_logged_v3') === todayStr) {
             shouldLog = false;
           }
         } catch (e) {
@@ -2189,7 +2189,7 @@ const SAC_COMMON = {
           });
           justLogged = true;
           try {
-            localStorage.setItem('sac_visit_logged_v2', todayStr);
+            localStorage.setItem('sac_visit_logged_v3', todayStr);
           } catch (e) {
             console.warn("Could not save to localStorage");
           }

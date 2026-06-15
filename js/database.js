@@ -698,58 +698,80 @@ const SAC_DATABASE = {
 
   // --- VISITOR TRACKING ---
   async logVisit(data) {
-    if (!this.isFirebaseActive || !this.db) {
-      // Local fallback increment if Firebase is not active
-      let localCount = parseInt(this.getCollection("sac_visitor_count")) || 0;
-      this.setCollection("sac_visitor_count", localCount + 1);
-      return;
-    }
     try {
+      // 1. Always increment the local fallback counter FIRST for immediate UI reaction
+      let localCount = parseInt(this.getCollection("sac_visitor_count")) || 0;
+      localCount += 1;
+      this.setCollection("sac_visitor_count", localCount);
+
+      if (!this.isFirebaseActive || !this.db) {
+        return; // Offline mode, local increment is enough
+      }
+
       const id = "visit_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5);
       const dataWithId = { ...data, id, timestamp: new Date().toISOString() };
 
-      // 1. Log the individual visit (Catch errors so it doesn't block the counter increment)
+      // 2. Log the individual visit
       await this.db.collection("visitor_logs").doc(id).set(dataWithId).catch(e => {
         console.warn("Failed to write to visitor_logs (non-fatal):", e);
       });
 
-      // 2. Increment the total counter safely
-      await this.db.collection("stats").doc("visitors").set({
-        total_count: window.firebase.firestore.FieldValue.increment(1),
-        last_updated: new Date().toISOString()
-      }, { merge: true }).catch(e => {
-        console.warn("Failed to increment visitors stat:", e);
-      });
+      // 3. Robust counter increment (Bypassing FieldValue.increment issues)
+      const statsRef = this.db.collection("stats").doc("visitors");
+      try {
+        await this.db.runTransaction(async (transaction) => {
+          const doc = await transaction.get(statsRef);
+          let dbCount = doc.exists ? (doc.data().total_count || 0) : 0;
+          let newCount = Math.max(dbCount + 1, localCount);
+          transaction.set(statsRef, {
+            total_count: newCount,
+            last_updated: new Date().toISOString()
+          }, { merge: true });
+          this.setCollection("sac_visitor_count", newCount);
+        });
+      } catch (txError) {
+        console.warn("Transaction failed, falling back to basic set:", txError);
+        const doc = await statsRef.get();
+        let dbCount = doc.exists ? (doc.data().total_count || 0) : 0;
+        let newCount = Math.max(dbCount + 1, localCount);
+        await statsRef.set({
+          total_count: newCount,
+          last_updated: new Date().toISOString()
+        }, { merge: true });
+        this.setCollection("sac_visitor_count", newCount);
+      }
     } catch (e) {
       console.warn("Failed to log visit:", e);
     }
   },
 
   async getVisitorStats() {
-    // Try local cache first for speed, then fetch from db
-    let count = 0;
+    let localCount = parseInt(this.getCollection("sac_visitor_count")) || 0;
     try {
       if (this.isFirebaseActive && this.db) {
         const fetchPromise = this.db.collection("stats").doc("visitors").get();
         const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 2500));
         const doc = await Promise.race([fetchPromise, timeoutPromise]);
+        
         if (doc && doc.exists) {
-          count = doc.data().total_count || 0;
-          this.setCollection("sac_visitor_count", count);
-        } else {
-          count = parseInt(this.getCollection("sac_visitor_count")) || 0;
+          let dbCount = doc.data().total_count || 0;
+          
+          if (localCount > dbCount) {
+             this.db.collection("stats").doc("visitors").set({
+               total_count: localCount,
+               last_updated: new Date().toISOString()
+             }, { merge: true }).catch(() => {});
+             return localCount;
+          } else {
+             this.setCollection("sac_visitor_count", dbCount);
+             return dbCount;
+          }
         }
-      } else {
-        count = parseInt(this.getCollection("sac_visitor_count")) || 0;
       }
     } catch (e) {
-      try {
-        count = parseInt(this.getCollection("sac_visitor_count")) || 0;
-      } catch (innerE) {
-        count = 0;
-      }
+      console.warn("Using local visitor count:", e);
     }
-    return count;
+    return localCount;
   },
 
   async getVisitorLogs() {
