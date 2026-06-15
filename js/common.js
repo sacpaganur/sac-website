@@ -2128,9 +2128,7 @@ const SAC_COMMON = {
     const ensureFirebaseLoaded = () => {
       return new Promise((resolve) => {
         if (window.firebase) {
-          if (window.SAC_DATABASE && !window.SAC_DATABASE.isFirebaseActive) {
-            window.SAC_DATABASE.setupFirebaseConnection();
-          } else if (typeof SAC_DATABASE !== 'undefined' && !SAC_DATABASE.isFirebaseActive) {
+          if (typeof SAC_DATABASE !== 'undefined' && !SAC_DATABASE.isFirebaseActive) {
             SAC_DATABASE.setupFirebaseConnection();
           }
           resolve();
@@ -2146,9 +2144,7 @@ const SAC_COMMON = {
           firestoreScript.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js';
           firestoreScript.onload = () => {
             // Re-trigger DB connection check since firebase is now loaded
-            if (window.SAC_DATABASE) {
-              window.SAC_DATABASE.setupFirebaseConnection();
-            } else if (typeof SAC_DATABASE !== 'undefined') {
+            if (typeof SAC_DATABASE !== 'undefined') {
               SAC_DATABASE.setupFirebaseConnection();
             }
             resolve();
@@ -2166,7 +2162,7 @@ const SAC_COMMON = {
     } catch (e) { console.warn("Firebase load failed", e); }
 
     // Handle visitor tracking and display (Runs after Firebase is active)
-    if (window.SAC_DATABASE && typeof SAC_DATABASE.getVisitorStats === 'function') {
+    if (typeof SAC_DATABASE !== 'undefined' && typeof SAC_DATABASE.getVisitorStats === 'function') {
       // Skip logging if this is the admin portal or an admin is browsing
       let isAdminLogged = false;
       try {
@@ -2723,3 +2719,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// Expose globally to ensure accessibility across all modules
+window.SAC_COMMON = SAC_COMMON;

@@ -815,3 +815,7 @@ window.addEventListener('storage', (e) => {
 });
 
 
+
+
+// Expose globally to ensure accessibility across all modules
+window.SAC_DATABASE = SAC_DATABASE;
