@@ -2171,13 +2171,32 @@ const SAC_COMMON = {
         console.warn("sessionStorage not available");
       }
       let justLogged = false;
-      if (this.pageName !== 'admin' && !isAdminLogged && SAC_DATABASE.logVisit) {
-        SAC_DATABASE.logVisit({
-          page: window.location.pathname,
-          userAgent: navigator.userAgent,
-          lang: this.currentLang
-        });
-        justLogged = true;
+      
+      // Restrict logging strictly to the live production site
+      const isLiveSite = window.location.hostname === 'stacpaganur.web.app';
+      
+      if (isLiveSite && this.pageName !== 'admin' && !isAdminLogged && SAC_DATABASE.logVisit) {
+        let shouldLog = true;
+        try {
+          // Only log once per session to prevent refresh spam and double logging on mode-reload
+          const sessionLogged = sessionStorage.getItem('sac_visit_logged_session');
+          if (sessionLogged) {
+            shouldLog = false;
+          } else {
+            sessionStorage.setItem('sac_visit_logged_session', 'true');
+          }
+        } catch (e) {
+          console.warn("sessionStorage blocked for tracking");
+        }
+
+        if (shouldLog) {
+          SAC_DATABASE.logVisit({
+            page: window.location.pathname,
+            userAgent: navigator.userAgent,
+            lang: this.currentLang
+          });
+          justLogged = true;
+        }
       }
 
       // Fetch and display total visitor count in footer
