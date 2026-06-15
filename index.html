@@ -579,7 +579,9 @@
 
         // Upcoming Event Popup Logic
         async function checkUpcomingEvent() {
-            if (sessionStorage.getItem('eventPopupShown')) return;
+            try {
+                if (sessionStorage.getItem('eventPopupShown')) return;
+            } catch(e) {}
             const announcements = await SAC_DATABASE.get("announcements") || [];
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -622,7 +624,9 @@
 
                 setTimeout(() => {
                     document.getElementById('upcomingEventModal').classList.add('active');
-                    sessionStorage.setItem('eventPopupShown', 'true');
+                    try {
+                        sessionStorage.setItem('eventPopupShown', 'true');
+                    } catch(e) {}
                 }, 1500);
             }
         }

@@ -2163,18 +2163,36 @@ const SAC_COMMON = {
     // Handle visitor tracking and display (Runs after Firebase is active)
     if (window.SAC_DATABASE && typeof SAC_DATABASE.getVisitorStats === 'function') {
       // Skip logging if this is the admin portal or an admin is browsing
-      const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
+      let isAdminLogged = false;
+      try {
+        isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
+      } catch (e) {
+        console.warn("sessionStorage not available");
+      }
       let justLogged = false;
       if (this.pageName !== 'admin' && !isAdminLogged && SAC_DATABASE.logVisit) {
         const todayStr = new Date().toDateString();
-        if (localStorage.getItem('sac_visit_logged_today') !== todayStr) {
+        let shouldLog = true;
+        try {
+          if (localStorage.getItem('sac_visit_logged_today') === todayStr) {
+            shouldLog = false;
+          }
+        } catch (e) {
+          console.warn("localStorage not available, defaulting to logging visit");
+        }
+
+        if (shouldLog) {
           SAC_DATABASE.logVisit({
             page: window.location.pathname,
             userAgent: navigator.userAgent,
             lang: this.currentLang
           });
-          localStorage.setItem('sac_visit_logged_today', todayStr);
           justLogged = true;
+          try {
+            localStorage.setItem('sac_visit_logged_today', todayStr);
+          } catch (e) {
+            console.warn("Could not save to localStorage");
+          }
         }
       }
 
