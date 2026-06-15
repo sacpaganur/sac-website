@@ -2180,13 +2180,20 @@ const SAC_COMMON = {
         try {
           // Only log once per session to prevent refresh spam and double logging on mode-reload
           const sessionLogged = sessionStorage.getItem('sac_visit_logged_session');
-          if (sessionLogged) {
+          
+          // Also check localStorage to prevent cross-tab/new-window double logging (1 hour cooldown)
+          const lastLoggedTime = localStorage.getItem('sac_visit_logged_time');
+          const now = Date.now();
+          const ONE_HOUR = 60 * 60 * 1000;
+
+          if (sessionLogged || (lastLoggedTime && (now - parseInt(lastLoggedTime) < ONE_HOUR))) {
             shouldLog = false;
           } else {
             sessionStorage.setItem('sac_visit_logged_session', 'true');
+            localStorage.setItem('sac_visit_logged_time', now.toString());
           }
         } catch (e) {
-          console.warn("sessionStorage blocked for tracking");
+          console.warn("Storage blocked for tracking");
         }
 
         if (shouldLog) {
