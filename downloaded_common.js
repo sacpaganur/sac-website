@@ -2128,11 +2128,6 @@ const SAC_COMMON = {
     const ensureFirebaseLoaded = () => {
       return new Promise((resolve) => {
         if (window.firebase) {
-          if (window.SAC_DATABASE && !window.SAC_DATABASE.isFirebaseActive) {
-            window.SAC_DATABASE.setupFirebaseConnection();
-          } else if (typeof SAC_DATABASE !== 'undefined' && !SAC_DATABASE.isFirebaseActive) {
-            SAC_DATABASE.setupFirebaseConnection();
-          }
           resolve();
           return;
         }
