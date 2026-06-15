@@ -417,9 +417,7 @@ const SAC_DATABASE = {
           }
           this.db = window.firebase.firestore();
 
-          // Force Long Polling to bypass strict firewalls/proxies that block WebSockets/Streaming and cause 404s
           this.db.settings({
-            experimentalForceLongPolling: true,
             merge: true
           });
 
