@@ -2165,13 +2165,14 @@ const SAC_COMMON = {
       // Skip logging if this is the admin portal or an admin is browsing
       const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
       if (this.pageName !== 'admin' && !isAdminLogged && SAC_DATABASE.logVisit) {
-        if (!sessionStorage.getItem('sac_visit_logged_today')) {
+        const todayStr = new Date().toDateString();
+        if (localStorage.getItem('sac_visit_logged_today') !== todayStr) {
           SAC_DATABASE.logVisit({
             page: window.location.pathname,
             userAgent: navigator.userAgent,
             lang: this.currentLang
           });
-          sessionStorage.setItem('sac_visit_logged_today', 'true');
+          localStorage.setItem('sac_visit_logged_today', todayStr);
         }
       }
 

@@ -698,19 +698,28 @@ const SAC_DATABASE = {
 
   // --- VISITOR TRACKING ---
   async logVisit(data) {
-    if (!this.isFirebaseActive || !this.db) return;
+    if (!this.isFirebaseActive || !this.db) {
+      // Local fallback increment if Firebase is not active
+      let localCount = parseInt(this.getCollection("sac_visitor_count")) || 0;
+      this.setCollection("sac_visitor_count", localCount + 1);
+      return;
+    }
     try {
       const id = "visit_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5);
       const dataWithId = { ...data, id, timestamp: new Date().toISOString() };
 
-      // 1. Log the individual visit
-      await this.db.collection("visitor_logs").doc(id).set(dataWithId);
+      // 1. Log the individual visit (Catch errors so it doesn't block the counter increment)
+      await this.db.collection("visitor_logs").doc(id).set(dataWithId).catch(e => {
+        console.warn("Failed to write to visitor_logs (non-fatal):", e);
+      });
 
       // 2. Increment the total counter safely
       await this.db.collection("stats").doc("visitors").set({
-        total_count: firebase.firestore.FieldValue.increment(1),
+        total_count: window.firebase.firestore.FieldValue.increment(1),
         last_updated: new Date().toISOString()
-      }, { merge: true });
+      }, { merge: true }).catch(e => {
+        console.warn("Failed to increment visitors stat:", e);
+      });
     } catch (e) {
       console.warn("Failed to log visit:", e);
     }
