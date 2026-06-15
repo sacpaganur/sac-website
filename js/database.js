@@ -708,37 +708,33 @@ const SAC_DATABASE = {
       const id = "visit_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5);
       const dataWithId = { ...data, id, timestamp: new Date().toISOString() };
 
-      // 2. Log the individual visit
-      await this.db.collection("visitor_logs").doc(id).set(dataWithId).catch(e => {
-        console.warn("Failed to write to visitor_logs (non-fatal):", e);
-      });
+      // 2. Log the individual visit (with timeout so it doesn't hang the function)
+      try {
+        console.error("[DEBUG] Starting visitor_logs write");
+        const logPromise = this.db.collection("visitor_logs").doc(id).set(dataWithId);
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout visitor_logs")), 3000));
+        await Promise.race([logPromise, timeoutPromise]);
+        console.error("[DEBUG] visitor_logs SUCCESS");
+      } catch (e) {
+        console.error("[DEBUG] visitor_logs FAILED:", e);
+      }
 
-      // 3. Robust counter increment (Bypassing FieldValue.increment issues)
+      // 3. Robust counter increment using FieldValue
       const statsRef = this.db.collection("stats").doc("visitors");
       try {
-        await this.db.runTransaction(async (transaction) => {
-          const doc = await transaction.get(statsRef);
-          let dbCount = doc.exists ? (doc.data().total_count || 0) : 0;
-          let newCount = Math.max(dbCount + 1, localCount);
-          transaction.set(statsRef, {
-            total_count: newCount,
-            last_updated: new Date().toISOString()
-          }, { merge: true });
-          this.setCollection("sac_visitor_count", newCount);
-        });
-      } catch (txError) {
-        console.warn("Transaction failed, falling back to basic set:", txError);
-        const doc = await statsRef.get();
-        let dbCount = doc.exists ? (doc.data().total_count || 0) : 0;
-        let newCount = Math.max(dbCount + 1, localCount);
-        await statsRef.set({
-          total_count: newCount,
+        console.error("[DEBUG] Starting stats increment");
+        const incrementPromise = statsRef.set({
+          total_count: window.firebase.firestore.FieldValue.increment(1),
           last_updated: new Date().toISOString()
         }, { merge: true });
-        this.setCollection("sac_visitor_count", newCount);
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout increment")), 3000));
+        await Promise.race([incrementPromise, timeoutPromise]);
+        console.error("[DEBUG] Stats increment SUCCESS");
+      } catch (e) {
+        console.error("[DEBUG] Stats increment FAILED:", e);
       }
     } catch (e) {
-      console.warn("Failed to log visit:", e);
+      console.error("[DEBUG] logVisit outer catch:", e);
     }
   },
 
@@ -746,7 +742,7 @@ const SAC_DATABASE = {
     let localCount = parseInt(this.getCollection("sac_visitor_count")) || 0;
     try {
       if (this.isFirebaseActive && this.db) {
-        const fetchPromise = this.db.collection("stats").doc("visitors").get();
+        const fetchPromise = this.db.collection("stats").doc("visitors").get({ source: 'server' });
         const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 2500));
         const doc = await Promise.race([fetchPromise, timeoutPromise]);
         

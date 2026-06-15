@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v53';
+const CACHE_NAME = 'sac-pwa-cache-v54';
 
 // Minimal pre-cache list: Just the offline fallback and core shell assets
 const PRECACHE_ASSETS = [
