@@ -2164,6 +2164,7 @@ const SAC_COMMON = {
     if (window.SAC_DATABASE && typeof SAC_DATABASE.getVisitorStats === 'function') {
       // Skip logging if this is the admin portal or an admin is browsing
       const isAdminLogged = sessionStorage.getItem('sac_admin_logged_in') === 'true';
+      let justLogged = false;
       if (this.pageName !== 'admin' && !isAdminLogged && SAC_DATABASE.logVisit) {
         const todayStr = new Date().toDateString();
         if (localStorage.getItem('sac_visit_logged_today') !== todayStr) {
@@ -2173,12 +2174,16 @@ const SAC_COMMON = {
             lang: this.currentLang
           });
           localStorage.setItem('sac_visit_logged_today', todayStr);
+          justLogged = true;
         }
       }
 
       // Fetch and display total visitor count in footer
       try {
-        const totalVisits = await SAC_DATABASE.getVisitorStats();
+        let totalVisits = await SAC_DATABASE.getVisitorStats();
+        if (justLogged) {
+          totalVisits += 1; // Optimistically show the new visit immediately
+        }
         const visitorEl = document.getElementById('public-visitor-number');
         if (visitorEl) {
           visitorEl.innerText = totalVisits.toLocaleString();
