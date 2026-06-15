@@ -417,9 +417,7 @@ const SAC_DATABASE = {
           }
           this.db = window.firebase.firestore();
 
-          this.db.settings({
-            merge: true
-          });
+          // Force Long Polling logic removed to prevent settings override crashes in Firebase 10.
 
           // Enable offline caching and instant load
           this.db.enablePersistence({ synchronizeTabs: true }).catch(err => {
