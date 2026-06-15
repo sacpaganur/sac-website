@@ -419,7 +419,8 @@ const SAC_DATABASE = {
 
           // Force Long Polling to bypass strict firewalls/proxies that block WebSockets/Streaming and cause 404s
           this.db.settings({
-            experimentalForceLongPolling: true
+            experimentalForceLongPolling: true,
+            merge: true
           });
 
           // Enable offline caching and instant load

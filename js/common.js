@@ -2171,29 +2171,12 @@ const SAC_COMMON = {
       }
       let justLogged = false;
       if (this.pageName !== 'admin' && !isAdminLogged && SAC_DATABASE.logVisit) {
-        const todayStr = new Date().toDateString();
-        let shouldLog = true;
-        try {
-          if (localStorage.getItem('sac_visit_logged_v4') === todayStr) {
-            shouldLog = false;
-          }
-        } catch (e) {
-          console.warn("localStorage not available, defaulting to logging visit");
-        }
-
-        if (shouldLog) {
-          SAC_DATABASE.logVisit({
-            page: window.location.pathname,
-            userAgent: navigator.userAgent,
-            lang: this.currentLang
-          });
-          justLogged = true;
-          try {
-            localStorage.setItem('sac_visit_logged_v4', todayStr);
-          } catch (e) {
-            console.warn("Could not save to localStorage");
-          }
-        }
+        SAC_DATABASE.logVisit({
+          page: window.location.pathname,
+          userAgent: navigator.userAgent,
+          lang: this.currentLang
+        });
+        justLogged = true;
       }
 
       // Fetch and display total visitor count in footer
