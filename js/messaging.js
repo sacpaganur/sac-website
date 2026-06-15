@@ -179,6 +179,9 @@ const SAC_MESSAGING = {
   },
 
   showPrompt() {
+    // DISABLED AS REQUESTED: Uncomment the return statement below to re-enable the push prompt in the future
+    return;
+    
     // Inject a beautiful banner at the top or bottom asking for permission
     if (document.getElementById('sac-push-prompt')) return;
 
