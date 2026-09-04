@@ -8,7 +8,7 @@
 if (typeof window.SAC_CALENDAR === 'undefined') {
   var SAC_CALENDAR = {
   // Default church location
-  LOCATION: "St. Antony's Church, Vadakku Paganur - 630312, Tamil Nadu, India",
+  LOCATION: "St. Antony's Church, Vadakku Paganur - 620009, Tamil Nadu, India",
 
   /**
    * Format a JS Date to Google Calendar's required format: YYYYMMDDTHHmmSS

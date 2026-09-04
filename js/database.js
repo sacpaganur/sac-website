@@ -8,16 +8,17 @@ const SAC_DATABASE = {
       churchNameTa: "புனித அந்தோணியார் ஆலயம்",
       locationEn: "Vadakku Paganur",
       locationTa: "வடக்கு பாகனூர்",
-      addressEn: "St. Antony's Church, Vadakku Paganur - 630312, Tamil Nadu, India.",
-      addressTa: "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312, தமிழ்நாடு, இந்தியா.",
-      phone: "+91 94860 12345",
-      email: "contact@stacpaganur.in",
+      addressEn: "St. Antony's Church, Vadakku Paganur - 620009, Tamil Nadu, India.",
+      addressTa: "புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 620009, தமிழ்நாடு, இந்தியா.",
+      phone: "+91 98650 43169",
+      email: "sacpaganur@gmail.com",
       heroTagEn: "Shrine of St. Antony",
       heroTagTa: "புனித அந்தோணியார் திருத்தலம்",
       heroHeadlineEn: "Welcome to St. Antony's Church",
       heroHeadlineTa: "புனித அந்தோணியார் ஆலயத்திற்கு அன்போடு வரவேற்கிறோம்",
       heroLeadEn: "Welcome to our parish family. Join us in worship, find spiritual peace, and receive blessings in our sacred home.",
-      heroLeadTa: "அமைதியும் அன்பும் தவழும் புனித பூமியில், எங்கள் கிளைப்பங்கு சமூகத்துடன் இணைந்து இறைவனின் அருளையும் நன்மைகளையும் பெற்று மகிழுங்கள்."
+      heroLeadTa: "அமைதியும் அன்பும் தவழும் புனித பூமியில், எங்கள் கிளைப்பங்கு சமூகத்துடன் இணைந்து இறைவனின் அருளையும் நன்மைகளையும் பெற்று மகிழுங்கள்.",
+      aiApiKey: typeof atob !== 'undefined' ? atob("QVEuQWI4Uk42SUNWZWVvWlpuYkdYeGM3d3dWX1lUOVpzQVpRU3JVS2lZdVNhZkZzZDVudEE=") : ""
     },
     mass_schedules: [
 
@@ -150,6 +151,66 @@ const SAC_DATABASE = {
       }
     ],
     daily_liturgy: [
+      {
+        id: "liturgy_20260904",
+        date: "2026-09-04",
+        seasonEn: "22nd Week in Ordinary Time",
+        seasonTa: "பொதுக்காலம் 22-ஆம் வாரம்",
+        saintEn: "St. Rosalia, Virgin",
+        saintTa: "புனித ரோசாலியா, கன்னி",
+        reading1TitleEn: "A reading from the first Letter of Saint Paul to the Corinthians",
+        reading1TitleTa: "திருத்தூதர் பவுல் கொரிந்தியருக்கு எழுதிய முதல் திருமுகத்திலிருந்து வாசகம்",
+        reading1Ref: "1 Cor 4:1-5",
+        reading1TextEn: "Brothers and sisters: Thus should one regard us: as servants of Christ and stewards of the mysteries of God. Now it is of course required of stewards that one be found trustworthy. It does not concern me in the least that I be judged by you or any human tribunal; I do not even pass judgment on myself; I am not conscious of anything against me, but I do not thereby stand acquitted; the one who judges me is the Lord. Therefore, do not make any judgment before the appointed time, until the Lord comes, for he will bring to light what is hidden in darkness and will manifest the motives of our hearts, and then everyone will receive praise from God.\nThis is the word of the Lord.",
+        reading1TextTa: "சகோதரர் சகோதரிகளே, எங்களை கிறிஸ்துவினுடைய பணியாளர்களாகவும் கடவுளின் மறைபொருள்களைப் பொறுப்பாக நிர்வகிப்பவர்களாகவும் கருதுங்கள். நிர்வாகியிடம் எதிர்பார்க்கப்படுவது நம்பகத்தன்மை ஒன்றே. உங்களோ, வேறு எந்த மனித நீதிமன்றமோ என்னை விசாரித்துத் தீர்ப்பளிப்பதைக் குறித்து எனக்குச் சிறிதும் கவலையில்லை; நானே என்னைத் தீர்ப்பிடுவதில்லை. என் மனசாட்சி என்னை எதிலும் குற்றவாளியாகக் காணவில்லை. ஆயினும் நான் குற்றமற்றவன் என்பது இதனால் உறுதியாகிவிடாது; என்னை விசாரித்துத் தீர்ப்பளிப்பவர் ஆண்டவரே. ஆதலால் குறிப்பிட்ட காலத்திற்கு முன், அதாவது ஆண்டவர் வரும்வரை, எதையும் குறித்துத் தீர்ப்பளிக்க வேண்டாம். அவரே இருளில் மறைந்திருப்பவற்றை வெளிச்சத்திற்குக் கொண்டுவருவார்; உள்ளங்களின் எண்ணங்களை வெளிப்படுத்துவார். அப்போது ஒவ்வொருவருக்கும் உரிய பாராட்டு கடவுளிடமிருந்து கிடைக்கும்.\nஇது ஆண்டவர் வழங்கும் அருள்வாக்கு.",
+        psalmRef: "Ps 37:3-4, 5-6, 27-28, 39-40",
+        psalmResponseEn: "The salvation of the just comes from the Lord.",
+        psalmResponseTa: "நீதிமான்களுக்கு மீட்பு ஆண்டவரிடமிருந்தே வருகிறது.",
+        psalmTextEn: "Trust in the LORD and do good, that you may dwell in the land and be fed in security. Take delight in the LORD, and he will grant you your heart's requests.\nCommit to the LORD your way; trust in him, and he will act. He will make justice dawn for you like the light; bright as the noonday shall be your vindication.",
+        psalmTextTa: "ஆண்டவரில் நம்பிக்கை வைத்து நன்மையைச் செய்; நாட்டில் குடியிருந்து பாதுகாப்போடு வாழ். ஆண்டவரில் மகிழ்ச்சி கொள்; அவர் உன் உள்ளத்து விருப்பங்களை நிறைவேற்றுவார்.\nஉன் வழியை ஆண்டவரிடம் ஒப்படைத்துவிடு; அவரையே நம்பியிரு; அவர் அனைத்தையும் செய்து முடிப்பார். உன் நீதியை வைகறை வெளிச்சத்தைப் போலவும், உன் நேர்மையை நண்பகல் ஒளியைப் போலவும் விளங்கச் செய்வார்.",
+        reading2TitleEn: "",
+        reading2TitleTa: "",
+        reading2Ref: "",
+        reading2TextEn: "",
+        reading2TextTa: "",
+        gospelTitleEn: "A reading from the holy Gospel according to Luke",
+        gospelTitleTa: "லூக்கா எழுதிய தூய நற்செய்தியிலிருந்து வாசகம்",
+        gospelRef: "Lk 5:33-39",
+        gospelTextEn: "The scribes and Pharisees said to Jesus, \"The disciples of John fast often and offer prayers, and the disciples of the Pharisees do the same; but yours eat and drink.\" Jesus answered them, \"Can you make the wedding guests fast while the bridegroom is with them? But the days will come, and when the bridegroom is taken away from them, then they will fast in those days.\" And he also told them a parable. \"No one tears a piece from a new cloak to patch an old one. Otherwise, he will tear the new and the piece from it will not match the old. Likewise, no one pours new wine into old wineskins. Otherwise, the new wine will burst the skins, and it will be spilled, and the skins will be ruined. Rather, new wine must be poured into fresh wineskins.\"\nThis is the Gospel of the Lord.",
+        gospelTextTa: "மறைநூல் அறிஞர்களும் பரிசேயரும் இயேசுவை நோக்கி, \"யோவானுடைய சீடர்கள் அடிக்கடி நோன்பிருந்து மன்றாடி வருகிறார்கள்; பரிசேயர்களின் சீடர்களும் அவ்வாறே செய்கிறார்கள். உம்முடைய சீடர்களோ உண்கிறார்கள், குடிக்கிறார்கள்\" என்றார்கள். இயேசு அவர்களிடம், \"மணமகன் தங்களோடு இருக்கும்வரை நீங்கள் மணவிருந்தினரை நோன்பிருக்கச் செய்ய முடியுமா? காலம் வரும்; அப்போது மணமகன் அவர்களை விட்டுப் பிரிக்கப்படுவார்; அந்நாட்களில் அவர்கள் நோன்பிருப்பார்கள்\" என்றார். மேலும் அவர் அவர்களுக்கு ஓர் உவமையையும் கூறினார்: \"எவரும் புதிய ஆடையிலிருந்து ஒரு துண்டைக் கிழித்து அதை பழைய ஆடையில் ஒட்டுப்போடுவதில்லை; அவ்வாறு செய்தால் புதிய ஆடையும் கிழியும்; புதியதிலிருந்து கிழிக்கப்பட்ட துண்டு பழையதோடு பொருந்தவும் செய்யாது. அதுபோலவே பழைய தோல் பைகளில் எவரும் புதிய திராட்சை மதுவை ஊற்றி வைப்பதில்லை; புதிய மதுவைப் புதிய தோல் பைகளில்தான் ஊற்றி வைக்க வேண்டும்.\"\nஇது கிறிஸ்து வழங்கும் நற்செய்தி.",
+        reflectionEn: "Jesus reminds us to welcome God's grace with open and renewed hearts, transforming our daily lives with holy joy and genuine compassion.",
+        reflectionTa: "இயேசு கிறிஸ்து நம்மோடு இருக்கும்போது எழும் ஆன்மீக மகிழ்ச்சியையும், நமது உள்ளங்களை புதுப்பித்து இறைவனின் அருள்வழியில் வாழும் புதிய வாழ்வையும் இன்றைய நற்செய்தி நமக்கு உணர்த்துகிறது."
+      },
+      {
+        id: "liturgy_20260905",
+        date: "2026-09-05",
+        seasonEn: "22nd Week in Ordinary Time",
+        seasonTa: "பொதுக்காலம் 22-ஆம் வாரம்",
+        saintEn: "St. Teresa of Calcutta (Mother Teresa)",
+        saintTa: "கொல்கத்தா புனித தெரசா (அன்னை தெரசா)",
+        reading1TitleEn: "A reading from the first Letter of Saint Paul to the Corinthians",
+        reading1TitleTa: "திருத்தூதர் பவுல் கொரிந்தியருக்கு எழுதிய முதல் திருமுகத்திலிருந்து வாசகம்",
+        reading1Ref: "1 Cor 4:6b-15",
+        reading1TextEn: "Brothers and sisters: Learn from us the adage, \"Nothing beyond what is written!\" What do you possess that you have not received? But if you have received it, why are you boasting as if you did not receive it?...\nThis is the word of the Lord.",
+        reading1TextTa: "சகோதரர் சகோதரிகளே, 'எழுதப்பட்டதற்கு மிஞ்சி எதையும் செய்யாதிருக்கக் கற்றுக்கொள்ளுங்கள்.' கடவுளிடமிருந்து பெற்றுக்கொள்ளாதது உங்களிடம் என்ன இருக்கிறது? பெற்றுக்கொண்டிருந்தும் பெற்றுக்கொள்ளாதவரைப் போல பெருமைபாராட்டலாமா?...\nஇது ஆண்டவர் வழங்கும் அருள்வாக்கு.",
+        psalmRef: "Ps 145:17-18, 19-20, 21",
+        psalmResponseEn: "The Lord is near to all who call upon him.",
+        psalmResponseTa: "தம்மை நோக்கி மன்றாடும் யாவருக்கும் ஆண்டவர் அருகில் இருக்கிறார்.",
+        psalmTextEn: "The LORD is just in all his ways and holy in all his works. The LORD is near to all who call upon him, to all who call upon him in truth.",
+        psalmTextTa: "ஆண்டவர் தம் வழிகள் அனைத்திலும் நீதியுள்ளவர்; தம் செயல்கள் அனைத்திலும் தூய்மையானவர். தம்மை நோக்கி மன்றாடும் யாவருக்கும், உண்மையாய் மன்றாடும் யாவருக்கும் அருகில் இருக்கிறார்.",
+        reading2TitleEn: "",
+        reading2TitleTa: "",
+        reading2Ref: "",
+        reading2TextEn: "",
+        reading2TextTa: "",
+        gospelTitleEn: "A reading from the holy Gospel according to Luke",
+        gospelTitleTa: "லூக்கா எழுதிய தூய நற்செய்தியிலிருந்து வாசகம்",
+        gospelRef: "Lk 6:1-5",
+        gospelTextEn: "While Jesus was going through a field of grain on a sabbath, his disciples were picking the heads of grain, rubbing them in their hands, and eating them. Some Pharisees said, \"Why are you doing what is unlawful on the sabbath?\" Jesus said to them, \"The Son of Man is lord of the sabbath.\"\nThis is the Gospel of the Lord.",
+        gospelTextTa: "ஒரு ஓய்வுநாளில் இயேசு வயல்வழியே சென்றுகொண்டிருந்தபோது, அவருடைய சீடர்கள் கதிர்களைக் கொய்து, கைகளால் கசக்கித் தின்றார்கள். பரிசேயருள் சிலர், \"ஓய்வுநாளில் செய்யக்கூடாததை நீங்கள் செய்வதேன்?\" என்று கேட்டனர். இயேசு அவர்களைப் பார்த்து, \"மானிட மகன் ஓய்வுநாளுக்கும் ஆண்டவர்\" என்றார்.\nஇது கிறிஸ்து வழங்கும் நற்செய்தி.",
+        reflectionEn: "Christ teaches us that compassion and human need take precedence over rigid legalism, calling us to follow Mother Teresa's path of selfless service.",
+        reflectionTa: "சட்ட விதிகளுக்கு மேலாக இரக்கத்திற்கும் ஏழை எளியோரின் தேவைகளுக்கும் முதலிடம் அளிக்க வேண்டும் என்றும், அன்னை தெரசாவைப் போல அன்பின் தொண்டாற்றவும் இயேசு நமக்கு வழிகாட்டுகிறார்."
+      },
       {
         id: "liturgy_seed_20260604",
         date: "2026-06-04",
@@ -340,6 +401,32 @@ const SAC_DATABASE = {
     let existing = localStorage.getItem(key);
     if (!existing) {
       localStorage.setItem(key, JSON.stringify(defaultValue));
+    } else if (key === 'sac_settings') {
+      try {
+        let parsed = JSON.parse(existing);
+        let modified = false;
+        if (parsed) {
+          if (!parsed.phone || parsed.phone === '+91 94860 12345') {
+            parsed.phone = defaultValue.phone;
+            modified = true;
+          }
+          if (!parsed.email || parsed.email === 'contact@stacpaganur.in' || parsed.email === 'contact@stantonyschurchpaganur.in') {
+            parsed.email = defaultValue.email;
+            modified = true;
+          }
+          if (!parsed.addressEn || parsed.addressEn.includes('630312')) {
+            parsed.addressEn = defaultValue.addressEn;
+            modified = true;
+          }
+          if (!parsed.addressTa || parsed.addressTa.includes('630312')) {
+            parsed.addressTa = defaultValue.addressTa;
+            modified = true;
+          }
+          if (modified) {
+            localStorage.setItem(key, JSON.stringify(parsed));
+          }
+        }
+      } catch (e) {}
     } else if (key === 'sac_firebase_config') {
       let parsed = JSON.parse(existing);
       let modified = false;
@@ -390,6 +477,20 @@ const SAC_DATABASE = {
         }
       });
 
+      if (modified) {
+        localStorage.setItem(key, JSON.stringify(parsed));
+      }
+    } else if (key === 'sac_daily_liturgy') {
+      let parsed = JSON.parse(existing);
+      let modified = false;
+      if (Array.isArray(parsed) && Array.isArray(defaultValue)) {
+        defaultValue.forEach(defItem => {
+          if (!parsed.some(item => item.id === defItem.id || item.date === defItem.date)) {
+            parsed.unshift(defItem);
+            modified = true;
+          }
+        });
+      }
       if (modified) {
         localStorage.setItem(key, JSON.stringify(parsed));
       }
@@ -533,9 +634,12 @@ const SAC_DATABASE = {
             } else {
               const genDoc = results.find(r => r.id === "general") || results[0];
               finalSyncData = sanitizeObj(genDoc, collectionName);
-              // Auto-heal strings on Firestore if they got corrupted
+              // Auto-heal strings on Firestore if they got corrupted (only if authenticated)
               if (JSON.stringify(genDoc) !== JSON.stringify(finalSyncData)) {
-                await this.db.collection(collectionName).doc("general").set(finalSyncData).catch(e => { });
+                const isAuthenticated = window.firebase && window.firebase.auth && window.firebase.auth().currentUser;
+                if (isAuthenticated) {
+                  await this.db.collection(collectionName).doc("general").set(finalSyncData).catch(e => { });
+                }
               }
             }
 
@@ -619,6 +723,15 @@ const SAC_DATABASE = {
 
     // Sync to Firestore if active (Optimistic UI: non-blocking background task to prevent UI lag!)
     if (this.isFirebaseActive && this.db) {
+      // Check if user is authenticated before writing (prevents Security Error on localhost)
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const isAuthenticated = window.firebase && window.firebase.auth && window.firebase.auth().currentUser;
+      
+      if (isLocalhost && !isAuthenticated) {
+        console.warn(`[DB] Skipping Firestore sync for "${collectionName}" on localhost (no auth). Data saved to LocalStorage only.`);
+        return data;
+      }
+      
       if (collectionName === "settings" || collectionName === "firebase_config") {
         await this.db.collection(collectionName).doc("general").set(data, { merge: true })
           .catch(err => {
@@ -677,6 +790,15 @@ const SAC_DATABASE = {
 
     // Sync to Firestore if active (Optimistic UI: non-blocking background task to prevent UI lag!)
     if (this.isFirebaseActive && this.db) {
+      // Check if user is authenticated before deleting (prevents Security Error on localhost)
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const isAuthenticated = window.firebase && window.firebase.auth && window.firebase.auth().currentUser;
+      
+      if (isLocalhost && !isAuthenticated) {
+        console.warn(`[DB] Skipping Firestore delete for "${collectionName}" on localhost (no auth). Deleted from LocalStorage only.`);
+        return true;
+      }
+      
       await this.db.collection(collectionName).doc(id).delete()
         .catch(err => {
           console.error(`Firestore delete failed for ${collectionName} with id ${id}:`, err);

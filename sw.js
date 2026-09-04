@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sac-pwa-cache-v59';
+const CACHE_NAME = 'sac-pwa-cache-v67';
 
 // Minimal pre-cache list: Just the offline fallback and core shell assets
 const PRECACHE_ASSETS = [
@@ -83,6 +83,14 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         });
       })
+    );
+    return;
+  }
+
+  // Strategy 2.5: Network-First for AI Scripts (Never serve stale AI logic/keys)
+  if (url.pathname.includes('ai-service.js') || url.pathname.includes('ai-chat-ui.js')) {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(event.request, { ignoreSearch: true }))
     );
     return;
   }

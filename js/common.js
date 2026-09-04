@@ -740,7 +740,7 @@ window.showToast = function (message, type = 'success') {
 
 /* St. Antony's Church Public Website Shared Core JavaScript */
 
-const SAC_COMMON = {
+var SAC_COMMON = window.SAC_COMMON || {
   currentLang: 'ta',
   pageName: 'home',
 
@@ -893,7 +893,7 @@ const SAC_COMMON = {
       "hero.tueLabel": "செவ்வாய் நவநாள்",
       "hero.tueTime": "மாலை 6:00 மணி",
       "hero.placeLabel": "இடம்",
-      "hero.placeValue": "வடக்கு பாகனூர், 630312",
+      "hero.placeValue": "வடக்கு பாகனூர், 620009",
       "hero.contactLabel": "தொடர்பு",
       "hero.contactCta": "எங்களை அணுகுங்கள்",
       "home.ministriesTag": "ஆலய இயக்கங்கள்",
@@ -1216,7 +1216,7 @@ const SAC_COMMON = {
       "hero.tueLabel": "Tuesday Novena",
       "hero.tueTime": "6:00 PM",
       "hero.placeLabel": "Location",
-      "hero.placeValue": "Vadakku Paganur, 630312",
+      "hero.placeValue": "Vadakku Paganur, 620009",
       "hero.contactLabel": "Contact",
       "hero.contactCta": "Reach our parish office",
       "home.ministriesTag": "Parish Ministries & Commissions",

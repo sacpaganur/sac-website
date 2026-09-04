@@ -334,8 +334,18 @@
                     container.style.display = 'none';
                     loader.style.display = 'flex';
 
+                    // Clean up any old archaic translations from cache
+                    try {
+                        for (let k = localStorage.length - 1; k >= 0; k--) {
+                            const key = localStorage.key(k);
+                            if (key && key.startsWith('sac_bible_') && !key.startsWith('sac_bible_catholic_v2_')) {
+                                localStorage.removeItem(key);
+                            }
+                        }
+                    } catch (e) {}
+
                     const isTa = SAC_COMMON.currentLang === 'ta';
-                    const cacheKey = `sac_bible_${book}_${chapter}_${isTa ? 'ta' : 'en'}`;
+                    const cacheKey = `sac_bible_catholic_v2_${book}_${chapter}_${isTa ? 'ta' : 'en'}`;
                     const cached = localStorage.getItem(cacheKey);
 
                     if (cached) {
@@ -352,9 +362,9 @@
                         let staticVerses = null;
 
                         if (isTa) {
-                            // Try Local Static JSON for Tamil
+                            // Try Local Static JSON for Tamil Catholic Bible (திருவிவிலியம்)
                             try {
-                                const staticRes = await fetch(`data/bible/ta/${book}.json`);
+                                const staticRes = await fetch(`data/bible/ta/${book}.json?v=catholic_v2`);
                                 if (staticRes.ok) {
                                     const bookData = await staticRes.json();
                                     if (bookData[chapter]) {
@@ -398,7 +408,7 @@
                                     ? `Provide the complete text of ${book} chapter ${chapter} from the Tamil Catholic Bible. Format your response strictly as a JSON array of strings, where each string is a verse starting from verse 1. Do not include any markdown or commentary, JUST the JSON array.`
                                     : `Provide the complete text of ${book} chapter ${chapter} from the English Catholic Bible (NRSVCE or similar). Format your response strictly as a JSON array of strings, where each string is a verse starting from verse 1. Do not include any markdown or commentary, JUST the JSON array.`;
 
-                                const url = `https://generativelanguage.googleapis.com/v1beta/models/${SAC_AI.modelName || 'gemini-1.5-flash'}:generateContent?key=${SAC_AI.apiKey}`;
+                                const url = `https://generativelanguage.googleapis.com/v1beta/models/${SAC_AI.modelName || 'gemini-3.6-flash'}:generateContent?key=${SAC_AI.apiKey}`;
                                 const res = await fetch(url, {
                                     method: "POST",
                                     headers: { "Content-Type": "application/json" },

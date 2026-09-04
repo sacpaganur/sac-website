@@ -4,6 +4,81 @@ window.SAC_AI_UI = {
   isMuted: true, // Default to true so it doesn't auto-speak unless toggled
   lang: 'TA', // Default to Tamil
   voiceModeActive: false,
+  translitCache: {
+    'vanakkam': 'வணக்கம்',
+    'vanakam': 'வணக்கம்',
+    'halo': 'ஹலோ',
+    'hello': 'ஹலோ',
+    'hi': 'ஹாய்',
+    'thiruppali': 'திருப்பலி',
+    'thirupali': 'திருப்பலி',
+    'poosai': 'பூசை',
+    'poojai': 'பூஜை',
+    'neram': 'நேரம்',
+    'nerangal': 'நேரங்கள்',
+    'kovil': 'கோவில்',
+    'aalayam': 'ஆலயம்',
+    'alayam': 'ஆலயம்',
+    'varalaru': 'வரலாறு',
+    'thiruvizha': 'திருவிழா',
+    'thiruvila': 'திருவிழா',
+    'vizha': 'விழா',
+    'peruvizha': 'பெருவிழா',
+    'sebham': 'செபம்',
+    'sebam': 'செபம்',
+    'jebam': 'ஜெபம்',
+    'jebamaalai': 'ஜெபமாலை',
+    'sebamaalai': 'செபமாலை',
+    'mandrattu': 'மன்றாட்டு',
+    'manrattu': 'மன்றாட்டு',
+    'novena': 'நவநாள்',
+    'padua': 'பதுவை',
+    'punitha': 'புனித',
+    'anthoniyar': 'அந்தோணியார்',
+    'anthony': 'அந்தோணியார்',
+    'father': 'பங்குத்தந்தை',
+    'priest': 'பங்குத்தந்தை',
+    'pangu': 'பங்கு',
+    'maniyakkarar': 'மணியக்காரர்',
+    'maniyakarar': 'மணியக்காரர்',
+    'pattaiyadharar': 'பட்டையதாரார்',
+    'patron': 'பட்டையதாரார்',
+    'thodarbu': 'தொடர்பு',
+    'mugavari': 'முகவரி',
+    'engae': 'எங்கே',
+    'enga': 'எங்கே',
+    'engu': 'எங்கு',
+    'enna': 'என்ன',
+    'eppadi': 'எப்படி',
+    'epdi': 'எப்படி',
+    'yaaru': 'யார்',
+    'yaru': 'யார்',
+    'eppo': 'எப்போது',
+    'eppa': 'எப்போது',
+    'viviliam': 'திருவிவிலியம்',
+    'vedhagamam': 'திருவிவிலியம்',
+    'pugaippadam': 'புகைப்படம்',
+    'padangal': 'படங்கள்',
+    'arutsadhanam': 'அருட்சாதனம்',
+    'gnanasnanam': 'திருமுழுக்கு',
+    'kalyanam': 'திருமணம்',
+    'thirumanam': 'திருமணம்',
+    'pudhunamai': 'புதுநன்மை',
+    'venduthal': 'வேண்டுதல்',
+    'kanikkai': 'காணிக்கை',
+    'nandri': 'நன்றி',
+    'aamen': 'ஆமென்',
+    'amen': 'ஆமென்',
+    'tamil': 'தமிழ்',
+    'english': 'ஆங்கிலம்',
+    'inaiyathalam': 'இணையதளம்',
+    'valaiyathalam': 'வலைத்தளம்'
+  },
+
+  handleChipClick(query) {
+    if (!query) return;
+    this.sendMessage(query);
+  },
 
   inject() {
     // If voice recognition is not supported on this device/browser (e.g. some mobile browsers or non-secure contexts),
@@ -38,6 +113,29 @@ window.SAC_AI_UI = {
       </div>
     `;
 
+    // Welcome Card HTML covering complete website from Home to Contact
+    const welcomeCardHTML = `
+      <div class="sac-msg ai" id="sac-welcome-msg">
+        <div class="sac-welcome-content">
+          <p><strong>வணக்கம்! புனித அந்தோணியார் ஆலயத்தின் மெய்நிகர் AI வழிகாட்டிக்கு (SAC AI) உங்களை அன்போடு வரவேற்கிறோம். 🙏✨</strong></p>
+          <p style="margin:4px 0 8px 0; font-size:0.88rem; color:var(--text-secondary);">முகப்பு முதல் தொடர்பு வரை நமது இணையதளத்தின் அனைத்து விவரங்களுக்கும் உதவ நான் தயாராக உள்ளேன். நீங்கள் விரும்பும் தலைப்பைத் தேர்ந்தெடுக்கலாம் அல்லது உங்கள் கேள்வியை தட்டச்சு செய்யலாம்:</p>
+          <div class="sac-ai-quick-chips" id="sac-quick-chips">
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('திருப்பலி நேரங்கள்')">🏠 திருப்பலி நேரங்கள்</button>
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('அருட்சாதனங்கள்')">⛪ அருட்சாதனங்கள்</button>
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('ஆலய வரலாறு')">📜 ஆலய வரலாறு</button>
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('ஆண்டு பெருவிழா')">📅 ஆண்டு பெருவிழா</button>
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('கத்தோலிக்க செபங்கள்')">🕊️ செபங்கள் & நவநாள்</button>
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('தூய ஜெபமாலை')">📿 தூய ஜெபமாலை</button>
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('திருவிவிலியம்')">📖 திருவிவிலியம்</button>
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('புகைப்படங்கள்')">🖼️ புகைப்படங்கள்</button>
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('செப வேண்டுதல் பதிவு')">✍️ செப வேண்டுதல்</button>
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('பங்குத்தந்தை & தொடர்புகள்')">📞 தொடர்புகள்</button>
+            <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('முழு இணையதள வழிகாட்டி')">🌐 இணையதள வழிகாட்டி</button>
+          </div>
+        </div>
+      </div>
+    `;
+
     // If we are on the dedicated Bible page, inject into the panel instead of as a modal
     const embedPanel = document.getElementById('bible-ai-panel');
     
@@ -47,9 +145,7 @@ window.SAC_AI_UI = {
         <div id="sac-ai-chat-container" class="embedded-mode" style="height:100%; display:flex; flex-direction:column; position:relative;">
           
           <div class="sac-ai-body" id="sac-ai-body">
-            <div class="sac-msg ai">
-              <p data-i18n="ai.welcome">வணக்கம்! நான் உங்களுக்கு எப்படி உதவ முடியும்?</p>
-            </div>
+            ${welcomeCardHTML}
             <div class="sac-typing-indicator" id="sac-ai-typing">
               <div class="sac-typing-dot"></div><div class="sac-typing-dot"></div><div class="sac-typing-dot"></div>
             </div>
@@ -59,8 +155,8 @@ window.SAC_AI_UI = {
               <span class="material-icons">mic</span>
             </button>
             <div class="sac-ai-input-wrap">
-              <button class="sac-ai-lang-btn" id="sac-lang-toggle-btn" onclick="SAC_AI_UI.toggleLanguage()">TA</button>
-              <textarea class="sac-ai-textarea" id="sac-ai-input" placeholder="ஏதாவது கேளுங்கள்..." rows="1" oninput="SAC_AI_UI.autoResize(this)" onkeydown="SAC_AI_UI.handleKey(event)"></textarea>
+              <button class="sac-ai-lang-btn" id="sac-lang-toggle-btn" onclick="SAC_AI_UI.toggleLanguage()" title="தமிழ் ஒலிபெயர்ப்பு ஆன் (TA): Type in English, press Space for Tamil">TA</button>
+              <textarea class="sac-ai-textarea" id="sac-ai-input" placeholder="ஏதாவது கேளுங்கள்... (எ.கா: Vanakkam)" rows="1" oninput="SAC_AI_UI.handleInput(event, this)" onkeydown="SAC_AI_UI.handleKey(event)"></textarea>
               <button class="sac-ai-action-btn sac-btn-send" id="sac-ai-send-btn" onclick="SAC_AI_UI.sendMessage()">
                 <span class="material-icons">send</span>
               </button>
@@ -117,9 +213,7 @@ window.SAC_AI_UI = {
           </div>
 
           <div class="sac-ai-body" id="sac-ai-body">
-            <div class="sac-msg ai">
-              <p data-i18n="ai.welcome">வணக்கம்! நான் உங்களுக்கு எப்படி உதவ முடியும்?</p>
-            </div>
+            ${welcomeCardHTML}
             <div class="sac-typing-indicator" id="sac-ai-typing">
               <div class="sac-typing-dot"></div>
               <div class="sac-typing-dot"></div>
@@ -132,8 +226,8 @@ window.SAC_AI_UI = {
               <span class="material-icons">mic</span>
             </button>
             <div class="sac-ai-input-wrap">
-              <button class="sac-ai-lang-btn" id="sac-lang-toggle-btn" onclick="SAC_AI_UI.toggleLanguage()">TA</button>
-              <textarea class="sac-ai-textarea" id="sac-ai-input" placeholder="ஏதாவது கேளுங்கள்..." rows="1" oninput="SAC_AI_UI.autoResize(this)" onkeydown="SAC_AI_UI.handleKey(event)"></textarea>
+              <button class="sac-ai-lang-btn" id="sac-lang-toggle-btn" onclick="SAC_AI_UI.toggleLanguage()" title="தமிழ் ஒலிபெயர்ப்பு ஆன் (TA): Type in English, press Space for Tamil">TA</button>
+              <textarea class="sac-ai-textarea" id="sac-ai-input" placeholder="ஏதாவது கேளுங்கள்... (எ.கா: Vanakkam)" rows="1" oninput="SAC_AI_UI.handleInput(event, this)" onkeydown="SAC_AI_UI.handleKey(event)"></textarea>
               <button class="sac-ai-action-btn sac-btn-send" id="sac-ai-send-btn" onclick="SAC_AI_UI.sendMessage()">
                 <span class="material-icons">send</span>
               </button>
@@ -209,7 +303,9 @@ window.SAC_AI_UI = {
 
     SAC_AI.onError = (err) => {
       this.hideTyping();
-      this.appendMessage('ai', `**Error:** ${err}`);
+      const isFriendly = typeof err === 'string' && (err.includes("மன்னிக்கவும்") || err.includes("அன்பான") || err.includes("Dear friend") || err.includes("வரம்பு"));
+      const displayMsg = isFriendly ? err : `⚠️ **தகவல்:** ${err}`;
+      this.appendMessage('ai', displayMsg);
       document.getElementById('sac-ai-mic-btn').classList.remove('listening');
       const orb = document.getElementById('voice-orb');
       if (orb) orb.classList.remove('listening', 'speaking');
@@ -274,11 +370,23 @@ window.SAC_AI_UI = {
   toggleLanguage() {
       this.lang = this.lang === 'TA' ? 'EN' : 'TA';
       const btns = document.querySelectorAll('.sac-ai-lang-btn');
-      btns.forEach(btn => btn.innerText = this.lang);
+      btns.forEach(btn => {
+        btn.innerText = this.lang;
+        btn.title = this.lang === 'TA' 
+          ? "தமிழ் ஒலிபெயர்ப்பு ஆன் (TA): Type in English, press Space for Tamil" 
+          : "English Mode (EN): English typing without transliteration";
+        if (this.lang === 'TA') {
+          btn.classList.remove('en-mode');
+        } else {
+          btn.classList.add('en-mode');
+        }
+      });
       
       const inputEl = document.getElementById('sac-ai-input');
       if (inputEl) {
-          inputEl.placeholder = this.lang === 'TA' ? "ஏதாவது கேளுங்கள்..." : "Ask a question...";
+          inputEl.placeholder = this.lang === 'TA' 
+            ? "ஏதாவது கேளுங்கள்... (எ.கா: Vanakkam)" 
+            : "Ask a question in English...";
       }
       
       const subtitles = document.querySelectorAll('.sac-ai-subtitle');
@@ -297,6 +405,51 @@ window.SAC_AI_UI = {
             ? (this.lang === 'TA' ? "குரலை இயக்கு" : "Turn Voice On") 
             : (this.lang === 'TA' ? "குரலை அணை" : "Turn Voice Off");
       }
+
+      const welcomeMsgs = document.querySelectorAll('#sac-welcome-msg');
+      welcomeMsgs.forEach(msg => {
+        if (this.lang === 'EN') {
+          msg.innerHTML = `
+            <div class="sac-welcome-content">
+              <p><strong>Peace and blessings! Welcome to St. Antony's Church AI Assistant (SAC AI). 🙏✨</strong></p>
+              <p style="margin:4px 0 8px 0; font-size:0.88rem; color:var(--text-secondary);">I am here to assist you with all parish and website information from Home to Contact. Tap any topic below or ask any question:</p>
+              <div class="sac-ai-quick-chips" id="sac-quick-chips">
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Mass Timings')">🏠 Mass Timings</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Holy Sacraments')">⛪ Sacraments Guide</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Church History')">📜 Parish History</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Annual Feast')">📅 Annual Feast</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Catholic Prayers')">🕊️ Prayers & Novena</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Holy Rosary')">📿 Holy Rosary</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Holy Bible')">📖 Holy Bible</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Photo Gallery')">🖼️ Photo Gallery</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Prayer Request Form')">✍️ Prayer Request</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Priest & Contacts')">📞 Contacts</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('Website Guide')">🌐 Website Guide</button>
+              </div>
+            </div>
+          `;
+        } else {
+          msg.innerHTML = `
+            <div class="sac-welcome-content">
+              <p><strong>வணக்கம்! புனித அந்தோணியார் ஆலயத்தின் மெய்நிகர் AI வழிகாட்டிக்கு (SAC AI) உங்களை அன்போடு வரவேற்கிறோம். 🙏✨</strong></p>
+              <p style="margin:4px 0 8px 0; font-size:0.88rem; color:var(--text-secondary);">முகப்பு முதல் தொடர்பு வரை நமது இணையதளத்தின் அனைத்து விவரங்களுக்கும் உதவ நான் தயாராக உள்ளேன். நீங்கள் விரும்பும் தலைப்பைத் தேர்ந்தெடுக்கலாம் அல்லது உங்கள் கேள்வியை தட்டச்சு செய்யலாம்:</p>
+              <div class="sac-ai-quick-chips" id="sac-quick-chips">
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('திருப்பலி நேரங்கள்')">🏠 திருப்பலி நேரங்கள்</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('அருட்சாதனங்கள்')">⛪ அருட்சாதனங்கள்</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('ஆலய வரலாறு')">📜 ஆலய வரலாறு</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('ஆண்டு பெருவிழா')">📅 ஆண்டு பெருவிழா</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('கத்தோலிக்க செபங்கள்')">🕊️ செபங்கள் & நவநாள்</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('தூய ஜெபமாலை')">📿 தூய ஜெபமாலை</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('திருவிவிலியம்')">📖 திருவிவிலியம்</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('புகைப்படங்கள்')">🖼️ புகைப்படங்கள்</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('செப வேண்டுதல் பதிவு')">✍️ செப வேண்டுதல்</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('பங்குத்தந்தை & தொடர்புகள்')">📞 தொடர்புகள்</button>
+                <button type="button" class="sac-chip-btn" onclick="SAC_AI_UI.handleChipClick('முழு இணையதள வழிகாட்டி')">🌐 இணையதள வழிகாட்டி</button>
+              </div>
+            </div>
+          `;
+        }
+      });
   },
 
   openVoice() {
@@ -363,19 +516,104 @@ window.SAC_AI_UI = {
     textarea.style.height = (textarea.scrollHeight < 100 ? textarea.scrollHeight : 100) + 'px';
   },
 
-  handleKey(e) {
+  async transliterateWord(word) {
+    if (!word || !/^[a-zA-Z']+$/.test(word)) return word;
+    const lower = word.toLowerCase();
+    if (this.translitCache[lower]) {
+      return this.translitCache[lower];
+    }
+    try {
+      const url = `https://inputtools.google.com/request?text=${encodeURIComponent(word)}&itc=ta-t-i0-und&num=1&cp=0&cs=1&ie=utf-8&oe=utf-8&app=test`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data && data[0] === 'SUCCESS' && data[1]?.[0]?.[1]?.[0]) {
+        const converted = data[1][0][1][0];
+        this.translitCache[lower] = converted;
+        return converted;
+      }
+    } catch (e) {
+      console.warn('[SAC_AI_UI Transliteration Error]:', e);
+    }
+    return word;
+  },
+
+  async transliterateFullText(text) {
+    if (!text || this.lang !== 'TA') return text;
+    const parts = text.split(/([ \t\n.,?!;:]+)/);
+    const converted = await Promise.all(parts.map(async p => {
+      if (/^[a-zA-Z']+$/.test(p)) {
+        return await this.transliterateWord(p);
+      }
+      return p;
+    }));
+    return converted.join('');
+  },
+
+  async handleInput(e, textarea) {
+    this.autoResize(textarea);
+    if (this.lang !== 'TA') return;
+
+    const val = textarea.value;
+    const pos = textarea.selectionStart;
+    if (pos === null || pos === undefined || pos < 1) return;
+
+    const char = val[pos - 1];
+    // Trigger transliteration when word boundary / separator is typed
+    if (char === ' ' || char === '\n' || char === '.' || char === ',' || char === '?' || char === '!') {
+      const textBefore = val.substring(0, pos - 1);
+      const lastSeparator = Math.max(
+        textBefore.lastIndexOf(' '),
+        textBefore.lastIndexOf('\n'),
+        textBefore.lastIndexOf('\t'),
+        -1
+      );
+      const lastWord = textBefore.substring(lastSeparator + 1).trim();
+
+      if (lastWord && /^[a-zA-Z']+$/.test(lastWord)) {
+        const langBtn = document.getElementById('sac-lang-toggle-btn');
+        if (langBtn) langBtn.style.opacity = '0.5';
+
+        const converted = await this.transliterateWord(lastWord);
+        if (langBtn) langBtn.style.opacity = '1';
+
+        if (converted && converted !== lastWord) {
+          const currentVal = textarea.value;
+          const currentPos = textarea.selectionStart;
+          const startPos = lastSeparator + 1;
+          const endPos = pos - 1;
+
+          if (currentVal.substring(startPos, endPos) === lastWord) {
+            const beforeWord = currentVal.substring(0, startPos);
+            const afterWord = currentVal.substring(endPos);
+            textarea.value = beforeWord + converted + afterWord;
+            const diff = converted.length - lastWord.length;
+            const newCursor = currentPos + diff;
+            textarea.setSelectionRange(newCursor, newCursor);
+            this.autoResize(textarea);
+          }
+        }
+      }
+    }
+  },
+
+  async handleKey(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      this.sendMessage();
+      await this.sendMessage();
     }
   },
 
   async sendMessage(overrideText = null) {
     const inputEl = document.getElementById('sac-ai-input');
-    const text = overrideText || inputEl.value.trim();
+    let text = overrideText || (inputEl ? inputEl.value.trim() : '');
     if (!text) {
         this.showToast(this.lang === 'TA' ? "தயவுசெய்து ஒரு கேள்வியை உள்ளிடவும்..." : "Please enter a question...");
         return;
+    }
+
+    // If in TA mode and any untransliterated English remains, convert to Tamil before sending!
+    if (this.lang === 'TA' && /[a-zA-Z]/.test(text)) {
+      text = await this.transliterateFullText(text);
     }
 
     // Stop speaking if user types something new
@@ -386,8 +624,10 @@ window.SAC_AI_UI = {
     }
 
     // Clear input
-    inputEl.value = '';
-    inputEl.style.height = 'auto';
+    if (inputEl) {
+      inputEl.value = '';
+      inputEl.style.height = 'auto';
+    }
 
     // Show user msg
     this.appendMessage('user', text);
@@ -406,18 +646,12 @@ window.SAC_AI_UI = {
       try {
         await SAC_AI.askGemini(text, this.lang);
       } catch (e) {
-        // If the error wasn't already caught and displayed by onError inside askGemini, display it here
         this.hideTyping();
-        // Prevent duplicate error messages
-        const body = document.getElementById('sac-ai-body');
-        const lastMsg = body.lastElementChild;
-        if (lastMsg && !lastMsg.innerText.includes('Error:')) {
-            this.appendMessage('ai', `**Error:** ${e.message || "Something went wrong."}`);
-        }
+        console.warn("SAC_AI chat notice:", e);
       }
     } else {
       this.hideTyping();
-      this.appendMessage('ai', 'AI Service not loaded.');
+      this.appendMessage('ai', this.lang === 'TA' ? 'AI சேவை தயாராகவில்லை.' : 'AI Service not loaded.');
     }
   },
 

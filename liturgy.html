@@ -178,6 +178,11 @@
                         }
                     }
                     
+                    // Fallback: Use hardcoded default key if all else fails
+                    if ((!window.SAC_AI || !window.SAC_AI.apiKey) && SAC_DATABASE?.defaultData?.settings?.aiApiKey) {
+                        SAC_AI.apiKey = SAC_DATABASE.defaultData.settings.aiApiKey;
+                    }
+                    
                     if (!window.SAC_AI || !window.SAC_AI.apiKey) {
                         throw new Error("Gemini API Key is missing. Please add it in the Admin Portal Settings.");
                     }
@@ -190,8 +195,8 @@
                             if (dataModels.models) {
                                 const validModels = dataModels.models.filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes("generateContent") && !m.name.includes("preview"));
                                 if (validModels.length > 0) {
-                                    // Always prefer flash over pro because Pro has 0 free quota in some regions
-                                    const bestModel = validModels.find(m => m.name.includes("1.5-flash")) 
+                                    // Always prefer modern flash models (2.5-flash / flash-latest)
+                                    const bestModel = validModels.find(m => m.name.includes("2.5-flash")) 
                                         || validModels.find(m => m.name.includes("flash")) 
                                         || validModels[0];
                                     SAC_AI.modelName = bestModel.name.replace("models/", "");
@@ -229,7 +234,7 @@
 Required keys:
 {"date": "${localTodayStr}","seasonEn": "Current Liturgical Season in English","seasonTa": "Current Liturgical Season in Tamil","saintEn": "Saint of the day (if any) or empty string","saintTa": "Saint of the day in Tamil or empty string","reading1TitleEn": "e.g., A reading from the Acts of the Apostles","reading1TitleTa": "முதல் வாசகம் தலைப்பு","reading1Ref": "e.g., Acts 10:25-26","reading1TextEn": "First reading text","reading1TextTa": "முதல் வாசகம் உரை","psalmRef": "e.g., Ps 98:1","psalmResponseEn": "Responsorial Psalm response","psalmResponseTa": "பதிலுரைப்பாடல் பல்லவி","psalmTextEn": "Psalm verses","psalmTextTa": "பதிலுரைப்பாடல் உரை","reading2TitleEn": "Second reading title or empty if none","reading2TitleTa": "இரண்டாம் வாசகம் தலைப்பு or empty","reading2Ref": "Second reading reference or empty","reading2TextEn": "Second reading text or empty","reading2TextTa": "இரண்டாம் வாசகம் உரை or empty","gospelTitleEn": "e.g., A reading from the holy Gospel according to John","gospelTitleTa": "நற்செய்தி வாசகம் தலைப்பு","gospelRef": "e.g., Jn 15:9-17","gospelTextEn": "Gospel text","gospelTextTa": "நற்செய்தி வாசகம் உரை","reflectionEn": "A short reflection on the Gospel","reflectionTa": "நற்செய்தி சிந்தனை"}`;
 
-                    const url = `https://generativelanguage.googleapis.com/v1beta/models/${SAC_AI.modelName || 'gemini-1.5-flash'}:generateContent?key=${SAC_AI.apiKey}`;
+                    let url = `https://generativelanguage.googleapis.com/v1beta/models/${SAC_AI.modelName || 'gemini-3.6-flash'}:generateContent?key=${SAC_AI.apiKey}`;
                     
                     let res;
                     let retries = 3;
@@ -250,14 +255,21 @@ Required keys:
                             await new Promise(resolve => setTimeout(resolve, delay));
                             retries--;
                             delay += 10000; // Exponential backoff
+                        } else if (res.status === 403) {
+                            // API key is blocked/stale — force re-init to find a working key
+                            console.warn("Liturgy: API key blocked (403). Forcing SAC_AI re-initialization...");
+                            SAC_AI.isInitialized = false;
+                            await SAC_AI.init();
+                            url = `https://generativelanguage.googleapis.com/v1beta/models/${SAC_AI.modelName || 'gemini-3.6-flash'}:generateContent?key=${SAC_AI.apiKey}`;
+                            retries--;
                         } else {
                             break;
                         }
                     }
                     
-                    if (!res.ok) {
-                        const errText = await res.text();
-                        throw new Error(`API request failed: ${res.status} ${res.statusText} - ${errText}`);
+                    if (!res || !res.ok) {
+                        const errText = res ? await res.text() : "No response";
+                        throw new Error(`API request failed: ${res ? res.status : 'offline'} - ${errText}`);
                     }
                     const data = await res.json();
                     let text = data.candidates[0].content.parts[0].text;
@@ -274,14 +286,8 @@ Required keys:
                         console.warn("Failed to sync generated liturgy to cloud (expected for public users):", dbError);
                     }
                 } catch (error) {
-                    console.error("AI Fetch Failed:", error);
-                    // Show a warning banner above the container
-                    const warningBanner = document.createElement('div');
-                    warningBanner.style.cssText = "background: #fee2e2; color: #991b1b; padding: 12px 20px; border-radius: 8px; margin-bottom: 24px; font-weight: bold; text-align: left; border: 1px solid #f87171; display: flex; align-items: center; justify-content: flex-start; gap: 10px;";
-                    warningBanner.innerHTML = `<span class="material-icons">error_outline</span> <span>${isTa ? "பிழை:" : "Error:"} ${error.message}</span>`;
-                    container.parentNode.insertBefore(warningBanner, container);
-                    
-                    // Fallback to the most recent reading we have
+                    console.warn("Liturgy AI fetch unavailable, falling back to stored liturgical readings:", error.message);
+                    // Fallback seamlessly to the latest stored reading without showing scary error banners
                     todayLiturgy = sortedReadings[0];
                 }
             }

@@ -1372,6 +1372,31 @@
                                     <span class="material-icons" id="gemini-pw-icon">visibility</span>
                                 </button>
                             </div>
+                            <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+                                <button type="button" id="btn-test-ai-key" onclick="testGeminiApiKey()" class="btn-action"
+                                    style="padding: 8px 16px; font-size: 0.88rem; border-radius: 8px; background: rgba(139, 92, 246, 0.12); color: var(--primary); border: 1px solid rgba(139, 92, 246, 0.35); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+                                    <span class="material-icons" style="font-size: 18px;">verified</span> <span>API Key-ஐ சரிபார்க்க / Test Key</span>
+                                </button>
+                                <span id="ai-key-test-spinner" style="display: none; font-size: 0.85rem; color: var(--text-muted); align-items: center; gap: 5px;">
+                                    <span class="material-icons" style="animation: sacSpin 1s linear infinite; font-size: 16px;">refresh</span> சரிபார்க்கப்படுகிறது...
+                                </span>
+                            </div>
+                            <div id="ai-key-test-result" style="display: none; margin-top: 12px; padding: 14px; border-radius: 8px; font-size: 0.88rem; line-height: 1.6;"></div>
+                        </div>
+
+                        <!-- Helpful Instructions for 403 / Permission Denied Fix -->
+                        <div style="background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 10px; padding: 16px; margin-top: 16px;">
+                            <div style="font-weight: 700; color: #1e40af; display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                <span class="material-icons" style="font-size: 20px;">info</span>
+                                <span>Gemini API Key வழிகாட்டுதல் / Setup & Fix Guide:</span>
+                            </div>
+                            <ul style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                                <li><strong>403 "Your project has been denied access" பிழை வந்தால்:</strong> கூகுள் AI ஸ்டுடியோவில் தானாக உருவாக்கப்பட்ட புதிய திட்டங்களை (New Project) கூகுள் பாதுகாப்புக் காரணங்களால் சில சமயம் தடை செய்கிறது.</li>
+                                <li><strong>எளிய தீர்வு 1 (பரிந்துரைக்கப்படுகிறது):</strong> உங்கள் Firebase திட்டத்தில் (<code>stacpaganur</code>) Gemini API-ஐ ஒரு கிளிக்கில் இயக்கவும்:
+                                    <br><a href="https://console.developers.google.com/apis/api/generativelanguage.googleapis.com/overview?project=495839870905" target="_blank" rel="noopener" style="color: #2563eb; font-weight: 600; text-decoration: underline;">👉 stacpaganur திட்டத்தில் Gemini API-ஐ இயக்க இங்கே கிளிக் செய்யவும் (Enable API)</a>. இயக்கியவுடன் அதே Firebase Key தானாகவே AI-க்கும் இயங்கும்.</li>
+                                <li><strong>எளிய தீர்வு 2:</strong> <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color: #2563eb; font-weight: 600; text-decoration: underline;">Google AI Studio</a>-விற்குச் சென்று <em>"Create API key"</em> கிளிக் செய்யும்போது, "Create in new project" என்பதற்குப் பதிலாக <strong>"Choose existing project"</strong> தேர்ந்தெடுத்து <strong>stacpaganur</strong>-ஐத் தேர்ந்தெடுக்கவும்.</li>
+                                <li><strong>எளிய தீர்வு 3:</strong> அல்லது வேறு ஒரு Google கணக்கைப் பயன்படுத்தி Google AI Studio-வில் புதிய API Key உருவாக்கி இங்கே இடலாம்.</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -2241,7 +2266,7 @@
                 <h3>புனித அந்தோணியார் ஆலயம்</h3>
                 <p data-i18n="footer.tagline">அமைதியும் அருள்மரியும் பெருகும் புண்ணியத்தலம்</p>
                 <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);" class="footer-address-label">
-                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 630312.
+                    புனித அந்தோணியார் ஆலயம், வடக்கு பாகனூர் - 620009.
                 </p>
             </div>
             <div class="footer-links-grid">
@@ -3042,6 +3067,107 @@
             if (window.SAC_COMMON) {
                 window.SAC_COMMON.settings = data;
                 await window.SAC_COMMON.translatePage();
+            }
+        }
+
+        async function testGeminiApiKey() {
+            const keyInput = document.getElementById('set-aiApiKey');
+            const resultBox = document.getElementById('ai-key-test-result');
+            const spinner = document.getElementById('ai-key-test-spinner');
+            const testBtn = document.getElementById('btn-test-ai-key');
+            
+            const key = (keyInput.value || '').trim();
+            if (!key) {
+                resultBox.style.display = 'block';
+                resultBox.style.background = '#fee2e2';
+                resultBox.style.color = '#991b1b';
+                resultBox.style.border = '1px solid #f87171';
+                resultBox.innerHTML = '⚠️ தயவுசெய்து முதலில் API Key-ஐ உள்ளிடவும்! / Please enter an API key first.';
+                return;
+            }
+
+            testBtn.disabled = true;
+            spinner.style.display = 'inline-flex';
+            resultBox.style.display = 'none';
+
+            try {
+                let res = null;
+                let data = null;
+                let successfulModel = 'gemini-3.6-flash';
+                const testModels = ['gemini-3.6-flash', 'gemini-flash-latest', 'gemini-2.0-flash', 'gemini-2.5-flash'];
+
+                for (const model of testModels) {
+                    res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: 'Ping' }] }],
+                            generationConfig: { maxOutputTokens: 5 }
+                        })
+                    });
+                    data = await res.json().catch(() => ({}));
+                    if (res.ok) {
+                        successfulModel = model;
+                        break;
+                    }
+                }
+
+                if (res && res.ok) {
+                    resultBox.style.display = 'block';
+                    resultBox.style.background = '#ecfdf5';
+                    resultBox.style.color = '#065f46';
+                    resultBox.style.border = '1px solid #34d399';
+                    resultBox.innerHTML = `
+                        <div style="font-weight: 700; display: flex; align-items: center; gap: 6px;">
+                            <span class="material-icons" style="font-size: 18px;">check_circle</span>
+                            <span>API Key வெற்றிகரமாக செயல்படுகிறது! (API Key is Active & Working!)</span>
+                        </div>
+                        <div style="margin-top: 4px; font-size: 0.82rem; opacity: 0.9;">
+                            Gemini (${successfulModel}) உடன் வெற்றிகரமாக தொடர்பு கொள்ளப்பட்டது. கீழே உள்ள "சேமிக்க / Save Settings" பொத்தானை அழுத்தவும்.
+                        </div>
+                    `;
+                } else {
+                    resultBox.style.display = 'block';
+                    resultBox.style.background = '#fffbeb';
+                    resultBox.style.color = '#92400e';
+                    resultBox.style.border = '1px solid #fcd34d';
+
+                    const errMsg = data.error?.message || `HTTP ${res.status}`;
+                    const isDenied = res.status === 403 || errMsg.includes('denied access') || errMsg.includes('PERMISSION_DENIED');
+
+                    if (isDenied) {
+                        resultBox.innerHTML = `
+                            <div style="font-weight: 700; color: #b45309; display: flex; align-items: center; gap: 6px;">
+                                <span class="material-icons" style="font-size: 18px;">warning</span>
+                                <span>அனுமதி மறுக்கப்பட்டது (403 Permission Denied):</span>
+                            </div>
+                            <div style="margin-top: 6px; font-size: 0.85rem; line-height: 1.5;">
+                                கூகுள் இந்த திட்டத்திற்கு அணுகலை மறுத்துள்ளது: <em>"${errMsg}"</em>.
+                                <br><br>
+                                <strong>இதனைச் சரிசெய்ய:</strong><br>
+                                1. உங்கள் <strong>stacpaganur</strong> திட்டத்தில் Gemini API-ஐ இயக்கவும்: <a href="https://console.developers.google.com/apis/api/generativelanguage.googleapis.com/overview?project=495839870905" target="_blank" rel="noopener" style="color:#2563eb;font-weight:bold;text-decoration:underline;">இங்கே கிளிக் செய்து 'Enable' அழுத்தவும்</a>.<br>
+                                2. அல்லது Google AI Studio-வில் 'Choose existing project' -> <strong>stacpaganur</strong> தேர்ந்தெடுத்து புதிய Key உருவாக்கவும்.
+                            </div>
+                        `;
+                    } else {
+                        resultBox.innerHTML = `
+                            <div style="font-weight: 700; color: #b91c1c; display: flex; align-items: center; gap: 6px;">
+                                <span class="material-icons" style="font-size: 18px;">error</span>
+                                <span>API பிழை (${res.status}):</span>
+                            </div>
+                            <div style="margin-top: 4px; font-size: 0.85rem;">${errMsg}</div>
+                        `;
+                    }
+                }
+            } catch (err) {
+                resultBox.style.display = 'block';
+                resultBox.style.background = '#fee2e2';
+                resultBox.style.color = '#991b1b';
+                resultBox.style.border = '1px solid #f87171';
+                resultBox.innerHTML = `⚠️ நெட்வொர்க் பிழை / Network Error: ${err.message}`;
+            } finally {
+                testBtn.disabled = false;
+                spinner.style.display = 'none';
             }
         }
 

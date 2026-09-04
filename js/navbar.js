@@ -139,15 +139,15 @@ window.SAC_NAVBAR = {
   
   const aiCSS = document.createElement('link');
   aiCSS.rel = 'stylesheet';
-  aiCSS.href = 'css/ai-chat.css';
+  aiCSS.href = 'css/ai-chat.css?v=1781071817560';
   head.appendChild(aiCSS);
 
   const aiService = document.createElement('script');
-  aiService.src = 'js/ai-service.js';
+  aiService.src = 'js/ai-service.js?v=1781071817560';
   head.appendChild(aiService);
 
   const aiUI = document.createElement('script');
-  aiUI.src = 'js/ai-chat-ui.js';
+  aiUI.src = 'js/ai-chat-ui.js?v=1781071817560';
   head.appendChild(aiUI);
 })();
 

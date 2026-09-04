@@ -315,11 +315,22 @@ const VoiceInput = {
       } else if (!this.isSwitchingLang) {
         const finalResult = this.persistentFinalTranscript.trim();
         const wasAI = mode === 'ai';
+        const targetInputId = this.activeInputId;
         this.stop();
         if (wasAI && this._currentOnComplete) {
           const cb = this._currentOnComplete;
           this._currentOnComplete = null;
           cb(finalResult);
+        } else if (!wasAI && targetInputId) {
+          const inputEl = document.getElementById(targetInputId);
+          if (inputEl && (inputEl.type === 'email' || targetInputId.includes('email'))) {
+            const parsedEmail = PrayerAIService._extractEmailOnly(finalResult);
+            if (parsedEmail) {
+              inputEl.value = parsedEmail;
+              inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+              inputEl.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          }
         }
       }
     };
@@ -513,62 +524,327 @@ const VoiceInput = {
 /**
  * Prayer AI Service
  */
-const PrayerAIService = {
-  async parsePrayerVoice(text) {
-    let apiKey = localStorage.getItem('sac_local_api_key');
-    if (!apiKey && typeof SAC_DATABASE !== 'undefined') {
-      try {
-        const settings = await SAC_DATABASE.get("settings");
-        if (settings && settings.aiApiKey) apiKey = settings.aiApiKey;
-      } catch (e) { console.warn("Failed to fetch settings for AI API Key"); }
+const commonTamilNamesToEnglish = {
+  'ஜோசப்': 'joseph',
+  'அந்தோணி': 'anthony',
+  'அந்தோனி': 'antony',
+  'அந்தோணிசாமி': 'anthonysamy',
+  'அந்தோனிசாமி': 'anthonysamy',
+  'மைக்கேல்': 'michael',
+  'மேரி': 'mary',
+  'மரியா': 'maria',
+  'பீட்டர்': 'peter',
+  'பேட்டரி': 'peter',
+  'ஜான்': 'john',
+  'பால்': 'paul',
+  'தாமஸ்': 'thomas',
+  'அருண்': 'arun',
+  'பிரான்சிஸ்': 'francis',
+  'லூர்து': 'lourdu',
+  'சேவியர்': 'xavier',
+  'அல்போன்ஸ்': 'alphonse',
+  'செபஸ்தியான்': 'sebastian',
+  'இஞ்ஞாசி': 'ignatius',
+  'ஆரோக்கியம்': 'arokkiyam',
+  'ஜெகன்': 'jegan',
+  'ஸ்டீபன்': 'stephen',
+  'டேவிட்': 'david',
+  'வின்சென்ட்': 'vincent',
+  'ஆக்னஸ்': 'agnes',
+  'ரோஸ்': 'rose',
+  'தெரசா': 'theresa',
+  'சார்லஸ்': 'charles',
+  'ராபர்ட்': 'robert',
+  'ரிச்சர்ட்': 'richard',
+  'ஜேம்ஸ்': 'james',
+  'ஆண்டனி': 'antony',
+  'மரியதாஸ்': 'mariyadass',
+  'ஆரோக்கியசாமி': 'arokkiyasamy',
+  'சூசை': 'soosai',
+  'செயாண்ட': 'st',
+  'செயிண்ட்': 'st',
+  'செயின்ட்': 'st',
+  'செயின்': 'st',
+  'சகாயராஜ்': 'sahayaraj',
+  'சகாயராசு': 'sahayaraj',
+  'சகாயமேரி': 'sahayamary',
+  'அந்தோணிராஜ்': 'anthonyraj',
+  'செல்வராஜ்': 'selvaraj',
+  'ஆரோக்கியராஜ்': 'arokkiyaraj',
+  'குமார்': 'kumar',
+  'ராஜ்': 'raj',
+  'ராஜா': 'raja'
+};
 
-      if (!apiKey && SAC_DATABASE.defaultData?.firebase_config?.apiKey) {
-        apiKey = SAC_DATABASE.defaultData.firebase_config.apiKey;
+function transliterateTamilToEnglish(text) {
+  if (!text) return "";
+  let s = text.trim();
+  
+  const words = s.split(/[\s._-]+/);
+  const mappedWords = words.map(w => {
+    if (commonTamilNamesToEnglish[w]) return commonTamilNamesToEnglish[w];
+    
+    let out = "";
+    const tamilVowels = {
+      'அ':'a','ஆ':'aa','இ':'i','ஈ':'ee','உ':'u','ஊ':'oo','எ':'e','ஏ':'ae','ஐ':'ai','ஒ':'o','ஓ':'oa','ஔ':'au','ஃ':'k'
+    };
+    const tamilConsonants = {
+      'க':'k','ங':'ng','ச':'s','ஞ':'gn','ட':'t','ண':'n','த':'th','ந':'n','ப':'p','ம':'m',
+      'ய':'y','ர':'r','ல':'l','வ':'v','ழ':'zh','ள':'l','ற':'r','ன':'n','ஜ':'j','ஷ':'sh','ஸ':'s','ஹ':'h','க்ஷ':'ksh'
+    };
+    const tamilMatras = {
+      'ா':'aa','ி':'i','ீ':'ee','ு':'u','ூ':'oo','ெ':'e','ே':'ae','ை':'ai','ொ':'o','ோ':'oa','ௌ':'au'
+    };
+    
+    for (let i = 0; i < w.length; i++) {
+      const ch = w[i];
+      const next = w[i + 1];
+      if (tamilVowels[ch]) {
+        out += tamilVowels[ch];
+      } else if (tamilConsonants[ch]) {
+        if (next === '்') {
+          out += tamilConsonants[ch];
+          i++;
+        } else if (next && tamilMatras[next]) {
+          out += tamilConsonants[ch] + tamilMatras[next];
+          i++;
+        } else {
+          out += tamilConsonants[ch] + 'a';
+        }
+      } else if (/[a-zA-Z0-9]/.test(ch)) {
+        out += ch.toLowerCase();
       }
     }
-    
-    if (!apiKey) {
-      throw new Error('API Key is missing. Please configure it in the Admin Portal.');
-    }
-    
+    return out || w;
+  });
+
+  return mappedWords.join('');
+}
+
+const PrayerAIService = {
+  _extractEmailOnly(text) {
+    if (!text) return "";
+    const res = this._parseVoiceLocal(text, true);
+    return res.email || "";
+  },
+
+  async parsePrayerVoice(text) {
     const isTa = window.SAC_COMMON ? window.SAC_COMMON.currentLang === 'ta' : true;
-    const langInstruction = isTa ? "Translate the message to Tamil if it is in English, otherwise keep as Tamil." : "Translate the message to English if it is in Tamil, otherwise keep as English.";
+    const localResult = this._parseVoiceLocal(text, isTa);
 
-    const prompt = `Analyze this voice input: "${text}"
-Extract the details into a strict JSON object with these exact keys:
-- name (string, user's name, empty string if none mentioned)
-- email (string, user's email, infer if present, otherwise empty string)
-- message (string, the main prayer intention or feedback request. ${langInstruction})
-Return ONLY the JSON object, nothing else.`;
+    // If local parser extracted email, prioritize it for instant response
+    if (localResult.email) {
+      return localResult;
+    }
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { 
-          response_mime_type: "application/json",
-          temperature: 0.1
+    let keyCandidates = [];
+    if (window.SAC_AI?.apiKey) keyCandidates.push(window.SAC_AI.apiKey);
+    const localKey = localStorage.getItem('sac_local_api_key');
+    if (localKey) keyCandidates.push(localKey);
+
+    if (typeof SAC_DATABASE !== 'undefined') {
+      try {
+        const settings = await SAC_DATABASE.get("settings");
+        if (settings?.aiApiKey) keyCandidates.push(settings.aiApiKey);
+      } catch (e) { console.warn("Failed to fetch settings for AI API Key"); }
+
+      if (SAC_DATABASE.defaultData?.settings?.aiApiKey) {
+        keyCandidates.push(SAC_DATABASE.defaultData.settings.aiApiKey);
+      }
+      if (SAC_DATABASE.defaultData?.firebase_config?.apiKey) {
+        keyCandidates.push(SAC_DATABASE.defaultData.firebase_config.apiKey);
+      }
+    }
+    keyCandidates = [...new Set(keyCandidates.filter(k => k && k.trim()))];
+
+    if (keyCandidates.length > 0) {
+      const langInstruction = isTa 
+        ? "Extract devotee name in Tamil, valid email address, and spiritual prayer intention in clean Tamil." 
+        : "Extract devotee name, valid email address, and prayer intention in clean English.";
+
+      const prompt = `You are a Catholic church digital assistant processing voice input for prayer requests: "${text}"
+Extract into strict JSON with these keys:
+- name: string (devotee's name, e.g. "ஜோசப்")
+- email: string (valid email format, converting spoken Tamil like "செயாண்ட சகாயராஜ் அடுத்து ரேட் ஜிமெயில் டாட் காம்" to "stsahayaraj@gmail.com" or "ஜோசப் அட் ஜிமெயில் டாட் காம்" to "joseph@gmail.com")
+- message: string (only the spiritual prayer request / petition without name or email phrases. ${langInstruction})
+Return ONLY JSON:
+{"name": "...", "email": "...", "message": "..."}`;
+
+      const modelsToTry = [
+        window.SAC_AI?.modelName,
+        'gemini-3.6-flash',
+        'gemini-flash-latest',
+        'gemini-2.0-flash',
+        'gemini-2.5-flash'
+      ].filter((m, i, arr) => m && arr.indexOf(m) === i);
+
+      for (const key of keyCandidates) {
+        for (const model of modelsToTry) {
+          try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: { 
+                  response_mime_type: "application/json",
+                  temperature: 0.1
+                }
+              })
+            });
+
+            if (!response.ok) continue;
+
+            const result = await response.json();
+            const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!aiText) continue;
+
+            const cleanText = aiText.replace(/```json/gi, '').replace(/```/g, '').trim();
+            const parsed = JSON.parse(cleanText);
+            return {
+              name: parsed.name || localResult.name || "",
+              email: parsed.email || localResult.email || "",
+              message: parsed.message || localResult.message || text
+            };
+          } catch (callErr) {
+            console.warn(`[PrayerAI] Model ${model} call failed:`, callErr.message);
+          }
         }
-      })
-    });
-    
-    const result = await response.json();
-    
-    if (!response.ok) {
-      throw new Error(result.error?.message || `API Error ${response.status}`);
+      }
     }
-    
-    const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!aiText) {
-      throw new Error('AI returned an empty or blocked response.');
+
+    return localResult;
+  },
+
+  _parseVoiceLocal(text, isTa) {
+    if (!text) return { name: "", email: "", message: "" };
+    let raw = text.trim();
+    let name = "";
+    let email = "";
+    let message = raw;
+    let emailMatchedSegment = "";
+
+    // 1. Extract Name if explicitly spoken
+    const nameRegex = /(?:^|[\s.,:;!?-])(?:என்\s*பெயர்|என்\s*பேர்|பெயர்|பேர்|நான்|my\s*name\s*is|name\s*is|i\s*am)\s*[:=]?\s*([a-zA-Z\u0B80-\u0BFF]+)/i;
+    const nameMatch = raw.match(nameRegex);
+    if (nameMatch && nameMatch[1]) {
+      name = nameMatch[1].trim();
     }
-    
-    try {
-      const cleanText = aiText.replace(/```json/g, '').replace(/```/g, '').trim();
-      return JSON.parse(cleanText);
-    } catch (e) {
-      throw new Error('Failed to parse AI response into JSON format.');
+
+    // 2. Extract Email
+    const standardEmailMatch = raw.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/i);
+    if (standardEmailMatch) {
+      email = standardEmailMatch[0].toLowerCase();
+      emailMatchedSegment = standardEmailMatch[0];
+    } else {
+      const prefixRegex = /(?:^|[\s.,:;!?-])(?:(?:என்\s*)?(?:மின்னஞ்சல்(?:\s*முகவரி)?|ஈமெயில்(?:\s*முகவரி)?|மெயில்\s*(?:முகவரி|ஐடி)|ஜிமெயில்\s*ஐடி|email(?:\s*(?:address|id))?|e-mail(?:\s*(?:address|id))?|mail\s*id)|(?:my\s*)?email(?:\s*is|\s*id(?:\s*is)?)?)\s*[:=-]?\s*/gi;
+      const atRegex = /(?:\s*(?:அடுத்து\s*தி\s*ரேட்|அடுத்து\s*ரேட்|அடுத்துரேட்|அட்\s*தி\s*ரேட்|அட்\s*ரேட்|அட்ரேட்|அட்ரெட்|அட்\s*த\s*ரேட்|அட்|@|at\s*the\s*rate|at\s*rate|at)\s*)/i;
+      const domainRegex = /(?:ஜி\s*மெயில்|ஜிமெயில்|gmail|யாஹூ|யாகூ|yahoo|ஹாட்\s*மெயில்|ஹாட்மெயில்|hotmail|அவுட்\s*லுக்|அவுட்லுக்|outlook|ஐகிளவுட்|icloud|சோஹோ|ஜோஹோ|zoho|[a-zA-Z0-9-]+)/i;
+      const dotRegex = /(?:\s*(?:டாட்\s*காம்|டாட்காம்|dot\s*com|\.com|டாட்\s*இன்|டாட்டின்|dot\s*in|\.in|டாட்\s*org|dot\s*org|\.org|டாட்\s*net|dot\s*net|\.net|(?:\s*(?:டாட்|dot|\.)\s*[a-zA-Z\u0B80-\u0BFF]{2,})))?/i;
+
+      let prefixIndex = -1;
+      let prefixLength = 0;
+      let matchP;
+      while ((matchP = prefixRegex.exec(raw)) !== null) {
+        prefixIndex = matchP.index;
+        prefixLength = matchP[0].length;
+      }
+
+      if (prefixIndex !== -1) {
+        const afterPrefix = raw.substring(prefixIndex + prefixLength);
+        const atMatch = afterPrefix.match(atRegex);
+        if (atMatch) {
+          const atIndex = atMatch.index;
+          const rawUser = afterPrefix.substring(0, atIndex).trim();
+          const afterAt = afterPrefix.substring(atIndex + atMatch[0].length).trim();
+          
+          const domainMatch = afterAt.match(domainRegex);
+          if (domainMatch) {
+            const domStr = domainMatch[0].toLowerCase();
+            let domain = "gmail.com";
+            if (domStr.includes("yahoo") || domStr.includes("யாஹூ") || domStr.includes("யாகூ")) domain = "yahoo.com";
+            else if (domStr.includes("hotmail") || domStr.includes("ஹாட்")) domain = "hotmail.com";
+            else if (domStr.includes("outlook") || domStr.includes("அவுட்")) domain = "outlook.com";
+            else if (domStr.includes("zoho") || domStr.includes("சோஹோ")) domain = "zoho.com";
+            else if (domStr.includes("icloud") || domStr.includes("ஐகிளவுட்")) domain = "icloud.com";
+
+            const afterDom = afterAt.substring(domainMatch.index + domainMatch[0].length);
+            const dotMatch = afterDom.match(dotRegex);
+            if (dotMatch && dotMatch[0]) {
+              const dotStr = dotMatch[0].toLowerCase();
+              if (dotStr.includes(".in") || dotStr.includes("இன்")) {
+                domain = domain.replace(/\.com$/, '.in');
+              } else if (dotStr.includes(".org") || dotStr.includes("org")) {
+                domain = domain.replace(/\.com$/, '.org');
+              }
+            }
+
+            let engUser = transliterateTamilToEnglish(rawUser);
+            engUser = engUser.replace(/[^a-zA-Z0-9._-]/g, '').toLowerCase();
+            if (!engUser && name) {
+              engUser = transliterateTamilToEnglish(name).replace(/[^a-zA-Z0-9._-]/g, '').toLowerCase();
+            }
+            if (!engUser) engUser = "devotee";
+
+            email = `${engUser}@${domain}`;
+            
+            const fullEndIndex = prefixIndex + prefixLength + atIndex + atMatch[0].length + domainMatch.index + domainMatch[0].length + (dotMatch ? dotMatch[0].length : 0);
+            emailMatchedSegment = raw.substring(prefixIndex, fullEndIndex);
+          }
+        }
+      } else {
+        const atMatch = raw.match(atRegex);
+        if (atMatch) {
+          const atIndex = atMatch.index;
+          const beforeAt = raw.substring(0, atIndex).trim();
+          const tokens = beforeAt.split(/\s+/);
+          const userCandidate = tokens.slice(-2).join(' ');
+          const afterAt = raw.substring(atIndex + atMatch[0].length).trim();
+          const domainMatch = afterAt.match(domainRegex);
+          if (domainMatch) {
+            let domain = "gmail.com";
+            const domStr = domainMatch[0].toLowerCase();
+            if (domStr.includes("yahoo") || domStr.includes("யாஹூ")) domain = "yahoo.com";
+            else if (domStr.includes("hotmail") || domStr.includes("ஹாட்")) domain = "hotmail.com";
+            else if (domStr.includes("outlook") || domStr.includes("அவுட்")) domain = "outlook.com";
+
+            const afterDom = afterAt.substring(domainMatch.index + domainMatch[0].length);
+            const dotMatch = afterDom.match(dotRegex);
+            if (dotMatch && dotMatch[0]) {
+              const dotStr = dotMatch[0].toLowerCase();
+              if (dotStr.includes(".in") || dotStr.includes("இன்")) {
+                domain = domain.replace(/\.com$/, '.in');
+              } else if (dotStr.includes(".org") || dotStr.includes("org")) {
+                domain = domain.replace(/\.com$/, '.org');
+              }
+            }
+
+            let engUser = transliterateTamilToEnglish(userCandidate).replace(/[^a-zA-Z0-9._-]/g, '').toLowerCase();
+            if (engUser) {
+              email = `${engUser}@${domain}`;
+              const tokenStartIndex = beforeAt.lastIndexOf(userCandidate);
+              const fullEndIndex = atIndex + atMatch[0].length + domainMatch.index + domainMatch[0].length + (dotMatch ? dotMatch[0].length : 0);
+              emailMatchedSegment = raw.substring(tokenStartIndex, fullEndIndex);
+            }
+          }
+        }
+      }
     }
+
+    // 3. Clean Message
+    if (emailMatchedSegment) {
+      message = message.replace(emailMatchedSegment, ' ');
+    }
+    message = message.replace(/(?:^|[\s.,:;!?-])(?:(?:என்\s*)?(?:மின்னஞ்சல்(?:\s*முகவரி)?|ஈமெயில்(?:\s*முகவரி)?|மெயில்\s*(?:முகவரி|ஐடி)|ஜிமெயில்\s*ஐடி|email(?:\s*(?:address|id))?|e-mail(?:\s*(?:address|id))?|mail\s*id)|(?:my\s*)?email(?:\s*is|\s*id(?:\s*is)?)?)\s*[:=-]?\s*$/i, '');
+    message = message.replace(/(?:டாட்\s*காம்|டாட்காம்|dot\s*com|\.com|டாட்\s*இன்|dot\s*in|\.in)\s*$/i, '');
+    message = message.replace(/(?:^|[\s.,:;!?-])(?:என்\s*பெயர்|என்\s*பேர்|பெயர்|பேர்|நான்|my\s*name\s*is|name\s*is|i\s*am)\s*[:=]?\s*[a-zA-Z\u0B80-\u0BFF]+[,\.\s]*/i, ' ');
+    message = message.replace(/\s+/g, ' ').replace(/^[,.\s-]+|[,.\s-]+$/g, '').trim();
+
+    if (!message && !email && !name) {
+      message = raw;
+    }
+
+    return { name, email, message };
   },
 
   async startAssistant() {
@@ -580,7 +856,8 @@ Return ONLY the JSON object, nothing else.`;
       return;
     }
 
-    liveText.textContent = (SAC_COMMON.staticTranslations[SAC_COMMON.currentLang] && SAC_COMMON.staticTranslations[SAC_COMMON.currentLang]['wall.ai.listening']) || '"Listening..."';
+    const isTa = window.SAC_COMMON ? window.SAC_COMMON.currentLang === 'ta' : true;
+    liveText.textContent = isTa ? "கேட்கிறது... பேசுங்கள்..." : "Listening... Speak now...";
     overlay.style.display = 'flex';
     
     VoiceInput.startAIAssistant(async (text) => {
@@ -595,18 +872,32 @@ Return ONLY the JSON object, nothing else.`;
 
         if (result.name) {
           const el = document.getElementById('form-name');
-          if (el) { el.value = result.name; this._applyMagicEffect(el); }
+          if (el) { 
+            el.value = result.name; 
+            el.dispatchEvent(new Event('input', { bubbles: true }));
+            el.dispatchEvent(new Event('change', { bubbles: true }));
+            this._applyMagicEffect(el); 
+          }
         }
         if (result.email) {
           const el = document.getElementById('form-email');
-          if (el) { el.value = result.email; this._applyMagicEffect(el); }
+          if (el) { 
+            el.value = result.email; 
+            el.dispatchEvent(new Event('input', { bubbles: true }));
+            el.dispatchEvent(new Event('change', { bubbles: true }));
+            this._applyMagicEffect(el); 
+          }
         }
         if (result.message) {
           const el = document.getElementById('form-message');
-          if (el) { el.value = result.message; this._applyMagicEffect(el); }
+          if (el) { 
+            el.value = result.message; 
+            el.dispatchEvent(new Event('input', { bubbles: true }));
+            el.dispatchEvent(new Event('change', { bubbles: true }));
+            this._applyMagicEffect(el); 
+          }
         }
         
-        const isTa = window.SAC_COMMON ? window.SAC_COMMON.currentLang === 'ta' : true;
         SAC_Toast.info('AI Assistant', isTa ? 'விவரங்கள் தானாகவே நிரப்பப்பட்டன' : 'Form details filled automatically.');
       } catch (err) {
         console.error('[PrayerAI] Parse error:', err);
@@ -618,6 +909,7 @@ Return ONLY the JSON object, nothing else.`;
         overlay.style.display = 'none';
       } else {
         liveText.textContent = interim;
+        liveText.scrollTop = liveText.scrollHeight;
       }
     });
   },
